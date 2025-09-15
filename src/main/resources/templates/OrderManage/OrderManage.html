@@ -8,7 +8,7 @@
   <title>Nai Vang Cosmetic</title>
   <link rel="icon" type="image/png" href="../icon/logoConNai.png">
   <link rel="stylesheet" href="/src/main/resources/static/OrderManage/OrderManage.css">
-  <link rel="stylesheet" href="/src/main/resources/static/Home/Home.css">
+  <link rel="stylesheet" href="/src/main/resources/static/Example/Example.css">
   <!-- Slick CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css">
@@ -289,11 +289,16 @@
 <!-- FOOTER -->
 <div class="subscribe-bar">
   <h2>ĐĂNG KÝ NHẬN ƯU ĐÃI</h2>
-  <form class="subscribe-form">
-    <input type="email" placeholder="Nhập email của bạn">
+  <form class="subscribe-form" id="subscribeForm">
+    <div class="input-wrap">
+      <input type="email" id="emailInput" placeholder="Nhập email của bạn">
+      <!-- dòng báo lỗi -->
+      <small id="emailError" class="error-msg"></small>
+    </div>
     <button type="submit">ĐĂNG KÝ</button>
   </form>
 </div>
+
 
 
   <footer class="footer">
@@ -398,6 +403,46 @@
   });
 </script>
 
+<!--Đăng nhập - ĐX-->
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  let isLoggedIn = false; // mặc định chưa đăng nhập
+
+  const loginBtn   = document.getElementById("login-btn");
+  const logoutBtn  = document.getElementById("logout-btn");
+  const accountInfo = document.getElementById("account-info");
+
+  function updateMenu() {
+    if (isLoggedIn) {
+      loginBtn.style.display = "none";
+      accountInfo.style.display = "block";
+      logoutBtn.style.display = "block";
+    } else {
+      loginBtn.style.display = "block";
+      accountInfo.style.display = "none";
+      logoutBtn.style.display = "none";
+    }
+  }
+
+  // click login
+  loginBtn.addEventListener("click", () => {
+    isLoggedIn = true;
+    updateMenu();
+  });
+
+  // click logout
+  logoutBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    isLoggedIn = false;
+    updateMenu();
+  });
+
+  // gọi lần đầu
+  updateMenu();
+});
+</script>
+
+
 
 <!--TOP SP BÁN CHẠY-->
 <script>
@@ -416,7 +461,39 @@
       document.getElementById(target).classList.add("active");
     });
   });
-  </script>
+</script>
 
+<!--Email không hợp lệ-->
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.getElementById("subscribeForm");
+  const emailInput = document.getElementById("emailInput");
+  const emailError = document.getElementById("emailError");
+
+  form.addEventListener("submit", function(e) {
+    e.preventDefault(); // chặn submit mặc định
+
+    const email = emailInput.value.trim();
+    const regex = /^[^\s@]+@(gmail\.com|yahoo\.com|outlook\.com)$/i;
+
+    if (!regex.test(email)) {
+      emailError.textContent = "Vui lòng nhập email hợp lệ!";
+      emailError.classList.add("show");
+    } else {
+      emailError.textContent = "";
+      emailError.classList.remove("show");
+
+      // TODO: gửi email lên server (nếu cần)
+      alert("Đăng ký thành công với email: " + email);
+      form.reset();
+    }
+  });
+});
+</script>
 
 <script src="/src/main/resources/static/Example/Example.js"></script>
+</body>
+</html>
+
+
+
