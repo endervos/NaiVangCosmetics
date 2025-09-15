@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>404 - Not Found</title>
+    <link
+      rel="stylesheet"
+      href="/src/main/resources/static/PageFault/PageFault.css"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <img
+        src="/src/main/resources/static/PageFault/404.png"
+        alt="404 Not Found"
+        class="illustration"
+      />
+      <h1>404</h1>
+      <p>Oops! The requested URL/badpage was not found on this server!</p>
+      <div class="actions">
+        <a href="/src/main/resources/templates/Home/Home.html" class="btn"
+          >🏠 Về trang chủ</a
+        >
+        <button onclick="history.back()" class="btn btn-outline">
+          🔙 Quay lại
+        </button>
+      </div>
+    </div>
+    <div class="dog">
+      <img
+        src="/src/main/resources/static/PageFault/dog.gif"
+        alt="Dog running"
+      />
+    </div>
+  </body>
+</html>
