@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Giỏ Hàng - Mỹ Phẩm</title>
+    <link rel="stylesheet" href="trangGioHang.css" />
+    <link rel="stylesheet" href="../trangChu/style.css" />
+  </head>
+  <body>
+    <!-- Header -->
+    <div class="header">
+      <div class="container header-inner">
+        <!-- Logo -->
+        <img src="../icon/logo7.png" alt="Logo" width="150" height="100" />
+
+        <!-- Search -->
+        <div class="search-bar">
+          <div class="search-wrap">
+            <input type="text" placeholder="Bạn cần tìm ...." />
+            <span class="search-icon">
+              <svg viewBox="0 0 24 27" aria-hidden="true">
+                <path
+                  d="M10,2C4.5,2,0,6.5,0,12s4.5,10,10,10s10-4.5,10-10S15.5,2,10,2z M10,19c-3.9,0-7-3.1-7-7s3.1-7,7-7s7,3.1,7,7S13.9,19,10,19z"
+                ></path>
+                <rect
+                  x="17"
+                  y="17"
+                  transform="matrix(0.7071 -0.7071 0.7071 0.7071 -9.2844 19.5856)"
+                  width="4"
+                  height="8"
+                ></rect>
+              </svg>
+            </span>
+          </div>
+        </div>
+
+        <!-- Icons (User + Cart) -->
+        <div class="header-icons">
+          <button
+            class="user-btn"
+            title="Đăng ký / Đăng nhập"
+            aria-label="Tài khoản"
+          >
+            <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                fill="currentColor"
+                d="M17.75 14c1.24 0 2.25 1.01 2.25 2.25v.92c0 .57-.18 1.13-.52 1.6C18 20.9 15.5 22 12 22s-6-1.1-7.48-3.23c-.34-.47-.52-1.03-.52-1.6v-.92C4 15.01 5.01 14 6.25 14h11.5ZM12 2a5 5 0 1 1 0 10 5 5 0 0 1 0-10Z"
+              />
+            </svg>
+          </button>
+
+          <a class="cart-pill" href="#" title="Giỏ hàng">
+            <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                fill="currentColor"
+                d="M7 4h-2l-1 2h2l3.6 7.59-1.35 2.44C7.89 16.37 8.29 17 8.94 17h9.56v-2H9.42l1.1-2h7.25c.75 0 1.41-.41 1.75-1.03L22 7H6.42l-.7-1h1.28L7 4Zm-1 16a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm12 0a2 2 0 1 0 .001-3.999A2 2 0 0 0 18 20Z"
+              />
+            </svg>
+            <span>Giỏ hàng</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-bar">
+      <div class="container menu-inner">
+        <!-- Danh Mục Sản Phẩm -->
+        <div class="dropdown">
+          <a href="#">☰ DANH MỤC SẢN PHẨM</a>
+
+          <!-- Menu cấp 1 -->
+          <ul class="dropdown-content">
+            <li class="has-submenu">
+              <a href="#">
+                <img
+                  class="menu-icon"
+                  src="../icon/skincare.png"
+                  alt="Chăm sóc da mặt"
+                />Chăm sóc da mặt
+              </a>
+              <!-- Menu cấp 2 mở sang phải -->
+              <ul class="submenu">
+                <li>
+                  <a href="#">Tẩy Trang<span class="count">6</span></a>
+                </li>
+                <li>
+                  <a href="#">Sữa Rửa Mặt<span class="count">15</span></a>
+                </li>
+                <li>
+                  <a href="#">Tẩy Tế Bào Chết<span class="count">5</span></a>
+                </li>
+                <li>
+                  <a href="#"
+                    >Kem dưỡng/Gel dưỡng<span class="count">8</span></a
+                  >
+                </li>
+                <li>
+                  <a href="#">Toner / Lotion<span class="count">10</span></a>
+                </li>
+                <li>
+                  <a href="#">Serum / Essence<span class="count">9</span></a>
+                </li>
+                <li>
+                  <a href="#">Son Dưỡng<span class="count">7</span></a>
+                </li>
+                <li>
+                  <a href="#">Chống Nắng<span class="count">15</span></a>
+                </li>
+                <li>
+                  <a href="#">Xịt khoáng<span class="count">11</span></a>
+                </li>
+              </ul>
+            </li>
+
+            <!--Trang điểm-->
+            <li class="has-submenu">
+              <a href="#">
+                <img
+                  class="menu-icon"
+                  src="../icon/makeup.png"
+                  alt="Trang điểm"
+                />Trang điểm
+              </a>
+              <!-- Menu cấp 2 mở sang phải -->
+              <ul class="submenu">
+                <li>
+                  <a href="#">Kem Lót<span class="count">5</span></a>
+                </li>
+                <li>
+                  <a href="#">Che Khuyết Điểm<span class="count">10</span></a>
+                </li>
+                <li>
+                  <a href="#">Highlight<span class="count">6</span></a>
+                </li>
+                <li>
+                  <a href="#">Masccara<span class="count">8</span></a>
+                </li>
+                <li>
+                  <a href="#">Son Môi<span class="count">9</span></a>
+                </li>
+                <li>
+                  <a href="#">Kem Nền<span class="count">11</span></a>
+                </li>
+                <li>
+                  <a href="#">Son Dưỡng<span class="count">7</span></a>
+                </li>
+                <li>
+                  <a href="#">Phấn Phủ<span class="count">8</span></a>
+                </li>
+                <li>
+                  <a href="#">Xịt Khoá Nền<span class="count">11</span></a>
+                </li>
+              </ul>
+            </li>
+
+            <!--Chăm sóc cơ thể-->
+            <li class="has-submenu">
+              <a href="#">
+                <img
+                  class="menu-icon"
+                  src="../icon/bodycare.png"
+                  alt="Chăm sóc cơ thể"
+                />Chăm sóc cơ thể
+              </a>
+              <!-- Menu cấp 2 mở sang phải -->
+              <ul class="submenu">
+                <li>
+                  <a href="#">Sữa Tắm<span class="count">16</span></a>
+                </li>
+                <li>
+                  <a href="#">Dưỡng Thể<span class="count">10</span></a>
+                </li>
+                <li>
+                  <a href="#"
+                    >Tẩy Tế Bào Chết Body<span class="count">12</span></a
+                  >
+                </li>
+                <li>
+                  <a href="#"
+                    >Chăm Sóc Răng Miệng<span class="count">13</span></a
+                  >
+                </li>
+                <li>
+                  <a href="#">Xịt Khử Mùi<span class="count">6</span></a>
+                </li>
+                <li>
+                  <a href="#">Kem Dưỡng Da Tay<span class="count">9</span></a>
+                </li>
+                <li>
+                  <a href="#">Giảm Mụn Lưng<span class="count">10</span></a>
+                </li>
+              </ul>
+            </li>
+
+            <!--Chăm sóc cơ thể-->
+            <li class="has-submenu">
+              <a href="#">
+                <img
+                  class="menu-icon"
+                  src="../icon/haircare.png"
+                  alt="Chăm sóc tóc"
+                />Chăm sóc tóc
+              </a>
+              <!-- Menu cấp 2 mở sang phải -->
+              <ul class="submenu">
+                <li>
+                  <a href="#">Dầu Gội<span class="count">16</span></a>
+                </li>
+                <li>
+                  <a href="#">Dầu Xả<span class="count">10</span></a>
+                </li>
+                <li>
+                  <a href="#">Ủ Tóc<span class="count">6</span></a>
+                </li>
+                <li>
+                  <a href="#"
+                    >Tinh Chất Dưỡng Tóc<span class="count">8</span></a
+                  >
+                </li>
+                <li>
+                  <a href="#"
+                    >Tẩy Tế Bào Chết Da Đầu<span class="count">5</span></a
+                  >
+                </li>
+              </ul>
+            </li>
+            <!--Dược mỹ phẩm -->
+            <li class="has-submenu">
+              <a href="#">
+                <img
+                  class="menu-icon"
+                  src="../icon/Cosmeceuticals.png"
+                  alt="Dược mỹ phẩm"
+                />Dược mỹ phẩm
+              </a>
+              <!-- Menu cấp 2 mở sang phải -->
+              <ul class="submenu">
+                <li>
+                  <a href="#">Sản phẩm trị mụn <span class="count">11</span></a>
+                </li>
+                <li>
+                  <a href="#">Chống lão hóa <span class="count">6</span></a>
+                </li>
+                <li>
+                  <a href="#">Làm sáng da <span class="count">9</span></a>
+                </li>
+                <li>
+                  <a href="#"
+                    >Phục hồi da sau điều trị <span class="count">4</span></a
+                  >
+                </li>
+                <li>
+                  <a href="#">Sản phẩm đặc trị <span class="count">8</span></a>
+                </li>
+              </ul>
+            </li>
+            <!-- Thực phẩm chức năng -->
+            <li class="has-submenu">
+              <a href="#">
+                <img
+                  class="menu-icon"
+                  src="../icon/Health-supplements.png"
+                  alt="Thực phẩm chức năng"
+                />
+                Thực phẩm chức năng
+              </a>
+              <ul class="submenu">
+                <li>
+                  <a href="#"
+                    >Vitamin & Khoáng chất <span class="count">18</span></a
+                  >
+                </li>
+                <li>
+                  <a href="#"
+                    >Thực phẩm bổ sung Collagen <span class="count">9</span></a
+                  >
+                </li>
+                <li>
+                  <a href="#"
+                    >Tăng cường đề kháng <span class="count">12</span></a
+                  >
+                </li>
+                <li>
+                  <a href="#"
+                    >Thực phẩm hỗ trợ tiêu hóa <span class="count">7</span></a
+                  >
+                </li>
+                <li>
+                  <a href="#"
+                    >Hỗ trợ xương khớp <span class="count">10</span></a
+                  >
+                </li>
+                <li>
+                  <a href="#">Giảm cân & Detox <span class="count">8</span></a>
+                </li>
+                <li>
+                  <a href="#"
+                    >Sản phẩm cho trẻ em <span class="count">6</span></a
+                  >
+                </li>
+                <li>
+                  <a href="#"
+                    >Sản phẩm cho người lớn tuổi <span class="count">5</span></a
+                  >
+                </li>
+              </ul>
+            </li>
+            <!-- Best Seller -->
+            <li class="has-submenu">
+              <a href="#">
+                <img
+                  class="menu-icon"
+                  src="../icon/best-seller.png"
+                  alt="Best Seller"
+                />
+                BEST SELLER
+              </a>
+              <ul class="submenu">
+                <li>
+                  <a href="#"
+                    >Top Skincare bán chạy <span class="count">12</span></a
+                  >
+                </li>
+                <li>
+                  <a href="#"
+                    >Top Makeup bán chạy <span class="count">9</span></a
+                  >
+                </li>
+                <li>
+                  <a href="#"
+                    >Top Bodycare bán chạy <span class="count">7</span></a
+                  >
+                </li>
+                <li>
+                  <a href="#"
+                    >Top Haircare bán chạy <span class="count">5</span></a
+                  >
+                </li>
+                <li>
+                  <a href="#"
+                    >Top Thực phẩm chức năng <span class="count">6</span></a
+                  >
+                </li>
+                <li>
+                  <a href="#">Top Dược mỹ phẩm <span class="count">4</span></a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Sản Phẩm Mới -->
+        <a href="#">SẢN PHẨM MỚI</a>
+
+        <!-- Lam Thảo Beauty -->
+        <div class="dropdown">
+          <a href="#">NAI VANG BEAUTY</a>
+          <ul class="dropdown-content">
+            <li><a href="#">Thương hiệu A</a></li>
+            <li><a href="#">Thương hiệu B</a></li>
+            <li><a href="#">Thương hiệu C</a></li>
+          </ul>
+        </div>
+
+        <!-- Deal hot -->
+        <a href="#">💖 DEAL HOT DƯỚI 100K 💖</a>
+
+        <!-- Tin tức -->
+        <div class="dropdown">
+          <a href="#">TIN TỨC</a>
+          <ul class="dropdown-content">
+            <li><a href="#">Blog làm đẹp</a></li>
+            <li><a href="#">Khuyến mãi</a></li>
+            <li><a href="#">Mẹo chăm sóc</a></li>
+          </ul>
+        </div>
+
+        <!-- Tra cứu đơn -->
+        <a href="#">TRA CỨU ĐƠN HÀNG</a>
+      </div>
+    </div>
+
+    <main class="cart-container">
+      <!-- Bảng sản phẩm -->
+      <section class="cart-items">
+        <h2>Giỏ hàng (2 sản phẩm)</h2>
+        <table class="cart-table">
+          <thead>
+            <tr>
+              <th>Sản phẩm</th>
+              <th>Giá tiền</th>
+              <th>Số lượng</th>
+              <th>Thành tiền</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="cart-body">
+            <!-- Sản phẩm 1 -->
+            <tr>
+              <td class="product-info">
+                <img src="./hinhAnh/helloKitty.jpg" alt="Hello Kitty" />
+                <div class="product-text">
+                  <span class="product-name">Hello Kitty</span>
+                  <span class="product-desc">Sạch sâu dưỡng ẩm 80g</span>
+                  <span class="wishlist">
+                    <input
+                      type="checkbox"
+                      class="wishlist-checkbox"
+                      id="wishlist-1"
+                    />
+                    <label for="wishlist-1" class="wishlist-label">
+                      <span class="heart">♡</span> Yêu thích
+                    </label>
+                  </span>
+                </div>
+              </td>
+
+              <td>
+                <span class="price-sale">59.000₫</span><br />
+                <span class="price-old">87.000₫</span>
+              </td>
+              <td>
+                <input type="number" value="1" min="1" class="quantity" />
+              </td>
+              <td class="subtotal">59.000₫</td>
+              <td>
+                <button class="remove-btn">✖</button>
+              </td>
+            </tr>
+
+            <!-- Sản phẩm 2 -->
+            <tr>
+              <td class="product-info">
+                <img src="./hinhAnh/helloKitty.jpg" alt="Hello Kitty" />
+                <div class="product-text">
+                  <span class="product-name">Hello Kitty</span>
+                  <span class="product-desc">Sạch sâu dưỡng ẩm 80g</span>
+                  <span class="wishlist">♡ Yêu thích</span>
+                </div>
+              </td>
+
+              <td>
+                <span class="price-sale">228.000₫</span><br />
+                <span class="price-old">435.000₫</span>
+              </td>
+              <td>
+                <input type="number" value="1" min="1" class="quantity" />
+              </td>
+              <td class="subtotal">228.000₫</td>
+              <td>
+                <button class="remove-btn">✖</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <a href="#" class="back-shopping">← Tiếp tục mua hàng</a>
+      </section>
+
+      <!-- Hóa đơn -->
+      <aside class="cart-summary">
+        <h2>Hóa đơn của bạn</h2>
+        <p>Tạm tính: <span id="summary-subtotal">287.000₫</span></p>
+        <p>Giảm giá: <span id="summary-discount">0₫</span></p>
+        <hr />
+        <p>
+          <strong>Tổng cộng: <span id="summary-total">287.000₫</span></strong>
+        </p>
+        <p class="vat">(Đã bao gồm VAT)</p>
+        <button id="checkout-btn">Tiến hành đặt hàng</button>
+      </aside>
+    </main>
+
+    <section class="viewed-products">
+      <h2>Sản phẩm đã xem</h2>
+      <div class="product-grid">
+        <!-- Sản phẩm 1 -->
+        <div class="product-card">
+          <img src="./hinhAnh/helloKitty.jpg" alt="Serum Vichy" />
+          <div class="product-card-info">
+            <p class="product-card-name">Serum Vichy Liftactiv 30ml</p>
+            <span class="product-card-price">450.000₫</span>
+          </div>
+        </div>
+
+        <!-- Sản phẩm 2 -->
+        <div class="product-card">
+          <img src="./hinhAnh/helloKitty.jpg" alt="Serum Vichy" />
+          <div class="product-card-info">
+            <p class="product-card-name">Sữa Rửa Mặt Senka 120g</p>
+            <span class="product-card-price">85.000₫</span>
+          </div>
+        </div>
+
+        <!-- Sản phẩm 3 -->
+        <div class="product-card">
+          <img src="./hinhAnh/helloKitty.jpg" alt="Serum Vichy" />
+          <div class="product-card-info">
+            <p class="product-card-name">Kem Dưỡng Ẩm Cetaphil 50ml</p>
+            <span class="product-card-price">280.000₫</span>
+          </div>
+        </div>
+
+        <!-- Sản phâm 4 -->
+        <div class="product-card">
+          <img src="./hinhAnh/helloKitty.jpg" alt="Serum Vichy" />
+          <div class="product-card-info">
+            <p class="product-card-name">Nước Hoa Hồng Innisfree 200ml</p>
+            <span class="product-card-price">210.000₫</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <div class="subscribe-bar">
+      <h2>ĐĂNG KÝ NHẬN ƯU ĐÃI</h2>
+      <form class="subscribe-form">
+        <input type="email" placeholder="Nhập email của bạn" />
+        <button type="submit">ĐĂNG KÝ</button>
+      </form>
+    </div>
+
+    <footer class="footer">
+      <div class="footer-main">
+        <!-- Cột 1: Logo + thông tin -->
+        <div class="footer-col">
+          <img
+            src="../icon/logo7.png"
+            alt="Nai Vang Logo"
+            class="footer-logo"
+          />
+          <p>
+            <strong>CÔNG TY TNHH MTV THƯƠNG MẠI VÀ ĐẦU TƯ LIÊN Á CHÂU</strong>
+          </p>
+          <p>
+            Giấy chứng nhận đăng ký doanh nghiệp số 0310618188, cấp ngày
+            29.01.2011, nơi cấp Sở Kế Hoạch và Đầu Tư TP. Hồ Chí Minh
+          </p>
+          <p>
+            Trụ sở chính: L2-VP-01, 346 Bến Vân Đồn, Phường Vĩnh Hội, TP. Hồ Chí
+            Minh
+          </p>
+          <p>
+            Hotline: <a href="tel:19004449">19004449</a> Điện thoại:
+            <a href="tel:02838328272">02838328272</a>
+          </p>
+          <img
+            src="../icon/bocongthuong_1_1.webp"
+            alt="Đã thông báo Bộ Công Thương"
+            class="boct-logo"
+          />
+        </div>
+
+        <!-- Cột 2: Theo dõi + App + Thanh toán -->
+        <div class="footer-col">
+          <h4>Theo dõi chúng tôi</h4>
+          <div class="social-links">
+            <a href="#"><img src="../icon/facebook.webp" alt="Facebook" /></a>
+            <a href="#"><img src="../icon/instagram.webp" alt="Instagram" /></a>
+            <a href="#"><img src="../icon/youtube.webp" alt="YouTube" /></a>
+            <a href="#"><img src="../icon/tiktok.webp" alt="TikTok" /></a>
+          </div>
+
+          <h4>Tải App Ngay</h4>
+          <div class="app-links">
+            <img src="../icon/maqr.png" alt="QR Code" class="qr-code" />
+            <div>
+              <a href="#"
+                ><img src="../icon/googleplay.webp" alt="Google Play"
+              /></a>
+              <a href="#"
+                ><img src="../icon/appstore.webp" alt="App Store"
+              /></a>
+            </div>
+          </div>
+
+          <h4>Chấp nhận Phương thức thanh toán</h4>
+          <div class="pay-methods">
+            <img src="../icon/vnpay.png" alt="VNPay" />
+            <img src="../icon/momo.webp" alt="MoMo" class="momo-logo" />
+            <img src="../icon/visa.png" alt="Visa" />
+          </div>
+        </div>
+
+        <!-- Cột 3: Về chúng tôi -->
+        <div class="footer-col">
+          <h4>Về chúng tôi</h4>
+          <ul>
+            <li><a href="#">Giới thiệu</a></li>
+            <li><a href="#">Tin Tức</a></li>
+            <li><a href="#">Cẩm nang Làm đẹp</a></li>
+            <li><a href="#">Tuyển dụng</a></li>
+            <li><a href="#">Đổi điểm Hội Cam</a></li>
+            <li><a href="#">Liên hệ</a></li>
+            <li><a href="#">Địa chỉ cửa hàng</a></li>
+            <li><a href="#">Cho thuê mặt bằng</a></li>
+            <li><a href="#">Hợp tác cùng Guardian</a></li>
+          </ul>
+        </div>
+
+        <!-- Cột 4: Chính sách -->
+        <div class="footer-col">
+          <h4>Chính sách</h4>
+          <ul>
+            <li><a href="#">Chính sách và quy định chung</a></li>
+            <li><a href="#">Quy định và hình thức thanh toán</a></li>
+            <li><a href="#">Chính sách vận chuyển</a></li>
+            <li><a href="#">Chính sách đổi/trả hàng và hoàn tiền</a></li>
+            <li><a href="#">Chính sách bảo mật thông tin cá nhân</a></li>
+            <li><a href="#">Hướng dẫn mua hàng</a></li>
+            <li><a href="#">Quy trình xuất hóa đơn Điện Tử</a></li>
+            <li><a href="#">Chính sách Thông tin Hội Cam</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>© 2025 Nai Vang. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <script src="trangGioHang.js"></script>
+  </body>
+</html>
