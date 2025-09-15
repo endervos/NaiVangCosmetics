@@ -884,14 +884,33 @@
     </div>
 </div>
 
+<!-- FOOTER -->
+<div class="subscribe-bar">
+    <h2>ĐĂNG KÝ NHẬN ƯU ĐÃI</h2>
+    <form class="subscribe-form" id="subscribeForm">
+        <div class="input-wrap">
+            <input type="email" id="emailInput" placeholder="Nhập email của bạn">
+            <!-- dòng báo lỗi -->
+            <small id="emailError" class="error-msg"></small>
+        </div>
+        <button type="submit">ĐĂNG KÝ</button>
+    </form>
+</div>
+
 <footer class="footer">
     <div class="footer-main">
+        <!-- Cột 1: Logo + thông tin -->
         <div class="footer-col">
             <img th:src="@{/Home/Logo7.png}" alt="Nai Vang Logo" class="footer-logo">
             <p><strong>CÔNG TY TNHH MTV THƯƠNG MẠI VÀ ĐẦU TƯ LIÊN Á CHÂU</strong></p>
-            <p>Trụ sở chính: L2-VP-01, 346 Bến Vân Đồn, TP. Hồ Chí Minh</p>
-            <p>Hotline: <a href="tel:19004449">19004449</a></p>
+            <p>Giấy chứng nhận đăng ký doanh nghiệp số 0310618188, cấp ngày 29.01.2011, nơi cấp Sở Kế Hoạch và Đầu Tư TP. Hồ Chí Minh</p>
+            <p>Trụ sở chính: L2-VP-01, 346 Bến Vân Đồn, Phường Vĩnh Hội, TP. Hồ Chí Minh</p>
+            <p>Hotline: <a href="tel:19004449">19004449</a>
+                Điện thoại: <a href="tel:02838328272">02838328272</a></p>
+            <img th:src="@{/Home/Bocongthuong_1_1.webp}" alt="Đã thông báo Bộ Công Thương" class="boct-logo">
         </div>
+
+        <!-- Cột 2: Theo dõi + App + Thanh toán -->
         <div class="footer-col">
             <h4>Theo dõi chúng tôi</h4>
             <div class="social-links">
@@ -900,8 +919,56 @@
                 <a href="#"><img th:src="@{/Home/Youtube.webp}" alt="YouTube"></a>
                 <a href="#"><img th:src="@{/Home/Tiktok.webp}" alt="TikTok"></a>
             </div>
+
+            <h4>Tải App Ngay</h4>
+            <div class="app-links">
+                <img th:src="@{/Home/maqr.png}" alt="QR Code" class="qr-code">
+                <div>
+                    <a href="#"><img th:src="@{/Home/Googleplay.webp}" alt="Google Play"></a>
+                    <a href="#"><img th:src="@{/Home/Appstore.webp}" alt="App Store"></a>
+                </div>
+            </div>
+
+            <h4>Chấp nhận Phương thức thanh toán</h4>
+            <div class="pay-methods">
+                <img th:src="@{/Home/Vnpay.png}" alt="VNPay">
+                <img th:src="@{/Home/Momo.webp}" alt="MoMo" class="momo-logo">
+                <img th:src="@{/Home/Visa.png}" alt="Visa">
+            </div>
+        </div>
+
+        <!-- Cột 3: Về chúng tôi -->
+        <div class="footer-col">
+            <h4>Về chúng tôi</h4>
+            <ul>
+                <li><a href="#">Giới thiệu</a></li>
+                <li><a href="#">Tin Tức</a></li>
+                <li><a href="#">Cẩm nang Làm đẹp</a></li>
+                <li><a href="#">Tuyển dụng</a></li>
+                <li><a href="#">Đổi điểm Hội Cam</a></li>
+                <li><a href="#">Liên hệ</a></li>
+                <li><a href="#">Địa chỉ cửa hàng</a></li>
+                <li><a href="#">Cho thuê mặt bằng</a></li>
+                <li><a href="#">Hợp tác cùng Guardian</a></li>
+            </ul>
+        </div>
+
+        <!-- Cột 4: Chính sách -->
+        <div class="footer-col">
+            <h4>Chính sách</h4>
+            <ul>
+                <li><a href="#">Chính sách và quy định chung</a></li>
+                <li><a href="#">Quy định và hình thức thanh toán</a></li>
+                <li><a href="#">Chính sách vận chuyển</a></li>
+                <li><a href="#">Chính sách đổi/trả hàng và hoàn tiền</a></li>
+                <li><a href="#">Chính sách bảo mật thông tin cá nhân</a></li>
+                <li><a href="#">Hướng dẫn mua hàng</a></li>
+                <li><a href="#">Quy trình xuất hóa đơn Điện Tử</a></li>
+                <li><a href="#">Chính sách Thông tin Hội Cam</a></li>
+            </ul>
         </div>
     </div>
+
     <div class="footer-bottom">
         <p>© 2025 Nai Vang. All rights reserved.</p>
     </div>
