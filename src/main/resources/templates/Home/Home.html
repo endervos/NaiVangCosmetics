@@ -205,12 +205,14 @@
 
 <main class="wrapperMain_content">
     <div class="inslideron">
-        <button class="nav prev" aria-label="Previous">&#10094;</button>
-        <div class="slider">
-            <div class="slide"><img th:src="@{/Home/Banner1.jpeg}" alt="Banner 1"></div>
-            <div class="slide"><img th:src="@{/Home/Banner2.jpeg}" alt="Banner 2"></div>
-            <div class="slide"><img th:src="@{/Home/Banner3.png}" alt="Banner 3"></div>
+        <div class="slider-viewport">
+            <div class="slider">
+                <div class="slide"><img th:src="@{/Home/Banner1.jpeg}" alt="Banner 1"></div>
+                <div class="slide"><img th:src="@{/Home/Banner2.jpeg}" alt="Banner 2"></div>
+                <div class="slide"><img th:src="@{/Home/Banner3.png}" alt="Banner 3"></div>
+            </div>
         </div>
+        <button class="nav prev" aria-label="Previous">&#10094;</button>
         <button class="nav next" aria-label="Next">&#10095;</button>
     </div>
 </main>
@@ -316,7 +318,7 @@
 <!--Danh mục sản phẩm khuyến mãi xem trước-->
 <div class="product-section">
     <div class="section-header">
-        <h2><img th:src="@{/Home/Hot-deal.png}" alt="flashsale"><span>TỰU TRƯỜNG RẠNG RỠ</span><img src="../icon/hot-deal.png" alt="flashsale"></h2>
+        <h2><img th:src="@{/Home/Hot-deal.png}" alt="flashsale"><span>TỰU TRƯỜNG RẠNG RỠ</span><img th:src="@{/Home/Hot-deal.png}" alt="flashsale"></h2>
         <p>SALE NGON HẾT CỠ</p>
         <div class="pv-right">
             <a class="viewall" href="#">Xem tất cả »</a>
@@ -922,7 +924,7 @@
 
             <h4>Tải App Ngay</h4>
             <div class="app-links">
-                <img th:src="@{/Home/maqr.png}" alt="QR Code" class="qr-code">
+                <img th:src="@{/Home/Maqr.png}" alt="QR Code" class="qr-code">
                 <div>
                     <a href="#"><img th:src="@{/Home/Googleplay.webp}" alt="Google Play"></a>
                     <a href="#"><img th:src="@{/Home/Appstore.webp}" alt="App Store"></a>

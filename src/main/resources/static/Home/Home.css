@@ -87,6 +87,7 @@
 .menu-inner {
   display: flex;
   justify-content: center;
+  align-items: center;
   gap: 32px;
   padding: 14px 0;
   font-family: 'Roboto', sans-serif;
@@ -99,6 +100,12 @@
 }
 .menu-inner a:hover {
   color: #F26522;
+}
+.menu-icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+  object-fit: contain;
 }
 
 .dropdown {
@@ -123,7 +130,7 @@
   position: absolute;
   top: 100%;
   left: 0;
-  width: max(100%, 220px);
+  width: 100%;;
   height: 15px;
 }
 .dropdown-content a {
@@ -143,6 +150,9 @@
 .submenu{
   display:none;
   position:absolute;
+  list-style: none;
+  padding: 0;
+  margin: 0;
   top:0;
   left:100%;
   background:#fff;
@@ -199,27 +209,151 @@
 
 body {font-family: Arial, sans-serif;background: #fff;}
 
-.flash-sale {max-width: 1200px;margin: 24px auto;background: linear-gradient(to right, #f57c00, #fbc182);color:#fff;padding: 16px;border-radius: 14px;}
+.flash-sale {max-width: 1200px; margin: 24px auto; background: linear-gradient(to right, #f57c00, #fbc182); color:#fff; padding: 16px; border-radius: 14px;}
 .flash-sale * { box-sizing: border-box; }
-.fs-header {position: relative;display: flex;justify-content: center;align-items: center;padding: 12px 20px;}
-.fs-header h2 {font-size: 40px;font-weight: bold;display: flex;align-items: center;gap: 6px;color: #fff;}
-.fs-right {position: absolute;right: 20px;}
-.fs-header h2 img {width: 50px;height: 50px;}
-.fs-viewall { background:#fff; color:#f57c00; text-decoration:none;padding:6px 12px; border-radius:999px; font-weight:700; }
-.fs-viewport {overflow-x: auto;scroll-behavior: smooth;padding: 0 10px;}
-.fs-track {display: flex;gap: 12px;}
-.fs-viewport::-webkit-scrollbar {height: 10px;}
-.fs-viewport::-webkit-scrollbar-thumb {background: linear-gradient(90deg, #ff5722, #e53935);border-radius: 10px;}
-.fs-viewport::-webkit-scrollbar-track {background: #ffe5cc;border-radius: 10px;}
-.fs-card {flex: 0 0 220px;max-width: 220px;background: #fff;border-radius: 15px;padding: 12px;box-shadow: 0 2px 6px rgba(0,0,0,.1);position: relative;transition: all 0.3s ease;cursor: pointer;}
-.fs-card:hover {box-shadow: 0 0 12px rgba(255, 87, 34, 0.4);}
-.fs-card img {width: 100%;height: 180px;object-fit: contain;display: block;border-radius: 8px;}
-.fs-brand {font-size: 14px;margin: 6px 0 2px;font-weight: 600;color: #222;}
-.fs-name {font-size: 13px;color: #555;margin: 0 0 6px;line-height: 1.4;height: 36px;overflow: hidden;}
+
+.fs-header {position: relative; display: flex; justify-content: center; align-items: center; padding: 12px 20px;}
+
+.fs-header h2 {
+  font-size: 40px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #fff;
+}
+
+.fs-right {
+  position: absolute;           /* thoát khỏi flex center */
+  right: 20px;                  /* luôn dính sát bên phải */
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.fs-header h2 img {
+  width: 50px;     /* thu nhỏ chiều rộng */
+  height: 50px;    /* thu nhỏ chiều cao */
+  vertical-align: middle; /* căn giữa theo chữ */
+  margin: 0px;   /* tạo khoảng cách 2 bên */
+}
+
+.fs-status { opacity:.95; }
+.fs-viewall { background:#fff; color:#f57c00; text-decoration:none;
+  padding:6px 12px; border-radius:999px; font-weight:700; }
+
+.fs-viewport {
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding: 0 10px;
+}
+
+.fs-track {
+  display: flex;
+  gap: 12px;
+}
+
+.fs-viewport::-webkit-scrollbar {
+  height: 10px;
+}
+
+.fs-viewport::-webkit-scrollbar-thumb {
+  background: linear-gradient(90deg, #ff5722, #e53935); /* cam đậm → đỏ */
+  border-radius: 10px;
+}
+
+.fs-viewport::-webkit-scrollbar-track {
+   background: #ffe5cc;
+  border-radius: 10px;
+}
+
+.fs-viewport::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(90deg, #ff7043, #f44336); /* sáng hơn khi hover */
+}
+
+
+
+
+
+/* Card — KHÓA KÍCH THƯỚC NHỎ VỪA */
+.fs-card {
+  flex: 0 0 220px;
+  max-width: 220px;
+  background: #fff;
+  border-radius: 15px;
+  padding: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,.1);
+  position: relative;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+  cursor: pointer;
+  z-index: 1;
+}
+
+/* viền gradient bằng ::before */
+.fs-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 15px;
+  padding: 2px;  /* độ dày viền */
+  background: linear-gradient(90deg, #ff9800, #e60023);
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: destination-out;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: -1;
+}
+
+.fs-card:hover::before {
+  opacity: 1;
+}
+
+.fs-card:hover {
+  transform: translateY(-px);
+  box-shadow: 0 0 12px rgba(255, 87, 34, 0.4);  /* glow sáng nhẹ cam */
+}
+
+
+.fs-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto;
+  border-radius: 8px;
+}
+
+.fs-brand {
+  font-size: 14px;
+  margin: 6px 0 2px;
+  font-weight: 600;
+  color: #222;
+  text-align: left;
+}
+
+.fs-name {
+  font-size: 13px;
+  color: #555;
+  margin: 0 0 6px;
+  line-height: 1.4;
+  height: 36px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;       /* cắt sau 2 dòng */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-align: left;
+}
+/* Giá */
 .fs-price { display:flex; align-items:center; gap:6px; }
 .fs-price .new { color:#e60023; font-weight:700; }
 .fs-price .old { color:#888; text-decoration:line-through; font-size:11px; }
-.fs-price .discount { background:#e60023; color:#fff; font-size:11px;padding:2px 6px; border-radius:4px; }
+.fs-price .discount { background:#e60023; color:#fff; font-size:11px;
+  padding:2px 6px; border-radius:4px; }
+
+/* Meta + progress */
 .fs-meta { color:#333; font-size:12px; margin-top:6px; }
 .fs-progress { height:6px; background:#eee; border-radius:999px; margin-top:6px; overflow:hidden; }
 .fs-progress > span { display:block; height:100%; background:linear-gradient(90deg,#ff6b6b,#ff9900); }
