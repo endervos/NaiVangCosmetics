@@ -1,0 +1,127 @@
+
+
+/* ========== FORM CARD ========== */
+.form-card {
+    background-color: #ffffff;
+    padding: 30px 25px;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    max-width: 480px;
+    width: 100%;
+    margin: 50px auto; /* Thêm margin cho form, tạo khoảng cách từ trên và dưới */
+}
+
+/* Header form */
+.form-card h2 {
+    font-weight: 700;
+    color: #333;
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+/* Inputs */
+.form-control {
+    border-radius: 8px;
+    padding: 10px 12px;
+    border: 1px solid #ced4da;
+    transition: 0.3s;
+    width: 100%;
+}
+
+.form-control:focus {
+    border-color: #ff6b35;
+    box-shadow: 0 0 5px rgba(255,64,129,0.3);
+}
+
+/* Họ và Tên (2 cột) */
+.row.mb-3 {
+    display: flex;
+    gap: 15px; /* Tạo khoảng cách giữa 2 cột */
+}
+
+.col-md-6 {
+    flex: 1; /* Chia đều không gian giữa 2 input */
+}
+
+/* CAPTCHA */
+.captcha-box {
+    background-color: #bdbdbd;
+    padding: 10px 15px;
+    border-radius: 8px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    border: 1px solid #ced4da;
+    min-width: 80px;
+    text-align: center;
+}
+
+/* Terms checkbox */
+.form-check-label a {
+    text-decoration: none;
+    color: #333;
+}
+
+.form-check-label a:hover {
+    text-decoration: underline;
+    color: #ff6b35;
+}
+
+/* Nút submit */
+.btn-signup {
+    background-color: #000000;
+    color: #fff;
+    font-weight: 600;
+    border-radius: 8px;
+    padding: 10px 0;
+    transition: 0.3s;
+    width: 100%;
+    border: none;
+}
+
+.btn-signup:hover {
+    background-color: #ff6b35;
+    color: #fff;
+}
+
+/* Row Họ/Tên */
+.row.mb-3 {
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+/* Khoảng cách giữa các field */
+.mb-3 {
+    margin-bottom: 10px !important;
+}
+
+/* Captcha input riêng */
+.captcha-input {
+    flex: 1;
+}
+
+/* ========== MENU ========== */
+.menu-bar {
+    margin-bottom: 50px; /* Thêm khoảng cách giữa menu và form */
+}
+
+
+/* ========== RESPONSIVE ========== */
+@media (max-width:992px){
+  .header-inner{grid-template-columns:120px 1fr 180px}
+}
+@media (max-width:768px){
+  .header-inner{grid-template-columns:110px 1fr 120px;height:56px}
+  .search-wrap{width:min(80%,480px)}
+  .cart-pill{display:none}          /* gọn trên mobile */
+  .menu-inner{gap:16px;flex-wrap:wrap}
+}
+
+.nv-error {
+  color: #dc2626; /* Màu đỏ */
+  font-size: 0.85rem; /* Cỡ chữ nhỏ */
+  margin-top: 5px; /* Khoảng cách giữa ô input và lỗi */
+}
+
+.nv-invalid {
+  border-color: #dc2626 !important; /* Đổi viền của input thành đỏ khi có lỗi */
+}

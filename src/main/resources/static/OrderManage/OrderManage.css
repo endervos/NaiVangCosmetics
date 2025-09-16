@@ -1,0 +1,217 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #f5f5f5;
+  margin: 0;
+  padding: 0;
+}
+
+.main-container {
+  display: flex;
+  width: 100%;
+  margin: 30px auto;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Sidebar (Menu bên trái) */
+.menu-sidebar {
+  flex: 0 0 220px; /* cố định chiều rộng */
+  border-right: 1px solid #eee;
+  padding: 20px;
+  background: #f0f0f0;
+  /*height: 100%;  Chiều cao sidebar sẽ bằng chiều cao màn hình trừ đi header */
+}
+
+.menu-sidebar h3 {
+  margin-bottom: 15px;
+}
+
+.menu-sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.menu-sidebar ul li {
+  padding: 10px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.menu-sidebar ul li a {
+  text-decoration: none;
+  color: #333;
+  display: block;
+}
+
+.menu-sidebar ul li.active a {
+  color: #fff;
+  background: orange;
+  padding: 8px;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+/* Nội dung chính (Đơn hàng) */
+.orders-content {
+  flex: 1; /* content chiếm phần còn lại */
+  padding: 20px;
+
+  max-height: calc(100vh - 60px); /* Chiều cao của content, có thể cuộn */
+  overflow-y: auto; /* Cho phép cuộn bên trong sidebar */
+  -ms-overflow-style: none; /* Ẩn thanh cuộn trong IE */
+  scrollbar-width: none; /* Ẩn thanh cuộn trong Firefox */
+}
+
+.orders-content h2 {
+  margin-bottom: 20px;
+}
+
+/* Mỗi đơn hàng */
+.order-card {
+  background: #fff;
+  border-radius: 30px;
+  padding: 15px;
+  box-shadow: 0 2px 6px rgba(76, 75, 75, 0.619);
+  margin-bottom: 20px;
+}
+
+.order-card h3 {
+  margin-bottom: 10px;
+}
+
+.order-items {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 15px;
+}
+
+.order-items th,
+.order-items td {
+  border: 1px solid #ddd;
+  padding: 8px 12px;
+  text-align: left;
+}
+
+.order-summary {
+  display: flex;
+  margin-top: 15px;
+  background: #f9f9f9;
+  padding: 10px;
+  border-radius: 4px;
+}
+
+.order-summary p {
+  margin: 5px 5px;
+}
+
+/* Main container that holds the sidebar and content */
+.main-container {
+  display: flex;
+  margin: 30px auto;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Sidebar */
+.menu-sidebar {
+  flex: 0 0 220px;
+  border-right: 1px solid #eee;
+  padding: 20px;
+  background: #fafafa;
+  height: 100vh;
+  overflow-y: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.menu-sidebar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Main content area (for orders) */
+.orders-content {
+  flex: 1;
+  padding: 20px;
+  overflow-y: scroll;
+  max-height: calc(100vh - 60px);
+  margin-left: 20px;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.orders-content::-webkit-scrollbar {
+  display: none;
+}
+
+/* Orders list */
+.orders-list {
+  margin-top: 20px;
+}
+
+.order-card {
+  background-color: #fff;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.order-card h3 {
+  margin-bottom: 10px;
+}
+
+/* Each item in the order list */
+.order-items {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.order-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  border-bottom: 1px solid #ddd;
+}
+
+.order-item img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+}
+
+.order-item .item-name {
+  flex: 1;
+  font-size: 16px;
+}
+
+.order-item .item-quantity {
+  font-weight: bold;
+  color: #007b55;
+}
+
+/* Order summary */
+.order-summary {
+  margin-top: 15px;
+  background: #f9f9f9;
+  padding: 10px;
+  border-radius: 4px;
+}
+
+/* Navigation buttons */
+.navigation button {
+  background-color: #007b55;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.navigation button:hover {
+  background-color: #005c40;
+}
