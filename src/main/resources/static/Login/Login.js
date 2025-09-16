@@ -116,7 +116,7 @@
       } else {
         form.reset(); // Reset form
         setTimeout(() => {
-          window.location.href = "/trangmaxacnhan/trangmaxacnhan.html"; // Chuyển hướng về trang chủ sau 2 giây
+          window.location.href = "/"; // Chuyển hướng về trang chủ sau 2 giây
         }, 1000);
       }
          

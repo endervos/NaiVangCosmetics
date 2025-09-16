@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nai Vang Cosmetic</title>
+  <title>Xác thực OTP</title>
   <link rel="icon" type="image/png" href="../icon/logoConNai.png">
   <link rel="stylesheet" href="/src/main/resources/static/VerifyCode/VerifyCode.css">
   <link rel="stylesheet" href="/src/main/resources/static/Example/Example.css">
@@ -215,24 +215,27 @@
 </div>
 
 <!-- xac thuc -->
-<div class="verify-box">
-    <h2>Nhập mã xác nhận</h2>
-    <p>Vui lòng nhập mã gồm 6 chữ số đã gửi đến email/số điện thoại của bạn.</p>
+<div class="container"> 
+  <div class="verify-box">
+    <h2>Nhập mã OTP</h2>
+    <p>Vui lòng nhập mã 6 chữ số đã gửi đến email.</p>
     
     <div class="otp-inputs">
-      <input type="text" maxlength="1">
-      <input type="text" maxlength="1">
-      <input type="text" maxlength="1">
-      <input type="text" maxlength="1">
-      <input type="text" maxlength="1">
-      <input type="text" maxlength="1">
+        <input id="otp-1" type="text" maxlength="1" />
+        <input id="otp-2" type="text" maxlength="1" />
+        <input id="otp-3" type="text" maxlength="1" />
+        <input id="otp-4" type="text" maxlength="1" />
+        <input id="otp-5" type="text" maxlength="1" />
+        <input id="otp-6" type="text" maxlength="1" />
     </div>
 
-    <button id="verifyBtn">Xác nhận</button>
-    <button id="resendBtn">Gửi lại mã</button>
+    <button class="verifyBtn">Xác nhận</button>
+    <button class="resendBtn">Gửi lại mã</button>
 
     <div class="message" id="msg"></div>
   </div>
+</div>
+
 <!-- FOOTER -->
 <div class="subscribe-bar">
   <h2>ĐĂNG KÝ NHẬN ƯU ĐÃI</h2>
@@ -438,6 +441,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 </script>
 
+<script src="/src/main/resources/static/VerifyCode/VerifyCode.js"></script>
 <script src="/src/main/resources/static/Example/Example.js"></script>
 </body>
 </html>
