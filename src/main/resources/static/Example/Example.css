@@ -86,7 +86,11 @@
   top: 55px;              /* khoảng cách dưới nút user */
   left: 50%;              /* neo điểm giữa */
   transform: translateX(-50%);  /* kéo ngược lại để căn giữa */
+<<<<<<< HEAD
 
+=======
+  
+>>>>>>> 1598d9d3e56c7deeadcff25a18174c61f93e5519
   min-width: 160px;
   background: #fff;
   border: 1px solid #ddd;
@@ -173,7 +177,11 @@
 .dropdown {
   position: relative;
   display: inline-block;
+<<<<<<< HEAD
 
+=======
+  
+>>>>>>> 1598d9d3e56c7deeadcff25a18174c61f93e5519
 }
 .dropdown-content {
   display: none;
@@ -186,7 +194,11 @@
   border-radius: 4px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.15);
   z-index: 1000;
+<<<<<<< HEAD
   margin-top: 15px;
+=======
+  margin-top: 15px;   
+>>>>>>> 1598d9d3e56c7deeadcff25a18174c61f93e5519
 }
 
 .dropdown::after{
@@ -217,6 +229,7 @@
 
 /* menu cấp 2 mở ngang sang phải */
 .submenu{
+<<<<<<< HEAD
   display:none;
   position:absolute;
   top:0;
@@ -228,6 +241,19 @@
   padding:0;
   border-radius:6px;
   box-shadow:0 8px 24px rgba(0,0,0,.12);
+=======
+  display:none; 
+  position:absolute; 
+  top:0; 
+  left:100%;
+  background:#fff; 
+  min-width: 260px; 
+  list-style:none;
+  margin:0; 
+  padding:0; 
+  border-radius:6px;
+  box-shadow:0 8px 24px rgba(0,0,0,.12); 
+>>>>>>> 1598d9d3e56c7deeadcff25a18174c61f93e5519
   z-index:1001;
   list-style: none;
 }
@@ -235,11 +261,19 @@
 
 /* chống nháy khi rê chéo: thêm cầu nối 8px giữa li và submenu */
 .has-submenu::after{
+<<<<<<< HEAD
   content:"";
   position:absolute;
   top:0;
   left:100%;
   width:8px;
+=======
+  content:""; 
+  position:absolute; 
+  top:0; 
+  left:100%;
+  width:8px; 
+>>>>>>> 1598d9d3e56c7deeadcff25a18174c61f93e5519
   height:100%;
 }
 
@@ -280,7 +314,11 @@
 }
 
 .wrapperMain_content {
+<<<<<<< HEAD
   width: 100%;
+=======
+  width: 100%;  
+>>>>>>> 1598d9d3e56c7deeadcff25a18174c61f93e5519
   max-width: 100%;      /* thay vì max-width */
   margin: 0;
   padding: 0;
@@ -313,7 +351,11 @@
 
 .slide.active {
   flex: 0 0 100%;     /* vẫn 100% nhưng active sẽ nổi bật hơn */
+<<<<<<< HEAD
   transform: scale(1);
+=======
+  transform: scale(1); 
+>>>>>>> 1598d9d3e56c7deeadcff25a18174c61f93e5519
   opacity: 1;
 }
 
@@ -553,4 +595,8 @@ body {
   .search-wrap{width:min(80%,480px)}
   .cart-pill{display:none}          /* gọn trên mobile */
   .menu-inner{gap:16px;flex-wrap:wrap}
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 1598d9d3e56c7deeadcff25a18174c61f93e5519
