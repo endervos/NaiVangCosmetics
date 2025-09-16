@@ -104,3 +104,28 @@ p {
   100% { left: 110%; } /* chạy hết qua màn hình */
 }
 
+
+/* Banner Header */
+.banner-header {
+  position: fixed;   /* cố định trên đầu */
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: #FBB86E;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  z-index: 1000;
+}
+
+.banner-header .logo img {
+  height: 50px;
+}
+
+/* Đẩy nội dung xuống dưới banner */
+body {
+  padding-top: 70px; /* chiều cao banner + khoảng cách */
+}
+
+

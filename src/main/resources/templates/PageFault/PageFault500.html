@@ -1,41 +1,45 @@
 <!DOCTYPE html>
 <html lang="vi" xmlns:th="http://www.thymeleaf.org">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>500 - Internal Server Error</title>
+    <title>500 - Server Error</title>
     <link
-      rel="stylesheet"
-      href="/src/main/resources/static/PageFault/PageFault.css"
+            rel="stylesheet"
+            href="/src/main/resources/static/PageFault/PageFault.css"
     />
-  </head>
-  <body>
-    <div class="container">
-      <img
-        src="/src/main/resources/static/PageFault/500.png"
-        alt="404 Not Found"
-        class="illustration"
-      />
-      <h1>500</h1>
-      <p>
-        Oops, something went wrong! <br />
-        Try to refresh this page or feel free to contact us if the problem
-        persists!
-      </p>
-      <div class="actions">
-        <a href="/src/main/resources/templates/Home/Home.html" class="btn"
-          >🏠Về trang chủ</a
-        >
-        <button onclick="history.back()" class="btn btn-outline">
-          🔙Quay lại
-        </button>
-      </div>
+</head>
+<body>
+<!-- 🔹 Banner chỉ có logo -->
+<header class="banner-header">
+    <div class="logo">
+        <a href="/src/main/resources/templates/Home/Home.html">
+            <img src="/src/main/resources/static/Home/Logo7.png" alt="Logo" />
+        </a>
     </div>
-    <div class="dog">
-      <img
-        src="/src/main/resources/static/PageFault/dog.gif"
-        alt="Dog running"
-      />
+</header>
+<!-- 🔹 End Banner -->
+
+<div class="container">
+    <img
+            src="/src/main/resources/static/PageFault/500.png"
+            alt="500 Server Error"
+            class="illustration"
+    />
+    <h1>500</h1>
+    <p>Oops! Có lỗi xảy ra từ máy chủ.</p>
+    <div class="actions">
+        <a href="/src/main/resources/templates/Home/Home.html" class="btn">
+            🏠 Về trang chủ
+        </a>
     </div>
-  </body>
+</div>
+
+<div class="dog">
+    <img
+            src="/src/main/resources/static/PageFault/dog.gif"
+            alt="Dog running"
+    />
+</div>
+</body>
 </html>
