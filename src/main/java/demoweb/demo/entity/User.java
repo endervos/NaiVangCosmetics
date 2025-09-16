@@ -28,7 +28,7 @@ public class User {
     private String phone;
 
     @Column(name = "is_active", nullable = false)
-    private Boolean isActive = true;
+    private Boolean isActive = (Boolean) true;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "role_id", nullable = false,
@@ -42,7 +42,7 @@ public class User {
     private LocalDateTime updatedAt;
 
     @Column(name = "version", nullable = false)
-    private Integer version = 1;
+    private Integer version = (Integer) 1;
 
     public User() {}
 
