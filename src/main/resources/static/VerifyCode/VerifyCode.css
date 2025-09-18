@@ -51,6 +51,7 @@ h2 {
 .otp-inputs input:focus {
   border-color: #000000;
   outline: none;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
 
 .verifyBtn {
@@ -64,10 +65,6 @@ h2 {
   margin: .5rem;
 }
 
-.verifyBtn:hover {
-  background: #f9811f;
-}
-
 .resendBtn {
   padding: .6rem 1.2rem;
   border: none;
@@ -79,8 +76,10 @@ h2 {
   margin: .5rem;
 }
 
-.resendBtn:hover {
+/* Hiệu ứng hover khi nhấn nút */
+.verifyBtn:hover, .resendBtn:hover {
   background: #f9811f;
+  transform: scale(1.05);
 }
 
 .message {
@@ -95,4 +94,26 @@ h2 {
 
 .subscribe-bar{
   margin-top: 30px;
+}
+
+/* Hiệu ứng động khi hover vào verify-box */
+.verify-box:hover {
+  transform: scale(1.03); /* Tăng kích thước khung khi hover */
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .verify-box {
+    padding: 2rem;
+    width: 100%;
+  }
+
+  .otp-inputs input {
+    font-size: 1.5rem;
+  }
+
+  .verifyBtn, .resendBtn {
+    padding: 1rem 1.5rem;
+    font-size: 1rem;
+  }
 }

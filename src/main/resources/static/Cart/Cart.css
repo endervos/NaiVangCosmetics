@@ -1,251 +1,251 @@
 body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  background: #fafafa;
-  color: #333;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background: #fafafa;
+    color: #333;
 }
 
 main {
-  display: grid;
-  grid-template-columns: repeat(
+    display: grid;
+    grid-template-columns: repeat(
     auto-fill,
     minmax(300px, 1fr)
   ); /* Mỗi cột tối thiểu 300px, tối đa 1fr */
-  gap: 20px; /* Khoảng cách giữa các tin */
-  padding: 20px;
+    gap: 20px; /* Khoảng cách giữa các tin */
+    padding: 20px;
 }
 
 header {
-  background: #ff6600;
-  padding: 15px;
-  text-align: center;
-  color: #fff;
+    background: #ff6600;
+    padding: 15px;
+    text-align: center;
+    color: #fff;
 }
 
 .cart-container {
-  display: flex;
-  justify-content: space-between;
-  max-width: 1200px;
-  margin: 20px auto;
-  padding: 0 15px;
-  gap: 20px;
+    display: flex;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 0 15px;
+    gap: 20px;
 }
 
 .cart-items {
-  flex: 2;
-  background: #fff;
-  padding: 20px;
-  border-radius: 6px;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    flex: 2;
+    background: #fff;
+    padding: 20px;
+    border-radius: 6px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
 
 .cart-items table {
-  width: 100%;
-  border-collapse: collapse;
+    width: 100%;
+    border-collapse: collapse;
 }
 
 .cart-items th,
 .cart-items td {
-  border-bottom: 1px solid #ddd;
-  padding: 10px;
-  text-align: center;
+    border-bottom: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
 }
 
 .product-info {
-  display: flex;
-  gap: 10px; /* khoảng cách giữa ảnh và text */
-  text-align: left;
-  font-family: Arial, sans-serif;
-  align-items: flex-start; /* căn text sát đầu ảnh */
+    display: flex;
+    gap: 10px; /* khoảng cách giữa ảnh và text */
+    text-align: left;
+    font-family: Arial, sans-serif;
+    align-items: flex-start; /* căn text sát đầu ảnh */
 }
 
 .product-info img {
-  width: 100px;
-  height: auto;
-  border: 1px solid #ddd;
-  border-radius: 4px;
+    width: 100px;
+    height: auto;
+    border: 1px solid #ddd;
+    border-radius: 4px;
 }
 .product-text {
-  display: flex;
-  font-family: Arial, sans-serif;
-  flex-direction: column; /* mỗi phần trên 1 dòng */
-  gap: 3px; /* khoảng cách giữa các dòng */
-  margin: 0; /* loại bỏ margin thừa */
-  padding: 0; /* loại bỏ padding thừa */
-  text-align: left; /* căn text sang trái */
+    display: flex;
+    font-family: Arial, sans-serif;
+    flex-direction: column; /* mỗi phần trên 1 dòng */
+    gap: 3px; /* khoảng cách giữa các dòng */
+    margin: 0; /* loại bỏ margin thừa */
+    padding: 0; /* loại bỏ padding thừa */
+    text-align: left; /* căn text sang trái */
 }
 
 .product-name {
-  font-weight: bold; /* in đậm tên sản phẩm */
-  font-size: 1.1em; /* có thể tăng kích thước */
+    font-weight: bold; /* in đậm tên sản phẩm */
+    font-size: 1.1em; /* có thể tăng kích thước */
 }
 
 .product-desc {
-  font-weight: normal;
-  font-size: 0.95em;
+    font-weight: normal;
+    font-size: 0.95em;
 }
 .wishlist-checkbox {
-  display: none; /* Ẩn checkbox */
+    display: none; /* Ẩn checkbox */
 }
 
 .wishlist-label {
-  display: inline-flex;
-  align-items: center; /* căn dọc giữa */
-  gap: 5px; /* khoảng cách giữa trái tim và chữ */
-  cursor: pointer;
-  color: black;
-  transition: color 0.3s;
-  user-select: none;
+    display: inline-flex;
+    align-items: center; /* căn dọc giữa */
+    gap: 5px; /* khoảng cách giữa trái tim và chữ */
+    cursor: pointer;
+    color: black;
+    transition: color 0.3s;
+    user-select: none;
 }
 
 .wishlist-label .heart {
-  font-size: 18px;
-  color: #403e3e;
-  transition: transform 0.2s, color 0.2s;
+    font-size: 18px;
+    color: #403e3e;
+    transition: transform 0.2s, color 0.2s;
 }
 
 /* hover phồng trái tim */
 .wishlist-label:hover .heart {
-  transform: scale(1.2);
+    transform: scale(1.2);
 }
 
 /* checked -> trái tim đỏ tươi */
 .wishlist-checkbox:checked + .wishlist-label .heart {
-  content: "♥";
-  color: #e60000;
-  transform: scale(1.3);
+    content: "♥";
+    color: #e60000;
+    transform: scale(1.3);
 }
 .price-old {
-  text-decoration: line-through;
-  color: #999;
-  font-size: 0.9em;
+    text-decoration: line-through;
+    color: #999;
+    font-size: 0.9em;
 }
 
 .price-sale {
-  color: #e60023;
-  font-weight: bold;
+    color: #e60023;
+    font-weight: bold;
 }
 
 .remove-btn {
-  border: none;
-  background: transparent;
-  color: red;
-  font-size: 18px;
-  cursor: pointer;
+    border: none;
+    background: transparent;
+    color: red;
+    font-size: 18px;
+    cursor: pointer;
 }
 
 /* ====== SẢN PHẨM ĐÃ XEM ====== */
 .viewed-products {
-  max-width: 1200px;
-  margin: 40px auto;
-  padding: 20px;
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 20px;
 }
 
 .viewed-products h2 {
-  font-size: 22px;
-  margin-bottom: 20px;
-  font-weight: bold;
-  color: #333;
+    font-size: 22px;
+    margin-bottom: 20px;
+    font-weight: bold;
+    color: #333;
 }
 
 .product-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
 }
 
 .product-card {
-  background: #fff;
-  border: 1px solid #eee;
-  border-radius: 8px;
-  padding: 10px;
-  display: flex;
-  flex-direction: column;
-  width: 200px;
-  min-height: 250px; /* đảm bảo tất cả card cùng chiều cao */
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+    min-height: 250px; /* đảm bảo tất cả card cùng chiều cao */
 }
 
 .product-card img {
-  width: 100%;
-  border-radius: 6px;
-  margin-bottom: 10px;
+    width: 100%;
+    border-radius: 6px;
+    margin-bottom: 10px;
 }
 
 .product-card-info {
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1; /* giúp phần product-info chiếm toàn bộ chiều cao còn lại */
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1; /* giúp phần product-info chiếm toàn bộ chiều cao còn lại */
 }
 
 .product-card-name {
-  font-size: 14px;
-  color: #333;
-  margin: 0 0 5px 0;
-  line-height: 1.4;
-  font-family: Arial, sans-serif;
+    font-size: 14px;
+    color: #333;
+    margin: 0 0 5px 0;
+    line-height: 1.4;
+    font-family: Arial, sans-serif;
 }
 
 .product-card-price {
-  font-size: 16px;
-  font-weight: bold;
-  color: #e74c3c;
-  text-align: left;
-  margin-top: auto; /* đẩy giá xuống dưới cùng */
+    font-size: 16px;
+    font-weight: bold;
+    color: #e74c3c;
+    text-align: left;
+    margin-top: auto; /* đẩy giá xuống dưới cùng */
 }
 
 .back-shopping {
-  display: inline-block;
-  margin-top: 15px;
-  color: #007bff;
-  text-decoration: none;
+    display: inline-block;
+    margin-top: 15px;
+    color: #007bff;
+    text-decoration: none;
 }
 
 .cart-summary {
-  flex: 1;
-  background: #fff;
-  padding: 20px;
-  border-radius: 6px;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-  height: fit-content;
+    flex: 1;
+    background: #fff;
+    padding: 20px;
+    border-radius: 6px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    height: fit-content;
 }
 
 .cart-summary h2 {
-  margin-top: 0;
+    margin-top: 0;
 }
 
 .cart-summary p {
-  margin: 10px 0;
-  display: flex;
-  justify-content: space-between;
+    margin: 10px 0;
+    display: flex;
+    justify-content: space-between;
 }
 
 .cart-summary hr {
-  margin: 15px 0;
+    margin: 15px 0;
 }
 
 .vat {
-  font-size: 0.85em;
-  color: #555;
+    font-size: 0.85em;
+    color: #555;
 }
 
 #checkout-btn {
-  width: 100%;
-  background: #ff6600;
-  border: none;
-  padding: 12px;
-  color: #fff;
-  font-size: 16px;
-  border-radius: 4px;
-  cursor: pointer;
+    width: 100%;
+    background: #ff6600;
+    border: none;
+    padding: 12px;
+    color: #fff;
+    font-size: 16px;
+    border-radius: 4px;
+    cursor: pointer;
 }
 
 #checkout-btn:hover {
-  background: #e65c00;
+    background: #e65c00;
 }
 
 footer {
-  background: #ff6600;
-  padding: 15px;
-  color: #fff;
-  margin-top: 20px;
+    background: #ff6600;
+    padding: 15px;
+    color: #fff;
+    margin-top: 20px;
 }

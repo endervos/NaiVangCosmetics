@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Nai Vang Cosmetic</title>
   <link rel="icon" type="image/png" href="../icon/logoConNai.png">
-  <link rel="stylesheet" href="/src/main/resources/static/Login/Login.css">
+  <link rel="stylesheet" href="/src/main/resources/static/ChangePass/ChangePass.css">
   <link rel="stylesheet" href="/src/main/resources/static/Example/Example.css">
   <!-- Slick CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css">
@@ -214,53 +214,41 @@
   </div>
 </div>
 
-<!-- Form dang ky -->
-
-<div class="login-container">
-    <div class="login-card">
-        <h2 class="text-center mb-4">Đăng nhập</h2>
-        <form>
-
-            <!-- Số điện thoại -->
-            <div class="mb-3">
-                <input type="text" class="form-control" placeholder="Số điện thoại" >
-            </div>
-
-            <!-- Mật khẩu -->
-            <div class="mb-3">
-                <input type="password" class="form-control" placeholder="Mật khẩu" >
-            </div>
-
-            <!-- CAPTCHA -->
-            <div class="mb-3 d-flex align-items-center">
-                <input type="text" class="form-control captcha-input me-2" placeholder="Nhập CAPTCHA" >
-                <div class="captcha-box">AB12C3</div>
-            </div>
-
-            <!-- Submit -->
-            <button type="submit" class="btn btn-login w-100">Đăng nhập</button>
-
-            <div class="text-center mt-4">
-                <a href="/trangdangky/trangdangky.html" class="register-link">Bạn chưa có tài khoản? <span class="highlight">Nhấn đăng ký ngay</span></a>
-            </div>
-        </form>
+ <!-- Đổi mật khẩu -->
+<div class="change-password-container">
+  <div class="change-password-box">
+    
+    <h2 class="change-password-title">Đổi Mật Khẩu</h2>
+    <div class="warning-message">
+      <span>Cảnh báo: Mật khẩu mới phải khác với mật khẩu cũ.</span>
     </div>
+    <form class="change-password-form">
+      <label for="current-password" class="password-label">Mật khẩu cũ</label>
+      <input type="password" id="current-password" class="password-input" placeholder="Nhập mật khẩu cũ">
+
+      <label for="new-password" class="password-label">Mật khẩu mới</label>
+      <input type="password" id="new-password" class="password-input" placeholder="Nhập mật khẩu mới">
+
+      <label for="confirm-password" class="password-label">Xác nhận mật khẩu</label>
+      <input type="password" id="confirm-password" class="password-input" placeholder="Xác nhận mật khẩu mới">
+
+      <button type="submit" class="custom-button">Đổi mật khẩu</button>
+    </form>
+  </div>
 </div>
 
-<!-- FOOTER -->
-<div class="subscribe-bar">
-  <h2>ĐĂNG KÝ NHẬN ƯU ĐÃI</h2>
-  <form class="subscribe-form" id="subscribeForm">
-    <div class="input-wrap">
-      <input type="email" id="emailInput" placeholder="Nhập email của bạn">
-      <!-- dòng báo lỗi -->
-      <small id="emailError" class="error-msg"></small>
+    <!-- FOOTER -->
+    <div class="subscribe-bar">
+    <h2>ĐĂNG KÝ NHẬN ƯU ĐÃI</h2>
+    <form class="subscribe-form" id="subscribeForm">
+        <div class="input-wrap">
+        <input type="email" id="emailInput" placeholder="Nhập email của bạn">
+        <!-- dòng báo lỗi -->
+        <small id="emailError" class="error-msg"></small>
+        </div>
+        <button type="submit">ĐĂNG KÝ</button>
+    </form>
     </div>
-    <button type="submit">ĐĂNG KÝ</button>
-  </form>
-</div>
-
-
 
   <footer class="footer">
   <div class="footer-main">
@@ -451,7 +439,8 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 </script>
-<script src="/src/main/resources/static/Login/Login.js"></script>
+
+<script src="/src/main/resources/static/ChangePass/ChangePass.js"></script>
 <script src="/src/main/resources/static/Example/Example.js"></script>
 </body>
 </html>
