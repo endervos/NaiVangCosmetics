@@ -216,32 +216,26 @@
 
  <!-- Đổi mật khẩu -->
 <div class="change-password-container">
-    <div class="change-password-box">
-        <h2>Đổi mật khẩu</h2>
-        <form action="" method="POST" id="changePasswordForm">
-            <!-- Mật khẩu cũ -->
-            <label for="oldPassword">Mật khẩu cũ:</label>
-            <input type="password" id="oldPassword" name="oldPassword" required>
-
-            <!-- Mật khẩu mới -->
-            <label for="newPassword">Mật khẩu mới:</label>
-            <input type="password" id="newPassword" name="newPassword" required>
-
-            <!-- Xác nhận mật khẩu mới -->
-            <label for="confirmPassword">Xác nhận mật khẩu mới:</label>
-            <input type="password" id="confirmPassword" name="confirmPassword" required>
-
-            <!-- Thông báo lỗi -->
-            <div class="message-new error-message" id="error-message"></div>
-            <div class="message-new success-message" id="success-message"></div>
-
-            <!-- Nút đổi mật khẩu -->
-            <button type="submit" id="changePasswordBtn">Đổi mật khẩu</button>
-        </form>
+  <div class="change-password-box">
+    
+    <h2 class="change-password-title">Đổi Mật Khẩu</h2>
+    <div class="warning-message">
+      <span>Cảnh báo: Mật khẩu mới phải khác với mật khẩu cũ.</span>
     </div>
+    <form class="change-password-form">
+      <label for="current-password" class="password-label">Mật khẩu cũ</label>
+      <input type="password" id="current-password" class="password-input" placeholder="Nhập mật khẩu cũ">
+
+      <label for="new-password" class="password-label">Mật khẩu mới</label>
+      <input type="password" id="new-password" class="password-input" placeholder="Nhập mật khẩu mới">
+
+      <label for="confirm-password" class="password-label">Xác nhận mật khẩu</label>
+      <input type="password" id="confirm-password" class="password-input" placeholder="Xác nhận mật khẩu mới">
+
+      <button type="submit" class="custom-button">Đổi mật khẩu</button>
+    </form>
+  </div>
 </div>
-
-
 
     <!-- FOOTER -->
     <div class="subscribe-bar">
@@ -446,6 +440,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 </script>
 
+<script src="/src/main/resources/static/ChangePass/ChangePass.js"></script>
 <script src="/src/main/resources/static/Example/Example.js"></script>
 </body>
 </html>
