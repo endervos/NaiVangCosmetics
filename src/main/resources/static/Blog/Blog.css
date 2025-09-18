@@ -262,3 +262,13 @@ main.news {
     color: #ff6b81;
     text-decoration: none;
 }
+.news-item .news-link {
+    display: flex;
+    text-decoration: none;
+    color: inherit; /* Giữ màu chữ gốc */
+}
+
+.news-item .news-link:hover {
+    opacity: 0.9; /* Hiệu ứng hover nhẹ */
+}
+
