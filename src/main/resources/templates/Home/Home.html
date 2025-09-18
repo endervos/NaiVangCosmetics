@@ -34,20 +34,34 @@
         </div>
 
         <div class="header-icons">
-            <a th:href="@{/login}" class="user-btn" title="Đăng ký / Đăng nhập" aria-label="Tài khoản">
-                <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
-                    <path fill="currentColor"
-                          d="M17.75 14c1.24 0 2.25 1.01 2.25 2.25v.92c0 .57-.18 1.13-.52 1.6C18 20.9 15.5 22 12 22s-6-1.1-7.48-3.23c-.34-.47-.52-1.03-.52-1.6v-.92C4 15.01 5.01 14 6.25 14h11.5ZM12 2a5 5 0 1 1 0 10 5 5 0 0 1 0-10Z"/>
-                </svg>
-            </a>
+            <div class="user-section">
+                <!-- Nút user -->
+                <button class="user-btn" aria-label="Tài khoản">
+                    <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+                        <path fill="currentColor"
+                              d="M17.75 14c1.24 0 2.25 1.01 2.25 2.25v.92c0 .57-.18 1.13-.52 1.6C18 20.9 15.5 22 12 22s-6-1.1-7.48-3.23c-.34-.47-.52-1.03-.52-1.6v-.92C4 15.01 5.01 14 6.25 14h11.5ZM12 2a5 5 0 1 1 0 10 5 5 0 0 1 0-10Z"/>
+                    </svg>
+                </button>
 
-            <a class="cart-pill" href="#" title="Giỏ hàng">
-                <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
-                    <path fill="currentColor"
-                          d="M7 4h-2l-1 2h2l3.6 7.59-1.35 2.44C7.89 16.37 8.29 17 8.94 17h9.56v-2H9.42l1.1-2h7.25c.75 0 1.41-.41 1.75-1.03L22 7H6.42l-.7-1h1.28L7 4Zm-1 16a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm12 0a2 2 0 1 0 .001-3.999A2 2 0 0 0 18 20Z"/>
-                </svg>
-                <span>Giỏ hàng</span>
-            </a>
+                <!-- Dropdown (ẩn mặc định, hiện khi hover hoặc click) -->
+                <div class="user-dropdown">
+                    <a th:href="@{/Login/Login.html}" id="login-btn">Đăng nhập</a>
+                    <a th:href="@{/Information/Information.html}" id="account-info">Thông tin tài khoản</a>
+                    <a href="#" id="logout-btn">Đăng xuất</a>
+                </div>
+            </div>
+
+
+            <!-- Cart Section -->
+            <div class="cart-section">
+                <a href="#" class="cart-pill" title="Giỏ hàng">
+                    <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
+                        <path fill="currentColor"
+                              d="M7 4h-2l-1 2h2l3.6 7.59-1.35 2.44C7.89 16.37 8.29 17 8.94 17h9.56v-2H9.42l1.1-2h7.25c.75 0 1.41-.41 1.75-1.03L22 7H6.42l-.7-1h1.28L7 4Zm-1 16a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm12 0a2 2 0 1 0 .001-3.999A2 2 0 0 0 18 20Z"/>
+                    </svg>
+                    <span>Giỏ hàng</span>
+                </a>
+            </div>
         </div>
     </div>
 </div>
@@ -107,7 +121,7 @@
                     </ul>
                 </li>
 
-                <!--Chăm sóc cơ thể-->
+                <!--Chăm sóc tóc-->
                 <li class="has-submenu">
                     <a href="#">
                         <img class="menu-icon" th:src="@{/Home/Haircare.png}" alt="Chăm sóc tóc" >Chăm sóc tóc </a>

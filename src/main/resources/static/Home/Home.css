@@ -44,9 +44,10 @@
   display:flex;justify-content:flex-end;align-items:center;gap:12px
 }
 
+/* Nút user tròn đỏ đậm */
 .user-btn{
-  width:48px;
-  height:48px;
+  width:48px;                /* tăng từ 44 → 48 cho cân với pill */
+  height:48px;               /* cao bằng pill */
   border-radius:50%;
   border:1px solid rgba(0,0,0,.08);
   background: radial-gradient(120% 120% at 30% 20%, #C5372A 0%, #7A1D18 60%, #5E1613 100%);
@@ -60,6 +61,63 @@
 }
 .user-btn:hover{box-shadow:0 6px 14px rgba(0,0,0,.24);opacity:.95}
 .user-btn:active{transform:translateY(1px) scale(.98)}
+
+.user-section {
+  position: relative;
+}
+
+/* Ẩn dropdown mặc định */
+/* Vùng chứa user + dropdown */
+.user-section {
+  position: relative;
+}
+
+/* Dropdown menu ẩn mặc định */
+.user-dropdown {
+  display: none;
+  position: absolute;
+  top: 55px;              /* khoảng cách dưới nút user */
+  left: 50%;              /* neo điểm giữa */
+  transform: translateX(-50%);  /* kéo ngược lại để căn giữa */
+
+  min-width: 160px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  z-index: 1000;
+}
+
+
+/* Tạo vùng "cầu nối" trong suốt để giữ hover */
+.user-dropdown::before {
+  content: "";
+  position: absolute;
+  top: -10px;   /* cao bằng khoảng cách bạn để */
+  left: 0;
+  width: 100%;
+  height: 10px; /* chiều cao cầu nối */
+}
+
+/* Link trong dropdown */
+.user-dropdown a {
+  display: block;
+  padding: 10px 14px;
+  font-size: 14px;
+  color: #333;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+
+.user-dropdown a:hover {
+  background: #f5f5f5;
+}
+
+/* Khi hover vào user-section thì dropdown hiện */
+.user-section:hover .user-dropdown {
+  display: block;
+}
+
 
 .cart-pill{
   display:inline-flex;
@@ -537,17 +595,95 @@ body {font-family: Arial, sans-serif;background: #fff;}
 .brand-card:hover {transform: translateY(-6px) scale(1.03);box-shadow: 0 8px 20px rgba(0,0,0,0.2);}
 
 /* Footer + subscribe bar */
-.footer {width: 100%;background: #fff;color: #333;font-size: 14px;line-height: 1.6;}
-.subscribe-bar {background: linear-gradient(to right, #f37021, #fbc182);color: #fff;display: flex;align-items: center;justify-content: space-between;padding: 20px 80px;}
-.subscribe-bar h2 {margin: 0;font-size: 30px;font-weight: bold;}
-.subscribe-form {display: flex;align-items: center;gap: 10px;}
-.subscribe-form input {padding: 12px 16px;border: none;border-radius: 30px;outline: none;width: 340px;font-size: 14px;color: #333;}
-.subscribe-form button {background: #f37021;border: none;color: #fff;font-weight: bold;padding: 12px 24px;border-radius: 30px;cursor: pointer;font-size: 14px;transition: background 0.3s;}
-.subscribe-form button:hover {background: #d85d12;}
+
+/* ===== FOOTER ===== */
+.footer {
+  width: 100%;
+  background: #fff;
+  color: #333;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* Khối đăng ký */
+.subscribe-bar {
+  background: linear-gradient(to right, #f37021, #fbc182); /* cam đậm → cam nhạt */
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 80px;
+}
+
+/* Tiêu đề */
+.subscribe-bar h2 {
+  margin: 0;
+  font-size: 30px;
+  font-weight: bold;
+  padding-left: 10px;
+}
+
+/* Form */
+.subscribe-form {
+  display: flex;
+  align-items: flex-start;   /* nút không bị kéo xuống */
+  gap: 10px;                 /* khoảng cách giữa input và button */
+  width: 100%;
+  max-width: 500px;
+}
+
+.input-wrap {
+  flex: 1;                   /* input chiếm hết chiều ngang */
+  display: flex;
+  flex-direction: column;    /* xếp input và error theo cột */
+}
+
+.input-wrap input {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid #ccc;
+  border-radius: 30px;
+  outline: none;
+  font-size: 14px;
+  color: #333;
+}
+
+.input-wrap input.error {
+  border-color: #ff4d4d;     /* viền đỏ khi sai */
+}
+
+.error-msg {
+  margin-top: 4px;
+  margin-left: 20px;
+  font-size: 15px;
+  color: #fff;               /* chữ trắng */
+  visibility: hidden;        /* mặc định ẩn */
+}
+.error-msg.show {
+  visibility: visible;
+}
+
+/* Nút đăng ký */
+.subscribe-form button {
+  background: #f37021;
+  border: none;
+  color: #fff;
+  font-weight: bold;
+  padding: 12px 24px;
+  border-radius: 30px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.3s;
+}
+
+.subscribe-form button:hover {
+  background: #d85d12;
+}
+
 .footer-main {display: grid;width: 100%;grid-template-columns: 2fr 1.2fr 1fr 1fr;gap: 24px;padding: 30px 60px;}
 .footer-logo {width: 160px;margin-bottom: 16px;}
 .footer-col:first-child {padding-left: 10px;}
-.boct-logo {margin-top: 10px;width: 140px;}
+.footer-logo {margin-top: 10px;width: 140px;}
 .footer-col h4 {margin: 12px 0;font-size: 15px;font-weight: bold;color: #c33;}
 .footer-col ul {list-style: none;padding: 0;margin: 0;}
 .footer-col ul li {margin: 6px 0;}
