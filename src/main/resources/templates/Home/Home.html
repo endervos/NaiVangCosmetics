@@ -1,118 +1,976 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Học lỏm "Night Routine" chăm da của tỷ tỷ Douyin</title>
-    <link rel="stylesheet" href="News.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nai Vang Cosmetic</title>
+    <link rel="icon" type="image/png" th:href="@{/Home/LogoConNai.png}">
+    <link rel="stylesheet" th:href="@{/Home/Home.css}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 </head>
 <body>
-<div class="container" role="main">
-    <h1>HỌC LỎM "NIGHT ROUTINE" CHĂM DA CỦA TỶ TỶ DOUYIN</h1>
 
-    <div class="meta" aria-label="thông tin bài viết">
-        <div class="author-avatar" aria-hidden="true">CC</div>
-        <div>
-            <div style="font-weight: 600">Chôm Chôm</div>
-            <div style="font-size: 13px; color: var(--muted)">
-                20/10/2025 · Đọc ~4 phút
+<div class="promo-banner">
+    <img th:src="@{/Home/Home.gif}" alt="Khuyến mãi Lam Thao">
+</div>
+
+<div class="header">
+    <div class="container header-inner">
+        <img th:src="@{/Home/Logo7.png}" alt="Logo" width="150" height="100">
+
+        <div class="search-bar">
+            <div class="search-wrap">
+                <input type="text" placeholder="Bạn cần tìm ....">
+                <span class="search-icon">
+            <svg viewBox="0 0 24 27" aria-hidden="true">
+              <path d="M10,2C4.5,2,0,6.5,0,12s4.5,10,10,10s10-4.5,10-10S15.5,2,10,2z M10,19c-3.9,0-7-3.1-7-7s3.1-7,7-7s7,3.1,7,7S13.9,19,10,19z"></path>
+              <rect x="17" y="17" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -9.2844 19.5856)" width="4" height="8"></rect>
+            </svg>
+          </span>
+            </div>
+        </div>
+
+        <div class="header-icons">
+            <a th:href="@{/login}" class="user-btn" title="Đăng ký / Đăng nhập" aria-label="Tài khoản">
+                <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+                    <path fill="currentColor"
+                          d="M17.75 14c1.24 0 2.25 1.01 2.25 2.25v.92c0 .57-.18 1.13-.52 1.6C18 20.9 15.5 22 12 22s-6-1.1-7.48-3.23c-.34-.47-.52-1.03-.52-1.6v-.92C4 15.01 5.01 14 6.25 14h11.5ZM12 2a5 5 0 1 1 0 10 5 5 0 0 1 0-10Z"/>
+                </svg>
+            </a>
+
+            <a class="cart-pill" href="#" title="Giỏ hàng">
+                <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
+                    <path fill="currentColor"
+                          d="M7 4h-2l-1 2h2l3.6 7.59-1.35 2.44C7.89 16.37 8.29 17 8.94 17h9.56v-2H9.42l1.1-2h7.25c.75 0 1.41-.41 1.75-1.03L22 7H6.42l-.7-1h1.28L7 4Zm-1 16a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm12 0a2 2 0 1 0 .001-3.999A2 2 0 0 0 18 20Z"/>
+                </svg>
+                <span>Giỏ hàng</span>
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="menu-bar">
+    <div class="container menu-inner">
+
+        <!-- Danh Mục Sản Phẩm -->
+        <div class="dropdown">
+            <a href="#">☰ DANH MỤC SẢN PHẨM</a>
+            <ul class="dropdown-content">
+                <li class="has-submenu">
+                    <a href="#">
+                        <img class="menu-icon" th:src="@{/Home/Skincare.png}" alt="Chăm sóc da mặt" >Chăm sóc da mặt </a>
+                    <ul class="submenu">
+                        <li><a href="#">Tẩy Trang<span class="count">6</span></a></li>
+                        <li><a href="#">Sữa Rửa Mặt<span class="count">15</span></a></li>
+                        <li><a href="#">Tẩy Tế Bào Chết<span class="count">5</span></a></li>
+                        <li><a href="#">Kem dưỡng/Gel dưỡng<span class="count">8</span></a></li>
+                        <li><a href="#">Toner / Lotion<span class="count">10</span></a></li>
+                        <li><a href="#">Serum / Essence<span class="count">9</span></a></li>
+                        <li><a href="#">Son Dưỡng<span class="count">7</span></a></li>
+                        <li><a href="#">Chống Nắng<span class="count">15</span></a></li>
+                        <li><a href="#">Xịt khoáng<span class="count">11</span></a></li>
+                    </ul>
+                </li>
+
+                <!--Trang điểm-->
+                <li class="has-submenu">
+                    <a href="#">
+                        <img class="menu-icon" th:src="@{/Home/Makeup.png}" alt="Trang điểm" >Trang điểm </a>
+                    <ul class="submenu">
+                        <li><a href="#">Kem Lót<span class="count">5</span></a></li>
+                        <li><a href="#">Che Khuyết Điểm<span class="count">10</span></a></li>
+                        <li><a href="#">Highlight<span class="count">6</span></a></li>
+                        <li><a href="#">Masccara<span class="count">8</span></a></li>
+                        <li><a href="#">Son Môi<span class="count">9</span></a></li>
+                        <li><a href="#">Kem Nền<span class="count">11</span></a></li>
+                        <li><a href="#">Son Dưỡng<span class="count">7</span></a></li>
+                        <li><a href="#">Phấn Phủ<span class="count">8</span></a></li>
+                        <li><a href="#">Xịt Khoá Nền<span class="count">11</span></a></li>
+                    </ul>
+                </li>
+
+                <!--Chăm sóc cơ thể-->
+                <li class="has-submenu">
+                    <a href="#">
+                        <img class="menu-icon" th:src="@{/Home/Bodycare.png}" alt="Chăm sóc cơ thể" >Chăm sóc cơ thể </a>
+                    <ul class="submenu">
+                        <li><a href="#">Sữa Tắm<span class="count">16</span></a></li>
+                        <li><a href="#">Dưỡng Thể<span class="count">10</span></a></li>
+                        <li><a href="#">Tẩy Tế Bào Chết Body<span class="count">12</span></a></li>
+                        <li><a href="#">Chăm Sóc Răng Miệng<span class="count">13</span></a></li>
+                        <li><a href="#">Xịt Khử Mùi<span class="count">6</span></a></li>
+                        <li><a href="#">Kem Dưỡng Da Tay<span class="count">9</span></a></li>
+                        <li><a href="#">Giảm Mụn Lưng<span class="count">10</span></a></li>
+                    </ul>
+                </li>
+
+                <!--Chăm sóc cơ thể-->
+                <li class="has-submenu">
+                    <a href="#">
+                        <img class="menu-icon" th:src="@{/Home/Haircare.png}" alt="Chăm sóc tóc" >Chăm sóc tóc </a>
+                    <ul class="submenu">
+                        <li><a href="#">Dầu Gội<span class="count">16</span></a></li>
+                        <li><a href="#">Dầu Xả<span class="count">10</span></a></li>
+                        <li><a href="#">Ủ Tóc<span class="count">6</span></a></li>
+                        <li><a href="#">Tinh Chất Dưỡng Tóc<span class="count">8</span></a></li>
+                        <li><a href="#">Tẩy Tế Bào Chết Da Đầu<span class="count">5</span></a></li>
+                    </ul>
+                </li>
+                <!--Dược mỹ phẩm -->
+                <li class="has-submenu">
+                    <a href="#">
+                        <img class="menu-icon" th:src="@{/Home/Cosmeceuticals.png}" alt="Dược mỹ phẩm">Dược mỹ phẩm
+                    </a>
+                    <ul class="submenu">
+                        <li><a href="#">Sản phẩm trị mụn <span class="count">11</span></a></li>
+                        <li><a href="#">Chống lão hóa <span class="count">6</span></a></li>
+                        <li><a href="#">Làm sáng da <span class="count">9</span></a></li>
+                        <li><a href="#">Phục hồi da sau điều trị <span class="count">4</span></a></li>
+                        <li><a href="#">Sản phẩm đặc trị <span class="count">8</span></a></li>
+                        <li><a href="#">Sản phẩm mờ thâm mụn  <span class="count">4</span></a></li>
+                        <li><a href="#">Sữa rửa mặt hỗ trợ trị mụn <span class="count">8</span></a></li>
+                    </ul>
+                </li>
+                <!-- Thực phẩm chức năng -->
+                <li class="has-submenu">
+                    <a href="#">
+                        <img class="menu-icon" th:src="@{/Home/Health-supplements.png}" alt="Thực phẩm chức năng">
+                        Thực phẩm chức năng
+                    </a>
+                    <ul class="submenu">
+                        <li><a href="#">Vitamin & Khoáng chất <span class="count">18</span></a></li>
+                        <li><a href="#">Thực phẩm bổ sung Collagen <span class="count">9</span></a></li>
+                        <li><a href="#">Tăng cường đề kháng <span class="count">12</span></a></li>
+                        <li><a href="#">Thực phẩm hỗ trợ tiêu hóa <span class="count">7</span></a></li>
+                        <li><a href="#">Hỗ trợ xương khớp <span class="count">10</span></a></li>
+                        <li><a href="#">Giảm cân & Detox <span class="count">8</span></a></li>
+                        <li><a href="#">Sản phẩm cho trẻ em <span class="count">6</span></a></li>
+                        <li><a href="#">Sản phẩm cho người lớn tuổi <span class="count">5</span></a></li>
+                    </ul>
+                </li>
+                <!-- Best Seller -->
+                <li class="has-submenu">
+                    <a href="#">
+                        <img class="menu-icon" th:src="@{/Home/Best-seller.png}" alt="Best Seller">
+                        BEST SELLER
+                    </a>
+                    <ul class="submenu">
+                        <li><a href="#">Top Skincare bán chạy <span class="count">12</span></a></li>
+                        <li><a href="#">Top Makeup bán chạy <span class="count">9</span></a></li>
+                        <li><a href="#">Top Bodycare bán chạy <span class="count">7</span></a></li>
+                        <li><a href="#">Top Haircare bán chạy <span class="count">5</span></a></li>
+                        <li><a href="#">Top Thực phẩm chức năng <span class="count">6</span></a></li>
+                        <li><a href="#">Top Dược mỹ phẩm <span class="count">4</span></a></li>
+                        <li><a href="#">Top Nước hoa bán chạy <span class="count">8</span></a></li>
+                        <li><a href="#">Top Phụ kiện làm đẹp <span class="count">10</span></a></li>
+                        <li><a href="#">Top Chăm sóc răng miệng <span class="count">3</span></a></li>
+                        <li><a href="#">Top Sản phẩm organic <span class="count">6</span></a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <a href="#">SẢN PHẨM MỚI</a>
+
+        <!-- Lam Thảo Beauty -->
+        <div class="dropdown">
+            <a href="#">NAI VANG BEAUTY</a>
+            <ul class="dropdown-content">
+                <li><a href="#">Thương hiệu A</a></li>
+                <li><a href="#">Thương hiệu B</a></li>
+                <li><a href="#">Thương hiệu C</a></li>
+            </ul>
+        </div>
+
+        <!-- Deal hot -->
+        <a href="#">💖 DEAL HOT DƯỚI 100K 💖</a>
+
+        <!-- Tin tức -->
+        <div class="dropdown">
+            <a href="/Blog">TIN TỨC</a>
+        </div>
+
+        <!-- Tra cứu đơn -->
+        <a href="#">TRA CỨU ĐƠN HÀNG</a>
+    </div>
+</div>
+
+<main class="wrapperMain_content">
+    <div class="inslideron">
+        <div class="slider-viewport">
+            <div class="slider">
+                <div class="slide"><img th:src="@{/Home/Banner1.jpeg}" alt="Banner 1"></div>
+                <div class="slide"><img th:src="@{/Home/Banner2.jpeg}" alt="Banner 2"></div>
+                <div class="slide"><img th:src="@{/Home/Banner3.png}" alt="Banner 3"></div>
+            </div>
+        </div>
+        <button class="nav prev" aria-label="Previous">&#10094;</button>
+        <button class="nav next" aria-label="Next">&#10095;</button>
+    </div>
+</main>
+
+<section class="flash-sale">
+    <div class="fs-header">
+        <h2>Flash <span><img th:src="@{/Home/Flashsale.png}" alt="flashsale"></span> Sale</h2>
+        <div class="fs-right">
+            <a class="fs-viewall" href="#">Xem tất cả »</a>
+        </div>
+    </div>
+
+    <div class="fs-viewport">
+        <div class="fs-track" id="fsTrack">
+            <!-- CARD 1 -->
+            <article class="fs-card">
+                <img th:src="@{/Home/Mediheal.jpg}" alt="Mediheal">
+                <h3 class="fs-brand">MEDIHEAL</h3>
+                <p class="fs-name">[DUY NHẤT TẠI CH: DEAL SỐC 07.09 - 09.09 KHI MUA COMBO 5 MIẾNG] Mặt Nạ Dưỡng Da Mediheal Essential Mask</p>
+                <div class="fs-price">
+                    <span class="new">23,000đ</span>
+                    <span class="old">35,000đ</span>
+                    <span class="discount">-34%</span>
+                </div>
+                <div class="fs-meta">⭐ 5.0 <span>Đã bán 21,783</span></div>
+                <div class="fs-progress"><span style="width:70%"></span></div>
+            </article>
+
+            <!-- CARD 2 -->
+            <article class="fs-card">
+                <img th:src="@{/Home/Colorkey.jpg}" alt="Colorkey">
+                <h3 class="fs-brand">COLORKEY</h3>
+                <p class="fs-name">[DUY NHẤT TẠI CH: DEAL SỐC 07.09 - 09.09 KHI MUA COMBO 15 MIẾNG] Mặt Nạ Dưỡng Ẩm Dịu Da Colorkey</p>
+                <div class="fs-price">
+                    <span class="new">10,000đ</span>
+                    <span class="old">12,000đ</span>
+                    <span class="discount">-17%</span>
+                </div>
+                <div class="fs-meta">⭐ 5.0 <span>Đã bán 10,454</span></div>
+                <div class="fs-progress"><span style="width:40%"></span></div>
+            </article>
+
+            <!-- CARD 3 -->
+            <article class="fs-card">
+                <img th:src="@{/Home/Daugoicocoon.png}" alt="Dầu gội bưởi Cocoon">
+                <h3 class="fs-brand">COCOON</h3>
+                <p class="fs-name">[DEAL SỐC] Mua 2 dầu gội bưởi Cocoon tặng 1 dầu xả bưởi 150ml</p>
+                <div class="fs-price">
+                    <span class="new">350,000đ</span>
+                    <span class="old">500,000đ</span>
+                    <span class="discount">-30%</span>
+                </div>
+                <div class="fs-meta">⭐ 5.0 <span>Đã bán 8,000</span></div>
+                <div class="fs-progress"><span style="width:40%"></span></div>
+            </article>
+
+            <!-- CARD 4 -->
+            <article class="fs-card">
+                <img th:src="@{/Home/Vitaminccocoon.png}" alt="Serum Vitamin C 20%">
+                <h3 class="fs-brand">COCOON</h3>
+                <p class="fs-name">[DEAL SỐC] Combo Serum Vitamin C Cocoon 20%</p>
+                <div class="fs-price">
+                    <span class="new">375,000đ</span>
+                    <span class="old">500,000đ</span>
+                    <span class="discount">-25%</span>
+                </div>
+                <div class="fs-meta">⭐ 5.0 <span>Đã bán 9,000</span></div>
+                <div class="fs-progress"><span style="width:45%"></span></div>
+            </article>
+
+            <!-- CARD 5 -->
+            <article class="fs-card">
+                <img th:src="@{/Home/Matnatoyen.jpg}" alt="Mặt Nạ Tổ Yến">
+                <h3 class="fs-brand">JM SOLUTION</h3>
+                <p class="fs-name">[DEAL SỐC] Mặt nạ tổ yến dưỡng ẩm sáng da 5 miếng</p>
+                <div class="fs-price">
+                    <span class="new">200,000đ</span>
+                    <span class="old">400,000đ</span>
+                    <span class="discount">-50%</span>
+                </div>
+                <div class="fs-meta">⭐ 5.0 <span>Đã bán 7,500</span></div>
+                <div class="fs-progress"><span style="width:70%"></span></div>
+            </article>
+
+            <!-- CARD 6 -->
+            <article class="fs-card">
+                <img th:src="@{/Home/Ttbccocoon.jpg}" alt="Tẩy tế bào chết Cocoon">
+                <h3 class="fs-brand">COCOON</h3>
+                <p class="fs-name">[DEAL SỐC] Tẩy tế bào chết cà phê Cocoon 200ml</p>
+                <div class="fs-price">
+                    <span class="new">350,000đ</span>
+                    <span class="old">245,000đ</span>
+                    <span class="discount">-30%</span>
+                </div>
+                <div class="fs-meta">⭐ 5.0 <span>Đã bán 11,500</span></div>
+                <div class="fs-progress"><span style="width:60%"></span></div>
+            </article>
+        </div>
+
+    </div>
+</section>
+
+<!--Danh mục sản phẩm khuyến mãi xem trước-->
+<div class="product-section">
+    <div class="section-header">
+        <h2><img th:src="@{/Home/Hot-deal.png}" alt="flashsale"><span>TỰU TRƯỜNG RẠNG RỠ</span><img th:src="@{/Home/Hot-deal.png}" alt="flashsale"></h2>
+        <p>SALE NGON HẾT CỠ</p>
+        <div class="pv-right">
+            <a class="viewall" href="#">Xem tất cả »</a>
+        </div>
+    </div>
+
+    <div class="product-scroll">
+        <!-- Product 1 -->
+        <div class="product-card">
+            <img th:src="@{/Home/Toocool.jpg}" alt="Product 1">
+            <h3>Phấn Tạo Khối Too Cool For School</h3>
+            <div class="price">
+                <span class="old">320,000đ</span>
+                <span class="new">245,000đ</span>
+                <span class="discount">-23%</span>
+            </div>
+            <div class="rating">⭐ 5.0 <span>Đã bán 440</span></div>
+            <div class="fs-progress"><span style="width:70%"></span></div>
+        </div>
+
+        <!-- Product 2 -->
+        <div class="product-card">
+            <img th:src="@{/Home/Sonkem.jpg}" alt="Product 2">
+            <h3>Son Kem Black Rouge</h3>
+            <div class="price">
+                <span class="old">318,000đ</span>
+                <span class="new">189,000đ</span>
+                <span class="discount">-41%</span>
+            </div>
+            <div class="rating">⭐ 5.0 <span>Đã bán 15478</span></div>
+            <div class="fs-progress"><span style="width:60%"></span></div>
+        </div>
+
+        <!-- Product 3 -->
+        <div class="product-card">
+            <img th:src="@{/Home/Chike.jpg}" alt="Product 3">
+            <h3>Chì Kẻ Chân Mày Perfect Diary</h3>
+            <div class="price">
+                <span class="old">219,000đ</span>
+                <span class="new">134,000đ</span>
+                <span class="discount">-39%</span>
+            </div>
+            <div class="rating">⭐ 5.0 <span>Đã bán 79</span></div>
+            <div class="fs-progress"><span style="width:50%"></span></div>
+        </div>
+
+        <!-- Product 4 -->
+        <div class="product-card">
+            <img th:src="@{/Home/Vasaline1.jpg}" alt="Product 3">
+            <h3>Dưỡng môi Vasaline</h3>
+            <div class="price">
+                <span class="old">120,000đ</span>
+                <span class="new">80,000đ</span>
+                <span class="discount">-39%</span>
+            </div>
+            <div class="rating">⭐ 5.0 <span>Đã bán 100</span></div>
+            <div class="fs-progress"><span style="width:85%"></span></div>
+        </div>
+
+        <!-- Product 5 -->
+        <div class="product-card">
+            <img th:src="@{/Home/Victoria.jpg}" alt="Product 3">
+            <h3>Body mist Victoria Secret</h3>
+            <div class="price">
+                <span class="old">500,000</span>
+                <span class="new">410,000đ</span>
+                <span class="discount">-39%</span>
+            </div>
+            <div class="rating">⭐ 5.0 <span>Đã bán 200</span></div>
+            <div class="fs-progress"><span style="width:98%"></span></div>
+        </div>
+
+        <!-- Product 6 -->
+        <div class="product-card">
+            <img th:src="@{/Home/Anessa.png}" alt="Product 3">
+            <h3>Kem chống nắng Anessa</h3>
+            <div class="price">
+                <span class="old">600,000đ</span>
+                <span class="new">509,000đ</span>
+                <span class="discount">-39%</span>
+            </div>
+            <div class="rating">⭐ 5.0 <span>Đã bán 80</span></div>
+            <div class="fs-progress"><span style="width:84%"></span></div>
+        </div>
+
+        <!-- Product 7 -->
+        <div class="product-card">
+            <img th:src="@{/Home/Lorial.jpg}" alt="Product 3">
+            <h3>Nước tẩy trang Lorial</h3>
+            <div class="price">
+                <span class="old">190,000đ</span>
+                <span class="new">155,000đ</span>
+                <span class="discount">-20%</span>
+            </div>
+            <div class="rating">⭐ 5.0 <span>Đã bán 99</span></div>
+            <div class="fs-progress"><span style="width:70%"></span></div>
+        </div>
+    </div>
+</div>
+
+<!---SẢN PHẨM MỚI--->
+<div class="product-section">
+    <div class="section-header">
+        <h2><span>SẢN PHẨM MỚI</span></h2>
+        <div class="pv-right">
+            <a class="viewall" href="#">Xem tất cả »</a>
+        </div>
+    </div>
+
+    <div class="product-scroll">
+        <!-- Product 1 -->
+        <div class="product-card">
+            <img th:src="@{/Home/Serummdcare.jpg}" alt="Product 1">
+            <h3>Serum Medicare</h3>
+            <div class="price">
+                <span class="now">320,000đ</span>
+            </div>
+            <div class="rating">⭐ 5.0 <span>Đã bán 440</span></div>
+            <div class="fs-progress"><span style="width:70%"></span></div>
+        </div>
+
+        <!-- Product 2 -->
+        <div class="product-card">
+            <img th:src="@{/Home/Tonerpad.jpg}" alt="Product 2">
+            <h3>Toner Pad</h3>
+            <div class="price">
+                <span class="now">318,000đ</span>
+            </div>
+            <div class="rating">⭐ 5.0 <span>Đã bán 15478</span></div>
+            <div class="fs-progress"><span style="width:60%"></span></div>
+        </div>
+
+        <!-- Product 3 -->
+        <div class="product-card">
+            <img th:src="@{/Home/Xitthomtoanthan.jpg}" alt="Product 3">
+            <h3>Xịt thơm toàn thân</h3>
+            <div class="price">
+                <span class="now">219,000đ</span>
+            </div>
+            <div class="rating">⭐ 5.0 <span>Đã bán 79</span></div>
+            <div class="fs-progress"><span style="width:50%"></span></div>
+        </div>
+
+        <!-- Product 4 -->
+        <div class="product-card">
+            <img th:src="@{/Home/Xitkhoa.jpg}" alt="Product 3">
+            <h3>Xịt khoá nền Makeup</h3>
+            <div class="price">
+                <span class="now">120,000đ</span>
+            </div>
+            <div class="rating">⭐ 5.0 <span>Đã bán 100</span></div>
+            <div class="fs-progress"><span style="width:85%"></span></div>
+        </div>
+
+        <!-- Product 5 -->
+        <div class="product-card">
+            <img th:src="@{/Home/Buttaokhoi.png}" alt="Product 3">
+            <h3>Bút tạo khối</h3>
+            <div class="price">
+                <span class="now">500,000</span>
+            </div>
+            <div class="rating">⭐ 5.0 <span>Đã bán 200</span></div>
+            <div class="fs-progress"><span style="width:98%"></span></div>
+        </div>
+
+        <!-- Product 6 -->
+        <div class="product-card">
+            <img th:src="@{/Home/Phanma.jpg}" alt="Product 3">
+            <h3>Phấn má hồng đơn sắc</h3>
+            <div class="price">
+                <span class="now">600,000đ</span>
+            </div>
+            <div class="rating">⭐ 5.0 <span>Đã bán 80</span></div>
+            <div class="fs-progress"><span style="width:84%"></span></div>
+        </div>
+
+        <!-- Product 7 -->
+        <div class="product-card">
+            <img th:src="@{/Home/Sonkemnhung.jpg}" alt="Product 3">
+            <h3>Son Kem Nhung, Mịn Lì Colorkey Airy Velvet Lip Lacquer (Phiên Bản Mới)</h3>
+            <div class="price">
+                <span class="old">190,000đ</span>
+                <span class="new">155,000đ</span>
+                <span class="discount">-20%</span>
+            </div>
+            <div class="rating">⭐ 5.0 <span>Đã bán 99</span></div>
+            <div class="fs-progress"><span style="width:70%"></span></div>
+        </div>
+    </div>
+</div>
+
+<!--TOP SP NỔI BẬT-->
+<div class="container">
+    <h2 class="section-title">TOP SẢN PHẨM BÁN CHẠY</h2>
+    <ul class="tab-menu">
+        <li class="active" data-tab="mask">Mặt nạ</li>
+        <li data-tab="lipstick">Son môi</li>
+        <li data-tab="cleanser">Tẩy trang</li>
+        <li data-tab="sunscreen">Kem chống nắng</li>
+        <li data-tab="chamsocdamat">Chăm sóc da mặt</li>
+        <li data-tab="duongam">Chăm sóc cơ thể</li>
+    </ul>
+</div>
+
+<div class="bestseller-section">
+    <div class="container">
+        <!-- Tab Mặt nạ -->
+        <div class="tab-content active" id="mask">
+            <div class="bestseller-content">
+                <div class="banner-left"><img th:src="@{/Home/Topmatna.png}" alt="Top mặt nạ"></div>
+                <div class="product-grid">
+                    <div class="product-card">
+                        <img th:src="@{/Home/Matnatoyen.jpg}" alt="Mặt nạ dưỡng ẩm">
+                        <h3>Mặt nạ dưỡng ẩm Mediheal</h3>
+                        <div class="price"><span class="old">35,000đ</span><span class="new">23,000đ</span><span class="discount">-34%</span></div>
+                        <div class="rating">⭐ 5.0 <span>Đã bán 21,783</span></div>
+                    </div>
+                    <div class="product-card">
+                        <img th:src="@{/Home/Mediheal.jpg}" alt="Mặt nạ trà xanh">
+                        <h3>Mặt nạ trà xanh Cocoon</h3>
+                        <div class="price"><span class="old">30,000đ</span><span class="new">20,000đ</span><span class="discount">-33%</span></div>
+                        <div class="rating">⭐ 4.9 <span>Đã bán 9,500</span></div>
+                    </div>
+                    <div class="product-card">
+                        <img th:src="@{/Home/Mediheal.jpg}" alt="Mặt nạ Collagen">
+                        <h3>Mặt nạ Collagen dưỡng da</h3>
+                        <div class="price"><span class="old">40,000đ</span><span class="new">28,000đ</span><span class="discount">-30%</span></div>
+                        <div class="rating">⭐ 4.8 <span>Đã bán 12,000</span></div>
+                    </div>
+                    <div class="product-card">
+                        <img th:src="@{/Home/Mediheal.jpg}" alt="Mặt nạ ngọc trai">
+                        <h3>Mặt nạ ngọc trai dưỡng sáng</h3>
+                        <div class="price"><span class="old">32,000đ</span><span class="new">25,000đ</span><span class="discount">-22%</span></div>
+                        <div class="rating">⭐ 5.0 <span>Đã bán 7,600</span></div>
+                    </div>
+                    <div class="product-card">
+                        <img th:src="@{/Home/Matnatoyen.jpg}" alt="Mặt nạ dưỡng ẩm">
+                        <h3>Mặt nạ dưỡng ẩm Mediheal</h3>
+                        <div class="price"><span class="old">35,000đ</span><span class="new">23,000đ</span><span class="discount">-34%</span></div>
+                        <div class="rating">⭐ 5.0 <span>Đã bán 21,783</span></div>
+                    </div>
+                    <div class="product-card">
+                        <img th:src="@{/Home/Matnatoyen.jpg}" alt="Mặt nạ trà xanh">
+                        <h3>Mặt nạ trà xanh Cocoon</h3>
+                        <div class="price"><span class="old">30,000đ</span><span class="new">20,000đ</span><span class="discount">-33%</span></div>
+                        <div class="rating">⭐ 4.9 <span>Đã bán 9,500</span></div>
+                    </div>
+                    <div class="product-card">
+                        <img th:src="@{/Home/Matnatoyen.jpg}" alt="Mặt nạ Collagen">
+                        <h3>Mặt nạ Collagen dưỡng da</h3>
+                        <div class="price"><span class="old">40,000đ</span><span class="new">28,000đ</span><span class="discount">-30%</span></div>
+                        <div class="rating">⭐ 4.8 <span>Đã bán 12,000</span></div>
+                    </div>
+                    <div class="product-card">
+                        <img th:src="@{/Home/Matnatoyen.jpg}" alt="Mặt nạ ngọc trai">
+                        <h3>Mặt nạ ngọc trai dưỡng sáng</h3>
+                        <div class="price"><span class="old">32,000đ</span><span class="new">25,000đ</span><span class="discount">-22%</span></div>
+                        <div class="rating">⭐ 5.0 <span>Đã bán 7,600</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab Son môi -->
+        <div class="tab-content" id="lipstick">
+            <div class="bestseller-content">
+                <div class="banner-left"><img th:src="@{/Home/Sonmoibanner.png}" alt="Top son mới"></div>
+                <div class="product-grid">
+                    <div class="product-card">
+                        <img th:src="@{/Home/Sonkem.jpg}" alt="Son kem lì">
+                        <h3>Son kem lì Black Rouge</h3>
+                        <div class="price"><span class="old">318,000đ</span><span class="new">189,000đ</span><span class="discount">-41%</span></div>
+                        <div class="rating">⭐ 5.0 <span>Đã bán 15,478</span></div>
+                    </div>
+                    <div class="product-card">
+                        <img th:src="@{/Home/Sonkemnhung.jpg}" alt="Son dưỡng môi">
+                        <h3>Son dưỡng môi Vaseline</h3>
+                        <div class="price"><span class="old">120,000đ</span><span class="new">80,000đ</span><span class="discount">-33%</span></div>
+                        <div class="rating">⭐ 4.9 <span>Đã bán 8,400</span></div>
+                    </div>
+                    <div class="product-card">
+                        <img th:src="@{/Home/Sonkemnhung.jpg}" alt="Son lì 3CE">
+                        <h3>Son lì 3CE Mood Recipe</h3>
+                        <div class="price"><span class="old">350,000đ</span><span class="new">290,000đ</span><span class="discount">-17%</span></div>
+                        <div class="rating">⭐ 4.8 <span>Đã bán 6,200</span></div>
+                    </div>
+                    <div class="product-card">
+                        <img th:src="@{/Home/Sonkem.jpg}" alt="Son YSL">
+                        <h3>Son lì YSL Rouge Pur Couture</h3>
+                        <div class="price"><span class="old">950,000đ</span><span class="new">820,000đ</span><span class="discount">-14%</span></div>
+                        <div class="rating">⭐ 5.0 <span>Đã bán 3,100</span></div>
+                    </div>
+                    <div class="product-card">
+                        <img th:src="@{/Home/Sonkemnhung.jpg}" alt="Son kem lì">
+                        <h3>Son kem lì Black Rouge</h3>
+                        <div class="price"><span class="old">318,000đ</span><span class="new">189,000đ</span><span class="discount">-41%</span></div>
+                        <div class="rating">⭐ 5.0 <span>Đã bán 15,478</span></div>
+                    </div>
+                    <div class="product-card">
+                        <img th:src="@{/Home/Sonkem.jpg}" alt="Son dưỡng môi">
+                        <h3>Son dưỡng môi Vaseline</h3>
+                        <div class="price"><span class="old">120,000đ</span><span class="new">80,000đ</span><span class="discount">-33%</span></div>
+                        <div class="rating">⭐ 4.9 <span>Đã bán 8,400</span></div>
+                    </div>
+                    <div class="product-card">
+                        <img th:src="@{/Home/Sonkemnhung.jpg}" alt="Son lì 3CE">
+                        <h3>Son lì 3CE Mood Recipe</h3>
+                        <div class="price"><span class="old">350,000đ</span><span class="new">290,000đ</span><span class="discount">-17%</span></div>
+                        <div class="rating">⭐ 4.8 <span>Đã bán 6,200</span></div>
+                    </div>
+                    <div class="product-card">
+                        <img th:src="@{/Home/Sonkem.jpg}" alt="Son YSL">
+                        <h3>Son lì YSL Rouge Pur Couture</h3>
+                        <div class="price"><span class="old">950,000đ</span><span class="new">820,000đ</span><span class="discount">-14%</span></div>
+                        <div class="rating">⭐ 5.0 <span>Đã bán 3,100</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab Tẩy trang -->
+        <div class="tab-content" id="cleanser">
+            <div class="bestseller-content">
+                <div class="banner-left"><img th:src="@{/Home/Taytrangbanner.png}" alt="Tẩy trang"></div>
+                <div class="product-grid">
+                    <div class="product-card">
+                        <img th:src="@{/Home/Lorial.jpg}" alt="Nước tẩy trang">
+                        <h3>Nước tẩy trang L'Oréal</h3>
+                        <div class="price"><span class="old">190,000đ</span><span class="new">155,000đ</span><span class="discount">-20%</span></div>
+                        <div class="rating">⭐ 5.0 <span>Đã bán 9,900</span></div>
+                    </div>
+                    <div class="product-card">
+                        <img th:src="@{/Home/Lorial.jpg}" alt="Nước tẩy trang Garnier">
+                        <h3>Nước tẩy trang Garnier Micellar</h3>
+                        <div class="price"><span class="old">200,000đ</span><span class="new">170,000đ</span><span class="discount">-15%</span></div>
+                        <div class="rating">⭐ 4.9 <span>Đã bán 7,800</span></div>
+                    </div>
+                    <div class="product-card">
+                        <img th:src="@{/Home/Lorial.jpg}" alt="Bioderma">
+                        <h3>Nước tẩy trang Bioderma Sensibio H2O</h3>
+                        <div class="price"><span class="old">250,000đ</span><span class="new">210,000đ</span><span class="discount">-16%</span></div>
+                        <div class="rating">⭐ 5.0 <span>Đã bán 6,400</span></div>
+                    </div>
+                    <div class="product-card">
+                        <img th:src="@{/Home/Lorial.jpg}" alt="Nước tẩy trang Nivea">
+                        <h3>Nước tẩy trang Nivea Pearl White</h3>
+                        <div class="price"><span class="old">150,000đ</span><span class="new">120,000đ</span><span class="discount">-20%</span></div>
+                        <div class="rating">⭐ 4.8 <span>Đã bán 5,900</span></div>
+                    </div>
+                    <div class="product-card">
+                        <img th:src="@{/Home/Lorial.jpg}" alt="Nước tẩy trang">
+                        <h3>Nước tẩy trang L'Oréal</h3>
+                        <div class="price"><span class="old">190,000đ</span><span class="new">155,000đ</span><span class="discount">-20%</span></div>
+                        <div class="rating">⭐ 5.0 <span>Đã bán 9,900</span></div>
+                    </div>
+                    <div class="product-card">
+                        <img th:src="@{/Home/Lorial.jpg}" alt="Nước tẩy trang Garnier">
+                        <h3>Nước tẩy trang Garnier Micellar</h3>
+                        <div class="price"><span class="old">200,000đ</span><span class="new">170,000đ</span><span class="discount">-15%</span></div>
+                        <div class="rating">⭐ 4.9 <span>Đã bán 7,800</span></div>
+                    </div>
+                    <div class="product-card">
+                        <img th:src="@{/Home/Lorial.jpg}" alt="Bioderma">
+                        <h3>Nước tẩy trang Bioderma Sensibio H2O</h3>
+                        <div class="price"><span class="old">250,000đ</span><span class="new">210,000đ</span><span class="discount">-16%</span></div>
+                        <div class="rating">⭐ 5.0 <span>Đã bán 6,400</span></div>
+                    </div>
+                    <div class="product-card">
+                        <img th:src="@{/Home/Lorial.jpg}" alt="Nước tẩy trang Nivea">
+                        <h3>Nước tẩy trang Nivea Pearl White</h3>
+                        <div class="price"><span class="old">150,000đ</span><span class="new">120,000đ</span><span class="discount">-20%</span></div>
+                        <div class="rating">⭐ 4.8 <span>Đã bán 5,900</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab Kem chống nắng -->
+        <div class="tab-content" id="sunscreen">
+            <div class="bestseller-content">
+                <div class="banner-left"><img th:src="@{/Home/Chongnangbanner.png}" alt="Kem chống nắng"></div>
+                <div class="product-grid">
+                    <div class="product-card">
+                        <img th:src="@{/Home/Anessa.png}" alt="Kem chống nắng Anessa">
+                        <h3>Kem chống nắng Anessa Perfect UV</h3>
+                        <div class="price"><span class="old">450,000đ</span><span class="new">390,000đ</span><span class="discount">-13%</span></div>
+                        <div class="rating">⭐ 5.0 <span>Đã bán 12,300</span></div>
+                    </div>
+                    <div class="product-card">
+                        <img th:src="@{/Home/Anessa.png}" alt="Kem chống nắng Biore">
+                        <h3>Kem chống nắng Biore UV Aqua Rich</h3>
+                        <div class="price"><span class="old">220,000đ</span><span class="new">180,000đ</span><span class="discount">-18%</span></div>
+                        <div class="rating">⭐ 4.9 <span>Đã bán 8,700</span></div>
+                    </div>
+                    <div class="product-card">
+                        <img th:src="@{/Home/Anessa.png}" alt="Kem chống nắng La Roche-Posay">
+                        <h3>Kem chống nắng La Roche-Posay Anthelios</h3>
+                        <div class="price"><span class="old">400,000đ</span><span class="new">340,000đ</span><span class="discount">-15%</span></div>
+                        <div class="rating">⭐ 5.0 <span>Đã bán 9,200</span></div>
+                    </div>
+                    <div class="product-card">
+                        <img th:src="@{/Home/Anessa.png}" alt="Kem chống nắng Innisfree">
+                        <h3>Kem chống nắng Innisfree Daily UV</h3>
+                        <div class="price"><span class="old">280,000đ</span><span class="new">210,000đ</span><span class="discount">-25%</span></div>
+                        <div class="rating">⭐ 4.8 <span>Đã bán 6,800</span></div>
+                    </div>
+                    <div class="product-card">
+                        <img th:src="@{/Home/Anessa.png}" alt="Kem chống nắng Anessa">
+                        <h3>Kem chống nắng Anessa Perfect UV</h3>
+                        <div class="price"><span class="old">450,000đ</span><span class="new">390,000đ</span><span class="discount">-13%</span></div>
+                        <div class="rating">⭐ 5.0 <span>Đã bán 12,300</span></div>
+                    </div>
+                    <div class="product-card">
+                        <img th:src="@{/Home/Anessa.png}" alt="Kem chống nắng Biore">
+                        <h3>Kem chống nắng Biore UV Aqua Rich</h3>
+                        <div class="price"><span class="old">220,000đ</span><span class="new">180,000đ</span><span class="discount">-18%</span></div>
+                        <div class="rating">⭐ 4.9 <span>Đã bán 8,700</span></div>
+                    </div>
+                    <div class="product-card">
+                        <img th:src="@{/Home/Anessa.png}" alt="Kem chống nắng La Roche-Posay">
+                        <h3>Kem chống nắng La Roche-Posay Anthelios</h3>
+                        <div class="price"><span class="old">400,000đ</span><span class="new">340,000đ</span><span class="discount">-15%</span></div>
+                        <div class="rating">⭐ 5.0 <span>Đã bán 9,200</span></div>
+                    </div>
+                    <div class="product-card">
+                        <img th:src="@{/Home/Anessa.png}" alt="Kem chống nắng Innisfree">
+                        <h3>Kem chống nắng Innisfree Daily UV</h3>
+                        <div class="price"><span class="old">280,000đ</span><span class="new">210,000đ</span><span class="discount">-25%</span></div>
+                        <div class="rating">⭐ 4.8 <span>Đã bán 6,800</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab Chăm sóc da mặt -->
+        <div class="tab-content" id="chamsocdamat">
+            <div class="bestseller-content">
+                <div class="banner-left"><img th:src="@{/Home/Srm.png}" alt="Chăm sóc da mặt"></div>
+                <div class="product-grid">
+                    <div class="product-card">
+                        <img th:src="@{/Home/Srmcerave.jpg}" alt="SRM Innisfree">
+                        <h3>Sữa rửa mặt Innisfree Green Tea</h3>
+                        <div class="price"><span class="old">220,000đ</span><span class="new">180,000đ</span><span class="discount">-18%</span></div>
+                        <div class="rating">⭐ 5.0 <span>Đã bán 7,300</span></div>
+                    </div>
+                    <div class="product-card">
+                        <img th:src="@{/Home/Srmcerave.jpg}" alt="SRM Senka">
+                        <h3>Sữa rửa mặt Senka Perfect Whip</h3>
+                        <div class="price"><span class="old">110,000đ</span><span class="new">89,000đ</span><span class="discount">-19%</span></div>
+                        <div class="rating">⭐ 4.9 <span>Đã bán 15,400</span></div>
+                    </div>
+                    <div class="product-card">
+                        <img th:src="@{/Home/Srmcerave.jpg}" alt="SRM Cetaphil">
+                        <h3>Sữa rửa mặt Cetaphil Gentle</h3>
+                        <div class="price"><span class="old">140,000đ</span><span class="new">115,000đ</span><span class="discount">-18%</span></div>
+                        <div class="rating">⭐ 5.0 <span>Đã bán 9,600</span></div>
+                    </div>
+                    <div class="product-card">
+                        <img th:src="@{/Home/Srmcerave.jpg}" alt="SRM Hada Labo">
+                        <h3>Sữa rửa mặt Hada Labo Advanced Nourish</h3>
+                        <div class="price"><span class="old">120,000đ</span><span class="new">98,000đ</span><span class="discount">-18%</span></div>
+                        <div class="rating">⭐ 4.9 <span>Đã bán 8,200</span></div>
+                    </div>
+
+                    <div class="product-card">
+                        <img th:src="@{/Home/Srmcerave.jpg}" alt="SRM Innisfree">
+                        <h3>Sữa rửa mặt Innisfree Green Tea</h3>
+                        <div class="price"><span class="old">220,000đ</span><span class="new">180,000đ</span><span class="discount">-18%</span></div>
+                        <div class="rating">⭐ 5.0 <span>Đã bán 7,300</span></div>
+                    </div>
+                    <div class="product-card">
+                        <img th:src="@{/Home/Srmcerave.jpg}" alt="SRM Senka">
+                        <h3>Sữa rửa mặt Senka Perfect Whip</h3>
+                        <div class="price"><span class="old">110,000đ</span><span class="new">89,000đ</span><span class="discount">-19%</span></div>
+                        <div class="rating">⭐ 4.9 <span>Đã bán 15,400</span></div>
+                    </div>
+                    <div class="product-card">
+                        <img th:src="@{/Home/Srmcerave.jpg}" alt="SRM Cetaphil">
+                        <h3>Sữa rửa mặt Cetaphil Gentle</h3>
+                        <div class="price"><span class="old">140,000đ</span><span class="new">115,000đ</span><span class="discount">-18%</span></div>
+                        <div class="rating">⭐ 5.0 <span>Đã bán 9,600</span></div>
+                    </div>
+                    <div class="product-card">
+                        <img th:src="@{/Home/Srmcerave.jpg}" alt="SRM Hada Labo">
+                        <h3>Sữa rửa mặt Hada Labo Advanced Nourish</h3>
+                        <div class="price"><span class="old">120,000đ</span><span class="new">98,000đ</span><span class="discount">-18%</span></div>
+                        <div class="rating">⭐ 4.9 <span>Đã bán 8,200</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab Chăm sóc cơ thể -->
+        <div class="tab-content" id="duongam">
+            <div class="bestseller-content">
+                <div class="banner-left"><img th:src="@{/Home/Cscothe.png}" alt="Chăm sóc cơ thể"></div>
+                <div class="product-grid">
+                    <div class="product-card">
+                        <img th:src="@{/Home/Kdalanei.webp}" alt="Kem dưỡng ẩm Cetaphil">
+                        <h3>Kem dưỡng ẩm Cetaphil Moisturizing Cream</h3>
+                        <div class="price"><span class="old">300,000đ</span><span class="new">250,000đ</span><span class="discount">-17%</span></div>
+                        <div class="rating">⭐ 5.0 <span>Đã bán 6,400</span></div>
+                    </div>
+                    <div class="product-card">
+                        <img th:src="@{/Home/Kdalanei.webp}" alt="Kem dưỡng ẩm Simple">
+                        <h3>Kem dưỡng ẩm Simple Kind To Skin</h3>
+                        <div class="price"><span class="old">180,000đ</span><span class="new">150,000đ</span><span class="discount">-17%</span></div>
+                        <div class="rating">⭐ 4.9 <span>Đã bán 5,200</span></div>
+                    </div>
+                    <div class="product-card">
+                        <img th:src="@{/Home/Kdalanei.webp}" alt="Kem dưỡng ẩm Laneige">
+                        <h3>Kem dưỡng ẩm Laneige Water Bank</h3>
+                        <div class="price"><span class="old">650,000đ</span><span class="new">560,000đ</span><span class="discount">-14%</span></div>
+                        <div class="rating">⭐ 5.0 <span>Đã bán 4,300</span></div>
+                    </div>
+                    <div class="product-card">
+                        <img th:src="@{/Home/Kdalanei.webp}" alt="Kem dưỡng ẩm The Ordinary">
+                        <h3>Kem dưỡng ẩm The Ordinary Natural Moisturizing</h3>
+                        <div class="price"><span class="old">280,000đ</span><span class="new">240,000đ</span><span class="discount">-14%</span></div>
+                        <div class="rating">⭐ 4.9 <span>Đã bán 5,800</span></div>
+                    </div>
+
+                    <div class="product-card">
+                        <img th:src="@{/Home/Kdalanei.webp}" alt="Kem dưỡng ẩm Simple">
+                        <h3>Kem dưỡng ẩm Simple Kind To Skin</h3>
+                        <div class="price"><span class="old">180,000đ</span><span class="new">150,000đ</span><span class="discount">-17%</span></div>
+                        <div class="rating">⭐ 4.9 <span>Đã bán 5,200</span></div>
+                    </div>
+                    <div class="product-card">
+                        <img th:src="@{/Home/Kdalanei.webp}" alt="Kem dưỡng ẩm Laneige">
+                        <h3>Kem dưỡng ẩm Laneige Water Bank</h3>
+                        <div class="price"><span class="old">650,000đ</span><span class="new">560,000đ</span><span class="discount">-14%</span></div>
+                        <div class="rating">⭐ 5.0 <span>Đã bán 4,300</span></div>
+                    </div>
+                    <div class="product-card">
+                        <img th:src="@{/Home/Kdalanei.webp}" alt="Kem dưỡng ẩm The Ordinary">
+                        <h3>Kem dưỡng ẩm The Ordinary Natural Moisturizing</h3>
+                        <div class="price"><span class="old">280,000đ</span><span class="new">240,000đ</span><span class="discount">-14%</span></div>
+                        <div class="rating">⭐ 4.9 <span>Đã bán 5,800</span></div>
+                    </div>
+                    <div class="product-card">
+                        <img th:src="@{/Home/Kdalanei.webp}" alt="Kem dưỡng ẩm The Ordinary">
+                        <h3>Kem dưỡng ẩm The Ordinary Natural Moisturizing</h3>
+                        <div class="price"><span class="old">280,000đ</span><span class="new">240,000đ</span><span class="discount">-14%</span></div>
+                        <div class="rating">⭐ 4.9 <span>Đã bán 5,800</span></div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+</div>
 
-    <div class="toc" aria-labelledby="muc-luc">
-        <h3 id="muc-luc">Các nội dung chính</h3>
-        <ul>
-            <li>Mách bạn bí quyết chăm da buổi tối</li>
-            <li>STEP 1: Tẩy trang (Double Cleansing)</li>
-            <li>STEP 2: Làm sạch bằng toner pad</li>
-            <li>STEP 3: Xịt khoáng</li>
-            <li>STEP 4: Mask đất sét</li>
-            <li>STEP 5: Dưỡng ẩm (Hydrating)</li>
-        </ul>
+<!-- Phần thương hiệu -->
+<div class="brand-section">
+    <h2 class="brand-title">TOP THƯƠNG HIỆU NỔI BẬT</h2>
+
+    <div class="brand-carousel">
+        <div class="brand-card"><img th:src="@{/Home/Banner5.png}" alt="Caryophy"></div>
+        <div class="brand-card"><img th:src="@{/Home/Banner6.png}" alt="Glorie"></div>
+        <div class="brand-card"><img th:src="@{/Home/Banner8.png}" alt="Dasique"></div>
+        <div class="brand-card"><img th:src="@{/Home/Banner13.png}" alt="Colorkey"></div>
+        <div class="brand-card"><img th:src="@{/Home/Banner15.png}" alt="Innisfree"></div>
+        <div class="brand-card"><img th:src="@{/Home/Banner16.png}" alt="Dasique"></div>
+        <div class="brand-card"><img th:src="@{/Home/Banner17.png}" alt="Colorkey"></div>
     </div>
+</div>
 
-    <div class="hero" role="img" aria-label="ảnh minh hoạ routine">
-        <strong>Ảnh minh hoạ Night Routine</strong>
-    </div>
+<!-- FOOTER -->
+<div class="subscribe-bar">
+    <h2>ĐĂNG KÝ NHẬN ƯU ĐÃI</h2>
+    <form class="subscribe-form" id="subscribeForm">
+        <div class="input-wrap">
+            <input type="email" id="emailInput" placeholder="Nhập email của bạn">
+            <!-- dòng báo lỗi -->
+            <small id="emailError" class="error-msg"></small>
+        </div>
+        <button type="submit">ĐĂNG KÝ</button>
+    </form>
+</div>
 
-    <strong>Ảnh minh hoạ Night Routine</strong>
-
-    <!-- Article đưa vào trong container -->
-    <article>
-        <p>
-            Buổi tối là thời điểm vàng để làn da phục hồi và hấp thụ dưỡng chất —
-            vì vậy một Night Routine hợp lý sẽ giúp da khỏe mạnh, rạng rỡ sau một
-            ngày dài. Nếu bạn chưa biết bắt đầu từ đâu, tham khảo các bước "học
-            lỏm" từ các tỷ tỷ Douyin dưới đây nhé!
-        </p>
-
-        <section class="step" id="step1">
-            <h2>STEP 1: TẨY TRANG — Double Cleansing</h2>
-            <p>
-                Sau một ngày ra ngoài, tẩy trang là bước bắt buộc. Với môi trường
-                nhiều khói bụi và lớp trang điểm, lỗ chân lông rất dễ bị bít tắc dẫn
-                tới mụn. Nên dùng dầu tẩy trang hoặc sáp tẩy trang để hòa tan lớp
-                makeup trước, sau đó nhũ hóa kỹ.
-            </p>
-            <p class="note">
-                Tip: Thay vì chỉ dùng nước để nhũ hóa, bạn có thể dùng xịt khoáng
-                cấp ẩm — vừa nhũ hóa tốt vừa tránh khô da.
-            </p>
-        </section>
-
-        <section class="step" id="step2">
-            <h2>STEP 2: LÀM SẠCH DA BẰNG TONER PAD</h2>
-            <p>
-                Sau bước tẩy trang, nhiều nàng ở Douyin dùng toner pad (ví dụ:
-                Mediheal, Neogen) để làm sạch sâu, tẩy da chết dịu nhẹ và hỗ trợ
-                ngăn bít tắc lỗ chân lông. Đây là một lựa chọn thay thế hoặc bổ trợ
-                cho sữa rửa mặt.
-            </p>
-        </section>
-
-        <section class="step" id="step3">
-            <h2>STEP 3: XỊT KHOÁNG</h2>
-            <p>
-                Xịt khoáng cấp ẩm giúp da dịu lại, lỗ chân lông được thư giãn và
-                chuẩn bị tốt cho các bước dưỡng sau. Nếu muốn tiết kiệm, có thể chọn
-                xịt khoáng giá sinh viên nhưng có khả năng cấp ẩm tốt.
-            </p>
-        </section>
-
-        <section class="step" id="step4">
-            <h2>STEP 4: SỬ DỤNG MASK ĐẤT SÉT</h2>
-            <p>
-                Mask đất sét phù hợp với da dầu / nhiều bã nhờn — giúp hút dầu, làm
-                sạch lỗ chân lông và hỗ trợ loại bỏ mụn đầu đen. Đắp từ 10–15 phút,
-                sau đó rửa sạch bằng nước ấm và massage nhẹ.
-            </p>
-            <p class="note">
-                Lưu ý: Không để mask đất sét trên da quá lâu vì dễ gây khô và phản
-                tác dụng.
-            </p>
-        </section>
-
-        <section class="step" id="step5">
-            <h2>STEP 5: DƯỠNG ẨM — HYDRATING</h2>
-            <p>
-                Bước cuối cùng là dưỡng ẩm chuyên sâu. Nếu sợ bí da, có thể chọn
-                sản phẩm thấm nhanh hoặc dùng toner dạng pad để dưỡng — phương pháp đang
-                rất được các tỷ tỷ Douyin ưa chuộng.
-            </p>
-            <p>
-                Đừng quên chăm sóc vùng mắt (eye cream/gel) và dùng son dưỡng môi
-                trước khi ngủ để gương mặt tổng thể trông tươi hơn vào sáng hôm sau.
-            </p>
-        </section>
-
-        <div class="cta">
-            <strong>Ghi nhớ:</strong> Buổi tối là thời gian da tái tạo — làm sạch
-            kỹ và dưỡng ẩm đúng cách là chìa khóa.
+<footer class="footer">
+    <div class="footer-main">
+        <!-- Cột 1: Logo + thông tin -->
+        <div class="footer-col">
+            <img th:src="@{/Home/Logo7.png}" alt="Nai Vang Logo" class="footer-logo">
+            <p><strong>CÔNG TY TNHH MTV THƯƠNG MẠI VÀ ĐẦU TƯ LIÊN Á CHÂU</strong></p>
+            <p>Giấy chứng nhận đăng ký doanh nghiệp số 0310618188, cấp ngày 29.01.2011, nơi cấp Sở Kế Hoạch và Đầu Tư TP. Hồ Chí Minh</p>
+            <p>Trụ sở chính: L2-VP-01, 346 Bến Vân Đồn, Phường Vĩnh Hội, TP. Hồ Chí Minh</p>
+            <p>Hotline: <a href="tel:19004449">19004449</a>
+                Điện thoại: <a href="tel:02838328272">02838328272</a></p>
+            <img th:src="@{/Home/Bocongthuong_1_1.webp}" alt="Đã thông báo Bộ Công Thương" class="boct-logo">
         </div>
 
-        <div class="tags">Tác giả: Chôm Chôm · 20/10/2025</div>
-    </article>
-</div>
+        <!-- Cột 2: Theo dõi + App + Thanh toán -->
+        <div class="footer-col">
+            <h4>Theo dõi chúng tôi</h4>
+            <div class="social-links">
+                <a href="#"><img th:src="@{/Home/Facebook.webp}" alt="Facebook"></a>
+                <a href="#"><img th:src="@{/Home/Instagram.webp}" alt="Instagram"></a>
+                <a href="#"><img th:src="@{/Home/Youtube.webp}" alt="YouTube"></a>
+                <a href="#"><img th:src="@{/Home/Tiktok.webp}" alt="TikTok"></a>
+            </div>
+
+            <h4>Tải App Ngay</h4>
+            <div class="app-links">
+                <img th:src="@{/Home/Maqr.png}" alt="QR Code" class="qr-code">
+                <div>
+                    <a href="#"><img th:src="@{/Home/Googleplay.webp}" alt="Google Play"></a>
+                    <a href="#"><img th:src="@{/Home/Appstore.webp}" alt="App Store"></a>
+                </div>
+            </div>
+
+            <h4>Chấp nhận Phương thức thanh toán</h4>
+            <div class="pay-methods">
+                <img th:src="@{/Home/Vnpay.png}" alt="VNPay">
+                <img th:src="@{/Home/Momo.webp}" alt="MoMo" class="momo-logo">
+                <img th:src="@{/Home/Visa.png}" alt="Visa">
+            </div>
+        </div>
+
+        <!-- Cột 3: Về chúng tôi -->
+        <div class="footer-col">
+            <h4>Về chúng tôi</h4>
+            <ul>
+                <li><a href="#">Giới thiệu</a></li>
+                <li><a href="#">Tin Tức</a></li>
+                <li><a href="#">Cẩm nang Làm đẹp</a></li>
+                <li><a href="#">Tuyển dụng</a></li>
+                <li><a href="#">Đổi điểm Hội Cam</a></li>
+                <li><a href="#">Liên hệ</a></li>
+                <li><a href="#">Địa chỉ cửa hàng</a></li>
+                <li><a href="#">Cho thuê mặt bằng</a></li>
+                <li><a href="#">Hợp tác cùng Guardian</a></li>
+            </ul>
+        </div>
+
+        <!-- Cột 4: Chính sách -->
+        <div class="footer-col">
+            <h4>Chính sách</h4>
+            <ul>
+                <li><a href="#">Chính sách và quy định chung</a></li>
+                <li><a href="#">Quy định và hình thức thanh toán</a></li>
+                <li><a href="#">Chính sách vận chuyển</a></li>
+                <li><a href="#">Chính sách đổi/trả hàng và hoàn tiền</a></li>
+                <li><a href="#">Chính sách bảo mật thông tin cá nhân</a></li>
+                <li><a href="#">Hướng dẫn mua hàng</a></li>
+                <li><a href="#">Quy trình xuất hóa đơn Điện Tử</a></li>
+                <li><a href="#">Chính sách Thông tin Hội Cam</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        <p>© 2025 Nai Vang. All rights reserved.</p>
+    </div>
+</footer>
+
+<script th:src="@{/Home/Home.js}"></script>
 </body>
 </html>
