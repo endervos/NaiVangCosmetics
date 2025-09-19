@@ -4,32 +4,26 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Nai Vang Cosmetic</title>
-  <link rel="icon" type="image/png" href="./image/logoConNai.png">
-  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/png" href="../icon/logoConNai.png">
+  <link rel="stylesheet" href="/src/main/resources/static/ChangePass/ChangePass.css">
+  <link rel="stylesheet" href="/src/main/resources/static/Example/Example.css">
   <!-- Slick CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css">
-  <!-- jQuery -->
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <!-- Slick JS -->
-  <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 
 </head>
 <body>
 
   <!-- Banner GIF full màn hình -->
   <div class="promo-banner">
-    <img src="./image/_TopHeader_02072025-ezgif.com-cut.gif" alt="Khuyến mãi Lam Thao">
+    <img src="/src/main/resources/static/Example/Image/Example.gif" alt="Khuyến mãi Lam Thao">
   </div>
 
   <!-- Header -->
   <div class="header">
     <div class="container header-inner">
       <!-- Logo -->
-      <a href="index.html">   <!-- hoặc trangchu.jsp -->
-        <img src="./image/logo7.png" alt="Logo" width="150" height="100">
-      </a>
-
+      <img src="/src/main/resources/static/Example/Image/logo7.png" alt="Logo" width="150" height="100">
 
       <!-- Search -->
       <div class="search-bar">
@@ -46,38 +40,23 @@
 
       <!-- Icons (User + Cart) -->
       <div class="header-icons">
-        <!-- User Section -->
-        <div class="user-section">
-          <!-- Nút user -->
-          <button class="user-btn" aria-label="Tài khoản">
-            <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
-              <path fill="currentColor"
-                d="M17.75 14c1.24 0 2.25 1.01 2.25 2.25v.92c0 .57-.18 1.13-.52 1.6C18 20.9 15.5 22 12 22s-6-1.1-7.48-3.23c-.34-.47-.52-1.03-.52-1.6v-.92C4 15.01 5.01 14 6.25 14h11.5ZM12 2a5 5 0 1 1 0 10 5 5 0 0 1 0-10Z"/>
-            </svg>
-          </button>
+        <!-- Nút user hình tròn -->
+        <button class="user-btn" title="Đăng ký / Đăng nhập" aria-label="Tài khoản">
+          <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+            <path fill="currentColor"
+              d="M17.75 14c1.24 0 2.25 1.01 2.25 2.25v.92c0 .57-.18 1.13-.52 1.6C18 20.9 15.5 22 12 22s-6-1.1-7.48-3.23c-.34-.47-.52-1.03-.52-1.6v-.92C4 15.01 5.01 14 6.25 14h11.5ZM12 2a5 5 0 1 1 0 10 5 5 0 0 1 0-10Z"/>
+          </svg>
+        </button>
 
-          <!-- Dropdown (ẩn mặc định, hiện khi hover hoặc click) -->
-          <div class="user-dropdown">
-            <a href="../trangdangnhap/trangdangnhap.html" id="login-btn">Đăng nhập</a>
-            <a href="../trangthongtincanhan/trangthongitncanhan.html" id="account-info">Thông tin tài khoản</a>
-            <a href="#" id="logout-btn">Đăng xuất</a>
-          </div>
-        </div>
-
-
-        <!-- Cart Section -->
-        <div class="cart-section">
-          <a href="#" class="cart-pill" title="Giỏ hàng">
-            <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
-              <path fill="currentColor"
-                d="M7 4h-2l-1 2h2l3.6 7.59-1.35 2.44C7.89 16.37 8.29 17 8.94 17h9.56v-2H9.42l1.1-2h7.25c.75 0 1.41-.41 1.75-1.03L22 7H6.42l-.7-1h1.28L7 4Zm-1 16a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm12 0a2 2 0 1 0 .001-3.999A2 2 0 0 0 18 20Z"/>
-            </svg>
-            <span>Giỏ hàng</span>
-          </a>
-        </div>
-
+        <!-- Pill giỏ hàng -->
+        <a class="cart-pill" href="#" title="Giỏ hàng">
+          <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
+            <path fill="currentColor"
+              d="M7 4h-2l-1 2h2l3.6 7.59-1.35 2.44C7.89 16.37 8.29 17 8.94 17h9.56v-2H9.42l1.1-2h7.25c.75 0 1.41-.41 1.75-1.03L22 7H6.42l-.7-1h1.28L7 4Zm-1 16a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm12 0a2 2 0 1 0 .001-3.999A2 2 0 0 0 18 20Z"/>
+          </svg>
+          <span>Giỏ hàng</span>
+        </a>
       </div>
-
     </div>
   </div>
 
@@ -93,7 +72,7 @@
       <ul class="dropdown-content">
         <li class="has-submenu">
           <a href="#"> 
-            <img class="menu-icon" src="./image/skincare.png" alt="Chăm sóc da mặt" >Chăm sóc da mặt </a>
+            <img class="menu-icon" src="/src/main/resources/static/Example/Image/skincare.png" alt="Chăm sóc da mặt" >Chăm sóc da mặt </a>
           <!-- Menu cấp 2 mở sang phải -->
           <ul class="submenu">
             <li><a href="#">Tẩy Trang<span class="count">6</span></a></li>
@@ -111,7 +90,7 @@
         <!--Trang điểm-->
         <li class="has-submenu">
           <a href="#"> 
-            <img class="menu-icon" src="./image/makeup.png" alt="Trang điểm" >Trang điểm </a>
+            <img class="menu-icon" src="/src/main/resources/static/Example/Image/makeup.png" alt="Trang điểm" >Trang điểm </a>
           <!-- Menu cấp 2 mở sang phải -->
           <ul class="submenu">
             <li><a href="#">Kem Lót<span class="count">5</span></a></li>
@@ -129,7 +108,7 @@
         <!--Chăm sóc cơ thể-->
         <li class="has-submenu">
           <a href="#"> 
-            <img class="menu-icon" src="./image/bodycare.png" alt="Chăm sóc cơ thể" >Chăm sóc cơ thể </a>
+            <img class="menu-icon" src="/src/main/resources/static/Example/Image/bodycare.png" alt="Chăm sóc cơ thể" >Chăm sóc cơ thể </a>
           <!-- Menu cấp 2 mở sang phải -->
           <ul class="submenu">
             <li><a href="#">Sữa Tắm<span class="count">16</span></a></li>
@@ -145,7 +124,7 @@
         <!--Chăm sóc cơ thể-->
         <li class="has-submenu">
           <a href="#"> 
-            <img class="menu-icon" src="./image/haircare.png" alt="Chăm sóc tóc" >Chăm sóc tóc </a>
+            <img class="menu-icon" src="/src/main/resources/static/Example/Image/haircare.png" alt="Chăm sóc tóc" >Chăm sóc tóc </a>
           <!-- Menu cấp 2 mở sang phải -->
           <ul class="submenu">
             <li><a href="#">Dầu Gội<span class="count">16</span></a></li>
@@ -158,7 +137,7 @@
         <!--Dược mỹ phẩm -->
         <li class="has-submenu">
           <a href="#">
-            <img class="menu-icon" src="./image/Cosmeceuticals.png" alt="Dược mỹ phẩm">Dược mỹ phẩm
+            <img class="menu-icon" src="/src/main/resources/static/Example/Image/Cosmeceuticals.png" alt="Dược mỹ phẩm">Dược mỹ phẩm
           </a>
           <!-- Menu cấp 2 mở sang phải -->
           <ul class="submenu">
@@ -167,14 +146,12 @@
             <li><a href="#">Làm sáng da <span class="count">9</span></a></li>
             <li><a href="#">Phục hồi da sau điều trị <span class="count">4</span></a></li>
             <li><a href="#">Sản phẩm đặc trị <span class="count">8</span></a></li>
-            <li><a href="#">Sản phẩm mờ thâm mụn  <span class="count">4</span></a></li>
-            <li><a href="#">Sữa rửa mặt hỗ trợ trị mụn <span class="count">8</span></a></li>
           </ul>
         </li>
        <!-- Thực phẩm chức năng -->
       <li class="has-submenu">
         <a href="#">
-          <img class="menu-icon" src="./image/Health-supplements.png" alt="Thực phẩm chức năng">
+          <img class="menu-icon" src="/src/main/resources/static/Example/Image/Health-supplements.png" alt="Thực phẩm chức năng">
           Thực phẩm chức năng
         </a>
         <ul class="submenu">
@@ -191,7 +168,7 @@
         <!-- Best Seller -->
       <li class="has-submenu">
         <a href="#">
-          <img class="menu-icon" src="./image/best-seller.png" alt="Best Seller">
+          <img class="menu-icon" src="/src/main/resources/static/Example/Image/best-seller.png" alt="Best Seller">
           BEST SELLER
         </a>
         <ul class="submenu">
@@ -201,12 +178,6 @@
           <li><a href="#">Top Haircare bán chạy <span class="count">5</span></a></li>
           <li><a href="#">Top Thực phẩm chức năng <span class="count">6</span></a></li>
           <li><a href="#">Top Dược mỹ phẩm <span class="count">4</span></a></li>
-          <li><a href="#">Top Nước hoa bán chạy <span class="count">8</span></a></li>
-          <li><a href="#">Top Phụ kiện làm đẹp <span class="count">10</span></a></li>
-          <li><a href="#">Top Chăm sóc răng miệng <span class="count">3</span></a></li>
-          <li><a href="#">Top Sản phẩm organic <span class="count">6</span></a></li>
-
-
         </ul>
       </li>
       </ul>
@@ -243,75 +214,79 @@
   </div>
 </div>
 
-<main class="wrapperMain_content">
-  <div class="inslideron">
-    <!-- viewport chỉ chứa slider -->
-    <div class="slider-viewport">
-      <div class="slider">
-        <div class="slide"><img src="./image/banner1.jpeg" alt="Banner 1"></div>
-        <div class="slide"><img src="./image/banner2.jpeg" alt="Banner 2"></div>
-        <div class="slide"><img src="./image/banner3.png" alt="Banner 3"></div>
-      </div>
+ <!-- Đổi mật khẩu -->
+<div class="change-password-container">
+  <div class="change-password-box">
+    
+    <h2 class="change-password-title">Đổi Mật Khẩu</h2>
+    <div class="warning-message">
+      <span>Cảnh báo: Mật khẩu mới phải khác với mật khẩu cũ.</span>
     </div>
+    <form class="change-password-form">
+      <label for="current-password" class="password-label">Mật khẩu cũ</label>
+      <input type="password" id="current-password" class="password-input" placeholder="Nhập mật khẩu cũ">
 
-    <!-- Nút điều hướng tách riêng -->
-    <button class="nav prev" aria-label="Previous">&#10094;</button>
-    <button class="nav next" aria-label="Next">&#10095;</button>
+      <label for="new-password" class="password-label">Mật khẩu mới</label>
+      <input type="password" id="new-password" class="password-input" placeholder="Nhập mật khẩu mới">
+
+      <label for="confirm-password" class="password-label">Xác nhận mật khẩu</label>
+      <input type="password" id="confirm-password" class="password-input" placeholder="Xác nhận mật khẩu mới">
+
+      <button type="submit" class="custom-button">Đổi mật khẩu</button>
+    </form>
   </div>
-</main>
-
-<!-- FOOTER -->
-<div class="subscribe-bar">
-  <h2>ĐĂNG KÝ NHẬN ƯU ĐÃI</h2>
-  <form class="subscribe-form" id="subscribeForm">
-    <div class="input-wrap">
-      <input type="email" id="emailInput" placeholder="Nhập email của bạn">
-      <!-- dòng báo lỗi -->
-      <small id="emailError" class="error-msg"></small>
-    </div>
-    <button type="submit">ĐĂNG KÝ</button>
-  </form>
 </div>
 
-
+    <!-- FOOTER -->
+    <div class="subscribe-bar">
+    <h2>ĐĂNG KÝ NHẬN ƯU ĐÃI</h2>
+    <form class="subscribe-form" id="subscribeForm">
+        <div class="input-wrap">
+        <input type="email" id="emailInput" placeholder="Nhập email của bạn">
+        <!-- dòng báo lỗi -->
+        <small id="emailError" class="error-msg"></small>
+        </div>
+        <button type="submit">ĐĂNG KÝ</button>
+    </form>
+    </div>
 
   <footer class="footer">
   <div class="footer-main">
     <!-- Cột 1: Logo + thông tin -->
     <div class="footer-col">
-      <img src="./image/logo7.png" alt="Nai Vang Logo" class="footer-logo">
+      <img src="/src/main/resources/static/Example/Image/logo7.png" alt="Nai Vang Logo" class="footer-logo">
       <p><strong>CÔNG TY TNHH MTV THƯƠNG MẠI VÀ ĐẦU TƯ LIÊN Á CHÂU</strong></p>
       <p>Giấy chứng nhận đăng ký doanh nghiệp số 0310618188, cấp ngày 29.01.2011, nơi cấp Sở Kế Hoạch và Đầu Tư TP. Hồ Chí Minh</p>
       <p>Trụ sở chính: L2-VP-01, 346 Bến Vân Đồn, Phường Vĩnh Hội, TP. Hồ Chí Minh</p>
       <p>Hotline: <a href="tel:19004449">19004449</a>  
          Điện thoại: <a href="tel:02838328272">02838328272</a></p>
-      <img src="./image/bocongthuong_1_1.webp" alt="Đã thông báo Bộ Công Thương" class="boct-logo">
+      <img src="/src/main/resources/static/Example/Image/bocongthuong_1_1.webp" alt="Đã thông báo Bộ Công Thương" class="boct-logo">
     </div>
 
     <!-- Cột 2: Theo dõi + App + Thanh toán -->
     <div class="footer-col">
       <h4>Theo dõi chúng tôi</h4>
       <div class="social-links">
-        <a href="#"><img src="./image/facebook.webp" alt="Facebook"></a>
-        <a href="#"><img src="./image/instagram.webp" alt="Instagram"></a>
-        <a href="#"><img src="./image/youtube.webp" alt="YouTube"></a>
-        <a href="#"><img src="./image/tiktok.webp" alt="TikTok"></a>
+        <a href="#"><img src="/src/main/resources/static/Example/Image/facebook.webp" alt="Facebook"></a>
+        <a href="#"><img src="/src/main/resources/static/Example/Image/instagram.webp" alt="Instagram"></a>
+        <a href="#"><img src="/src/main/resources/static/Example/Image/youtube.webp" alt="YouTube"></a>
+        <a href="#"><img src="/src/main/resources/static/Example/Image/tiktok.webp" alt="TikTok"></a>
       </div>
 
       <h4>Tải App Ngay</h4>
       <div class="app-links">
-        <img src="./image/maqr.png" alt="QR Code" class="qr-code">
+        <img src="/src/main/resources/static/Example/Image/maqr.png" alt="QR Code" class="qr-code">
         <div>
-          <a href="#"><img src="./image/googleplay.webp" alt="Google Play"></a>
-          <a href="#"><img src="./image/appstore.webp" alt="App Store"></a>
+          <a href="#"><img src="/src/main/resources/static/Example/Image/googleplay.webp" alt="Google Play"></a>
+          <a href="#"><img src="/src/main/resources/static/Example/Image/appstore.webp" alt="App Store"></a>
         </div>
       </div>
 
       <h4>Chấp nhận Phương thức thanh toán</h4>
       <div class="pay-methods">
-        <img src="./image/vnpay.png" alt="VNPay">
-        <img src="./image/momo.webp" alt="MoMo" class="momo-logo">
-        <img src="./image/visa.png" alt="Visa">
+        <img src="/src/main/resources/static/Example/Image/vnpay.png" alt="VNPay">
+        <img src="/src/main/resources/static/Example/Image/momo.webp" alt="MoMo" class="momo-logo">
+        <img src="/src/main/resources/static/Example/Image/visa.png" alt="Visa">
       </div>
     </div>
 
@@ -465,7 +440,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 </script>
 
-<script src="trangchu.js"></script>
+<script src="/src/main/resources/static/ChangePass/ChangePass.js"></script>
+<script src="/src/main/resources/static/Example/Example.js"></script>
 </body>
 </html>
-

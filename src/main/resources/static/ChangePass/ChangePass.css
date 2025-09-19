@@ -1,0 +1,72 @@
+/* Cấu hình cho div bao quanh khung đổi mật khẩu */
+.change-password-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 550px;
+  background-color: #ffffff;
+}
+
+/* Khung đổi mật khẩu */
+.change-password-box {
+  background-color: #fff;
+  padding: 50px;
+  border-radius: 8px;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 500px;
+  /* border: 2px solid #f89360;  Thêm viền đỏ cho khung */
+  position: relative;
+}
+
+/* Cảnh báo trên đầu khung */
+.warning-message {
+  background-color: #ffb163;
+  color: white;
+  padding: 8px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  font-size: 14px;
+  text-align: center;
+}
+
+/* Tiêu đề khung đổi mật khẩu */
+.change-password-title {
+  text-align: center;
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+
+/* Form và các input */
+.change-password-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.password-label {
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+
+.password-input {
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+/* Nút đổi mật khẩu */
+.custom-button {
+  padding: 10px;
+  background-color: #000000;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.custom-button:hover {
+  background-color: #ed841c;
+}

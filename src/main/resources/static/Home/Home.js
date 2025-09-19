@@ -1,44 +1,3 @@
-const track  = document.querySelector('.slider');
-const slides = Array.from(document.querySelectorAll('.slide'));
-const prevBtn = document.querySelector('.prev');
-const nextBtn = document.querySelector('.next');
-
-function centerTo(i, animate = true) {
-  index = (i + slides.length) % slides.length;
-
-  slides.forEach((s, k) => s.classList.toggle('active', k === index));
-
-  const active = slides[index];
-  const viewport = track.parentElement; // .inslideron
-  const offset = active.offsetLeft + active.offsetWidth / 2 - viewport.clientWidth / 2;
-
-  track.style.transition = animate ? 'transform 0.5s ease' : 'none';
-  track.style.transform  = `translateX(${-offset}px)`;
-}
-
-let index = 0;
-
-function centerTo(i, animate = true) {
-  index = (i + slides.length) % slides.length;
-  slides.forEach((s, k) => s.classList.toggle('active', k === index));
-  const active = slides[index];
-  const viewport = track.parentElement;
-  const offset = active.offsetLeft + active.offsetWidth / 2 - viewport.clientWidth / 2;
-  track.style.transition = animate ? 'transform 0.5s ease' : 'none';
-  track.style.transform  = `translateX(${-offset}px)`;
-}
-
-nextBtn.addEventListener('click', () => centerTo(index + 1));
-prevBtn.addEventListener('click', () => centerTo(index - 1));
-
-let timer = setInterval(() => centerTo(index + 1), 4000);
-track.addEventListener('mouseenter', () => clearInterval(timer));
-track.addEventListener('mouseleave', () => {
-  timer = setInterval(() => centerTo(index + 1), 4000);
-});
-window.addEventListener('resize', () => centerTo(index, false));
-centerTo(0, false);
-
 $(document).ready(function(){
   $('.slider').slick({
     slidesToShow: 1,
@@ -48,6 +7,71 @@ $(document).ready(function(){
     nextArrow: $('.nav.next'),
     autoplay: true,
     autoplaySpeed: 3000,
-    dots: true
+    dots: true,
+    infinite: true,      // 🔑 loop vô hạn
+    speed: 600,          // tốc độ chuyển slide
+    cssEase: 'ease-in-out' // chuyển động mượt
   });
 });
+document.addEventListener("DOMContentLoaded", () => {
+  let isLoggedIn = false; // mặc định chưa đăng nhập
+
+  const loginBtn   = document.getElementById("login-btn");
+  const logoutBtn  = document.getElementById("logout-btn");
+  const accountInfo = document.getElementById("account-info");
+
+  function updateMenu() {
+    if (isLoggedIn) {
+      loginBtn.style.display = "none";
+      accountInfo.style.display = "block";
+      logoutBtn.style.display = "block";
+    } else {
+      loginBtn.style.display = "block";
+      accountInfo.style.display = "none";
+      logoutBtn.style.display = "none";
+    }
+  }
+
+  // click login
+  loginBtn.addEventListener("click", () => {
+    isLoggedIn = true;
+    updateMenu();
+  });
+
+  // click logout
+  logoutBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    isLoggedIn = false;
+    updateMenu();
+  });
+
+  // gọi lần đầu
+  updateMenu();
+});
+
+//Email không hợp lệ
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.getElementById("subscribeForm");
+  const emailInput = document.getElementById("emailInput");
+  const emailError = document.getElementById("emailError");
+
+  form.addEventListener("submit", function(e) {
+    e.preventDefault(); // chặn submit mặc định
+
+    const email = emailInput.value.trim();
+    const regex = /^[^\s@]+@(gmail\.com|yahoo\.com|outlook\.com)$/i;
+
+    if (!regex.test(email)) {
+      emailError.textContent = "Vui lòng nhập email hợp lệ!";
+      emailError.classList.add("show");
+    } else {
+      emailError.textContent = "";
+      emailError.classList.remove("show");
+
+      // TODO: gửi email lên server (nếu cần)
+      alert("Đăng ký thành công với email: " + email);
+      form.reset();
+    }
+  });
+});
+
