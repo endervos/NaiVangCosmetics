@@ -6,10 +6,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/Blog")
-public class BlogController {
+@RequestMapping("/nice-routine-cua-ty-ty-douyin")
+public class ShowNews01Page {
     @GetMapping()
     public String showHomePage(Model model) {
-        return "Blog/Blog";
+        return "News/News01";
     }
 }

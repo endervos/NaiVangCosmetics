@@ -256,19 +256,46 @@ main.news {
     flex-grow: 1;
 }
 
-.news-link {
-    margin-top: 10px;
-    display: inline-block;
-    color: #ff6b81;
-    text-decoration: none;
-}
-.news-item .news-link {
-    display: flex;
-    text-decoration: none;
-    color: inherit; /* Giữ màu chữ gốc */
+/* Link wrapper cho toàn bộ item, bỏ gạch chân và giữ màu/font */
+.news-link-wrapper {
+    display: block;          /* Bao toàn bộ item */
+    text-decoration: none;   /* Bỏ gạch chân */
+    color: inherit;          /* Giữ màu chữ hiện tại */
+    font-family: inherit;    /* Giữ font hiện tại */
 }
 
-.news-item .news-link:hover {
-    opacity: 0.9; /* Hiệu ứng hover nhẹ */
+/* Hover: không đổi màu, không gạch chân */
+.news-link-wrapper:hover {
+    text-decoration: none;
+    color: inherit;
 }
 
+/* Nếu có thẻ con như h4, span bên trong */
+.news-link-wrapper * {
+    text-decoration: none !important;
+    color: inherit !important;
+}
+
+
+
+
+/* Áp dụng cho link wrapper chứa toàn bộ news-card */
+.news-card {
+    display: block;         /* Bao toàn bộ card */
+    text-decoration: none;  /* Bỏ gạch chân mặc định */
+    color: inherit;         /* Giữ màu chữ gốc */
+    font-family: inherit;   /* Giữ font chữ gốc */
+}
+
+/* Hover: vẫn giữ nguyên chữ, không đổi màu, không gạch chân */
+.news-card:hover {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Tất cả các thẻ con bên trong a.news-card */
+.news-card * {
+    text-decoration: none !important; /* Bỏ gạch chân */
+    color: inherit !important;         /* Giữ màu chữ gốc */
+    font-family: inherit !important;   /* Giữ font chữ gốc */
+}

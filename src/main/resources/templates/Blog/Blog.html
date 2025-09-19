@@ -218,9 +218,9 @@
     </div>
 
     <div class="highlight-right">
-        <a href="/News/News01.html" class="news-link-wrapper">
+        <a th:href="@{/nice-routine-cua-ty-ty-douyin}" class="news-link-wrapper">
             <div class="news-item">
-                <img src="/Blog/Image/news01.jpg" alt="Tin 1" />
+                <img th:src="@{/Blog/Image/news01.jpg}" alt="Tin 1" />
                 <div class="highlight-news-content">
                     <span class="tag hot">🔥 Nổi bật</span>
                     <span class="tag">Tin tức</span>
@@ -229,41 +229,67 @@
                 </div>
             </div>
         </a>
-    </div>
-
-
-
-    <div class="highlight-right">
+        <a th:href="@{/mua-sam-tet-ga-khong-lo-ve-gia}" class="news-link-wrapper">
             <div class="news-item">
                 <img th:src="@{/Blog/Image/news02.jpg}" alt="Tin 1" />
                 <div class="highlight-news-content">
                     <span class="tag hot">🔥 Nổi bật</span>
                     <span class="tag">Tin tức</span>
-                    <span class="date">18/09/2025</span>
-                    <h4>MUA SẮM "TẸT GA" - KHÔNG LO VỀ GIÁ</h4>
+                    <span class="date">20/10/2025</span>
+                    <h4>MUA SẮM TẸT GA KHÔNG LO VỀ GIÁ</h4>
                 </div>
-            </div><div class="highlight-right">
+            </div>
+        </a>
+        <a th:href="@{/huong-dan-trang-diem-mua-tua-truong}" class="news-link-wrapper">
             <div class="news-item">
                 <img th:src="@{/Blog/Image/news03.jpg}" alt="Tin 1" />
                 <div class="highlight-news-content">
                     <span class="tag hot">🔥 Nổi bật</span>
                     <span class="tag">Tin tức</span>
-                    <span class="date">28/10/2025</span>
-                    <h4>HƯỚNG DẪN TRANG ĐIỂM TỰ NHIÊN CHO NÀNG TỰ TIN MÙA TỰU TRƯỜNG</h4>
+                    <span class="date">20/10/2025</span>
+                    <h4>MUA SẮM TẸT GA KHÔNG LO VỀ GIÁ</h4>
                 </div>
             </div>
-        </div>
-        </div>
+        </a>
     </div>
 </section>
 
 <main class="news">
-    <article class="news-card">
-        <img
-                th:src="@{/Blog/Image/news04.jpg}"
-                alt="Routine Skincare"
-                class="news-img"
-        />
+    <a th:href="@{/sinh-vien-routine-ngon-bo-re}" class="news-card">
+            <img th:src="@{/Blog/Image/news04.jpg}" alt="Routine Skincare" class="news-img"/>
+            <div class="news-content">
+                <div class="news-meta">
+                    <span class="news-category">Tin tức</span>
+                    <span class="news-date">30/08/2025</span>
+                </div>
+                <h2 class="news-title">
+                    SINH VIÊN MỚI: BỎ TÚI ROUTINE SKINCARE "NGON BỔ RẺ"
+                </h2>
+                <p class="news-desc">
+                    Nhập học đại học là bước ngoặt lớn, không chỉ thay đổi môi trường học tập...
+                </p>
+            </div>
+    </a>
+
+
+    <a th:href="@{/ve-sinh-dung-cu-make-up}" class="news-card">
+            <img th:src="@{/Blog/Image/news05.jpg}" alt="Routine Skincare" class="news-img"/>
+            <div class="news-content">
+                <div class="news-meta">
+                    <span class="news-category">Tin tức</span>
+                    <span class="news-date">30/08/2025</span>
+                </div>
+                <h2 class="news-title">
+                    SINH VIÊN MỚI: BỎ TÚI ROUTINE SKINCARE "NGON BỔ RẺ"
+                </h2>
+                <p class="news-desc">
+                    Nhập học đại học là bước ngoặt lớn, không chỉ thay đổi môi trường học tập...
+                </p>
+            </div>
+    </a>
+
+    <a th:href="@{/layout-di-bien-khong-troi}" class="news-card">
+        <img th:src="@{/Blog/Image/news06.jpg}" alt="Routine Skincare" class="news-img"/>
         <div class="news-content">
             <div class="news-meta">
                 <span class="news-category">Tin tức</span>
@@ -273,53 +299,10 @@
                 SINH VIÊN MỚI: BỎ TÚI ROUTINE SKINCARE "NGON BỔ RẺ"
             </h2>
             <p class="news-desc">
-                Nhập học đại học là bước ngoặt lớn, không chỉ thay đổi môi trường
-                học tập...
+                Nhập học đại học là bước ngoặt lớn, không chỉ thay đổi môi trường học tập...
             </p>
-            <a href="#" class="news-link">Đọc thêm</a>
         </div>
-    </article>
-
-    <article class="news-card">
-        <img
-                th:src="@{/Blog/Image/news05.jpg}"
-                alt="Routine Skincare"
-                class="news-img"
-        />
-        <div class="news-content">
-            <div class="news-meta">
-                <span class="news-category">Tin tức</span>
-                <span class="news-date">30/08/2025</span>
-            </div>
-            <h2 class="news-title">
-                Vệ Sinh Dụng Cụ Makeup: Có Thật Sự Quan Trọng Như Bạn Nghĩ?
-            </h2>
-            <p class="news-desc">
-                Bạn có bao giờ thắc mắc: “Dụng cụ makeup như cọ, bông mút, beauty...
-            </p>
-            <a href="#" class="news-link">Đọc thêm</a>
-        </div>
-    </article>
-    <article class="news-card">
-        <img
-                th:src="@{/Blog/Image/news06.jpg}"
-                alt="Routine Skincare"
-                class="news-img"
-        />
-        <div class="news-content">
-            <div class="news-meta">
-                <span class="news-category">Tin tức</span>
-                <span class="news-date">30/08/2025</span>
-            </div>
-            <h2 class="news-title">
-                LAYOUT ĐI BIỂN KHÔNG TRÔI - TƯƠI NHƯ ÁNH MẶT TRỜI"
-            </h2>
-            <p class="news-desc">
-                Khi mùa hè gõ cửa, điều đầu tiên trong “bucket list” của hội mê sống ảo chắc...
-            </p>
-            <a href="#" class="news-link">Đọc thêm</a>
-        </div>
-    </article>
+    </a>
 </main>
 
 <!-- FOOTER -->
