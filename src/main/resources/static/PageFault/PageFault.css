@@ -10,15 +10,16 @@ body {
   justify-content: center;
   align-items: center;
   font-family: "Segoe UI", sans-serif;
-  background: #f7f9fc;
-  color: #333;
+  background: url("/src/main/resources/static/PageFault/background.jpg")no-repeat center bottom;
+  background-size: cover;
+  color: white;
   animation: fadeIn 0.8s ease-in;
 } 
 
 .container {
   text-align: center;
   max-width: 480px;
-  padding: 20px;
+  padding: 50px;
 }
 
 .illustration {
@@ -35,8 +36,8 @@ h1 {
 }
 
 p {
-  font-size: 18px;
-  color: gray;
+  font-size: 20px;
+  color: white;
   margin-bottom: 40px;
 }
 
@@ -123,9 +124,6 @@ p {
   height: 50px;
 }
 
-/* Đẩy nội dung xuống dưới banner */
-body {
-  padding-top: 70px; /* chiều cao banner + khoảng cách */
-}
+
 
 
