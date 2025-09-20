@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>403 - Forbidden</title>
+  <link rel="stylesheet" th:href="@{/PageFault/PageFault.css"/>
+</head>
+<body>
+<header class="banner-header">
+  <div class="logo">
+    <a th:href="@{/Home/Home}">
+      <img th:src="@{/Home/Logo7.png}" alt="Logo"/>
+    </a>
+  </div>
+</header>
+<div class="container">
+  <img th:src="@{/PageFault/403.png}" alt="403 Forbidden" class="illustration"/>
+  <h1>403</h1>
+  <p>Bạn không được phép truy cập trang này!</p>
+  <div class="actions">
+    <a th:href="@{/}" class="btn">🏠Về trang chủ</a>
+  </div>
+</div>
+<div class="dog">
+  <img th:src="@{/PageFault/Dog.gif}" alt="Dog running"/>
+</div>
+</body>
+</html>

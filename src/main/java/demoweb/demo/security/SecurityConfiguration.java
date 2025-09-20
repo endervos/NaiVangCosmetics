@@ -13,7 +13,10 @@ public class SecurityConfiguration {
     public SecurityFilterChain customerSecurityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
                 .authorizeHttpRequests(configurer -> configurer
-                        .anyRequest().permitAll()
+                        .requestMatchers(
+                                "/**",
+                                "/page-fault/**").permitAll()
+                        .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
                         .loginPage("/login")
@@ -24,9 +27,7 @@ public class SecurityConfiguration {
                 .logout(logout -> logout
                         .logoutSuccessUrl("/")
                         .permitAll()
-                )
-                .exceptionHandling(ex -> ex.accessDeniedPage("/showPage403"));
+                );
         return httpSecurity.build();
     }
-
 }
