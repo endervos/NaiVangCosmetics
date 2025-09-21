@@ -12,4 +12,34 @@ public class ShowBlogPage {
     public String showHomePage(Model model) {
         return "Blog/Blog";
     }
+
+    @GetMapping("/nice-routine-cua-ty-ty-douyin")
+    public String showNews01Page(Model model) {
+        return "News/News01";
+    }
+
+    @GetMapping("/mua-sam-tet-ga-khong-lo-ve-gia")
+    public String showNews02Page(Model model) {
+        return "News/News02";
+    }
+
+    @GetMapping("/huong-dan-trang-diem-mua-tua-truong")
+    public String showNews03Page(Model model) {
+        return "News/News03";
+    }
+
+    @GetMapping("/sinh-vien-routine-ngon-bo-re")
+    public String showNews04Page(Model model) {
+        return "News/News04";
+    }
+
+    @GetMapping("/ve-sinh-dung-cu-make-up")
+    public String showNews05Page(Model model) {
+        return "News/News05";
+    }
+
+    @GetMapping("/layout-di-bien-khong-troi")
+    public String showNews06Page(Model model) {
+        return "News/News06";
+    }
 }
