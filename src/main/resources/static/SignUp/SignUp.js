@@ -12,15 +12,18 @@
   const addError = (el, msg) => {
     removeError(el);
     el.setAttribute("aria-invalid", "true");
+    el.setAttribute("aria-describedby", el.id + "-error");
     el.classList.add("nv-invalid");
     const hint = document.createElement("div");
     hint.className = "nv-error";
+    hint.id = el.id + "-error";
     hint.textContent = msg;
     el.insertAdjacentElement("afterend", hint);
   };
 
   const removeError = (el) => {
     el.removeAttribute("aria-invalid");
+    el.removeAttribute("aria-describedby");
     el.classList.remove("nv-invalid");
     const next = el.nextElementSibling;
     if (next && next.classList?.contains("nv-error")) next.remove();
@@ -28,18 +31,43 @@
 
   const addGenderError = (container, msg) => {
     removeGenderError(container);
-    container.setAttribute("aria-invalid", "true");
-    container.classList.add("nv-invalid");
+    const parent = container.parentElement; // Lấy <div class="mb-3">
+    parent.setAttribute("aria-invalid", "true");
+    parent.setAttribute("aria-describedby", "gender-error");
     const hint = document.createElement("div");
     hint.className = "nv-error";
+    hint.id = "gender-error";
     hint.textContent = msg;
-    container.insertAdjacentElement("afterend", hint);
+    container.insertAdjacentElement("afterend", hint); // Chèn lỗi ngay sau <div class="gender-container">
   };
 
   const removeGenderError = (container) => {
+    const parent = container.parentElement;
+    parent.removeAttribute("aria-invalid");
+    parent.removeAttribute("aria-describedby");
+    const next = container.nextElementSibling; // Lấy .nv-error sau <div class="gender-container">
+    if (next && next.classList?.contains("nv-error")) next.remove();
+  };
+
+  const addTermsError = (container, msg) => {
+    removeTermsError(container);
+    const label = container.querySelector(".form-check-label");
+    if (label) {
+      container.setAttribute("aria-invalid", "true");
+      container.setAttribute("aria-describedby", "terms-error");
+      const hint = document.createElement("div");
+      hint.className = "nv-error";
+      hint.id = "terms-error";
+      hint.textContent = msg;
+      label.insertAdjacentElement("afterend", hint); // Chèn lỗi ngay sau <label>
+    }
+  };
+
+  const removeTermsError = (container) => {
     container.removeAttribute("aria-invalid");
-    container.classList.remove("nv-invalid");
-    const next = container.nextElementSibling;
+    container.removeAttribute("aria-describedby");
+    const label = container.querySelector(".form-check-label");
+    const next = label?.nextElementSibling; // Lấy .nv-error sau <label>
     if (next && next.classList?.contains("nv-error")) next.remove();
   };
 
@@ -61,25 +89,9 @@
   };
   const pwStrong = (v) => v.length >= 15 && /[A-Za-z]/.test(v) && /\d/.test(v);
 
-//  // Optional: Generate random CAPTCHA
-//  const generateCaptcha = () => {
-//    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-//    let captcha = "";
-//    for (let i = 0; i < 6; i++) {
-//      captcha += chars.charAt(Math.floor(Math.random() * chars.length));
-//    }
-//    return captcha;
-//  };
-
   document.addEventListener("DOMContentLoaded", () => {
     const form = document.querySelector(".form-card form");
     if (!form) return;
-
-    // Optional: Initialize CAPTCHA
-    const captchaBox = form.querySelector(".captcha-box");
-//    if (captchaBox) {
-//      captchaBox.textContent = generateCaptcha();
-//    }
 
     const inputs = form.querySelectorAll("input:not(.gender-check-input)");
     const fullName = inputs[0];
@@ -90,8 +102,19 @@
     const dob = inputs[3];
     const pw = inputs[4];
     const pw2 = inputs[5];
-    const captchaIn = inputs[6];
     const terms = form.querySelector("#termsCheck");
+    const termsContainer = form.querySelector(".form-check");
+
+    // Gán ID cho các input để hỗ trợ aria-describedby
+    fullName.id = fullName.id || "fullName";
+    phone.id = phone.id || "phone";
+    email.id = email.id || "email";
+    dob.id = dob.id || "dob";
+    pw.id = pw.id || "password";
+    pw2.id = pw2.id || "passwordConfirm";
+    terms.id = terms.id || "termsCheck";
+    genderContainer.id = genderContainer.id || "genderContainer";
+    termsContainer.id = termsContainer.id || "termsContainer";
 
     form.addEventListener("submit", (e) => {
       e.preventDefault();
@@ -134,14 +157,11 @@
         ok = false;
       } else removeError(pw2);
 
-      if (captchaIn && (!captchaIn.value.trim() || captchaIn.value.trim() !== captchaBox.textContent.trim())) {
-        addError(captchaIn, "CAPTCHA không đúng.");
-        ok = false;
-      } else removeError(captchaIn);
-
       if (terms && !terms.checked) {
-        toast("Bạn cần đồng ý Điều khoản và Chính sách.");
+        addTermsError(termsContainer, "Vui lòng đồng ý Điều khoản và Chính sách.");
         ok = false;
+      } else {
+        removeTermsError(termsContainer);
       }
 
       if (!ok) {
@@ -152,9 +172,6 @@
       }
 
       toast("Đăng ký thành công! 🎉");
-      if (captchaBox) {
-        captchaBox.textContent = generateCaptcha();
-      }
     });
   });
 })();

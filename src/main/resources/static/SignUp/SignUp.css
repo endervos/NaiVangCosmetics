@@ -34,17 +34,6 @@
 }
 
 
-/* CAPTCHA */
-.captcha-box {
-    background-color: #bdbdbd;
-    padding: 10px 15px;
-    border-radius: 8px;
-    font-weight: bold;
-    letter-spacing: 2px;
-    border: 1px solid #ced4da;
-    min-width: 80px;
-    text-align: center;
-}
 
 /* Terms checkbox */
 .form-check-label a {
@@ -79,10 +68,6 @@
     margin-bottom: 10px !important;
 }
 
-/* Captcha input riêng */
-.captcha-input {
-    flex: 1;
-}
 
 /* ========== MENU ========== */
 .menu-bar {
@@ -160,4 +145,10 @@
 
 .gender-check-label:hover {
     color: #ff6b35;
+}
+
+/* Error for gender and terms */
+.gender-container + .nv-error,
+.form-check-label + .nv-error {
+    margin-top: 8px;
 }
