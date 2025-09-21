@@ -7,7 +7,6 @@
     <link rel="icon" type="image/png" href="../icon/logoConNai.png" />
     <link rel="stylesheet" href="/src/main/resources/static/Cart/Cart.css" />
     <link rel="stylesheet" href="/src/main/resources/static/Home/Home.css" />
-    <link rel="stylesheet" href="/src/main/resources/static/Cart/Cart.js" />
     <!-- Slick CSS -->
     <link
       rel="stylesheet"
@@ -411,86 +410,89 @@
     <!-- Main content -->
     <main class="cart-container">
       <!-- Bảng sản phẩm -->
-      <section class="cart-items">
-        <h2>Giỏ hàng (2 sản phẩm)</h2>
-        <table class="cart-table">
-          <thead>
-            <tr>
-              <th>Sản phẩm</th>
-              <th>Giá tiền</th>
-              <th>Số lượng</th>
-              <th>Thành tiền</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody id="cart-body">
-            <!-- Sản phẩm 1 -->
-            <tr>
-              <td class="product-info">
-                <img
-                  src="/src/main/resources/static/Blog/Image/news04.jpg"
-                  alt="Hello Kitty"
-                />
-                <div class="product-text">
-                  <span class="product-name">Hello Kitty</span>
-                  <span class="product-desc">Sạch sâu dưỡng ẩm 80g</span>
-                  <span class="wishlist">
+        <section class="cart-items">
+            <h2>Giỏ hàng (2 sản phẩm)</h2>
+            <table class="cart-table">
+                <thead>
+                <tr>
+                    <th>Sản phẩm</th>
+                    <th>Giá tiền</th>
+                    <th>Số lượng</th>
+                    <th>Thành tiền</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody id="cart-body">
+                <!-- Sản phẩm 1 -->
+                <tr>
+                    <td class="product-info">
+                        <img src="/src/main/resources/static/Blog/Image/news01.jpg" alt="Hello Kitty" />
+                        <div class="product-text">
+                            <span class="product-name">Hello Kitty</span>
+                            <span class="product-desc">Sạch sâu dưỡng ẩm 80g</span>
+                            <span class="wishlist">
                     <input
-                      type="checkbox"
-                      class="wishlist-checkbox"
-                      id="wishlist-1"
+                            type="checkbox"
+                            class="wishlist-checkbox"
+                            id="wishlist-1"
                     />
                     <label for="wishlist-1" class="wishlist-label">
                       <span class="heart">♡</span> Yêu thích
                     </label>
                   </span>
-                </div>
-              </td>
+                        </div>
+                    </td>
 
-              <td>
-                <span class="price-sale">59.000₫</span><br />
-                <span class="price-old">87.000₫</span>
-              </td>
-              <td>
-                <input type="number" value="1" min="1" class="quantity" />
-              </td>
-              <td class="subtotal">59.000₫</td>
-              <td>
-                <button class="remove-btn">✖</button>
-              </td>
-            </tr>
+                    <td>
+                        <span class="price-sale">59.000₫</span><br />
+                        <span class="price-old">87.000₫</span>
+                    </td>
+                    <td>
+                        <input type="number" value="1" min="1" class="quantity" />
+                    </td>
+                    <td class="subtotal">59.000₫</td>
+                    <td>
+                        <button class="remove-btn">✖</button>
+                    </td>
+                </tr>
 
-            <!-- Sản phẩm 2 -->
-            <tr>
-              <td class="product-info">
-                <img
-                  src="/src/main/resources/static/Blog/Image/news04.jpg"
-                  alt="Hello Kitty"
-                />
-                <div class="product-text">
-                  <span class="product-name">Hello Kitty</span>
-                  <span class="product-desc">Sạch sâu dưỡng ẩm 80g</span>
-                  <span class="wishlist">♡ Yêu thích</span>
-                </div>
-              </td>
+                <!-- Sản phẩm 2 -->
+                <tr>
+                    <td class="product-info">
+                        <img src="/src/main/resources/static/Blog/Image/news01.jpg" alt="Sữa Rửa Mặt Senka" />
+                        <div class="product-text">
+                            <span class="product-name">Sữa Rửa Mặt Senka 120g</span>
+                            <span class="product-desc">Sạch thoáng, dịu nhẹ</span>
+                            <span class="wishlist">
+                    <input
+                            type="checkbox"
+                            class="wishlist-checkbox"
+                            id="wishlist-2"
+                    />
+                    <label for="wishlist-2" class="wishlist-label">
+                      <span class="heart">♡</span> Yêu thích
+                    </label>
+                  </span>
+                        </div>
+                    </td>
 
-              <td>
-                <span class="price-sale">228.000₫</span><br />
-                <span class="price-old">435.000₫</span>
-              </td>
-              <td>
-                <input type="number" value="1" min="1" class="quantity" />
-              </td>
-              <td class="subtotal">228.000₫</td>
-              <td>
-                <button class="remove-btn">✖</button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+                    <td>
+                        <span class="price-sale">228.000₫</span><br />
+                        <span class="price-old">435.000₫</span>
+                    </td>
+                    <td>
+                        <input type="number" value="1" min="1" class="quantity" />
+                    </td>
+                    <td class="subtotal">228.000₫</td>
+                    <td>
+                        <button class="remove-btn">✖</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
 
-        <a href="#" class="back-shopping">← Tiếp tục mua hàng</a>
-      </section>
+            <a href="#" class="back-shopping">← Tiếp tục mua hàng</a>
+        </section>
 
       <!-- Hóa đơn -->
       <aside class="cart-summary">
@@ -511,7 +513,7 @@
       <div class="product-grid">
         <!-- Sản phẩm 1 -->
         <div class="product-card">
-          <img src="./hinhAnh/helloKitty.jpg" alt="Serum Vichy" />
+          <img src="/src/main/resources/static/Blog/Image/news01.jpg" alt="Serum Vichy" />
           <div class="product-card-info">
             <p class="product-card-name">Serum Vichy Liftactiv 30ml</p>
             <span class="product-card-price">450.000₫</span>
@@ -520,7 +522,7 @@
 
         <!-- Sản phẩm 2 -->
         <div class="product-card">
-          <img src="./hinhAnh/helloKitty.jpg" alt="Serum Vichy" />
+          <img src="/src/main/resources/static/Blog/Image/news01.jpg" alt="Serum Vichy" />
           <div class="product-card-info">
             <p class="product-card-name">Sữa Rửa Mặt Senka 120g</p>
             <span class="product-card-price">85.000₫</span>
@@ -529,7 +531,7 @@
 
         <!-- Sản phẩm 3 -->
         <div class="product-card">
-          <img src="./hinhAnh/helloKitty.jpg" alt="Serum Vichy" />
+          <img src="/src/main/resources/static/Blog/Image/news01.jpg" alt="Serum Vichy" />
           <div class="product-card-info">
             <p class="product-card-name">Kem Dưỡng Ẩm Cetaphil 50ml</p>
             <span class="product-card-price">280.000₫</span>
@@ -538,7 +540,7 @@
 
         <!-- Sản phâm 4 -->
         <div class="product-card">
-          <img src="./hinhAnh/helloKitty.jpg" alt="Serum Vichy" />
+          <img src="./src/main/resources/static/Blog/Image/news01.jpg" alt="Serum Vichy" />
           <div class="product-card-info">
             <p class="product-card-name">Nước Hoa Hồng Innisfree 200ml</p>
             <span class="product-card-price">210.000₫</span>
@@ -668,5 +670,6 @@
     </footer>
 
     <script th:src="@{/Home/Home.js}"></script>
+    <script src="/src/main/resources/static/Cart/Cart.js"></script>
   </body>
 </html>
