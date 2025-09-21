@@ -1,0 +1,332 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background: #f4f4f4;
+  padding: 20px;
+}
+
+.checkout-container {
+  max-width: 1200px;
+  margin: auto;
+}
+
+/* ========== Địa chỉ ========== */
+.checkout-address {
+  background: #fff;
+  padding: 15px 20px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+.checkout-address h3 {
+  font-size: 16px;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+.checkout-address p {
+  font-size: 14px;
+  color: #555;
+}
+
+.checkout-address button {
+  padding: 8px 16px;
+  background: #000;
+  border: none;
+  color: #fff;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.3);
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.checkout-address button:hover {
+  background: #ff8851;
+  transform: translateY(-2px);
+}
+
+/* ========== Layout chính ========== */
+.checkout-main {
+  display: grid;
+  grid-template-columns: 2fr 1fr; /* trái 2 phần - phải 1 phần */
+  gap: 20px;
+}
+
+/* Container chung (Bill, Discount, Payment) */
+.checkout-left > div,
+.checkout-right > div {
+  background: #fff;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.checkout-left > div:hover,
+.checkout-right > div:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.3);
+}
+
+/* ========== Sản phẩm ========== */
+.checkout-products h2 {
+  margin-bottom: 15px;
+  font-size: 18px;
+  color: #333;
+}
+
+.product-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* giữ ảnh trái, giá phải */
+  margin-bottom: 15px;
+  border-bottom: 1px solid #d0d0d0;
+  padding-bottom: 10px;
+}
+
+.product-item img {
+  border-radius: 8px;
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  margin-right: 15px;
+}
+
+.product-details {
+  flex: 1;
+}
+
+.product-details h4 {
+  font-size: 15px;
+  color: #333;
+}
+
+.product-price {
+  min-width: 120px;
+  text-align: right;
+  font-weight: bold;
+  color: #e67e22;
+}
+
+/* ========== Mã giảm giá ========== */
+.checkout-discount h3 {
+  margin-bottom: 10px;
+  font-size: 16px;
+  color: #333;
+}
+
+.checkout-discount input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  width: 65%;
+}
+
+.checkout-discount button {
+  padding: 10px 16px;
+  margin-left: 10px;
+  background: #000000;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.checkout-discount button:hover {
+  background: #e67e22;
+}
+
+/* ========== Phương thức thanh toán ========== */
+.checkout-payment h3 {
+  margin-bottom: 10px;
+  font-size: 16px;
+  color: #333;
+}
+
+.checkout-payment label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 14px;
+  color: #444;
+}
+
+/* ========== Bill ========== */
+.checkout-summary {
+  padding: 16px 20px;
+  height: auto;
+  align-self: start;
+}
+
+.checkout-summary h2 {
+  margin-bottom: 12px;
+  font-size: 18px;
+}
+
+.checkout-summary p {
+  margin: 6px 0;
+  font-size: 14px;
+  display: flex;
+  justify-content: space-between; /* chữ trái, giá phải */
+  align-items: center;
+}
+
+.checkout-summary hr {
+  margin: 12px 0;
+  border: none;
+  border-top: 1px solid #eee;
+}
+
+.checkout-summary .total {
+  font-size: 16px;
+  font-weight: bold;
+  color: #e67e22;
+}
+
+.checkout-summary button {
+  width: 100%;
+  padding: 10px;
+  background: #e67e22;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 15px;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+  transition: background 0.2s ease;
+}
+
+.checkout-summary button:hover {
+  background: #d35400;
+}
+
+/* ========== MENU ========== */
+.menu-bar {
+  margin-bottom: 30px;
+}
+
+.subscribe-bar {
+  margin-top: 30px;
+}
+
+/* ========== Modal ========== */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  display: none; /* ẩn mặc định */
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.modal-content {
+  background: #fff;
+  padding: 2%;
+  width: 90%;
+  border-radius: 20px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.modal-content h3 {
+  margin-bottom: 10px;
+  font-size: 18px;
+  text-align: center;
+}
+
+.address-item {
+  margin-bottom: 8px;
+  font-size: 14px;
+  color: #333;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+#new-address-form label {
+  margin-top: 5px;
+  font-size: 13px;
+  color: #444;
+}
+
+#new-address-form input {
+  margin-bottom: 8px;
+  padding: 4px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.modal-actions button {
+  padding: 8px 14px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+#cancel-modal {
+  background: #ccc;
+  color: #000;
+}
+
+#save-modal {
+  background: #27ae60;
+  color: #fff;
+}
+
+#add-new-address {
+  background: #3498db;
+  color: #fff;
+}
+
+#add-new-address:hover {
+  background: #217dbb;
+}
+
+/* Toast thông báo */
+#toast {
+  visibility: hidden;
+  min-width: 250px;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 12px;
+  position: fixed;
+  z-index: 1000;
+  left: 50%;
+  bottom: 30px;
+  transform: translateX(-50%);
+  font-size: 14px;
+  opacity: 0;
+  transition: opacity 0.5s, bottom 0.5s;
+}
+
+#toast.show {
+  visibility: visible;
+  opacity: 1;
+  bottom: 50px;
+}
