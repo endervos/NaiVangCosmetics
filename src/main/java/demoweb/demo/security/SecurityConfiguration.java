@@ -15,7 +15,8 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(configurer -> configurer
                         .requestMatchers(
                                 "/**",
-                                "/page-fault/**").permitAll()
+                                "/page-fault/**",
+                                "/sign-up/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
