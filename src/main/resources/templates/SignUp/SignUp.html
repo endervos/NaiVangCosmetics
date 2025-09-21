@@ -238,14 +238,9 @@
       <h2 class="text-center mb-4">Đăng ký</h2>
       <form>
         <!-- Các trường input ở đây -->
-        <div class="row mb-3">
-          <div class="col-md-6">
-            <input type="text" class="form-control" placeholder="Họ" />
+          <div class="mb-3">
+              <input type="text" class="form-control" placeholder="Họ và tên"/>
           </div>
-          <div class="col-md-6">
-            <input type="text" class="form-control" placeholder="Tên"/>
-          </div>
-        </div>
 
         <div class="mb-3">
           <input type="text" class="form-control" placeholder="Số điện thoại"/>
@@ -254,6 +249,24 @@
         <div class="mb-3">
           <input type="email" class="form-control" placeholder="Email"/>
         </div>
+
+          <div class="mb-3">
+              <label class="form-label">Giới tính</label>
+              <div class="d-flex gender-container">
+                  <div class="gender-check">
+                      <input type="radio" class="gender-check-input" id="genderMale" name="gender" value="male">
+                      <label for="genderMale" class="gender-check-label">Nam</label>
+                  </div>
+                  <div class="gender-check">
+                      <input type="radio" class="gender-check-input" id="genderFemale" name="gender" value="female">
+                      <label for="genderFemale" class="gender-check-label">Nữ</label>
+                  </div>
+                  <div class="gender-check">
+                      <input type="radio" class="gender-check-input" id="genderOther" name="gender" value="other">
+                      <label for="genderOther" class="gender-check-label">Khác</label>
+                  </div>
+              </div>
+          </div>
 
         <div class="mb-3">
           <input type="date" class="form-control" />

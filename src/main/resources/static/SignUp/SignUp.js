@@ -26,6 +26,23 @@
     if (next && next.classList?.contains("nv-error")) next.remove();
   };
 
+  const addGenderError = (container, msg) => {
+    removeGenderError(container);
+    container.setAttribute("aria-invalid", "true");
+    container.classList.add("nv-invalid");
+    const hint = document.createElement("div");
+    hint.className = "nv-error";
+    hint.textContent = msg;
+    container.insertAdjacentElement("afterend", hint);
+  };
+
+  const removeGenderError = (container) => {
+    container.removeAttribute("aria-invalid");
+    container.classList.remove("nv-invalid");
+    const next = container.nextElementSibling;
+    if (next && next.classList?.contains("nv-error")) next.remove();
+  };
+
   const isEmail = (v) => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(String(v).trim());
   const isVNPhone = (v) => {
     const d = String(v).replace(/\D/g, "");
@@ -44,20 +61,37 @@
   };
   const pwStrong = (v) => v.length >= 15 && /[A-Za-z]/.test(v) && /\d/.test(v);
 
+//  // Optional: Generate random CAPTCHA
+//  const generateCaptcha = () => {
+//    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+//    let captcha = "";
+//    for (let i = 0; i < 6; i++) {
+//      captcha += chars.charAt(Math.floor(Math.random() * chars.length));
+//    }
+//    return captcha;
+//  };
+
   document.addEventListener("DOMContentLoaded", () => {
     const form = document.querySelector(".form-card form");
     if (!form) return;
 
-    const inputs = form.querySelectorAll("input");
-    const firstName = inputs[0];
-    const lastName  = inputs[1];
-    const phone     = inputs[2];
-    const email     = inputs[3];
-    const dob       = inputs[4];
-    const pw        = inputs[5];
-    const pw2       = inputs[6];
-    const captchaIn = inputs[7];
-    const terms     = form.querySelector("#termsCheck");
+    // Optional: Initialize CAPTCHA
+    const captchaBox = form.querySelector(".captcha-box");
+//    if (captchaBox) {
+//      captchaBox.textContent = generateCaptcha();
+//    }
+
+    const inputs = form.querySelectorAll("input:not(.gender-check-input)");
+    const fullName = inputs[0];
+    const phone = inputs[1];
+    const email = inputs[2];
+    const genderContainer = form.querySelector(".gender-container");
+    const genderInputs = form.querySelectorAll(".gender-check-input");
+    const dob = inputs[3];
+    const pw = inputs[4];
+    const pw2 = inputs[5];
+    const captchaIn = inputs[6];
+    const terms = form.querySelector("#termsCheck");
 
     form.addEventListener("submit", (e) => {
       e.preventDefault();
@@ -68,8 +102,7 @@
         else removeError(el);
       };
 
-      need(firstName, "Vui lòng nhập Họ.");
-      need(lastName, "Vui lòng nhập Tên.");
+      need(fullName, "Vui lòng nhập Họ và tên.");
 
       if (phone && !isVNPhone(phone.value)) {
         addError(phone, "Số điện thoại không hợp lệ.");
@@ -80,6 +113,11 @@
         addError(email, "Email không hợp lệ.");
         ok = false;
       } else removeError(email);
+
+      if (genderContainer && !Array.from(genderInputs).some(input => input.checked)) {
+        addGenderError(genderContainer, "Vui lòng chọn giới tính.");
+        ok = false;
+      } else removeGenderError(genderContainer);
 
       if (dob && !isAdult(dob.value)) {
         addError(dob, "Bạn cần đủ 13 tuổi để đăng ký.");
@@ -96,8 +134,8 @@
         ok = false;
       } else removeError(pw2);
 
-      if (captchaIn && captchaIn.value.trim() === "") {
-        addError(captchaIn, "Vui lòng nhập CAPTCHA.");
+      if (captchaIn && (!captchaIn.value.trim() || captchaIn.value.trim() !== captchaBox.textContent.trim())) {
+        addError(captchaIn, "CAPTCHA không đúng.");
         ok = false;
       } else removeError(captchaIn);
 
@@ -114,6 +152,9 @@
       }
 
       toast("Đăng ký thành công! 🎉");
+      if (captchaBox) {
+        captchaBox.textContent = generateCaptcha();
+      }
     });
   });
 })();
