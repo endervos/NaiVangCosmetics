@@ -16,9 +16,6 @@ public class User {
     @Column(name = "email", nullable = false, unique = true, length = 100)
     private String email;
 
-    @Column(name = "cccd", unique = true, length = 50)
-    private String cccd;
-
     @Column(name = "fullname", length = 100)
     private String fullname;
 
@@ -72,14 +69,6 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getCccd() {
-        return cccd;
-    }
-
-    public void setCccd(String cccd) {
-        this.cccd = cccd;
     }
 
     public String getFullname() {

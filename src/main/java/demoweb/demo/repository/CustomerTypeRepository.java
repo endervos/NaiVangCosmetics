@@ -1,4 +1,4 @@
-package demoweb.demo.dao;
+package demoweb.demo.repository;
 
 import demoweb.demo.entity.CustomerType;
 import org.springframework.data.jpa.repository.JpaRepository;

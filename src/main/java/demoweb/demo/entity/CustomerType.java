@@ -1,6 +1,8 @@
 package demoweb.demo.entity;
 
 import jakarta.persistence.*;
+
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -15,8 +17,8 @@ public class CustomerType {
     @Column(name = "customer_type_name", length = 100)
     private String customerTypeName;
 
-    @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<Customer> customers;
+    @OneToMany(mappedBy = "customerType")
+    private List<Customer> customers;
 
     public CustomerType() {
     }
@@ -37,11 +39,11 @@ public class CustomerType {
         this.customerTypeName = customerTypeName;
     }
 
-    public Set<Customer> getCustomers() {
+    public List<Customer> getCustomers() {
         return customers;
     }
 
-    public void setCustomers(Set<Customer> customers) {
+    public void setCustomers(List<Customer> customers) {
         this.customers = customers;
     }
 }

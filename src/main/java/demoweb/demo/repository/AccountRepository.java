@@ -1,14 +1,14 @@
-package demoweb.demo.dao;
+package demoweb.demo.repository;
 
 import demoweb.demo.entity.Account;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface AccountRepository extends JpaRepository<Account, String> {
-    boolean existsByAccountId(String accountId);
+    Optional<Account> findByUser_UserId(String userId);
 
-    Account findByUsername(String username);
-
-    Account findByAccountId(String accountId);
+    Optional<Account> findByUser_Email(String email);
 }

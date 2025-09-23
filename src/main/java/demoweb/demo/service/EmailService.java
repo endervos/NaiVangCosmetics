@@ -15,14 +15,19 @@ public class EmailService {
         try {
             MimeMessage message = mailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
-            helper.setFrom("lacitahotelnhom7@gmail.com", "La CiTa Hotel");
+
+            helper.setFrom("support@naivangcosmetics.com", "Nai Vàng Cosmetics");
             helper.setTo(toEmail);
-            helper.setSubject("Xác thực Email - La CiTa Hotel");
+            helper.setSubject("Xác thực Email - Nai Vàng Cosmetics");
+
             helper.setText(
                     "<p>Xin chào,</p>" +
-                            "<p>Mã xác thực của bạn là: <b>" + verificationCode + "</b></p>" +
-                            "<p>Vui lòng nhập mã này trên trang xác thực để tiếp tục.</p>" +
-                            "<p>Trân trọng,<br>La CiTa Hotel</p>", true);
+                            "<p>Mã xác thực của bạn là: <b style='color:#d63384; font-size:16px;'>" + verificationCode + "</b></p>" +
+                            "<p>Mã này có hiệu lực trong <b>5 phút</b>. Vui lòng nhập mã trên trang xác thực để hoàn tất đăng ký.</p>" +
+                            "<p>Trân trọng,<br><b>Nai Vàng Cosmetics</b></p>",
+                    true
+            );
+
             mailSender.send(message);
         } catch (Exception e) {
             System.err.println("Gửi email thất bại: " + e.getMessage());

@@ -13,7 +13,10 @@ public class SignUpCustomer {
     private String phoneNumber;
 
     @NotBlank(message = "Mật khẩu không được để trống")
-    @Size(min = 15, message = "Mật khẩu phải có ít nhất 15 ký tự")
+    @Pattern(
+            regexp = "^(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{15,}$",
+            message = "Mật khẩu phải có ít nhất 15 ký tự, bao gồm ít nhất 1 chữ hoa và 1 ký tự đặc biệt"
+    )
     private String password;
 
     @NotNull(message = "Ngày sinh không được để trống")
