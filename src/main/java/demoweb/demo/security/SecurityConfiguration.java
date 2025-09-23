@@ -32,7 +32,8 @@ public class SecurityConfiguration {
                         .requestMatchers(
                                 "/**",
                                 "/page-fault/**",
-                                "/sign-up/**").permitAll()
+                                "/sign-up/**",
+                                "/SignUp/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form

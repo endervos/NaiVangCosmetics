@@ -4,6 +4,7 @@ import demoweb.demo.entity.SignUpCustomer;
 import demoweb.demo.service.CustomerService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -27,17 +28,17 @@ public class SignUpController {
             @Valid @ModelAttribute("signUpCustomer") SignUpCustomer dto,
             BindingResult result,
             Model model) {
-
+        if (!dto.isPasswordMatch()) {
+            result.rejectValue("confirmPassword", "error.confirmPassword", "Mật khẩu xác nhận không khớp");
+        }
         if (result.hasErrors()) {
             return "SignUp/SignUp";
         }
-
         try {
             var user = customerService.signUpCustomer(dto);
-            customerService.generateAndSendVerification(user);
-
+            String code = customerService.generateAndSendVerification(user);
             model.addAttribute("userId", user.getUserId());
-            return "Verify/Verify"; // form nhập OTP
+            return "Verify/Verify";
         } catch (IllegalArgumentException e) {
             model.addAttribute("errorMessage", e.getMessage());
             return "SignUp/SignUp";
