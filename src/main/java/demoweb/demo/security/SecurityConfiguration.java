@@ -1,7 +1,6 @@
 package demoweb.demo.security;
 
 import demoweb.demo.service.AccountService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -31,8 +30,9 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(configurer -> configurer
                         .requestMatchers(
                                 "/**",
-                                "/page-fault/**",
-                                "/sign-up/**").permitAll()
+                                "/sign-up/**",
+                                "/Customer/**"
+                        ).permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form

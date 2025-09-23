@@ -19,6 +19,9 @@ public class SignUpCustomer {
     )
     private String password;
 
+    @NotBlank(message = "Xác nhận mật khẩu không được để trống")
+    private String confirmPassword;
+
     @NotNull(message = "Ngày sinh không được để trống")
     @Past(message = "Ngày sinh phải là ngày trong quá khứ")
     private LocalDate birthday;
@@ -30,53 +33,28 @@ public class SignUpCustomer {
     @NotNull(message = "Giới tính không được để trống")
     private Gender gender;
 
-    public SignUpCustomer() {}
-
-    public String getFullname() {
-        return fullname;
+    public boolean isPasswordMatch() {
+        return this.password != null && this.password.equals(this.confirmPassword);
     }
 
-    public void setFullname(String fullname) {
-        this.fullname = fullname;
-    }
+    public String getFullname() { return fullname; }
+    public void setFullname(String fullname) { this.fullname = fullname; }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
+    public String getPhoneNumber() { return phoneNumber; }
+    public void setPhoneNumber(String phoneNumber) { this.phoneNumber = phoneNumber; }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
+    public String getPassword() { return password; }
+    public void setPassword(String password) { this.password = password; }
 
-    public String getPassword() {
-        return password;
-    }
+    public String getConfirmPassword() { return confirmPassword; }
+    public void setConfirmPassword(String confirmPassword) { this.confirmPassword = confirmPassword; }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+    public LocalDate getBirthday() { return birthday; }
+    public void setBirthday(LocalDate birthday) { this.birthday = birthday; }
 
-    public LocalDate getBirthday() {
-        return birthday;
-    }
+    public String getEmail() { return email; }
+    public void setEmail(String email) { this.email = email; }
 
-    public void setBirthday(LocalDate birthday) {
-        this.birthday = birthday;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public Gender getGender() {
-        return gender;
-    }
-
-    public void setGender(Gender gender) {
-        this.gender = gender;
-    }
+    public Gender getGender() { return gender; }
+    public void setGender(Gender gender) { this.gender = gender; }
 }

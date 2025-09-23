@@ -16,13 +16,13 @@ public class PageFaultController {
         if (status != null) {
             int statusCode = Integer.parseInt(status.toString());
             if (statusCode == 404) {
-                return "PageFault/PageFault404";
+                return "Customer/PageFault404";
             } else if (statusCode == 500) {
-                return "PageFault/PageFault500";
+                return "Customer/PageFault500";
             } else if (statusCode == 403) {
-                return "PageFault/PageFault403";
+                return "Customer/PageFault403";
             }
         }
-        return "PageFault/PageFault404";
+        return "Customer/PageFault404";
     }
 }

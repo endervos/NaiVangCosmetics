@@ -10,7 +10,7 @@ body {
   justify-content: center;
   align-items: center;
   font-family: "Segoe UI", sans-serif;
-  background: url("/PageFault/Background.jpg")no-repeat center bottom;
+  background: url("/Customer/PageFault/Background.jpg")no-repeat center bottom;
   background-size: cover;
   color: white;
   animation: fadeIn 0.8s ease-in;

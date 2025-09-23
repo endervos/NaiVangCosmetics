@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-<html lang="vi">
 <html lang="vi" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nai Vang Cosmetic</title>
-    <link rel="icon" type="image/png" th:src="@{/Example/Image/LogoConNai.png}">
-    <link rel="stylesheet" th:href="@{/SignUp/SignUp.css}">
-    <link rel="stylesheet" th:href="@{/Example/Example.css}">
+    <link rel="icon" type="image/png" th:src="@{/Customer/Example/Image/LogoConNai.png}">
+    <link rel="stylesheet" th:href="@{/Customer/SignUp/SignUp.css}">
+    <link rel="stylesheet" th:href="@{/Customer/Example/Example.css}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -16,7 +15,7 @@
 <body>
 
 <div class="promo-banner">
-    <img th:src="@{/Example/Image/Example.gif}" alt="Khuyến mãi Lam Thao">
+    <img th:src="@{/Customer/Example/Image/Example.gif}" alt="Khuyến mãi Lam Thao">
 </div>
 
 <!-- Header -->
@@ -24,7 +23,7 @@
     <div class="container header-inner">
         <!-- Logo -->
         <a th:href="@{/}">
-            <img th:src="@{/Example/Image/Logo7.png}" alt="Logo" width="150" height="100">
+            <img th:src="@{/Customer/Example/Image/Logo7.png}" alt="Logo" width="150" height="100">
         </a>
 
         <div class="search-bar">
@@ -85,7 +84,7 @@
             <ul class="dropdown-content">
                 <li class="has-submenu">
                     <a href="#">
-                        <img class="menu-icon" th:src="@{/Example/Image/Skincare.png}" alt="Chăm sóc da mặt" >Chăm sóc da mặt </a>
+                        <img class="menu-icon" th:src="@{/Customer/Example/Image/Skincare.png}" alt="Chăm sóc da mặt" >Chăm sóc da mặt </a>
                     <!-- Menu cấp 2 mở sang phải -->
                     <ul class="submenu">
                         <li><a href="#">Tẩy Trang<span class="count">6</span></a></li>
@@ -103,7 +102,7 @@
                 <!--Trang điểm-->
                 <li class="has-submenu">
                     <a href="#">
-                        <img class="menu-icon" th:src="@{/Example/Image/Makeup.png}" alt="Trang điểm" >Trang điểm </a>
+                        <img class="menu-icon" th:src="@{/Customer/Example/Image/Makeup.png}" alt="Trang điểm" >Trang điểm </a>
                     <!-- Menu cấp 2 mở sang phải -->
                     <ul class="submenu">
                         <li><a href="#">Kem Lót<span class="count">5</span></a></li>
@@ -121,7 +120,7 @@
                 <!--Chăm sóc cơ thể-->
                 <li class="has-submenu">
                     <a href="#">
-                        <img class="menu-icon" th:src="@{/Example/Image/Bodycare.png}" alt="Chăm sóc cơ thể" >Chăm sóc cơ thể </a>
+                        <img class="menu-icon" th:src="@{/Customer/Example/Image/Bodycare.png}" alt="Chăm sóc cơ thể" >Chăm sóc cơ thể </a>
                     <!-- Menu cấp 2 mở sang phải -->
                     <ul class="submenu">
                         <li><a href="#">Sữa Tắm<span class="count">16</span></a></li>
@@ -137,7 +136,7 @@
                 <!--Chăm sóc cơ thể-->
                 <li class="has-submenu">
                     <a href="#">
-                        <img class="menu-icon" th:src="@{/Example/Image/Haircare.png}" alt="Chăm sóc tóc" >Chăm sóc tóc </a>
+                        <img class="menu-icon" th:src="@{/Customer/Example/Image/Haircare.png}" alt="Chăm sóc tóc" >Chăm sóc tóc </a>
                     <!-- Menu cấp 2 mở sang phải -->
                     <ul class="submenu">
                         <li><a href="#">Dầu Gội<span class="count">16</span></a></li>
@@ -150,7 +149,7 @@
                 <!--Dược mỹ phẩm -->
                 <li class="has-submenu">
                     <a href="#">
-                        <img class="menu-icon" th:src="@{/Example/Image/Cosmeceuticals.png}" alt="Dược mỹ phẩm">Dược mỹ phẩm
+                        <img class="menu-icon" th:src="@{/Customer/Example/Image/Cosmeceuticals.png}" alt="Dược mỹ phẩm">Dược mỹ phẩm
                     </a>
                     <!-- Menu cấp 2 mở sang phải -->
                     <ul class="submenu">
@@ -166,7 +165,7 @@
                 <!-- Thực phẩm chức năng -->
                 <li class="has-submenu">
                     <a href="#">
-                        <img class="menu-icon" th:src="@{/Example/Image/Health-supplements.png}" alt="Thực phẩm chức năng">
+                        <img class="menu-icon" th:src="@{/Customer/Example/Image/Health-supplements.png}" alt="Thực phẩm chức năng">
                         Thực phẩm chức năng
                     </a>
                     <ul class="submenu">
@@ -183,7 +182,7 @@
                 <!-- Best Seller -->
                 <li class="has-submenu">
                     <a href="#">
-                        <img class="menu-icon" th:src="@{/Example/Image/Best-seller.png}" alt="Best Seller">
+                        <img class="menu-icon" th:src="@{/Customer/Example/Image/Best-seller.png}" alt="Best Seller">
                         BEST SELLER
                     </a>
                     <ul class="submenu">
@@ -227,53 +226,60 @@
                 <li><a href="#">Mẹo chăm sóc</a></li>
             </ul>
         </div>
-
-        <!-- Tra cứu đơn -->
         <a href="#">TRA CỨU ĐƠN HÀNG</a>
     </div>
 </div>
 
-    <!-- form đăng ký -->
-    <div class="form-card">
-      <h2 class="text-center mb-4">Đăng ký</h2>
-        <form th:action="@{/sign-up}" th:object="${signUpCustomer}" method="post">
-            <div class="mb-3">
-                <input type="text" th:field="*{fullname}" class="form-control" placeholder="Họ và tên"/>
-                <div th:if="${#fields.hasErrors('fullname')}" th:errors="*{fullname}" class="error"></div>
-            </div>
+<!-- form đăng ký -->
+<div class="form-card">
+    <h2 class="text-center mb-4">Đăng ký</h2>
+    <form th:action="@{/sign-up}" th:object="${signUpCustomer}" method="post">
+        <div class="mb-3">
+            <input type="text" th:field="*{fullname}" class="form-control" placeholder="Họ và tên"/>
+            <div th:if="${#fields.hasErrors('fullname')}" th:errors="*{fullname}" class="error"></div>
+        </div>
 
-            <div class="mb-3">
-                <input type="text" th:field="*{phoneNumber}" class="form-control" placeholder="Số điện thoại"/>
-                <div th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}" class="error"></div>
-            </div>
+        <div class="mb-3">
+            <input type="text" th:field="*{phoneNumber}" class="form-control" placeholder="Số điện thoại"/>
+            <div th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}" class="error"></div>
+        </div>
 
-            <div class="mb-3">
-                <input type="email" th:field="*{email}" class="form-control" placeholder="Email"/>
-                <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="error"></div>
-            </div>
+        <div class="mb-3">
+            <input type="email" th:field="*{email}" class="form-control" placeholder="Email"/>
+            <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="error"></div>
+        </div>
 
-            <div class="mb-3">
-                <label class="form-label">Giới tính</label>
-                <div class="d-flex gender-container">
-                    <label><input type="radio" th:field="*{gender}" value="Nam"> Nam</label>
-                    <label><input type="radio" th:field="*{gender}" value="Nữ"> Nữ</label>
-                    <!-- <label><input type="radio" th:field="*{gender}" value="Khác"> Khác</label> -->
-                </div>
+        <div class="mb-3">
+            <label class="form-label">Giới tính</label>
+            <div class="d-flex gender-container">
+                <label><input type="radio" th:field="*{gender}" value="MALE"> Nam</label>
+                <label><input type="radio" th:field="*{gender}" value="FEMALE"> Nữ</label>
             </div>
+        </div>
 
-            <div class="mb-3">
-                <input type="date" th:field="*{birthday}" class="form-control"/>
-                <div th:if="${#fields.hasErrors('birthday')}" th:errors="*{birthday}" class="error"></div>
-            </div>
+        <div class="mb-3">
+            <input type="date" th:field="*{birthday}" class="form-control"/>
+            <div th:if="${#fields.hasErrors('birthday')}" th:errors="*{birthday}" class="error"></div>
+        </div>
 
-            <div class="mb-3">
-                <input type="password" th:field="*{password}" class="form-control" placeholder="Nhập mật khẩu"/>
-                <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="error"></div>
-            </div>
+        <div class="mb-3">
+            <input type="password" th:field="*{password}" class="form-control" placeholder="Nhập mật khẩu"/>
+            <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="error"></div>
+        </div>
 
-            <button type="submit" class="btn btn-signup w-100">Đăng ký</button>
-        </form>
-    </div>
+        <div class="mb-3">
+            <input type="password" name="confirmPassword" class="form-control" placeholder="Nhập lại mật khẩu"/>
+        </div>
+
+        <div class="mb-3 form-check">
+            <input type="checkbox" id="termsCheck" class="form-check-input">
+            <label for="termsCheck" class="form-check-label">Tôi đồng ý với Điều khoản & Chính sách</label>
+        </div>
+
+        <button type="submit" class="btn btn-signup w-100">Đăng ký</button>
+    </form>
+</div>
+
 
 <!-- FOOTER -->
 <div class="subscribe-bar">
@@ -289,41 +295,40 @@
 
 <footer class="footer">
     <div class="footer-main">
-        <!-- Cột 1: Logo + thông tin -->
         <div class="footer-col">
-            <img th:src="@{/Example/Image/Logo7.png}" alt="Nai Vang Logo" class="footer-logo">
+            <img th:src="@{/Customer/Example/Image/Logo7.png}" alt="Nai Vang Logo" class="footer-logo">
             <p><strong>CÔNG TY TNHH MTV ƠNG MẠI VÀ ĐẦU TƯ LIÊN Á CHÂU</strong></p>
             <p>Giấy chứng nhận đăng ký doanh nghiệp số 0310618188, cấp ngày 29.01.2011, nơi cấp Sở Kế Hoạch và Đầu Tư TP. Hồ Chí Minh</p>
             <p>Trụ sở chính: L2-VP-01, 346 Bến Vân Đồn, Phường Vĩnh Hội, TP. Hồ Chí Minh</p>
             <p>Hotline: <a href="tel:19004449">19004449</a>
                 Điện thoại: <a href="tel:02838328272">02838328272</a></p>
-            <img th:src="@{/Example/Image/Bocongthuong_1_1.webp}" alt="Đã thông báo Bộ Công Thương" class="boct-logo">
+            <img th:src="@{/Customer/Example/Image/Bocongthuong_1_1.webp}" alt="Đã thông báo Bộ Công Thương" class="boct-logo">
         </div>
 
         <!-- Cột 2: Theo dõi + App + Thanh toán -->
         <div class="footer-col">
             <h4>Theo dõi chúng tôi</h4>
             <div class="social-links">
-                <a href="#"><img th:src="@{/Example/Image/Facebook.webp}" alt="Facebook"></a>
-                <a href="#"><img th:src="@{/Example/Image/Instagram.webp}" alt="Instagram"></a>
-                <a href="#"><img th:src="@{/Example/Image/Youtube.webp}" alt="YouTube"></a>
-                <a href="#"><img th:src="@{/Example/Image/Tiktok.webp}" alt="TikTok"></a>
+                <a href="#"><img th:src="@{/Customer/Example/Image/Facebook.webp}" alt="Facebook"></a>
+                <a href="#"><img th:src="@{/Customer/Example/Image/Instagram.webp}" alt="Instagram"></a>
+                <a href="#"><img th:src="@{/Customer/Example/Image/Youtube.webp}" alt="YouTube"></a>
+                <a href="#"><img th:src="@{/Customer/Example/Image/Tiktok.webp}" alt="TikTok"></a>
             </div>
 
             <h4>Tải App Ngay</h4>
             <div class="app-links">
-                <img th:src="@{/Example/Image/Maqr.png}" alt="QR Code" class="qr-code">
+                <img th:src="@{/Customer/Example/Image/Maqr.png}" alt="QR Code" class="qr-code">
                 <div>
-                    <a href="#"><img th:src="@{/Example/Image/Googleplay.webp}" alt="Google Play"></a>
-                    <a href="#"><img th:src="@{/Example/Image/Appstore.webp}" alt="App Store"></a>
+                    <a href="#"><img th:src="@{/Customer/Example/Image/Googleplay.webp}" alt="Google Play"></a>
+                    <a href="#"><img th:src="@{/Customer/Example/Image/Appstore.webp}" alt="App Store"></a>
                 </div>
             </div>
 
             <h4>Chấp nhận Phương thức thanh toán</h4>
             <div class="pay-methods">
-                <img th:src="@{/Example/Image/Vnpay.png}" alt="VNPay">
-                <img th:src="@{/Example/Image/Momo.webp}" alt="MoMo" class="momo-logo">
-                <img th:src="@{/Example/Image/Visa.png}" alt="Visa">
+                <img th:src="@{/Customer/Example/Image/Vnpay.png}" alt="VNPay">
+                <img th:src="@{/Customer/Example/Image/Momo.webp}" alt="MoMo" class="momo-logo">
+                <img th:src="@{/Customer/Example/Image/Visa.png}" alt="Visa">
             </div>
         </div>
 
@@ -364,6 +369,6 @@
     </div>
 </footer>
 
-<script th:src="@{/SignUp/SignUp.js}"></script>
+<!--<script th:src="@{/Customer/SignUp/SignUp.js}"></script>-->
 </body>
 </html>
