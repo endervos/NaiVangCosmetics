@@ -26,13 +26,8 @@
 <!-- Header -->
 <div class="header">
     <div class="container header-inner">
-        <!-- Logo -->
-        <a href="index.html">   <!-- hoặc trangchu.jsp -->
-            <img th:src="@{/Example/Image/Logo7.png}" alt="Logo" width="150" height="100">
-        </a>
+        <img th:src="@{/Home/Logo7.png}" alt="Logo" width="150" height="100">
 
-
-        <!-- Search -->
         <div class="search-bar">
             <div class="search-wrap">
                 <input type="text" placeholder="Bạn cần tìm ....">
@@ -45,9 +40,7 @@
             </div>
         </div>
 
-        <!-- Icons (User + Cart) -->
         <div class="header-icons">
-            <!-- User Section -->
             <div class="user-section">
                 <!-- Nút user -->
                 <button class="user-btn" aria-label="Tài khoản">
@@ -59,8 +52,8 @@
 
                 <!-- Dropdown (ẩn mặc định, hiện khi hover hoặc click) -->
                 <div class="user-dropdown">
-                    <a th:href="@{/Login/Login.html}" id="login-btn">Đăng nhập</a>
-
+                    <a th:href="@{/login}" id="login-btn">Đăng nhập</a>
+                    <a th:href="@{/sign-up}" id="subcribe-btn">Đăng ký</a>
                     <a th:href="@{/Information/Information.html}" id="account-info">Thông tin tài khoản</a>
                     <a href="#" id="logout-btn">Đăng xuất</a>
                 </div>
@@ -353,110 +346,6 @@
         <p>© 2025 Nai Vang. All rights reserved.</p>
     </div>
 </footer>
-
-<script>
-    $(document).ready(function(){
-      $('.slider').slick({
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        arrows: true,
-        prevArrow: $('.nav.prev'),
-        nextArrow: $('.nav.next'),
-        autoplay: true,
-        autoplaySpeed: 3000,
-        dots: true
-      });
-    });
-</script>
-
-<!--Đăng nhập - ĐX-->
-<script>
-    document.addEventListener("DOMContentLoaded", () => {
-      let isLoggedIn = false; // mặc định chưa đăng nhập
-
-      const loginBtn   = document.getElementById("login-btn");
-      const logoutBtn  = document.getElementById("logout-btn");
-      const accountInfo = document.getElementById("account-info");
-
-      function updateMenu() {
-        if (isLoggedIn) {
-          loginBtn.style.display = "none";
-          accountInfo.style.display = "block";
-          logoutBtn.style.display = "block";
-        } else {
-          loginBtn.style.display = "block";
-          accountInfo.style.display = "none";
-          logoutBtn.style.display = "none";
-        }
-      }
-
-      // click login
-      loginBtn.addEventListener("click", () => {
-        isLoggedIn = true;
-        updateMenu();
-      });
-
-      // click logout
-      logoutBtn.addEventListener("click", (e) => {
-        e.preventDefault();
-        isLoggedIn = false;
-        updateMenu();
-      });
-
-      // gọi lần đầu
-      updateMenu();
-    });
-</script>
-
-
-
-<!--TOP SP BÁN CHẠY-->
-<script>
-    const tabs = document.querySelectorAll(".tab-menu li");
-    const contents = document.querySelectorAll(".tab-content");
-
-    tabs.forEach(tab => {
-      tab.addEventListener("click", () => {
-        // Bỏ active cũ
-        tabs.forEach(t => t.classList.remove("active"));
-        contents.forEach(c => c.classList.remove("active"));
-
-        // Active tab mới
-        tab.classList.add("active");
-        const target = tab.dataset.tab;
-        document.getElementById(target).classList.add("active");
-      });
-    });
-</script>
-
-<!--Email không hợp lệ-->
-<script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const form = document.getElementById("subscribeForm");
-      const emailInput = document.getElementById("emailInput");
-      const emailError = document.getElementById("emailError");
-
-      form.addEventListener("submit", function(e) {
-        e.preventDefault(); // chặn submit mặc định
-
-        const email = emailInput.value.trim();
-        const regex = /^[^\s@]+@(gmail\.com|yahoo\.com|outlook\.com)$/i;
-
-        if (!regex.test(email)) {
-          emailError.textContent = "Vui lòng nhập email hợp lệ!";
-          emailError.classList.add("show");
-        } else {
-          emailError.textContent = "";
-          emailError.classList.remove("show");
-
-          // TODO: gửi email lên server (nếu cần)
-          alert("Đăng ký thành công với email: " + email);
-          form.reset();
-        }
-      });
-    });
-</script>
-
 <script src="Example.js"></script>
 </body>
 </html>

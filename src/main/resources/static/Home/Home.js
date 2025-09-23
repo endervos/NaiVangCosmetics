@@ -52,6 +52,23 @@ document.addEventListener("DOMContentLoaded", () => {
   updateMenu();
 });
 
+//Top product ban chay
+const tabs = document.querySelectorAll(".tab-menu li");
+  const contents = document.querySelectorAll(".tab-content");
+
+  tabs.forEach(tab => {
+    tab.addEventListener("click", () => {
+      // Bỏ active cũ
+      tabs.forEach(t => t.classList.remove("active"));
+      contents.forEach(c => c.classList.remove("active"));
+
+      // Active tab mới
+      tab.classList.add("active");
+      const target = tab.dataset.tab;
+      document.getElementById(target).classList.add("active");
+    });
+  });
+
 //Email không hợp lệ
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("subscribeForm");
