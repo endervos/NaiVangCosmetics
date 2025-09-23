@@ -33,12 +33,11 @@
   };
 
   // Validator functions
-  const isVNPhone = (v) => {
-    const d = String(v).replace(/\D/g, "");
-    if (d.startsWith("84")) return d.length === 11 || d.length === 12;
-    if (d.startsWith("0")) return d.length === 10 || d.length === 11;
-    return false;
+  const isEmail = (v) => {
+    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return emailPattern.test(v);
   };
+  
   const pwStrong = (v) => v.length >= 1;
 
   onReady(() => {
@@ -47,7 +46,7 @@
     if (!form) { console.warn("Không tìm thấy form đăng nhập!"); toast("Không tìm thấy form đăng nhập!"); return; }
 
     // 2) Find the input fields
-    const phone = form.querySelector('input[type="text"]');
+    const email = form.querySelector('input[type="text"]');
     const password = form.querySelector('input[type="password"]');
     const captchaIn = form.querySelector(".captcha-input");
     const captchaBx = form.querySelector(".captcha-box");
@@ -56,7 +55,7 @@
     const genCap = () => {
       const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
       let s = "";
-      for (let i = 0; i < 6; i++) s += chars[Math.floor(Math.random()*chars.length)];
+      for (let i = 0; i < 6; i++) s += chars[Math.floor(Math.random() * chars.length)];
       return s;
     };
 
@@ -82,13 +81,13 @@
         else removeError(el);
       };
 
-      need(phone, "Chưa nhập số điện thoại.");
-      if (phone && !isVNPhone(phone.value)) { addError(phone, "Định dạng không đúng."); ok = false; }
-      else if (phone) removeError(phone);
+      need(email, "Chưa nhập email.");
+      if (email && !isEmail(email.value)) { addError(email, "Định dạng email không đúng."); ok = false; }
+      else if (email) removeError(email);
 
       need(password, "Chưa nhập mật khẩu.");
       if (password && !pwStrong(password.value)) { 
-        addError(password, "Số điện thoại hoặc mật khẩu không đúng."); 
+        addError(password, "Email hoặc mật khẩu không đúng."); 
         ok = false; 
       } else if (password) removeError(password);
 
@@ -121,7 +120,5 @@
       }
          
     });
-    
-
   });
 })();
