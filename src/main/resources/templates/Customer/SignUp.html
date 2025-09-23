@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nai Vang Cosmetic</title>
-    <link rel="icon" type="image/png" th:src="@{Customer/Example/Image/LogoConNai.png}">
+    <link rel="icon" type="image/png" th:src="@{/Customer/Example/Image/LogoConNai.png}">
     <link rel="stylesheet" th:href="@{/Customer/SignUp/SignUp.css}">
-    <link rel="stylesheet" th:href="@{Customer/Example/Example.css}">
+    <link rel="stylesheet" th:href="@{/Customer/Example/Example.css}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -15,7 +15,7 @@
 <body>
 
 <div class="promo-banner">
-    <img th:src="@{Customer/Example/Image/Example.gif}" alt="Khuyến mãi Lam Thao">
+    <img th:src="@{/Customer/Example/Image/Example.gif}" alt="Khuyến mãi Lam Thao">
 </div>
 
 <!-- Header -->
@@ -23,7 +23,7 @@
     <div class="container header-inner">
         <!-- Logo -->
         <a th:href="@{/}">
-            <img th:src="@{Customer/Example/Image/Logo7.png}" alt="Logo" width="150" height="100">
+            <img th:src="@{/Customer/Example/Image/Logo7.png}" alt="Logo" width="150" height="100">
         </a>
 
         <div class="search-bar">
@@ -84,7 +84,7 @@
             <ul class="dropdown-content">
                 <li class="has-submenu">
                     <a href="#">
-                        <img class="menu-icon" th:src="@{Customer/Example/Image/Skincare.png}" alt="Chăm sóc da mặt" >Chăm sóc da mặt </a>
+                        <img class="menu-icon" th:src="@{/Customer/Example/Image/Skincare.png}" alt="Chăm sóc da mặt" >Chăm sóc da mặt </a>
                     <!-- Menu cấp 2 mở sang phải -->
                     <ul class="submenu">
                         <li><a href="#">Tẩy Trang<span class="count">6</span></a></li>
@@ -102,7 +102,7 @@
                 <!--Trang điểm-->
                 <li class="has-submenu">
                     <a href="#">
-                        <img class="menu-icon" th:src="@{Customer/Example/Image/Makeup.png}" alt="Trang điểm" >Trang điểm </a>
+                        <img class="menu-icon" th:src="@{/Customer/Example/Image/Makeup.png}" alt="Trang điểm" >Trang điểm </a>
                     <!-- Menu cấp 2 mở sang phải -->
                     <ul class="submenu">
                         <li><a href="#">Kem Lót<span class="count">5</span></a></li>
@@ -120,7 +120,7 @@
                 <!--Chăm sóc cơ thể-->
                 <li class="has-submenu">
                     <a href="#">
-                        <img class="menu-icon" th:src="@{Customer/Example/Image/Bodycare.png}" alt="Chăm sóc cơ thể" >Chăm sóc cơ thể </a>
+                        <img class="menu-icon" th:src="@{/Customer/Example/Image/Bodycare.png}" alt="Chăm sóc cơ thể" >Chăm sóc cơ thể </a>
                     <!-- Menu cấp 2 mở sang phải -->
                     <ul class="submenu">
                         <li><a href="#">Sữa Tắm<span class="count">16</span></a></li>
@@ -136,7 +136,7 @@
                 <!--Chăm sóc cơ thể-->
                 <li class="has-submenu">
                     <a href="#">
-                        <img class="menu-icon" th:src="@{Customer/Example/Image/Haircare.png}" alt="Chăm sóc tóc" >Chăm sóc tóc </a>
+                        <img class="menu-icon" th:src="@{/Customer/Example/Image/Haircare.png}" alt="Chăm sóc tóc" >Chăm sóc tóc </a>
                     <!-- Menu cấp 2 mở sang phải -->
                     <ul class="submenu">
                         <li><a href="#">Dầu Gội<span class="count">16</span></a></li>
@@ -149,7 +149,7 @@
                 <!--Dược mỹ phẩm -->
                 <li class="has-submenu">
                     <a href="#">
-                        <img class="menu-icon" th:src="@{Customer/Example/Image/Cosmeceuticals.png}" alt="Dược mỹ phẩm">Dược mỹ phẩm
+                        <img class="menu-icon" th:src="@{/Customer/Example/Image/Cosmeceuticals.png}" alt="Dược mỹ phẩm">Dược mỹ phẩm
                     </a>
                     <!-- Menu cấp 2 mở sang phải -->
                     <ul class="submenu">
@@ -165,7 +165,7 @@
                 <!-- Thực phẩm chức năng -->
                 <li class="has-submenu">
                     <a href="#">
-                        <img class="menu-icon" th:src="@{Customer/Example/Image/Health-supplements.png}" alt="Thực phẩm chức năng">
+                        <img class="menu-icon" th:src="@{/Customer/Example/Image/Health-supplements.png}" alt="Thực phẩm chức năng">
                         Thực phẩm chức năng
                     </a>
                     <ul class="submenu">
@@ -182,7 +182,7 @@
                 <!-- Best Seller -->
                 <li class="has-submenu">
                     <a href="#">
-                        <img class="menu-icon" th:src="@{Customer/Example/Image/Best-seller.png}" alt="Best Seller">
+                        <img class="menu-icon" th:src="@{/Customer/Example/Image/Best-seller.png}" alt="Best Seller">
                         BEST SELLER
                     </a>
                     <ul class="submenu">
@@ -296,39 +296,39 @@
 <footer class="footer">
     <div class="footer-main">
         <div class="footer-col">
-            <img th:src="@{Customer/Example/Image/Logo7.png}" alt="Nai Vang Logo" class="footer-logo">
+            <img th:src="@{/Customer/Example/Image/Logo7.png}" alt="Nai Vang Logo" class="footer-logo">
             <p><strong>CÔNG TY TNHH MTV ƠNG MẠI VÀ ĐẦU TƯ LIÊN Á CHÂU</strong></p>
             <p>Giấy chứng nhận đăng ký doanh nghiệp số 0310618188, cấp ngày 29.01.2011, nơi cấp Sở Kế Hoạch và Đầu Tư TP. Hồ Chí Minh</p>
             <p>Trụ sở chính: L2-VP-01, 346 Bến Vân Đồn, Phường Vĩnh Hội, TP. Hồ Chí Minh</p>
             <p>Hotline: <a href="tel:19004449">19004449</a>
                 Điện thoại: <a href="tel:02838328272">02838328272</a></p>
-            <img th:src="@{Customer/Example/Image/Bocongthuong_1_1.webp}" alt="Đã thông báo Bộ Công Thương" class="boct-logo">
+            <img th:src="@{/Customer/Example/Image/Bocongthuong_1_1.webp}" alt="Đã thông báo Bộ Công Thương" class="boct-logo">
         </div>
 
         <!-- Cột 2: Theo dõi + App + Thanh toán -->
         <div class="footer-col">
             <h4>Theo dõi chúng tôi</h4>
             <div class="social-links">
-                <a href="#"><img th:src="@{Customer/Example/Image/Facebook.webp}" alt="Facebook"></a>
-                <a href="#"><img th:src="@{Customer/Example/Image/Instagram.webp}" alt="Instagram"></a>
-                <a href="#"><img th:src="@{Customer/Example/Image/Youtube.webp}" alt="YouTube"></a>
-                <a href="#"><img th:src="@{Customer/Example/Image/Tiktok.webp}" alt="TikTok"></a>
+                <a href="#"><img th:src="@{/Customer/Example/Image/Facebook.webp}" alt="Facebook"></a>
+                <a href="#"><img th:src="@{/Customer/Example/Image/Instagram.webp}" alt="Instagram"></a>
+                <a href="#"><img th:src="@{/Customer/Example/Image/Youtube.webp}" alt="YouTube"></a>
+                <a href="#"><img th:src="@{/Customer/Example/Image/Tiktok.webp}" alt="TikTok"></a>
             </div>
 
             <h4>Tải App Ngay</h4>
             <div class="app-links">
-                <img th:src="@{Customer/Example/Image/Maqr.png}" alt="QR Code" class="qr-code">
+                <img th:src="@{/Customer/Example/Image/Maqr.png}" alt="QR Code" class="qr-code">
                 <div>
-                    <a href="#"><img th:src="@{Customer/Example/Image/Googleplay.webp}" alt="Google Play"></a>
-                    <a href="#"><img th:src="@{Customer/Example/Image/Appstore.webp}" alt="App Store"></a>
+                    <a href="#"><img th:src="@{/Customer/Example/Image/Googleplay.webp}" alt="Google Play"></a>
+                    <a href="#"><img th:src="@{/Customer/Example/Image/Appstore.webp}" alt="App Store"></a>
                 </div>
             </div>
 
             <h4>Chấp nhận Phương thức thanh toán</h4>
             <div class="pay-methods">
-                <img th:src="@{Customer/Example/Image/Vnpay.png}" alt="VNPay">
-                <img th:src="@{Customer/Example/Image/Momo.webp}" alt="MoMo" class="momo-logo">
-                <img th:src="@{Customer/Example/Image/Visa.png}" alt="Visa">
+                <img th:src="@{/Customer/Example/Image/Vnpay.png}" alt="VNPay">
+                <img th:src="@{/Customer/Example/Image/Momo.webp}" alt="MoMo" class="momo-logo">
+                <img th:src="@{/Customer/Example/Image/Visa.png}" alt="Visa">
             </div>
         </div>
 
