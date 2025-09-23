@@ -1,14 +1,13 @@
 <!DOCTYPE html>
 <html lang="vi">
- <!DOCTYPE html>
-<html lang="vi">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Nai Vang Cosmetic</title>
   <link rel="icon" type="image/png" href="../icon/logoConNai.png">
-  <link rel="stylesheet" href="/src/main/resources/static/OrderManage/OrderManage.css">
-  <link rel="stylesheet" href="/src/main/resources/static/Example/Example.css">
+  <link rel="stylesheet" href="/src/main/resources/static/Customer/Example/Example.css">
+  <link rel="stylesheet" href="/src/main/resources/static/Customer/OrderManage/OrderManage.css">
+
   <!-- Slick CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css">
@@ -18,7 +17,7 @@
 
   <!-- Banner GIF full màn hình -->
   <div class="promo-banner">
-    <img src="/src/main/resources/static/Example/Image/_TopHeader_02072025-ezgif.com-cut.gif" alt="Khuyến mãi Lam Thao">
+    <img src="/src/main/resources/static/Example/Image/Example.gif" alt="Khuyến mãi Lam Thao">
   </div>
 
   <!-- Header -->
@@ -215,285 +214,265 @@
     <a href="#">TRA CỨU ĐƠN HÀNG</a>
   </div>
 </div>
-    <!-- Main Content -->
-    <div class="main-container">
-      <!-- Sidebar (Menu bên trái) -->
-      <div class="menu-sidebar">
+<div class="main-container">
+    <!-- Sidebar -->
+    <aside class="menu-sidebar">
         <h3>Chào zz</h3>
         <ul>
-          <li class="menu-item"><a href="quanly.html">Quản lý tài khoản</a></li>
-          <li class="menu-item">
-            <a href="/trangthongtincanhan/trangthongitncanhan.html"
-              >Thông tin tài khoản</a
-            >
-          </li>
-          <li class="menu-item">
-            <a href="/trangquanlydonhang/trangquanlydonhang.html"
-              >Quản lý đơn hàng</a
-            >
-          </li>
-          <li class="menu-item">
-            <a href="yeuthich.html">Danh sách yêu thích</a>
-          </li>
-          <li class="menu-item"><a href="hoidap.html">Hỏi đáp</a></li>
+            <li class="menu-item"><a href="quanly.html">Quản lý tài khoản</a></li>
+            <li class="menu-item">
+                <a href="/Infomation/Infomation.css">Thông tin tài khoản</a>
+            </li>
+            <li class="menu-item">
+                <a href="/OrderManage/OrderManage.css.html">Quản lý đơn hàng</a>
+            </li>
+            <li class="menu-item">
+                <a href="/FavouriteList/FavouriteList.html">Danh sách yêu thích</a>
+            </li>
+            <li class="menu-item"><a href="hoidap.html">Hỏi đáp</a></li>
         </ul>
-      </div>
+    </aside>
+    <div class="container-order">
+        <h1>Quản lý Đơn Hàng</h1>
 
-      <!-- Main Content Area (Đơn hàng và thông tin) -->
-      <main class="orders-content">
-        <h2>Danh sách đơn hàng của tôi</h2>
+        <!-- Tab navigation -->
+        <div class="tabs">
+            <button class="tablinks" onclick="loadTab(event, 'all')">Tất Cả</button>
+            <button class="tablinks" onclick="loadTab(event, 'new')">Mới Đặt</button>
+            <button class="tablinks" onclick="loadTab(event, 'processing')">Đang Xử Lý</button>
+            <button class="tablinks" onclick="loadTab(event, 'shipping')">Đang Vận Chuyển</button>
+            <button class="tablinks" onclick="loadTab(event, 'completed')">Thành Công</button>
+            <button class="tablinks" onclick="loadTab(event, 'cancelled')">Đã Hủy</button>
+        </div>
 
-        <!-- Danh sách các đơn hàng -->
-        <section class="orders-list">
-          <!-- Mỗi đơn hàng sẽ được hiển thị ở đây -->
-          <div class="order-card" id="order-1">
-            <h3>Đơn hàng #1</h3>
+        <!-- Tab content -->
+        <div id="all" class="tabcontent">
+            <h3>Tất Cả</h3>
+            <div class="order" id="order-all"></div>
+        </div>
 
-            <!-- Chi tiết đơn hàng -->
-            <div class="order-items">
-              <div class="order-item">
-                <img src="suaruamat.jpg" alt="Product 1" class="item-image" />
-                <span class="item-name">Kem dưỡng da mặt</span>
-                <span class="item-quantity">x2</span>
-              </div>
-              <div class="order-item">
-                <img src="suaruamat.jpg" alt="Product 2" class="item-image" />
-                <span class="item-name">Sữa rửa mặt</span>
-                <span class="item-quantity">x1</span>
-              </div>
-            </div>
+        <div id="new" class="tabcontent">
+            <h3>Mới Đặt</h3>
+            <div class="order" id="order-new"></div>
+        </div>
 
-            <!-- Tổng tiền -->
-            <div class="order-summary">
-              <div
-                class="order-summary-status"
-                style="width: 50%; display: flex"
-              >
-                <p><strong>Trạng thái:</strong> Đã giao</p>
-                <p><strong>Thời Gian:</strong> 10/08/2025 (48h)</p>
-              </div>
-              <div
-                class="order-summary-status"
-                style="width: 50%; text-align: right"
-              >
-                <p><strong>Tổng thanh toán:</strong> 350,000 VNĐ</p>
-              </div>
-            </div>
+        <div id="processing" class="tabcontent">
+            <h3>Đang Xử Lý</h3>
+            <div class="order" id="order-processing"></div>
+        </div>
 
-            <!-- Trạng thái đơn hàng -->
-          </div>
-        </section>
-      </main>
+        <div id="shipping" class="tabcontent">
+            <h3>Đang Vận Chuyển</h3>
+            <div class="order" id="order-shipping"></div>
+        </div>
+
+        <div id="completed" class="tabcontent">
+            <h3>Thành Công</h3>
+            <div class="order" id="order-completed"></div>
+        </div>
+
+        <div id="cancelled" class="tabcontent">
+            <h3>Đã Hủy</h3>
+            <div class="order" id="order-cancelled"></div>
+        </div>
+
+    </div>
     </div>
 
-<!-- FOOTER -->
+      <!-- FOOTER -->
 <div class="subscribe-bar">
-  <h2>ĐĂNG KÝ NHẬN ƯU ĐÃI</h2>
-  <form class="subscribe-form" id="subscribeForm">
-    <div class="input-wrap">
-      <input type="email" id="emailInput" placeholder="Nhập email của bạn">
-      <!-- dòng báo lỗi -->
-      <small id="emailError" class="error-msg"></small>
-    </div>
-    <button type="submit">ĐĂNG KÝ</button>
-  </form>
+    <h2>ĐĂNG KÝ NHẬN ƯU ĐÃI</h2>
+    <form class="subscribe-form" id="subscribeForm">
+        <div class="input-wrap">
+            <input type="email" id="emailInput" placeholder="Nhập email của bạn">
+            <!-- dòng báo lỗi -->
+            <small id="emailError" class="error-msg"></small>
+        </div>
+        <button type="submit">ĐĂNG KÝ</button>
+    </form>
 </div>
 
-
-
-  <footer class="footer">
-  <div class="footer-main">
-    <!-- Cột 1: Logo + thông tin -->
-    <div class="footer-col">
-      <img src="/src/main/resources/static/Example/Image/logo7.png" alt="Nai Vang Logo" class="footer-logo">
-      <p><strong>CÔNG TY TNHH MTV THƯƠNG MẠI VÀ ĐẦU TƯ LIÊN Á CHÂU</strong></p>
-      <p>Giấy chứng nhận đăng ký doanh nghiệp số 0310618188, cấp ngày 29.01.2011, nơi cấp Sở Kế Hoạch và Đầu Tư TP. Hồ Chí Minh</p>
-      <p>Trụ sở chính: L2-VP-01, 346 Bến Vân Đồn, Phường Vĩnh Hội, TP. Hồ Chí Minh</p>
-      <p>Hotline: <a href="tel:19004449">19004449</a>  
-         Điện thoại: <a href="tel:02838328272">02838328272</a></p>
-      <img src="/src/main/resources/static/Example/Image/bocongthuong_1_1.webp" alt="Đã thông báo Bộ Công Thương" class="boct-logo">
-    </div>
-
-    <!-- Cột 2: Theo dõi + App + Thanh toán -->
-    <div class="footer-col">
-      <h4>Theo dõi chúng tôi</h4>
-      <div class="social-links">
-        <a href="#"><img src="/src/main/resources/static/Example/Image/facebook.webp" alt="Facebook"></a>
-        <a href="#"><img src="/src/main/resources/static/Example/Image/instagram.webp" alt="Instagram"></a>
-        <a href="#"><img src="/src/main/resources/static/Example/Image/youtube.webp" alt="YouTube"></a>
-        <a href="#"><img src="/src/main/resources/static/Example/Image/tiktok.webp" alt="TikTok"></a>
-      </div>
-
-      <h4>Tải App Ngay</h4>
-      <div class="app-links">
-        <img src="/src/main/resources/static/Example/Image/maqr.png" alt="QR Code" class="qr-code">
-        <div>
-          <a href="#"><img src="/src/main/resources/static/Example/Image/googleplay.webp" alt="Google Play"></a>
-          <a href="#"><img src="/src/main/resources/static/Example/Image/appstore.webp" alt="App Store"></a>
+<footer class="footer">
+    <div class="footer-main">
+        <!-- Cột 1: Logo + thông tin -->
+        <div class="footer-col">
+            <img th:src="@{/Example/ImagTHƯe/Logo7.png}" alt="Nai Vang Logo" class="footer-logo">
+            <p><strong>CÔNG TY TNHH MTV ƠNG MẠI VÀ ĐẦU TƯ LIÊN Á CHÂU</strong></p>
+            <p>Giấy chứng nhận đăng ký doanh nghiệp số 0310618188, cấp ngày 29.01.2011, nơi cấp Sở Kế Hoạch và Đầu Tư TP. Hồ Chí Minh</p>
+            <p>Trụ sở chính: L2-VP-01, 346 Bến Vân Đồn, Phường Vĩnh Hội, TP. Hồ Chí Minh</p>
+            <p>Hotline: <a href="tel:19004449">19004449</a>
+                Điện thoại: <a href="tel:02838328272">02838328272</a></p>
+            <img th:src="@{/Example/Image/Bocongthuong_1_1.webp}" alt="Đã thông báo Bộ Công Thương" class="boct-logo">
         </div>
-      </div>
 
-      <h4>Chấp nhận Phương thức thanh toán</h4>
-      <div class="pay-methods">
-        <img src="/src/main/resources/static/Example/Image/vnpay.png" alt="VNPay">
-        <img src="/src/main/resources/static/Example/Image/momo.webp" alt="MoMo" class="momo-logo">
-        <img src="/src/main/resources/static/Example/Image/visa.png" alt="Visa">
-      </div>
+        <!-- Cột 2: Theo dõi + App + Thanh toán -->
+        <div class="footer-col">
+            <h4>Theo dõi chúng tôi</h4>
+            <div class="social-links">
+                <a href="#"><img th:src="@{/Example/Image/Facebook.webp}" alt="Facebook"></a>
+                <a href="#"><img th:src="@{/Example/Image/Instagram.webp}" alt="Instagram"></a>
+                <a href="#"><img th:src="@{/Example/Image/Youtube.webp}" alt="YouTube"></a>
+                <a href="#"><img th:src="@{/Example/Image/Tiktok.webp}" alt="TikTok"></a>
+            </div>
+
+            <h4>Tải App Ngay</h4>
+            <div class="app-links">
+                <img th:src="@{/Example/Image/Maqr.png}" alt="QR Code" class="qr-code">
+                <div>
+                    <a href="#"><img th:src="@{/Example/Image/Googleplay.webp}" alt="Google Play"></a>
+                    <a href="#"><img th:src="@{/Example/Image/Appstore.webp}" alt="App Store"></a>
+                </div>
+            </div>
+
+            <h4>Chấp nhận Phương thức thanh toán</h4>
+            <div class="pay-methods">
+                <img th:src="@{/Example/Image/Vnpay.webp}" alt="VNPay">
+                <img th:src="@{/Example/Image/Momo.webp}" alt="MoMo" class="momo-logo">
+                <img th:src="@{/Example/Image/Visa.webp}" alt="Visa">
+            </div>
+        </div>
+
+        <!-- Cột 3: Về chúng tôi -->
+        <div class="footer-col">
+            <h4>Về chúng tôi</h4>
+            <ul>
+                <li><a href="#">Giới thiệu</a></li>
+                <li><a href="#">Tin Tức</a></li>
+                <li><a href="#">Cẩm nang Làm đẹp</a></li>
+                <li><a href="#">Tuyển dụng</a></li>
+                <li><a href="#">Đổi điểm Hội Cam</a></li>
+                <li><a href="#">Liên hệ</a></li>
+                <li><a href="#">Địa chỉ cửa hàng</a></li>
+                <li><a href="#">Cho thuê mặt bằng</a></li>
+                <li><a href="#">Hợp tác cùng Guardian</a></li>
+            </ul>
+        </div>
+
+        <!-- Cột 4: Chính sách -->
+        <div class="footer-col">
+            <h4>Chính sách</h4>
+            <ul>
+                <li><a href="#">Chính sách và quy định chung</a></li>
+                <li><a href="#">Quy định và hình thức thanh toán</a></li>
+                <li><a href="#">Chính sách vận chuyển</a></li>
+                <li><a href="#">Chính sách đổi/trả hàng và hoàn tiền</a></li>
+                <li><a href="#">Chính sách bảo mật thông tin cá nhân</a></li>
+                <li><a href="#">Hướng dẫn mua hàng</a></li>
+                <li><a href="#">Quy trình xuất hóa đơn Điện Tử</a></li>
+                <li><a href="#">Chính sách Thông tin Hội Cam</a></li>
+            </ul>
+        </div>
     </div>
 
-    <!-- Cột 3: Về chúng tôi -->
-    <div class="footer-col">
-      <h4>Về chúng tôi</h4>
-      <ul>
-        <li><a href="#">Giới thiệu</a></li>
-        <li><a href="#">Tin Tức</a></li>
-        <li><a href="#">Cẩm nang Làm đẹp</a></li>
-        <li><a href="#">Tuyển dụng</a></li>
-        <li><a href="#">Đổi điểm Hội Cam</a></li>
-        <li><a href="#">Liên hệ</a></li>
-        <li><a href="#">Địa chỉ cửa hàng</a></li>
-        <li><a href="#">Cho thuê mặt bằng</a></li>
-        <li><a href="#">Hợp tác cùng Guardian</a></li>
-      </ul>
+    <div class="footer-bottom">
+        <p>© 2025 Nai Vang. All rights reserved.</p>
     </div>
-
-    <!-- Cột 4: Chính sách -->
-    <div class="footer-col">
-      <h4>Chính sách</h4>
-      <ul>
-        <li><a href="#">Chính sách và quy định chung</a></li>
-        <li><a href="#">Quy định và hình thức thanh toán</a></li>
-        <li><a href="#">Chính sách vận chuyển</a></li>
-        <li><a href="#">Chính sách đổi/trả hàng và hoàn tiền</a></li>
-        <li><a href="#">Chính sách bảo mật thông tin cá nhân</a></li>
-        <li><a href="#">Hướng dẫn mua hàng</a></li>
-        <li><a href="#">Quy trình xuất hóa đơn Điện Tử</a></li>
-        <li><a href="#">Chính sách Thông tin Hội Cam</a></li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="footer-bottom">
-    <p>© 2025 Nai Vang. All rights reserved.</p>
-  </div>
 </footer>
 
 <script>
-  // Nút cuộn trái/phải
-  const track = document.getElementById('fsTrack');
-  const STEP = 192; // 180px card + 12px gap
-  document.querySelector('.fs-nav.next').onclick = () =>
-    track.scrollBy({ left: STEP * 3, behavior: 'smooth' });
-  document.querySelector('.fs-nav.prev').onclick = () =>
-    track.scrollBy({ left: -STEP * 3, behavior: 'smooth' });
-</script>
-
-<script>
-  $(document).ready(function(){
-    $('.slider').slick({
-      slidesToShow: 1,
-      slidesToScroll: 1,
-      arrows: true,
-      prevArrow: $('.nav.prev'),
-      nextArrow: $('.nav.next'),
-      autoplay: true,
-      autoplaySpeed: 3000,
-      dots: true
+    $(document).ready(function(){
+      $('.slider').slick({
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        arrows: true,
+        prevArrow: $('.nav.prev'),
+        nextArrow: $('.nav.next'),
+        autoplay: true,
+        autoplaySpeed: 3000,
+        dots: true
+      });
     });
-  });
 </script>
 
 <!--Đăng nhập - ĐX-->
 <script>
-document.addEventListener("DOMContentLoaded", () => {
-  let isLoggedIn = false; // mặc định chưa đăng nhập
+    document.addEventListener("DOMContentLoaded", () => {
+      let isLoggedIn = false; // mặc định chưa đăng nhập
 
-  const loginBtn   = document.getElementById("login-btn");
-  const logoutBtn  = document.getElementById("logout-btn");
-  const accountInfo = document.getElementById("account-info");
+      const loginBtn   = document.getElementById("login-btn");
+      const logoutBtn  = document.getElementById("logout-btn");
+      const accountInfo = document.getElementById("account-info");
 
-  function updateMenu() {
-    if (isLoggedIn) {
-      loginBtn.style.display = "none";
-      accountInfo.style.display = "block";
-      logoutBtn.style.display = "block";
-    } else {
-      loginBtn.style.display = "block";
-      accountInfo.style.display = "none";
-      logoutBtn.style.display = "none";
-    }
-  }
+      function updateMenu() {
+        if (isLoggedIn) {
+          loginBtn.style.display = "none";
+          accountInfo.style.display = "block";
+          logoutBtn.style.display = "block";
+        } else {
+          loginBtn.style.display = "block";
+          accountInfo.style.display = "none";
+          logoutBtn.style.display = "none";
+        }
+      }
 
-  // click login
-  loginBtn.addEventListener("click", () => {
-    isLoggedIn = true;
-    updateMenu();
-  });
+      // click login
+      loginBtn.addEventListener("click", () => {
+        isLoggedIn = true;
+        updateMenu();
+      });
 
-  // click logout
-  logoutBtn.addEventListener("click", (e) => {
-    e.preventDefault();
-    isLoggedIn = false;
-    updateMenu();
-  });
+      // click logout
+      logoutBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        isLoggedIn = false;
+        updateMenu();
+      });
 
-  // gọi lần đầu
-  updateMenu();
-});
+      // gọi lần đầu
+      updateMenu();
+    });
 </script>
-
 
 
 <!--TOP SP BÁN CHẠY-->
 <script>
-  const tabs = document.querySelectorAll(".tab-menu li");
-  const contents = document.querySelectorAll(".tab-content");
+    const tabs = document.querySelectorAll(".tab-menu li");
+    const contents = document.querySelectorAll(".tab-content");
 
-  tabs.forEach(tab => {
-    tab.addEventListener("click", () => {
-      // Bỏ active cũ
-      tabs.forEach(t => t.classList.remove("active"));
-      contents.forEach(c => c.classList.remove("active"));
+    tabs.forEach(tab => {
+      tab.addEventListener("click", () => {
+        // Bỏ active cũ
+        tabs.forEach(t => t.classList.remove("active"));
+        contents.forEach(c => c.classList.remove("active"));
 
-      // Active tab mới
-      tab.classList.add("active");
-      const target = tab.dataset.tab;
-      document.getElementById(target).classList.add("active");
+        // Active tab mới
+        tab.classList.add("active");
+        const target = tab.dataset.tab;
+        document.getElementById(target).classList.add("active");
+      });
     });
-  });
 </script>
 
 <!--Email không hợp lệ-->
 <script>
-document.addEventListener("DOMContentLoaded", () => {
-  const form = document.getElementById("subscribeForm");
-  const emailInput = document.getElementById("emailInput");
-  const emailError = document.getElementById("emailError");
+    document.addEventListener("DOMContentLoaded", () => {
+      const form = document.getElementById("subscribeForm");
+      const emailInput = document.getElementById("emailInput");
+      const emailError = document.getElementById("emailError");
 
-  form.addEventListener("submit", function(e) {
-    e.preventDefault(); // chặn submit mặc định
+      form.addEventListener("submit", function(e) {
+        e.preventDefault(); // chặn submit mặc định
 
-    const email = emailInput.value.trim();
-    const regex = /^[^\s@]+@(gmail\.com|yahoo\.com|outlook\.com)$/i;
+        const email = emailInput.value.trim();
+        const regex = /^[^\s@]+@(gmail\.com|yahoo\.com|outlook\.com)$/i;
 
-    if (!regex.test(email)) {
-      emailError.textContent = "Vui lòng nhập email hợp lệ!";
-      emailError.classList.add("show");
-    } else {
-      emailError.textContent = "";
-      emailError.classList.remove("show");
+        if (!regex.test(email)) {
+          emailError.textContent = "Vui lòng nhập email hợp lệ!";
+          emailError.classList.add("show");
+        } else {
+          emailError.textContent = "";
+          emailError.classList.remove("show");
 
-      // TODO: gửi email lên server (nếu cần)
-      alert("Đăng ký thành công với email: " + email);
-      form.reset();
-    }
-  });
-});
+          // TODO: gửi email lên server (nếu cần)
+          alert("Đăng ký thành công với email: " + email);
+          form.reset();
+        }
+      });
+    });
 </script>
 
-<script src="/src/main/resources/static/Example/Example.js"></script>
+<script src="/src/main/resources/static/Customer/OrderManage/OrderManage.js"></script>
+<script src="/src/main/resources/static/Customer/Example/Example.js"></script>
+
 </body>
 </html>
-
-
-

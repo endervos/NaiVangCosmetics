@@ -1,30 +1,43 @@
-body {
-  font-family: Arial, sans-serif;
-  background: #f5f5f5;
+/* Reset cơ bản */
+* {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #f7f7f7;
+  margin: 0;
+  padding: 0;
+  color: #333;
+}
+
+/* Main container */
 .main-container {
   display: flex;
   width: 100%;
-  margin: 30px auto;
   background: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
 }
 
-/* Sidebar (Menu bên trái) */
+/* Sidebar */
 .menu-sidebar {
-  flex: 0 0 220px; /* cố định chiều rộng */
-  border-right: 1px solid #eee;
-  padding: 20px;
+  width: 220px;
   background: #f0f0f0;
-  /*height: 100%;  Chiều cao sidebar sẽ bằng chiều cao màn hình trừ đi header */
+  padding: 20px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid #ddd;
 }
 
 .menu-sidebar h3 {
-  margin-bottom: 15px;
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #333;
 }
 
 .menu-sidebar ul {
@@ -33,185 +46,258 @@ body {
 }
 
 .menu-sidebar ul li {
-  padding: 10px 0;
-  border-bottom: 1px solid #f0f0f0;
+  padding: 12px 0;
+  border-bottom: 1px solid #ddd;
 }
 
 .menu-sidebar ul li a {
   text-decoration: none;
   color: #333;
   display: block;
+  font-size: 16px;
+  font-weight: 500;
 }
 
 .menu-sidebar ul li.active a {
-  color: #fff;
-  background: orange;
+  color: white;
+  background: #e9985e;
   padding: 8px;
   border-radius: 4px;
   font-weight: bold;
 }
 
-/* Nội dung chính (Đơn hàng) */
-.orders-content {
-  flex: 1; /* content chiếm phần còn lại */
-  padding: 20px;
-
-  max-height: calc(100vh - 60px); /* Chiều cao của content, có thể cuộn */
-  overflow-y: auto; /* Cho phép cuộn bên trong sidebar */
-  -ms-overflow-style: none; /* Ẩn thanh cuộn trong IE */
-  scrollbar-width: none; /* Ẩn thanh cuộn trong Firefox */
+/* Nội dung chính (Orders) */
+.container-order {
+  flex: 1;
+  padding: 30px;
+  max-height: calc(100vh - 60px);
+  overflow-y: auto;
 }
 
-.orders-content h2 {
-  margin-bottom: 20px;
+h1 {
+  text-align: center;
+  margin-bottom: 40px;
+  font-size: 32px;
+  color: #34495e;
 }
 
-/* Mỗi đơn hàng */
-.order-card {
-  background: #fff;
-  border-radius: 30px;
-  padding: 15px;
-  box-shadow: 0 2px 6px rgba(76, 75, 75, 0.619);
-  margin-bottom: 20px;
-}
-
-.order-card h3 {
-  margin-bottom: 10px;
-}
-
-.order-items {
-  width: 100%;
-  border-collapse: collapse;
-  margin-bottom: 15px;
-}
-
-.order-items th,
-.order-items td {
-  border: 1px solid #ddd;
-  padding: 8px 12px;
-  text-align: left;
-}
-
-.order-summary {
+/* Tab navigation */
+.tabs {
   display: flex;
-  margin-top: 15px;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.tablinks {
+  padding: 12px 24px;
+  margin: 0 12px;
+  cursor: pointer;
+  background: #f1f1f1;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-weight: bold;
+  color: #333;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.tablinks:hover {
+  background: #e67e22;
+  color: white;
+}
+
+.tabcontent {
+  display: none;
+}
+
+/* Đơn hàng */
+.order {
+  margin-top: 20px;
+}
+
+/* Đơn hàng card */
+.order-item {
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+  border-radius: 12px;
+  margin-bottom: 25px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.order-item-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px;
+  background: #f1ae73;
+  color: white;
+  border-radius: 8px;
+  font-size: 18px;
+}
+
+.order-item-header .order-item-header-orderid {
+  width: 70%;
+}
+
+.order-item-header .order-item-header-button {
+  width: 30%;
+  text-align: end;
+}
+
+/* Chi tiết sản phẩm */
+.order-item-body {
+  padding: 20px;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  border-radius: 8px;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+}
+
+.order-item-body .item-details {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #ddd;
+  padding: 12px 0;
+}
+
+.order-item-body .item-details img {
+  width: 60px;
+  height: 60px;
+  margin-right: 15px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.order-item-body .item-details .item-info {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.order-item-body .item-details .item-info span {
+  width: 48%;
+}
+
+.order-item-body .item-details .item-info .item-info-qty {
+  text-align: end;
+}
+
+/* Order Summary */
+.order-summary {
+  margin-top: 20px;
   background: #f9f9f9;
-  padding: 10px;
-  border-radius: 4px;
+  padding: 15px;
+  border-radius: 6px;
 }
 
 .order-summary p {
-  margin: 5px 5px;
+  margin: 5px 0;
+  font-size: 14px;
+  color: #333;
 }
 
-/* Main container that holds the sidebar and content */
-.main-container {
-  display: flex;
-  margin: 30px auto;
-  background: #fff;
+/* Nút điều hướng */
+.navigation button {
+  background-color: #2ecc71;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  cursor: pointer;
   border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  height: 100vh;
-  overflow: hidden;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
 }
 
-/* Sidebar */
-.menu-sidebar {
-  flex: 0 0 220px;
-  border-right: 1px solid #eee;
-  padding: 20px;
-  background: #fafafa;
-  height: 100vh;
-  overflow-y: scroll;
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+.navigation button:hover {
+  background-color: #27ae60;
+}
+
+.order-item-footer {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 20px;
+}
+
+.order-item-footer button {
+  padding: 12px 24px;
+  margin: 8px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.order-item-footer button.review-btn {
+  background-color: #fff;
+  color: #333;
+  border: 1px solid #000000;
+}
+
+.order-item-footer button.reorder-btn {
+  background-color: #fff;
+  color: #2ecc71;
+  border: 1px solid #000000;
+}
+
+.order-item-footer button:hover {
+  opacity: 0.8;
+}
+
+.order-item-footer button.review-btn:hover {
+  background-color: #333;
+  color: white;
+}
+
+.order-item-footer button.reorder-btn:hover {
+  background-color: #333;
+  color: white;
+}
+
+/* Ẩn thanh cuộn trong các phần tử */
+::-webkit-scrollbar {
+  display: none;
 }
 
 .menu-sidebar::-webkit-scrollbar {
   display: none;
 }
 
-/* Main content area (for orders) */
-.orders-content {
-  flex: 1;
-  padding: 20px;
-  overflow-y: scroll;
-  max-height: calc(100vh - 60px);
-  margin-left: 20px;
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
-
 .orders-content::-webkit-scrollbar {
   display: none;
 }
 
-/* Orders list */
-.orders-list {
-  margin-top: 20px;
+/* Responsive: Chế độ di động */
+@media (max-width: 768px) {
+  .main-container {
+    flex-direction: column;
+    margin: 10px;
+  }
+
+  .menu-sidebar {
+    width: 100%;
+    height: auto;
+    padding: 10px;
+  }
+
+  .container-order {
+    margin-left: 0;
+    padding: 15px;
+  }
+
+  .tabs {
+    flex-direction: column;
+  }
+
+  .tablinks {
+    width: 100%;
+    text-align: left;
+    padding: 10px;
+    margin: 5px 0;
+  }
 }
 
-.order-card {
-  background-color: #fff;
-  padding: 20px;
-  margin-bottom: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-}
-
-.order-card h3 {
-  margin-bottom: 10px;
-}
-
-/* Each item in the order list */
-.order-items {
-  margin-top: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-.order-item {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  border-bottom: 1px solid #ddd;
-}
-
-.order-item img {
-  width: 50px;
-  height: 50px;
-  object-fit: cover;
-}
-
-.order-item .item-name {
-  flex: 1;
-  font-size: 16px;
-}
-
-.order-item .item-quantity {
-  font-weight: bold;
-  color: #007b55;
-}
-
-/* Order summary */
-.order-summary {
-  margin-top: 15px;
-  background: #f9f9f9;
-  padding: 10px;
-  border-radius: 4px;
-}
-
-/* Navigation buttons */
-.navigation button {
-  background-color: #007b55;
-  color: white;
-  border: none;
-  padding: 10px 15px;
-  cursor: pointer;
-  border-radius: 4px;
-}
-
-.navigation button:hover {
-  background-color: #005c40;
+.detail-link{
+  color: black;
 }
