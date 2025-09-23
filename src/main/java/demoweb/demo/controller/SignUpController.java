@@ -4,7 +4,6 @@ import demoweb.demo.entity.SignUpCustomer;
 import demoweb.demo.service.CustomerService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -20,7 +19,7 @@ public class SignUpController {
     @GetMapping
     public String showSignUpPage(Model model) {
         model.addAttribute("signUpCustomer", new SignUpCustomer());
-        return "SignUp/SignUp";
+        return "Customer/SignUp";
     }
 
     @PostMapping
@@ -32,23 +31,23 @@ public class SignUpController {
             result.rejectValue("confirmPassword", "error.confirmPassword", "Mật khẩu xác nhận không khớp");
         }
         if (result.hasErrors()) {
-            return "SignUp/SignUp";
+            return "Customer/SignUp";
         }
         try {
             var user = customerService.signUpCustomer(dto);
             String code = customerService.generateAndSendVerification(user);
             model.addAttribute("userId", user.getUserId());
-            return "Verify/Verify";
+            return "Customer/VerifyCode";
         } catch (IllegalArgumentException e) {
             model.addAttribute("errorMessage", e.getMessage());
-            return "SignUp/SignUp";
+            return "Customer/SignUp";
         }
     }
 
     @GetMapping("/verify-code")
     public String showVerifyPage(@RequestParam("userId") String userId, Model model) {
         model.addAttribute("userId", userId);
-        return "Verify/Verify";
+        return "Customer/VerifyCode";
     }
 
     @PostMapping("/verify-code")
@@ -61,11 +60,11 @@ public class SignUpController {
 
         if (verified) {
             model.addAttribute("successMessage", "Xác thực thành công! Tài khoản của bạn đã được kích hoạt.");
-            return "Login/Login";
+            return "Customer/Login";
         } else {
             model.addAttribute("userId", userId);
             model.addAttribute("errorMessage", "Mã xác thực không hợp lệ hoặc đã hết hạn.");
-            return "Verify/Verify";
+            return "Customer/VerifyCode";
         }
     }
 

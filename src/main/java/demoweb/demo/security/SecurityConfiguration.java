@@ -33,7 +33,8 @@ public class SecurityConfiguration {
                                 "/**",
                                 "/page-fault/**",
                                 "/sign-up/**",
-                                "/SignUp/**").permitAll()
+                                "/Customer/**"
+                        ).permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form

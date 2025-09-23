@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nai Vang Cosmetic</title>
-    <link rel="icon" type="image/png" th:href="@{/Home/LogoConNai.png}">
-    <link rel="stylesheet" th:href="@{/Home/Home.css}">
-    <link rel="stylesheet" th:href="@{/Blog/Blog.css}">
+    <link rel="icon" type="image/png" th:href="@{/Customer/Home/LogoConNai.png}">
+    <link rel="stylesheet" th:href="@{/Customer/Home/Home.css}">
+    <link rel="stylesheet" th:href="@{/Customer/Blog/Blog.css}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -15,12 +15,12 @@
 <body>
 
 <div class="promo-banner">
-    <img th:src="@{/Home/Home.gif}" alt="Khuyến mãi Lam Thao">
+    <img th:src="@{/Customer/Home/Home.gif}" alt="Khuyến mãi Lam Thao">
 </div>
 
 <div class="header">
     <div class="container header-inner">
-        <img th:src="@{/Home/Logo7.png}" alt="Logo" width="150" height="100">
+        <img th:src="@{/Customer/Home/Logo7.png}" alt="Logo" width="150" height="100">
 
         <div class="search-bar">
             <div class="search-wrap">
@@ -62,7 +62,7 @@
             <ul class="dropdown-content">
                 <li class="has-submenu">
                     <a href="#">
-                        <img class="menu-icon" th:src="@{/Home/Skincare.png}" alt="Chăm sóc da mặt" >Chăm sóc da mặt </a>
+                        <img class="menu-icon" th:src="@{/Customer/Home/Skincare.png}" alt="Chăm sóc da mặt" >Chăm sóc da mặt </a>
                     <ul class="submenu">
                         <li><a href="#">Tẩy Trang<span class="count">6</span></a></li>
                         <li><a href="#">Sữa Rửa Mặt<span class="count">15</span></a></li>
@@ -79,7 +79,7 @@
                 <!--Trang điểm-->
                 <li class="has-submenu">
                     <a href="#">
-                        <img class="menu-icon" th:src="@{/Home/Makeup.png}" alt="Trang điểm" >Trang điểm </a>
+                        <img class="menu-icon" th:src="@{/Customer/Home/Makeup.png}" alt="Trang điểm" >Trang điểm </a>
                     <ul class="submenu">
                         <li><a href="#">Kem Lót<span class="count">5</span></a></li>
                         <li><a href="#">Che Khuyết Điểm<span class="count">10</span></a></li>
@@ -96,7 +96,7 @@
                 <!--Chăm sóc cơ thể-->
                 <li class="has-submenu">
                     <a href="#">
-                        <img class="menu-icon" th:src="@{/Home/Bodycare.png}" alt="Chăm sóc cơ thể" >Chăm sóc cơ thể </a>
+                        <img class="menu-icon" th:src="@{/Customer/Home/Bodycare.png}" alt="Chăm sóc cơ thể" >Chăm sóc cơ thể </a>
                     <ul class="submenu">
                         <li><a href="#">Sữa Tắm<span class="count">16</span></a></li>
                         <li><a href="#">Dưỡng Thể<span class="count">10</span></a></li>
@@ -111,7 +111,7 @@
                 <!--Chăm sóc cơ thể-->
                 <li class="has-submenu">
                     <a href="#">
-                        <img class="menu-icon" th:src="@{/Home/Haircare.png}" alt="Chăm sóc tóc" >Chăm sóc tóc </a>
+                        <img class="menu-icon" th:src="@{/Customer/Home/Haircare.png}" alt="Chăm sóc tóc" >Chăm sóc tóc </a>
                     <ul class="submenu">
                         <li><a href="#">Dầu Gội<span class="count">16</span></a></li>
                         <li><a href="#">Dầu Xả<span class="count">10</span></a></li>
@@ -123,7 +123,7 @@
                 <!--Dược mỹ phẩm -->
                 <li class="has-submenu">
                     <a href="#">
-                        <img class="menu-icon" th:src="@{/Home/Cosmeceuticals.png}" alt="Dược mỹ phẩm">Dược mỹ phẩm
+                        <img class="menu-icon" th:src="@{/Customer/Home/Cosmeceuticals.png}" alt="Dược mỹ phẩm">Dược mỹ phẩm
                     </a>
                     <ul class="submenu">
                         <li><a href="#">Sản phẩm trị mụn <span class="count">11</span></a></li>
@@ -138,7 +138,7 @@
                 <!-- Thực phẩm chức năng -->
                 <li class="has-submenu">
                     <a href="#">
-                        <img class="menu-icon" th:src="@{/Home/Health-supplements.png}" alt="Thực phẩm chức năng">
+                        <img class="menu-icon" th:src="@{/Customer/Home/Health-supplements.png}" alt="Thực phẩm chức năng">
                         Thực phẩm chức năng
                     </a>
                     <ul class="submenu">
@@ -155,7 +155,7 @@
                 <!-- Best Seller -->
                 <li class="has-submenu">
                     <a href="#">
-                        <img class="menu-icon" th:src="@{/Home/Best-seller.png}" alt="Best Seller">
+                        <img class="menu-icon" th:src="@{/Customer/Home/Best-seller.png}" alt="Best Seller">
                         BEST SELLER
                     </a>
                     <ul class="submenu">
@@ -191,7 +191,7 @@
 
         <!-- Tin tức -->
         <div class="dropdown">
-            <a th:href="@{/blog}">TIN TỨC</a>
+            <a th:href="@{/Customer/Blog}">TIN TỨC</a>
         </div>
 
         <!-- Tra cứu đơn -->
@@ -205,13 +205,13 @@
     <div class="highlight-left">
         <div class="slider">
             <div class="slide active">
-                <img th:src="@{/Blog/Image/banner01.jpg}" alt="Banner mỹ phẩm 1" />
+                <img th:src="@{/Customer/Blog/Image/banner01.jpg}" alt="Banner mỹ phẩm 1" />
             </div>
             <div class="slide">
-                <img th:src="@{/Blog/Image/banner02.jpg}" alt="Banner mỹ phẩm 2" />
+                <img th:src="@{/Customer/Blog/Image/banner02.jpg}" alt="Banner mỹ phẩm 2" />
             </div>
             <div class="slide">
-                <img th:src="@{/Blog/Image/banner03.jpg}" alt="Banner mỹ phẩm 3" />
+                <img th:src="@{/Customer/Blog/Image/banner03.jpg}" alt="Banner mỹ phẩm 3" />
             </div>
         </div>
 
@@ -220,7 +220,7 @@
     <div class="highlight-right">
         <a th:href="@{/blog/nice-routine-cua-ty-ty-douyin}" class="news-link-wrapper">
             <div class="news-item">
-                <img th:src="@{/Blog/Image/news01.jpg}" alt="Tin 1" />
+                <img th:src="@{/Customer/Blog/Image/news01.jpg}" alt="Tin 1" />
                 <div class="highlight-news-content">
                     <span class="tag hot">🔥 Nổi bật</span>
                     <span class="tag">Tin tức</span>
@@ -231,7 +231,7 @@
         </a>
         <a th:href="@{/blog/mua-sam-tet-ga-khong-lo-ve-gia}" class="news-link-wrapper">
             <div class="news-item">
-                <img th:src="@{/Blog/Image/news02.jpg}" alt="Tin 1" />
+                <img th:src="@{/Customer/Blog/Image/news02.jpg}" alt="Tin 1" />
                 <div class="highlight-news-content">
                     <span class="tag hot">🔥 Nổi bật</span>
                     <span class="tag">Tin tức</span>
@@ -242,7 +242,7 @@
         </a>
         <a th:href="@{/blog/huong-dan-trang-diem-mua-tua-truong}" class="news-link-wrapper">
             <div class="news-item">
-                <img th:src="@{/Blog/Image/news03.jpg}" alt="Tin 1" />
+                <img th:src="@{/Customer/Blog/Image/news03.jpg}" alt="Tin 1" />
                 <div class="highlight-news-content">
                     <span class="tag hot">🔥 Nổi bật</span>
                     <span class="tag">Tin tức</span>
@@ -256,7 +256,7 @@
 
 <main class="news">
     <a th:href="@{/blog/sinh-vien-routine-ngon-bo-re}" class="news-card">
-            <img th:src="@{/Blog/Image/news04.jpg}" alt="Routine Skincare" class="news-img"/>
+            <img th:src="@{/Customer/Blog/Image/news04.jpg}" alt="Routine Skincare" class="news-img"/>
             <div class="news-content">
                 <div class="news-meta">
                     <span class="news-category">Tin tức</span>
@@ -273,7 +273,7 @@
 
 
     <a th:href="@{/blog/ve-sinh-dung-cu-make-up}" class="news-card">
-            <img th:src="@{/Blog/Image/news05.jpg}" alt="Routine Skincare" class="news-img"/>
+            <img th:src="@{/Customer/Blog/Image/news05.jpg}" alt="Routine Skincare" class="news-img"/>
             <div class="news-content">
                 <div class="news-meta">
                     <span class="news-category">Tin tức</span>
@@ -289,7 +289,7 @@
     </a>
 
     <a th:href="@{/blog/layout-di-bien-khong-troi}" class="news-card">
-        <img th:src="@{/Blog/Image/news06.jpg}" alt="Routine Skincare" class="news-img"/>
+        <img th:src="@{/Customer/Blog/Image/news06.jpg}" alt="Routine Skincare" class="news-img"/>
         <div class="news-content">
             <div class="news-meta">
                 <span class="news-category">Tin tức</span>
@@ -322,39 +322,39 @@
     <div class="footer-main">
         <!-- Cột 1: Logo + thông tin -->
         <div class="footer-col">
-            <img th:src="@{/Home/Logo7.png}" alt="Nai Vang Logo" class="footer-logo">
+            <img th:src="@{/Customer/Home/Logo7.png}" alt="Nai Vang Logo" class="footer-logo">
             <p><strong>CÔNG TY TNHH MTV THƯƠNG MẠI VÀ ĐẦU TƯ LIÊN Á CHÂU</strong></p>
             <p>Giấy chứng nhận đăng ký doanh nghiệp số 0310618188, cấp ngày 29.01.2011, nơi cấp Sở Kế Hoạch và Đầu Tư TP. Hồ Chí Minh</p>
             <p>Trụ sở chính: L2-VP-01, 346 Bến Vân Đồn, Phường Vĩnh Hội, TP. Hồ Chí Minh</p>
             <p>Hotline: <a href="tel:19004449">19004449</a>
                 Điện thoại: <a href="tel:02838328272">02838328272</a></p>
-            <img th:src="@{/Home/Bocongthuong_1_1.webp}" alt="Đã thông báo Bộ Công Thương" class="boct-logo">
+            <img th:src="@{/Customer/Home/Bocongthuong_1_1.webp}" alt="Đã thông báo Bộ Công Thương" class="boct-logo">
         </div>
 
         <!-- Cột 2: Theo dõi + App + Thanh toán -->
         <div class="footer-col">
             <h4>Theo dõi chúng tôi</h4>
             <div class="social-links">
-                <a href="#"><img th:src="@{/Home/Facebook.webp}" alt="Facebook"></a>
-                <a href="#"><img th:src="@{/Home/Instagram.webp}" alt="Instagram"></a>
-                <a href="#"><img th:src="@{/Home/Youtube.webp}" alt="YouTube"></a>
-                <a href="#"><img th:src="@{/Home/Tiktok.webp}" alt="TikTok"></a>
+                <a href="#"><img th:src="@{/Customer/Home/Facebook.webp}" alt="Facebook"></a>
+                <a href="#"><img th:src="@{/Customer/Home/Instagram.webp}" alt="Instagram"></a>
+                <a href="#"><img th:src="@{/Customer/Home/Youtube.webp}" alt="YouTube"></a>
+                <a href="#"><img th:src="@{/Customer/Home/Tiktok.webp}" alt="TikTok"></a>
             </div>
 
             <h4>Tải App Ngay</h4>
             <div class="app-links">
-                <img th:src="@{/Home/Maqr.png}" alt="QR Code" class="qr-code">
+                <img th:src="@{/Customer/Home/Maqr.png}" alt="QR Code" class="qr-code">
                 <div>
-                    <a href="#"><img th:src="@{/Home/Googleplay.webp}" alt="Google Play"></a>
-                    <a href="#"><img th:src="@{/Home/Appstore.webp}" alt="App Store"></a>
+                    <a href="#"><img th:src="@{/Customer/Home/Googleplay.webp}" alt="Google Play"></a>
+                    <a href="#"><img th:src="@{/Customer/Home/Appstore.webp}" alt="App Store"></a>
                 </div>
             </div>
 
             <h4>Chấp nhận Phương thức thanh toán</h4>
             <div class="pay-methods">
-                <img th:src="@{/Home/Vnpay.png}" alt="VNPay">
-                <img th:src="@{/Home/Momo.webp}" alt="MoMo" class="momo-logo">
-                <img th:src="@{/Home/Visa.png}" alt="Visa">
+                <img th:src="@{/Customer/Home/Vnpay.png}" alt="VNPay">
+                <img th:src="@{/Customer/Home/Momo.webp}" alt="MoMo" class="momo-logo">
+                <img th:src="@{/Customer/Home/Visa.png}" alt="Visa">
             </div>
         </div>
 
@@ -395,6 +395,6 @@
     </div>
 </footer>
 
-<script th:src="@{/Home/Home.js}"></script>
+<script th:src="@{/Customer/Home/Home.js}"></script>
 </body>
 </html>
