@@ -1,7 +1,7 @@
 package demoweb.demo.entity;
 
 import jakarta.persistence.*;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "customer_types")
@@ -9,14 +9,17 @@ public class CustomerType {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "customer_type_id", nullable = false)
+    @Column(name = "customer_type_id")
     private Integer customerTypeId;
 
     @Column(name = "customer_type_name", length = 100)
     private String customerTypeName;
 
-    @OneToMany(mappedBy = "customerType", cascade = CascadeType.ALL)
-    private List<Customer> customers;
+    @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<Customer> customers;
+
+    public CustomerType() {
+    }
 
     public Integer getCustomerTypeId() {
         return customerTypeId;
@@ -34,11 +37,11 @@ public class CustomerType {
         this.customerTypeName = customerTypeName;
     }
 
-    public List<Customer> getCustomers() {
+    public Set<Customer> getCustomers() {
         return customers;
     }
 
-    public void setCustomers(List<Customer> customers) {
+    public void setCustomers(Set<Customer> customers) {
         this.customers = customers;
     }
 }

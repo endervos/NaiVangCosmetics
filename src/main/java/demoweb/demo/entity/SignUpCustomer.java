@@ -1,12 +1,12 @@
 package demoweb.demo.entity;
 
 import jakarta.validation.constraints.*;
-
 import java.time.LocalDate;
 
 public class SignUpCustomer {
+
     @NotBlank(message = "Họ và tên không được để trống")
-    private String fullName;
+    private String fullname;
 
     @NotBlank(message = "Số điện thoại không được để trống")
     @Pattern(regexp = "\\d{10}", message = "Số điện thoại phải bao gồm đúng 10 số")
@@ -18,7 +18,7 @@ public class SignUpCustomer {
 
     @NotNull(message = "Ngày sinh không được để trống")
     @Past(message = "Ngày sinh phải là ngày trong quá khứ")
-    private LocalDate DOB;
+    private LocalDate birthday;
 
     @NotBlank(message = "Email không được để trống")
     @Email(message = "Email không hợp lệ")
@@ -27,15 +27,14 @@ public class SignUpCustomer {
     @NotNull(message = "Giới tính không được để trống")
     private Gender gender;
 
-    public SignUpCustomer() {
+    public SignUpCustomer() {}
+
+    public String getFullname() {
+        return fullname;
     }
 
-    public String getFullName() {
-        return fullName;
-    }
-
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
+    public void setFullname(String fullname) {
+        this.fullname = fullname;
     }
 
     public String getPhoneNumber() {
@@ -54,12 +53,12 @@ public class SignUpCustomer {
         this.password = password;
     }
 
-    public LocalDate getDOB() {
-        return DOB;
+    public LocalDate getBirthday() {
+        return birthday;
     }
 
-    public void setDOB(LocalDate DOB) {
-        this.DOB = DOB;
+    public void setBirthday(LocalDate birthday) {
+        this.birthday = birthday;
     }
 
     public String getEmail() {

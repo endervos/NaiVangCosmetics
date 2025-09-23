@@ -1,7 +1,7 @@
 package demoweb.demo.entity;
 
 import jakarta.persistence.*;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "roles")
@@ -9,7 +9,7 @@ public class Role {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "role_id", nullable = false)
+    @Column(name = "role_id")
     private Integer roleId;
 
     @Column(name = "name", nullable = false, unique = true, length = 50)
@@ -18,8 +18,8 @@ public class Role {
     @Column(name = "description", length = 255)
     private String description;
 
-    @OneToMany(mappedBy = "role", cascade = CascadeType.ALL)
-    private List<Account> accounts;
+    @OneToMany(mappedBy = "role", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<Account> accounts;
 
     public Integer getRoleId() {
         return roleId;
@@ -45,11 +45,11 @@ public class Role {
         this.description = description;
     }
 
-    public List<Account> getAccounts() {
+    public Set<Account> getAccounts() {
         return accounts;
     }
 
-    public void setAccounts(List<Account> accounts) {
+    public void setAccounts(Set<Account> accounts) {
         this.accounts = accounts;
     }
 }
