@@ -4,26 +4,26 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>404 - Not Found</title>
-  <link rel="stylesheet" th:href="@{/PageFault/PageFault.css}"/>
+  <link rel="stylesheet" th:href="@{/Customer/PageFault/PageFault.css}"/>
 </head>
 <body>
 <header class="banner-header">
   <div class="logo">
-    <a th:href="@{/Home/Home}">
-      <img th:src="@{/Home/Logo7.png}" alt="Logo"/>
+    <a th:href="@{/}">
+      <img th:src="@{/Customer/Home/Logo7.png}" alt="Logo"/>
     </a>
   </div>
 </header>
 <div class="container">
-  <img th:src="@{/PageFault/404.png}" alt="404 Not Found" class="illustration"/>
+  <img th:src="@{/Customer/PageFault/404.png}" alt="404 Not Found" class="illustration"/>
   <h1>404</h1>
   <p>Oops! Không tìm thấy trang này!</p>
   <div class="actions">
-    <a th:href="@{/}" class="btn">🏠 Về trang chủ</a>
+    <a th:href="@{/}" class="btn">Quay lại trang chủ</a>
   </div>
 </div>
 <div class="dog">
-  <img th:src="@{/PageFault/Dog.gif}" alt="Dog running"/>
+  <img th:src="@{/Customer/PageFault/Dog.gif}" alt="Dog running"/>
 </div>
 </body>
 </html>
