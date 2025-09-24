@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nai Vang Cosmetic</title>
+  <title>Mã xác thực</title>
     <link rel="icon" type="image/png" th:src="@{/Customer/Example/Image/LogoConNai.png}">
   <link rel="stylesheet" th:href="@{/Customer/VerifyCode/VerifyCode.css}">
   <link rel="stylesheet" th:href="@{/Customer/Example/Example.css}">
@@ -215,16 +215,23 @@
     </div>
       <form th:action="@{/sign-up/verify-code}" method="post" class="otp-form">
           <div class="otp-inputs">
-              <input type="text" name="code" maxlength="6" placeholder="Nhập 6 số OTP" required/>
+              <input type="text" name="digit1" id="digit1" maxlength="1" class="otp-digit"   oninput="moveFocus(this, 'digit2'); checkOtpInputs();" onkeydown="handleKeyDown(event, this, null, 'digit2');"/>
+              <input type="text" name="digit2" id="digit2" maxlength="1" class="otp-digit"   oninput="moveFocus(this, 'digit3'); checkOtpInputs();" onkeydown="handleKeyDown(event, this, 'digit1', 'digit3');"/>
+              <input type="text" name="digit3" id="digit3" maxlength="1" class="otp-digit"   oninput="moveFocus(this, 'digit4'); checkOtpInputs();" onkeydown="handleKeyDown(event, this, 'digit2', 'digit4');"/>
+              <input type="text" name="digit4" id="digit4" maxlength="1" class="otp-digit"   oninput="moveFocus(this, 'digit5'); checkOtpInputs();" onkeydown="handleKeyDown(event, this, 'digit3', 'digit5');"/>
+              <input type="text" name="digit5" id="digit5" maxlength="1" class="otp-digit"   oninput="moveFocus(this, 'digit6'); checkOtpInputs();" onkeydown="handleKeyDown(event, this, 'digit4', 'digit6');"/>
+              <input type="text" name="digit6" id="digit6" maxlength="1" class="otp-digit"   oninput="checkOtpInputs();" onkeydown="handleKeyDown(event, this, 'digit5', null);"/>
+              <input type="hidden" name="code" id="otp-code"/>
           </div>
 
-          <button type="submit" class="verifyBtn">Xác nhận</button>
       </form>
-
-      <form th:action="@{/sign-up/resend}" method="post" style="margin-top:10px">
-          <input type="hidden" name="userId" th:value="${userId}"/>
-          <button type="submit" class="resendBtn">Gửi lại mã</button>
-      </form>
+      <div class="button-group">
+          <button type="submit" class="verifyBtn" hidden >Xác nhận</button>
+          <form th:action="@{/sign-up/resend}" method="post" >
+              <input type="hidden" name="userId" th:value="${userId}"/>
+              <button type="submit" class="resendBtn">Gửi lại mã</button>
+          </form>
+      </div>
 
       <div th:if="${errorMessage}" class="message error" th:text="${errorMessage}"></div>
       <div th:if="${successMessage}" class="message success" th:text="${successMessage}"></div>
@@ -321,7 +328,7 @@
     </div>
 </footer>
 
-<script th:src="@{/VerifyCode/VerifyCode.js}"></script>
+<script th:src="@{/Customer/VerifyCode/VerifyCode.js}"></script>
 <script th:src="@{/Customer/Example/Example.js}"></script>
 </body>
 </html>

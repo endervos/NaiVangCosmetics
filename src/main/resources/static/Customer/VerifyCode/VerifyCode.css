@@ -8,10 +8,9 @@ body {
   height: 100vh;
   flex-direction: column;
 }
-
 .container {
   width: 100%;
-  max-width: 400px; /* Giới hạn chiều rộng của container */
+  max-width: 400px;
   padding: 20px;
   display: flex;
   justify-content: center;
@@ -20,17 +19,27 @@ body {
 
 .verify-box {
   background: #fff;
-  padding: 2.5rem; /* Tăng padding cho khung */
-  border-radius: 1.2rem; /* Đổi radius border để khung trông mềm mại hơn */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Tăng độ bóng cho khung */
+  padding: 2.5rem;
+  border-radius: 1.2rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   text-align: center;
-  width: 350px; /* Tăng chiều rộng của verify-box */
-  font-size: 0.7rem; /* Tăng kích thước chữ */
+  width: 350px;
+  font-size: 0.7rem;
+  transition: transform 0.3s ease;
+}
+
+.verify-box:hover {
+  transform: scale(1.03);
 }
 
 h2 {
   margin-bottom: 1rem;
   font-size: 1.3rem;
+}
+
+.warning-message {
+  margin-bottom: 1rem;
+  color: #555;
 }
 
 .otp-inputs {
@@ -39,44 +48,50 @@ h2 {
   margin: 1rem 0;
 }
 
-.otp-inputs input {
+.otp-digit {
   width: 40px;
   height: 50px;
   text-align: center;
   font-size: 1.5rem;
   border: 2px solid #ed8341;
-  border-radius: .5rem;
+  border-radius: 0.5rem;
+  outline: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 50px;
+  font-family: 'Arial', sans-serif;
+  transition: border-color 0.3s, box-shadow 0.3s;
 }
 
-.otp-inputs input:focus {
+.otp-digit:focus {
   border-color: #000000;
-  outline: none;
   box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
 
-.verifyBtn {
-  padding: .6rem 1.2rem;
+.button-group {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 1rem;
+  max-width: 240px; /* Giảm max-width để nút nhỏ gọn hơn */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.verifyBtn, .resendBtn {
+  padding: 0.6rem 0;
   border: none;
-  border-radius: .5rem;
+  border-radius: 0.5rem;
   background: #000000;
   color: #fff;
   font-size: 1rem;
   cursor: pointer;
-  margin: .5rem;
+  width: 100px; /* Giảm từ 120px xuống 100px để nút nhỏ hơn */
+  box-sizing: border-box; /* Đảm bảo padding không làm tăng kích thước */
+  transition: background 0.3s, transform 0.3s;
 }
 
-.resendBtn {
-  padding: .6rem 1.2rem;
-  border: none;
-  border-radius: .5rem;
-  background: #000000;
-  color: #fff;
-  font-size: 1rem;
-  cursor: pointer;
-  margin: .5rem;
-}
-
-/* Hiệu ứng hover khi nhấn nút */
 .verifyBtn:hover, .resendBtn:hover {
   background: #f9811f;
   transform: scale(1.05);
@@ -87,33 +102,41 @@ h2 {
   font-weight: bold;
 }
 
-/* ========== MENU ========== */
-.menu-bar {
-    margin-bottom: 30px; /* Thêm khoảng cách giữa menu và form */
+.message.error {
+  color: #dc3545;
 }
 
-.subscribe-bar{
+.message.success {
+  color: #28a745;
+}
+
+.menu-bar {
+  margin-bottom: 30px;
+}
+
+.subscribe-bar {
   margin-top: 30px;
 }
 
-/* Hiệu ứng động khi hover vào verify-box */
-.verify-box:hover {
-  transform: scale(1.03); /* Tăng kích thước khung khi hover */
-}
-
-/* Responsive */
-@media (max-width: 480px) {
+@media (max-width: 360px) {
   .verify-box {
     padding: 2rem;
     width: 100%;
   }
 
-  .otp-inputs input {
+  .otp-digit {
     font-size: 1.5rem;
   }
 
   .verifyBtn, .resendBtn {
-    padding: 1rem 1.5rem;
+    padding: 1rem 1.5rem; /* Tăng padding dọc nhẹ để cân đối */
     font-size: 1rem;
+    width: 50% ; /* Toàn chiều rộng trên màn hình nhỏ */
+  }
+
+  .button-group {
+    flex-direction: column;
+    gap: 10px;
+    max-width: 100%;
   }
 }

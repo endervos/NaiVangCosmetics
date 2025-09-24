@@ -27,14 +27,13 @@ function handleKeyDown(event, currentInput, prevInputId, nextInputId) {
   }
 }
 
-// Kiểm tra trạng thái các ô OTP để hiển thị/ẩn nút Xác nhận
 function checkOtpInputs() {
   const otpInputs = [];
   for (let i = 1; i <= 6; i++) {
-    otpInputs.push(document.getElementById(`otp-${i}`).value);
+    otpInputs.push(document.getElementById(`digit${i}`).value);
   }
   const isAllFilled = otpInputs.every(input => input.length === 1);
-  document.querySelector('.verifyBtn').hidden = !isAllFilled; // Sử dụng querySelector vì nút có class="verifyBtn"
+  document.querySelector('.verifyBtn').hidden = !isAllFilled;
 }
 
 // Reset form: làm trống các ô OTP, ẩn nút Xác nhận và xóa thông báo
