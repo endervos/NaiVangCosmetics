@@ -18,7 +18,7 @@ CREATE TABLE users (
   password VARCHAR(255) NOT NULL,
   phone_number VARCHAR(20),
   birthday DATE,
-  gender ENUM('Nam','Nữ','Khác'),
+  gender ENUM('Nam','Nữ'),
   created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB;

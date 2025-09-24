@@ -47,8 +47,8 @@ public class CustomerService {
         user.setEmail(dto.getEmail());
         user.setGender(dto.getGender());
         userRepository.save(user);
-        Role customerRole = roleRepository.findByName("CUSTOMER")
-                .orElseThrow(() -> new RuntimeException("Role CUSTOMER chưa tồn tại"));
+        Role customerRole = roleRepository.findByName("Customer")
+                .orElseThrow(() -> new RuntimeException("Role Customer chưa tồn tại"));
         Account account = new Account();
         account.setAccountId(UUID.randomUUID().toString());
         account.setUser(user);
