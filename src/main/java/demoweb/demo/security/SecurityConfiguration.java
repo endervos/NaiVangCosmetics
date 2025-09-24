@@ -27,17 +27,19 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain customerSecurityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
+                .csrf(httpSecurityCsrfConfigurer -> httpSecurityCsrfConfigurer.disable())
                 .authorizeHttpRequests(configurer -> configurer
                         .requestMatchers(
                                 "/",
                                 "/sign-up/**",
                                 "/Customer/**"
-                        ).permitAll()
-                        .anyRequest().authenticated()
+                        )
+                        .permitAll()
+                        .anyRequest()
+                        .authenticated()
                 )
                 .formLogin(form -> form
                         .loginPage("/login")
-                        .loginProcessingUrl("/authenticateTheUser")
                         .usernameParameter("accountID")
                         .passwordParameter("password")
                         .defaultSuccessUrl("/", true)
