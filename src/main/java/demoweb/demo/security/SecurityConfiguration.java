@@ -27,8 +27,11 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain customerSecurityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
+                .csrf(httpSecurityCsrfConfigurer -> httpSecurityCsrfConfigurer.disable())
                 .authorizeHttpRequests(configurer -> configurer
                         .requestMatchers(
+                                "/static/**",
+                                "/templates/**",
                                 "/",
                                 "/sign-up/**",
                                 "/Customer/**"
