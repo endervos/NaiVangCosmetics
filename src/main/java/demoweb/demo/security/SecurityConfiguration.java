@@ -29,7 +29,7 @@ public class SecurityConfiguration {
         httpSecurity
                 .authorizeHttpRequests(configurer -> configurer
                         .requestMatchers(
-                                "/**",
+                                "/",
                                 "/sign-up/**",
                                 "/Customer/**"
                         ).permitAll()
@@ -38,6 +38,8 @@ public class SecurityConfiguration {
                 .formLogin(form -> form
                         .loginPage("/login")
                         .loginProcessingUrl("/authenticateTheUser")
+                        .usernameParameter("accountID")
+                        .passwordParameter("password")
                         .defaultSuccessUrl("/", true)
                         .permitAll()
                 )

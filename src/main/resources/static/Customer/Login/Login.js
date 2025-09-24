@@ -37,7 +37,7 @@
     const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     return emailPattern.test(v);
   };
-  
+
   const pwStrong = (v) => v.length >= 1;
 
   onReady(() => {
@@ -86,16 +86,16 @@
       else if (email) removeError(email);
 
       need(password, "Chưa nhập mật khẩu.");
-      if (password && !pwStrong(password.value)) { 
-        addError(password, "Email hoặc mật khẩu không đúng."); 
-        ok = false; 
+      if (password && !pwStrong(password.value)) {
+        addError(password, "Email hoặc mật khẩu không đúng.");
+        ok = false;
       } else if (password) removeError(password);
 
       // So sánh CAPTCHA
       if (captchaIn && captchaBx) {
         const exp = captchaBx.textContent.trim();
         const got = captchaIn.value.trim();
-        if (!got || got !== exp) { 
+        if (!got || got !== exp) {
           addError(captchaIn, "CAPTCHA sai.");
           resetCaptcha(); // Reset CAPTCHA khi sai
           ok = false;
@@ -118,7 +118,7 @@
           window.location.href = "/"; // Chuyển hướng về trang chủ sau 2 giây
         }, 1000);
       }
-         
+
     });
   });
 })();
