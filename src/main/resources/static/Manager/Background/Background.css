@@ -6,35 +6,114 @@
 }
 
 .admin-body {
-  font-family: Arial, sans-serif;
-  background: #f4f6f9;
-}
-
-/* Header */
-.admin-header {
-  background: #ffab6e;
-  color: #fff;
-  padding: 15px 20px;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: #f8f9fa;
   display: flex;
-  justify-content: space-between;
+}
+
+/* Sidebar */
+.admin-sidebar {
+  width: 220px;
+  background: #9c734ec9; /* cam */
+  color: #fff;
+  min-height: 100vh;   /* full chiều cao */
+  display: flex;
+  flex-direction: column;
+  box-shadow: 2px 0 6px rgba(0,0,0,0.1);
+}
+
+.sidebar-logo {
+  display: flex;
   align-items: center;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
+  gap: 10px;
+  padding: 15px;
+  border-bottom: 1px solid rgba(255,255,255,0.2);
+}
+
+.logo-img {
+  height: 30px;
+  width: auto;
+}
+
+.logo-text {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.admin-sidebar ul {
+  list-style: none;
+  flex: 1;
+}
+
+.admin-sidebar ul li a {
+  color: #fff;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 20px;
+  transition: background 0.3s, padding-left 0.3s;
+}
+
+.admin-sidebar ul li a:hover {
+  background: #dca580;
+  padding-left: 28px;
+}
+
+/* Content */
+.admin-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+/* Top bar nằm trong content */
+.top-bar {
   height: 60px;
-  z-index: 1000;
-  border-bottom: 2px solid black;
+  background: #fff;
+  border-bottom: 1px solid #ddd;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 0 20px;
+  border-radius: 0 0 20px 20px;
 }
 
-.admin-header .logo {
-  font-size: 22px;
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 500;
+  cursor: pointer;
 }
 
-.logo{
-    color: black;
-
+.logout-icon {
+  color: #e67e22;
+  cursor: pointer;
+  transition: color 0.2s;
 }
+
+.logout-icon:hover {
+  color: #d35400;
+}
+
+/* Main area */
+.main-area {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+
+  /* ẩn thanh cuộn */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.main-area::-webkit-scrollbar {
+  display: none;
+}
+
+
+
 .user-menu {
   position: relative;
 }
@@ -44,24 +123,27 @@
   align-items: center;
   gap: 8px;
   cursor: pointer;
-  color: black;
+  font-weight: 500;
 }
 
 .user-info i {
-  font-size: 30px;
+  font-size: 18px;
 }
 
+/* Dropdown */
 .dropdown {
   position: absolute;
-  top: 100%;
+  top: 110%;
   right: 0;
   background: #fff;
   color: #333;
   list-style: none;
-  min-width: 150px;
-  border-radius: 4px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  min-width: 160px;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
   display: none;
+  overflow: hidden;
+  z-index: 100;
 }
 
 .dropdown li a {
@@ -69,58 +151,10 @@
   padding: 10px 15px;
   text-decoration: none;
   color: #333;
+  transition: background 0.2s;
 }
 
 .dropdown li a:hover {
-  background: #f0f0f0;
-}
-
-/* Sidebar */
-.admin-sidebar {
-  position: fixed;
-  top: 60px;
-  left: 0;
-  bottom: 0;
-  width: 220px;
-  background: #ffab6e;
+  background: #ffcf81;
   color: #fff;
-  overflow-y: auto;
-  padding-top: 20px;
-}
-
-.admin-sidebar ul {
-  list-style: none;
-}
-
-.admin-sidebar ul li {
-  border-bottom: 1px solid rgba(255,255,255,0.1);
-}
-
-.admin-sidebar ul li a {
-  color: #000000;
-  text-decoration: none;
-  display: block;
-  padding: 12px 20px;
-  transition: background 0.3s;
-}
-
-.admin-sidebar ul li a:hover {
-  background: #eeeeee;
-}
-
-/* Main */
-.admin-main {
-  margin-top: 60px;
-  margin-left: 220px;
-  height: calc(100vh - 60px);
-  overflow-y: scroll;
-  padding: 20px;
-  background: #fff;
-
-  /* Ẩn thanh cuộn */
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-}
-.admin-main::-webkit-scrollbar {
-  display: none;
 }

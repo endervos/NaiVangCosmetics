@@ -3,51 +3,55 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Manager</title>
+  <title>Dashboard</title>
   <link rel="stylesheet" href="/src/main/resources/static/Manager/Background/Background.css">
-  <!-- FontAwesome để có icon -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="icon" type="image/png" href="/src/main/resources/static/Customer/Example/Image/LogoConNai.png">
 </head>
 <body class="admin-body">
-  <!-- Header -->
-  <header class="admin-header">
-    <h1 class="logo" >Manager</h1>
-    <div class="user-menu">
-      <div class="user-info">
-        <i class="fa-solid fa-user-circle"></i>
-      </div>
-      <!-- Dropdown -->
-      <ul class="dropdown">
-        <li><a href="/src/main/resources/templates/Manager/InforManager.html"><i class="fa-solid fa-user"></i> Hồ sơ</a></li>
-        <li><a href="/src/main/resources/templates/Customer/Login.html"><i class="fa-solid fa-right-from-bracket"></i> Đăng xuất</a></li>
-      </ul>
+
+  <!-- Sidebar -->
+  <nav class="admin-sidebar">
+    <div class="sidebar-logo">
+      <img src="/src/main/resources/static/Customer/Example/Image/LogoConNai.png" alt="Logo" class="logo-img">
+      <h2 class="logo-text">Manager</h2>
     </div>
-  </header>
-
-<!-- Sidebar -->
-<nav class="admin-sidebar">
-  <ul>
-    <li><a href="/src/main/resources/templates/Manager/Dashboard.html"><i class="fa-solid fa-gauge"></i> Dashboard</a></li>
-    <li><a href="/src/main/resources/templates/Manager/ProductManagement.html"><i class="fa-solid fa-box"></i> Sản phẩm</a></li>
-    <li><a href="/src/main/resources/templates/Manager/CategoryManagement.html"><i class="fa-solid fa-list"></i> Danh mục</a></li>
-    <li><a href="/src/main/resources/templates/Manager/DealManagement.html"><i class="fa-solid fa-tags"></i> Khuyến mãi</a></li>
-    <li><a href="/src/main/resources/templates/Manager/ReviewManagement.html"><i class="fa-solid fa-star"></i> Đánh giá</a></li>
-    <li><a href="/src/main/resources/templates/Manager/OrderManagement.html"><i class="fa-solid fa-receipt"></i> Đơn hàng</a></li>
-    <li><a href="/src/main/resources/templates/Manager/BlogManagement.html"><i class="fa-solid fa-blog"></i> Blog</a></li>
-  </ul>
-</nav>
-
+    <ul>
+      <li><a href="/src/main/resources/templates/Manager/Dashboard.html"><i class="fa-solid fa-gauge"></i> Dashboard</a></li>
+      <li><a href="/src/main/resources/templates/Manager/ProductManagement.html"><i class="fa-solid fa-box"></i> Sản phẩm</a></li>
+      <li><a href="/src/main/resources/templates/Manager/CategoryManagement.html"><i class="fa-solid fa-list"></i> Danh mục</a></li>
+      <li><a href="/src/main/resources/templates/Manager/DealManagement.html"><i class="fa-solid fa-tags"></i> Khuyến mãi</a></li>
+      <li><a href="/src/main/resources/templates/Manager/ReviewManagement.html"><i class="fa-solid fa-star"></i> Đánh giá</a></li>
+      <li><a href="/src/main/resources/templates/Manager/OrderManagement.html"><i class="fa-solid fa-receipt"></i> Đơn hàng</a></li>
+      <li><a href="/src/main/resources/templates/Manager/BlogManagement.html"><i class="fa-solid fa-blog"></i> Blog</a></li>
+    </ul>
+  </nav>
 
   <!-- Main content -->
-  <main class="admin-main">
-    <h2>Dashboard</h2>
-    <p>Chào mừng đến với trang quản trị.</p>
-    <div class="long-content">
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit...</p>
-      <p style="margin-top: 1000px;">Cuối trang để test scroll</p>
+  <div class="admin-content">
+    <!-- Top bar -->
+    <div class="top-bar">
+      <div class="user-menu">
+        <div class="user-info">
+          <i class="fa-solid fa-user-circle"></i>
+          <span>Manager</span>
+          <i class="fa-solid fa-chevron-down"></i>
+        </div>
+        <!-- Dropdown -->
+        <ul class="dropdown">
+          <li><a href="/src/main/resources/templates/Manager/InforManager.html"><i class="fa-solid fa-user"></i> Hồ sơ</a></li>
+          <li><a href="/src/main/resources/templates/Customer/Login.html"><i class="fa-solid fa-right-from-bracket"></i> Đăng xuất</a></li>
+        </ul>
+      </div>
     </div>
-  </main>
+
+    <!-- Main area -->
+    <div class="main-area">
+      <h2>Dashboard</h2>
+      <p>Nội dung quản trị hiển thị ở đây...</p>
+      <p style="margin-top: 1000px;">Test nội dung dài để cuộn</p>
+    </div>
+  </div>
 
   <script src="/src/main/resources/static/Manager/Background/Background.js"></script>
 </body>
