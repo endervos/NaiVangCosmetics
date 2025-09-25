@@ -1,0 +1,126 @@
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.admin-body {
+  font-family: Arial, sans-serif;
+  background: #f4f6f9;
+}
+
+/* Header */
+.admin-header {
+  background: #ffab6e;
+  color: #fff;
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  z-index: 1000;
+  border-bottom: 2px solid black;
+}
+
+.admin-header .logo {
+  font-size: 22px;
+}
+
+.logo{
+    color: black;
+
+}
+.user-menu {
+  position: relative;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  color: black;
+}
+
+.user-info i {
+  font-size: 30px;
+}
+
+.dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: #fff;
+  color: #333;
+  list-style: none;
+  min-width: 150px;
+  border-radius: 4px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  display: none;
+}
+
+.dropdown li a {
+  display: block;
+  padding: 10px 15px;
+  text-decoration: none;
+  color: #333;
+}
+
+.dropdown li a:hover {
+  background: #f0f0f0;
+}
+
+/* Sidebar */
+.admin-sidebar {
+  position: fixed;
+  top: 60px;
+  left: 0;
+  bottom: 0;
+  width: 220px;
+  background: #ffab6e;
+  color: #fff;
+  overflow-y: auto;
+  padding-top: 20px;
+}
+
+.admin-sidebar ul {
+  list-style: none;
+}
+
+.admin-sidebar ul li {
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.admin-sidebar ul li a {
+  color: #000000;
+  text-decoration: none;
+  display: block;
+  padding: 12px 20px;
+  transition: background 0.3s;
+}
+
+.admin-sidebar ul li a:hover {
+  background: #eeeeee;
+}
+
+/* Main */
+.admin-main {
+  margin-top: 60px;
+  margin-left: 220px;
+  height: calc(100vh - 60px);
+  overflow-y: scroll;
+  padding: 20px;
+  background: #fff;
+
+  /* Ẩn thanh cuộn */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.admin-main::-webkit-scrollbar {
+  display: none;
+}
