@@ -17,7 +17,7 @@ INSERT INTO users (user_id, email, fullname,password, phone_number, birthday, ge
 ('U9','n22dcat040@student.ptithcm.edu.vn','Pham Van I','pass9','0912345679','2001-09-09','Nam'),
 ('U10','user10@gmail.com','Hoang Thi J','pass10','0912345680','2000-10-10','Nữ');
 
-INSERT INTO accounts (account_id, user_id, role_id, isActive) VALUES
+INSERT INTO accounts (account_id, user_id, role_id, is_active) VALUES
 ('CU1','U1',1,1),
 ('CU2','U2',1,1),
 ('CU3','U3',1,1),

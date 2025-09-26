@@ -16,7 +16,7 @@ public class EmailService {
             MimeMessage message = mailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
 
-            helper.setFrom("support@naivangcosmetics.com", "Nai Vàng Cosmetics");
+            helper.setFrom("naivangcosmeticsnhom4@gmail.com", "Nai Vàng Cosmetics");
             helper.setTo(toEmail);
             helper.setSubject("Xác thực Email - Nai Vàng Cosmetics");
 

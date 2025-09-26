@@ -56,16 +56,16 @@ public class SignUpController {
     public String processVerify(@RequestParam("code") String code, HttpSession session, Model model) {
         String savedCode = (String) session.getAttribute("verificationCode");
         SignUpCustomer dto = (SignUpCustomer) session.getAttribute("pendingUser");
+
         if (savedCode == null || dto == null) {
             model.addAttribute("errorMessage", "Không tìm thấy thông tin đăng ký. Vui lòng đăng ký lại.");
             return "Customer/SignUp";
         }
         if (savedCode.equals(code)) {
-            var user = customerService.signUpCustomer(dto);
+            customerService.signUpCustomer(dto);
             session.removeAttribute("pendingUser");
             session.removeAttribute("verificationCode");
-            model.addAttribute("successMessage", "Xác thực thành công! Tài khoản của bạn đã được tạo.");
-            return "Customer/Login";
+            return "redirect:/";
         } else {
             model.addAttribute("errorMessage", "Mã xác thực không hợp lệ hoặc đã hết hạn.");
             return "Customer/VerifyCode";
