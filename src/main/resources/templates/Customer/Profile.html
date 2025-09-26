@@ -1,14 +1,12 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="vi" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nai Vang Cosmetic</title>
-    <link rel="icon" type="image/png" href="../icon/logoConNai.png">
-    <link rel="stylesheet" href="/src/main/resources/static/FavouriteList/FavouriteList.css">
-    <link rel="stylesheet" href="/src/main/resources/static/Home/Home.css">
-
-    <!-- Slick CSS -->
+    <link rel="icon" type="image/png" th:href="@{/Customer/Home/LogoConNai.png}">
+    <link rel="stylesheet" th:href="@{/FavouriteList/FavouriteList.css}">
+    <link rel="stylesheet" th:href="@{/Home/Home.css}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css">
 
@@ -17,14 +15,14 @@
 
 <!-- Banner GIF full màn hình -->
 <div class="promo-banner">
-    <img src="/src/main/resources/static/Example/Image/Example.gif" alt="Khuyến mãi Lam Thao">
+    <img th:src="@{Customer/Example/Image/Example.gif}" alt="Khuyến mãi Lam Thao">
 </div>
 
 <!-- Header -->
 <div class="header">
     <div class="container header-inner">
         <!-- Logo -->
-        <img src="/src/main/resources/static/Example/Image/logo7.png" alt="Logo" width="150" height="100">
+        <img th:src="@{Customer/Example/Image/logo7.png}" alt="Logo" width="150" height="100">
 
         <!-- Search -->
         <div class="search-bar">
@@ -224,7 +222,7 @@
         <ul>
             <li class="menu-item"><a href="quanly.html">Quản lý tài khoản</a></li>
             <li class="menu-item">
-                <a href="/Infomation/Infomation.css">Thông tin tài khoản</a>
+                <a href="/Profile/Profile.css">Thông tin tài khoản</a>
             </li>
             <li class="menu-item">
                 <a href="/OrderManage/OrderManage.css.html">Quản lý đơn hàng</a>
