@@ -217,31 +217,18 @@
 <div class="login-container">
     <div class="login-card">
         <h2 class="text-center mb-4">Đăng nhập</h2>
-        <form>
+      <form th:action="@{/login}" method="post">
+        <div class="mb-3">
+          <input type="text" class="form-control" name="username" placeholder="Email">
+        </div>
 
-            <!-- email -->
-            <div class="mb-3">
-                <input type="text" class="form-control" placeholder="Email" >
-            </div>
+        <div class="mb-3">
+          <input type="password" class="form-control" name="password" placeholder="Mật khẩu">
+        </div>
 
-            <!-- Mật khẩu -->
-            <div class="mb-3">
-                <input type="password" class="form-control" placeholder="Mật khẩu" >
-            </div>
+        <button type="submit" class="btn btn-login w-100">Đăng nhập</button>
+      </form>
 
-            <!-- CAPTCHA -->
-            <div class="mb-3 d-flex align-items-center">
-                <input type="text" class="form-control captcha-input me-2" placeholder="Nhập CAPTCHA" >
-                <div class="captcha-box">AB12C3</div>
-            </div>
-
-            <!-- Submit -->
-            <button type="submit" class="btn btn-login w-100">Đăng nhập</button>
-
-            <div class="text-center mt-4">
-                <a th:href="@{/sign-up}" class="register-link">Bạn chưa có tài khoản? <span class="highlight">Nhấn đăng ký ngay</span></a>
-            </div>
-        </form>
     </div>
 </div>
 
@@ -335,7 +322,7 @@
   </div>
 </footer>
 
-<!-- <script th:src="@{/Customer/Login/Login.js}"></script> -->
+ <script th:src="@{/Customer/Login/Login.js}"></script>
 <script th:src="@{/Customer/Example/Example.js}"></script>
 </body>
 </html>

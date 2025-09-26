@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<html lang="vi" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -43,13 +43,14 @@
                     </svg>
                 </button>
 
-                <!-- Dropdown (ẩn mặc định, hiện khi hover hoặc click) -->
                 <div class="user-dropdown">
-                    <a th:href="@{/login}" id="login-btn">Đăng nhập</a>
-                    <a th:href="@{/sign-up}" id="subcribe-btn">Đăng ký</a>
-                    <a th:href="@{/Information/Information.html}" id="account-info">Thông tin tài khoản</a>
-                    <a href="#" id="logout-btn">Đăng xuất</a>
+                    <a th:href="@{/login}" id="login-btn" sec:authorize="isAnonymous()">Đăng nhập</a>
+                    <a th:href="@{/sign-up}" id="subcribe-btn" sec:authorize="isAnonymous()">Đăng ký</a>
+
+                    <a th:href="@{/Information/Information.html}" id="account-info" sec:authorize="isAuthenticated()">Thông tin tài khoản</a>
+                    <a th:href="@{/logout}" id="logout-btn" sec:authorize="isAuthenticated()">Đăng xuất</a>
                 </div>
+
             </div>
 
 
