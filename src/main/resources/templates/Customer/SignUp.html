@@ -210,48 +210,53 @@
 
 <div class="form-card">
     <h2 class="text-center mb-4">Đăng ký</h2>
-    <form th:action="@{/sign-up}" th:object="${signUpCustomer}" method="post">
-    <div class="mb-3">
-            <input type="text" th:field="*{fullname}" class="form-control" placeholder="Họ và tên"/>
-            <div th:if="${#fields.hasErrors('fullname')}" th:errors="*{fullname}" class="error"></div>
+    <form id="signUpForm" method="post">
+        <div class="mb-3">
+            <input type="text" id="fullname" name="fullname" class="form-control" placeholder="Họ và tên"/>
+            <div id="fullnameError" class="error"></div>
         </div>
 
         <div class="mb-3">
-            <input type="text" th:field="*{phoneNumber}" class="form-control" placeholder="Số điện thoại"/>
-            <div th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}" class="error"></div>
+            <input type="text" id="phoneNumber" name="phoneNumber" class="form-control" placeholder="Số điện thoại"/>
+            <div id="phoneNumberError" class="error"></div>
         </div>
 
         <div class="mb-3">
-            <input type="email" th:field="*{email}" class="form-control" placeholder="Email"/>
-            <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="error"></div>
+            <input type="email" id="email" name="email" class="form-control" placeholder="Email"/>
+            <div id="emailError" class="error"></div>
         </div>
 
         <div class="mb-3">
             <label class="form-label">Giới tính</label>
             <div class="d-flex gender-container">
-                <label><input type="radio" th:field="*{gender}" value="Nam"> Nam</label>
-                <label><input type="radio" th:field="*{gender}" value="Nữ"> Nữ</label>
+                <label><input type="radio" name="gender" value="Nam"> Nam</label>
+                <label><input type="radio" name="gender" value="Nữ"> Nữ</label>
             </div>
+            <div id="genderError" class="error"></div>
         </div>
 
         <div class="mb-3">
-            <input type="date" th:field="*{birthday}" class="form-control"/>
-            <div th:if="${#fields.hasErrors('birthday')}" th:errors="*{birthday}" class="error"></div>
+            <input type="date" id="birthday" name="birthday" class="form-control"/>
+            <div id="birthdayError" class="error"></div>
         </div>
 
         <div class="mb-3">
-            <input type="password" th:field="*{password}" class="form-control" placeholder="Nhập mật khẩu"/>
-            <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="error"></div>
+            <input type="password" id="password" name="password" class="form-control" placeholder="Nhập mật khẩu"/>
+            <div id="passwordError" class="error"></div>
         </div>
 
         <div class="mb-3">
-            <input type="password" name="confirmPassword" class="form-control" placeholder="Nhập lại mật khẩu"/>
+            <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" placeholder="Nhập lại mật khẩu"/>
+            <div id="confirmPasswordError" class="error"></div>
         </div>
 
         <div class="mb-3 form-check">
-            <input type="checkbox" id="termsCheck" class="form-check-input">
-            <label for="termsCheck" class="form-check-label">Tôi đồng ý với Điều khoản & Chính sách</label>
-        </div>
+    <input type="checkbox" id="termsCheck" class="form-check-input">
+    <label for="termsCheck" class="form-check-label">Tôi đồng ý với Điều khoản & Chính sách</label>
+    <div id="termsError" class="error"></div> <!-- Div để hiển thị lỗi -->
+</div>
+
+
         <button type="submit" class="btn-signup">Đăng ký</button>
     </form>
 </div>
