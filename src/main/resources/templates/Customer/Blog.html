@@ -20,7 +20,9 @@
 
 <div class="header">
     <div class="container header-inner">
-        <img th:src="@{/Customer/Home/Logo7.png}" alt="Logo" width="150" height="100">
+        <a th:href="@{/}">
+            <img th:src="@{/Customer/Example/Image/Logo7.png}" alt="Logo" width="150" height="100">
+        </a>
 
         <div class="search-bar">
             <div class="search-wrap">
@@ -191,7 +193,7 @@
 
         <!-- Tin tức -->
         <div class="dropdown">
-            <a th:href="@{/Customer/Blog}">TIN TỨC</a>
+            <a th:href="@{/blog}">TIN TỨC</a>
         </div>
 
         <!-- Tra cứu đơn -->

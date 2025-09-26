@@ -34,6 +34,7 @@ public class SecurityConfiguration {
                                 "/templates/**",
                                 "/",
                                 "/sign-up/**",
+                                "/blog/**",
                                 "/Customer/**"
                         )
                         .permitAll()
@@ -49,7 +50,7 @@ public class SecurityConfiguration {
                 )
                 .logout(logout -> logout
                         .logoutUrl("/logout")
-                        .logoutSuccessUrl("/") // về trang chủ sau khi logout
+                        .logoutSuccessUrl("/")
                         .invalidateHttpSession(true)
                         .deleteCookies("JSESSIONID")
                         .permitAll()
