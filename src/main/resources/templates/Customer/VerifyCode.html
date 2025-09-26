@@ -208,7 +208,7 @@
 
         <!-- Tin tức -->
         <div class="dropdown">
-            <a href="/blog">TIN TỨC</a>
+            <a th:href="@{/blog}">TIN TỨC</a>
         </div>
 
         <!-- Tra cứu đơn -->
@@ -220,7 +220,8 @@
   <div class="verify-box">
     <h2>Nhập mã OTP</h2>
     <div class="warning-message">
-      <span>Vui lòng nhập mã 6 chữ số đã gửi đến email.</span>
+        <span>Vui lòng nhập mã xác thực 6 chữ số đã được gửi đến email.</span>
+        <span>Mã xác thực chỉ có hiệu lực trong 5 phút.</span>
     </div>
       <form th:action="@{/sign-up/verify-code}" method="post" class="otp-form">
           <div class="otp-inputs">
