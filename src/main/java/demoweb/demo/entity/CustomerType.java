@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
-@Table(name = "customer_types")
+@Table(name = "customer_type")
 public class CustomerType {
 
     @Id

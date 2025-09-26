@@ -24,6 +24,9 @@ public class CustomerService {
     private RoleRepository roleRepository;
 
     @Autowired
+    private CustomerTypeRepository customerTypeRepository;
+
+    @Autowired
     private PasswordEncoder passwordEncoder;
 
     @Autowired
@@ -57,6 +60,9 @@ public class CustomerService {
         accountRepository.save(account);
         Customer customer = new Customer();
         customer.setUser(user);
+        CustomerType defaultType = customerTypeRepository.findById(3)
+                .orElseThrow(() -> new RuntimeException("CustomerType id=3 chưa tồn tại"));
+        customer.setCustomerType(defaultType);
         customerRepository.save(customer);
         return user;
     }

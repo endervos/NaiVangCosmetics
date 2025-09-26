@@ -1,75 +1,74 @@
 USE COSMETICS;
 
-INSERT INTO roles (name, description) VALUES
-('Customer','Khách hàng mua sắm'),
-('Manager','Người quản lý cửa hàng'),
-('Admin','Quản trị hệ thống');
+INSERT INTO role (name, description) VALUES
+('Customer','Khách hàng'),
+('Manager','Quản lý'),
+('Admin','Quản trị viên');
 
-INSERT INTO users (user_id, email, fullname,password, phone_number, birthday, gender) VALUES
-('U1','tranthianhnguyet259@gmail.com','Nguyen Van A','pass1','0912345671','2000-01-01','Nam'),
-('U2','user2@gmail.com','Tran Thi B','pass2','0912345672','2001-02-02','Nữ'),
-('U3','user3@gmail.com','Le Van C','pass3','0912345673','2002-03-03','Nam'),
-('U4','user4@gmail.com','Pham Thi D','pass4','0912345674','2000-04-04','Nữ'),
-('U5','user5@gmail.com','Hoang Van E','pass5','0912345675','1999-05-05','Nam'),
-('U6','nguyetanmun@gmail.com','Nguyen Thi F','pass6','0912345676','2001-06-06','Nữ'),
-('U7','user7@gmail.com','Tran Van G','pass7','0912345677','2000-07-07','Nam'),
-('U8','user8@gmail.com','Le Thi H','pass8','0912345678','2002-08-08','Nữ'),
-('U9','n22dcat040@student.ptithcm.edu.vn','Pham Van I','pass9','0912345679','2001-09-09','Nam'),
-('U10','user10@gmail.com','Hoang Thi J','pass10','0912345680','2000-10-10','Nữ');
+INSERT INTO user (user_id, email, fullname, password, phone_number, birthday, gender) VALUES
+('ADMIN001','n22dcat057@student.ptithcm.edu.vn','Trần Phúc Tiến','$2a$12$Z1DeM9N3Tpaxl.MFI6aTRuOPTVwQlxPBcvb0fzOTSfxOhTe1GWNKi','0912345671','2004-01-01','Nam'),
+('ADMIN002','n22dcat021@student.ptithcm.edu.vn','Lại Thị Thanh Hiền','$2a$12$rf45r6J3rrfiS0RbvzCUBePAy2ygBhiQIp6KSC5z5eLyybmDbVP/S','0912345672','2004-01-01','Nữ'),
+('ADMIN003','n22dcat027@student.ptithcm.edu.vn','Đỗ Tấn Hưng','$2a$12$Pa.GaG8x0iIhSU6NOjmP8e5sGI2A7Tc/NJTKIn91bg0s4iDQt//r2','0912345673','2004-01-01','Nam'),
+('ADMIN004','n22dcat040@student.ptithcm.edu.vn','Trần Thị Ánh Nguyệt','$2a$12$5UHATorES75i5pKwnB4/4uktBISD8s.tt8nuGqhbegaEVhbFHKhV.','0912345674','2004-01-01','Nữ'),
+('ADMIN005','n22dcat055@student.ptithcm.edu.vn','Nguyễn Thị Lam Thuyên','$2a$12$68mqj/6iNuCI7hEP2KMm3ehjciQcuIIGselz6YG0tPr2PQHzQxV02','0912345675','2004-01-01','Nữ'),
+('MANAGER001','manager001@gmail.com','Hoang Van A','$2a$12$ZDQfHwK49S1Hy.pE5El.j.KTGNDoeM0xlGZ05FT2EkUi8h8mLpc2m','0912345676','2000-01-01','Nam'),
+('CUSTOMER001','customer001@gmail.com','Nguyen Thi B','$2a$12$ROGt9ALsd1oTUZIsSSI9Wun1e.fxzrTl3r/nkd7/tq6Mv22CnhQt2','0912345677','2001-10-02','Nữ'),
+('CUSTOMER002','customer002@gmail.com','Tran Van C','$2a$12$w8nVbSSvZet/7SJRJgJmGeC3WTWT115THkI2ycXxquXI..ijOddhW','0912345678','2000-07-07','Nam'),
+('CUSTOMER003','customer003@gmail.com','Le Thi D','$2a$12$HaEmsd/qr0XqKlUl3f1KZO1iPF8zKpnpUa0lXsOD/07HZIV6piH9K','0912345679','2002-08-08','Nữ'),
+('CUSTOMER004','customer004@gmail.com','Pham Van E','$2a$12$aStM5QsHM7a/ajcPNGva0OE/7mAMS4jg/2.oVNCKjotTAl/YRUtDy','0912345680','2001-09-09','Nam');
 
-INSERT INTO accounts (account_id, user_id, role_id, is_active) VALUES
-('CU1','U1',1,1),
-('CU2','U2',1,1),
-('CU3','U3',1,1),
-('CU4','U4',1,1),
-('CU5','U5',1,1),
-('MN1','U6',2,1),
-('MN2','U7',2,1),
-('MN3','U8',2,1),
-('AD1','U9',3,1),
-('AD2','U10',3,1);
+INSERT INTO account (account_id, user_id, role_id, is_active) VALUES
+('ACC001','ADMIN001',3,1),
+('ACC002','ADMIN002',3,1),
+('ACC003','ADMIN003',3,1),
+('ACC004','ADMIN004',3,1),
+('ACC005','ADMIN005',3,1),
+('ACC006','MANAGER001',2,1),
+('ACC007','CUSTOMER001',1,1),
+('ACC008','CUSTOMER002',1,1),
+('ACC009','CUSTOMER003',1,1),
+('ACC010','CUSTOMER004',1,1);
 
-INSERT INTO customer_types (customer_type_name) VALUES
-('VIP'),
-('Quen'),
-('Vang lai');
+INSERT INTO customer_type (customer_type_name) VALUES
+('Khách VIP'),
+('Khách quen'),
+('Khách vãng lai');
 
-INSERT INTO customers (user_id, customer_type_id) VALUES
-('U1',1),
-('U2',2),
-('U3',3),
-('U4',1),
-('U5',2);
+INSERT INTO customer (user_id, customer_type_id) VALUES
+('CUSTOMER001',1),
+('CUSTOMER002',2),
+('CUSTOMER003',3),
+('CUSTOMER004',1);
 
-INSERT INTO managers (user_id) VALUES
-('U6'),
-('U7'),
-('U8');
+INSERT INTO manager (user_id) VALUES
+('MANAGER001');
 
-INSERT INTO admins (user_id) VALUES
-('U9'),
-('U10');
+INSERT INTO admin (user_id) VALUES
+('ADMIN001'),
+('ADMIN002'),
+('ADMIN003'),
+('ADMIN004'),
+('ADMIN005');
 
-INSERT INTO addresses (customer_id, city, district, street, phone_number, id_address_default) VALUES
-(1,'Ha Noi','Dong Da','Duong A','0912345671',1),
-(2,'Ha Noi','Cau Giay','Duong B','0912345672',0),
-(3,'Hai Phong','Le Chan','Duong C','0912345673',1),
-(4,'Da Nang','Hai Chau','Duong D','0912345674',0),
-(5,'HCM','1','Duong E','0912345675',1);
+INSERT INTO address (customer_id, city, district, street, phone_number, id_address_default) VALUES
+(1,'Ha Noi','Dong Da','Duong A','0912345677',1),
+(2,'Ha Noi','Cau Giay','Duong B','0912345678',0),
+(3,'Hai Phong','Le Chan','Duong C','0912345679',1),
+(4,'Da Nang','Hai Chau','Duong D','0912345680',0);
 
-INSERT INTO vouchers (code, description, discount_percent, max_uses, start_date, end_date) VALUES
-('VOUCHER1','Giam 10%','10',100,'2025-09-01','2025-12-31'),
-('VOUCHER2','Giam 15%','15',50,'2025-09-01','2025-12-31'),
-('VOUCHER3','Giam 20%','20',30,'2025-09-01','2025-12-31'),
-('VOUCHER4','Giam 5%','5',200,'2025-09-01','2025-12-31'),
-('VOUCHER5','Giam 25%','25',10,'2025-09-01','2025-12-31'),
-('VOUCHER6','Giam 10%','10',100,'2025-09-01','2025-12-31'),
-('VOUCHER7','Giam 15%','15',50,'2025-09-01','2025-12-31'),
-('VOUCHER8','Giam 20%','20',30,'2025-09-01','2025-12-31'),
-('VOUCHER9','Giam 5%','5',200,'2025-09-01','2025-12-31'),
-('VOUCHER10','Giam 25%','25',10,'2025-09-01','2025-12-31');
+INSERT INTO voucher (code, description, discount_percent, max_uses, start_date, end_date) VALUES
+('VOUCHER1','Giam 10%',10,100,'2025-09-01','2025-12-31'),
+('VOUCHER2','Giam 15%',15,50,'2025-09-01','2025-12-31'),
+('VOUCHER3','Giam 20%',20,30,'2025-09-01','2025-12-31'),
+('VOUCHER4','Giam 5%',5,200,'2025-09-01','2025-12-31'),
+('VOUCHER5','Giam 25%',25,10,'2025-09-01','2025-12-31'),
+('VOUCHER6','Giam 10%',10,100,'2025-09-01','2025-12-31'),
+('VOUCHER7','Giam 15%',15,50,'2025-09-01','2025-12-31'),
+('VOUCHER8','Giam 20%',20,30,'2025-09-01','2025-12-31'),
+('VOUCHER9','Giam 5%',5,200,'2025-09-01','2025-12-31'),
+('VOUCHER10','Giam 25%',25,10,'2025-09-01','2025-12-31');
 
-INSERT INTO categories (name, slug) VALUES
+INSERT INTO category (name, slug) VALUES
 ('Skincare','skincare'),
 ('Makeup','makeup'),
 ('Perfume','perfume'),
@@ -81,7 +80,7 @@ INSERT INTO categories (name, slug) VALUES
 ('Accessories','accessories'),
 ('Others','others');
 
-INSERT INTO items (name, description, color, ingredient, price, category_id) VALUES
+INSERT INTO item (name, description, color, ingredient, price, category_id) VALUES
 ('Item1','Mo ta 1','Red','Ingredient1',100000,1),
 ('Item2','Mo ta 2','Blue','Ingredient2',150000,2),
 ('Item3','Mo ta 3','Green','Ingredient3',200000,3),
@@ -93,7 +92,7 @@ INSERT INTO items (name, description, color, ingredient, price, category_id) VAL
 ('Item9','Mo ta 9','Orange','Ingredient9',270000,9),
 ('Item10','Mo ta 10','Grey','Ingredient10',320000,10);
 
-INSERT INTO item_images (item_id, alt, is_primary) VALUES
+INSERT INTO item_image (item_id, alt, is_primary) VALUES
 (1,'Image1',1),
 (2,'Image2',1),
 (3,'Image3',1),
@@ -117,103 +116,59 @@ INSERT INTO inventory (item_id, quantity, reserved) VALUES
 (9,90,0),
 (10,50,0);
 
-INSERT INTO carts (account_id) VALUES
-('CU1'),
-('CU2'),
-('CU3'),
-('CU4'),
-('CU5'),
-('MN1'),
-('MN2'),
-('MN3'),
-('AD1'),
-('AD2');
+INSERT INTO cart (account_id) VALUES
+('ACC007'),
+('ACC008'),
+('ACC009'),
+('ACC010'),
+('ACC006'),
+('ACC001'),
+('ACC002');
 
-INSERT INTO cart_items (cart_id, item_id, quantity) VALUES
+INSERT INTO cart_item (cart_id, item_id, quantity) VALUES
 (1,1,2),
 (2,2,1),
 (3,3,4),
 (4,4,2),
 (5,5,3),
 (6,6,1),
-(7,7,2),
-(8,8,1),
-(9,9,5),
-(10,10,2);
+(7,7,2);
 
-INSERT INTO orders (customer_id, address_id, voucher_id, total, status) VALUES
-(1,1,1,200000,'pending'),
-(2,2,2,150000,'paid'),
-(3,3,3,400000,'processing'),
-(4,4,4,500000,'shipped'),
-(5,5,5,600000,'completed'),
-(1,1,6,220000,'cancelled'),
-(2,2,7,180000,'refunded'),
-(3,3,8,450000,'paid'),
-(4,4,9,520000,'pending'),
-(5,5,10,610000,'processing');
+INSERT INTO `order` (customer_id, address_id, voucher_id, total, status) VALUES
+(1,1,1,200000,'Pending'),
+(2,2,2,150000,'Paid'),
+(3,3,3,400000,'Processing'),
+(4,4,4,500000,'Shipped');
 
-INSERT INTO order_items (order_id, item_id, quantity, pre_discount_price, total_price_cents) VALUES
+INSERT INTO order_item (order_id, item_id, quantity, pre_discount_price, total_price_cents) VALUES
 (1,1,2,100000,200000),
 (2,2,1,150000,150000),
 (3,3,4,100000,400000),
-(4,4,2,250000,500000),
-(5,5,3,200000,600000),
-(6,1,2,110000,220000),
-(7,2,1,180000,180000),
-(8,3,3,150000,450000),
-(9,4,2,260000,520000),
-(10,5,3,203000,610000);
+(4,4,2,250000,500000);
 
-INSERT INTO voucher_customer_items (voucher_id, customer_id, item_id) VALUES
+INSERT INTO voucher_customer_item (voucher_id, customer_id, item_id) VALUES
 (1,1,1),
 (2,2,2),
 (3,3,3),
-(4,4,4),
-(5,5,5),
-(6,1,1),
-(7,2,2),
-(8,3,3),
-(9,4,4),
-(10,5,5);
+(4,4,4);
 
-INSERT INTO payments (order_id, platform, payment_method, status) VALUES
-(1,'VNPAY','Tien mat','initiated'),
-(2,'Momo','Chuyen khoan','complete'),
-(3,'VNPAY','Tien mat','failed'),
-(4,'Momo','Tien mat','refunded'),
-(5,'VNPAY','Chuyen khoan','complete'),
-(6,'Momo','Tien mat','initiated'),
-(7,'VNPAY','Chuyen khoan','failed'),
-(8,'Momo','Tien mat','complete'),
-(9,'VNPAY','Tien mat','refunded'),
-(10,'Momo','Chuyen khoan','complete');
+INSERT INTO payment (order_id, platform, payment_method, status) VALUES
+(1,'VNPAY','Cash','Initiated'),
+(2,'Momo','Transfer','Complete'),
+(3,'VNPAY','Cash','Failed'),
+(4,'Momo','Cash','Refunded');
 
-
-INSERT INTO reviews (item_id, customer_id, rating, comment) VALUES
+INSERT INTO review (item_id, customer_id, rating, comment) VALUES
 (1,1,5,'Sản phẩm tốt'),
 (2,2,4,'Rất hài lòng'),
 (3,3,3,'Bình thường'),
-(4,4,5,'Tuyệt vời'),
-(5,5,2,'Không thích'),
-(6,1,4,'Ổn'),
-(7,2,3,'Chấp nhận được'),
-(8,3,5,'Xuất sắc'),
-(9,4,4,'Hài lòng'),
-(10,5,5,'Rất tốt');
+(4,4,5,'Tuyệt vời');
 
-
-INSERT INTO sessions (session_id, account_id, token, end_time) VALUES
-('S1','CU1','token1','2025-09-22 23:59:59'),
-('S2','CU2','token2','2025-09-22 23:59:59'),
-('S3','CU3','token3','2025-09-22 23:59:59'),
-('S4','CU4','token4','2025-09-22 23:59:59'),
-('S5','CU5','token5','2025-09-22 23:59:59'),
-('S6','MN1','token6','2025-09-22 23:59:59'),
-('S7','MN2','token7','2025-09-22 23:59:59'),
-('S8','MN3','token8','2025-09-22 23:59:59'),
-('S9','AD1','token9','2025-09-22 23:59:59'),
-('S10','AD2','token10','2025-09-22 23:59:59');
-
-
-
+INSERT INTO session (session_id, account_id, token, end_time) VALUES
+('S1','ACC007','token1','2025-09-22 23:59:59'),
+('S2','ACC008','token2','2025-09-22 23:59:59'),
+('S3','ACC009','token3','2025-09-22 23:59:59'),
+('S4','ACC010','token4','2025-09-22 23:59:59'),
+('S5','ACC006','token5','2025-09-22 23:59:59'),
+('S6','ACC001','token6','2025-09-22 23:59:59'),
+('S7','ACC002','token7','2025-09-22 23:59:59');

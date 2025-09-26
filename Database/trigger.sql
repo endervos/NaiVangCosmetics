@@ -1,8 +1,8 @@
 USE COSMETICS;
 DELIMITER //
-DROP TRIGGER IF EXISTS before_insert_accounts;
-CREATE TRIGGER before_insert_accounts
-BEFORE INSERT ON accounts
+DROP TRIGGER IF EXISTS before_insert_account;
+CREATE TRIGGER before_insert_account
+BEFORE INSERT ON account
 FOR EACH ROW
 BEGIN
     -- Tự động set account_id dựa trên role_id
