@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nai Vang Cosmetic</title>
+    <link rel="icon" type="image/png" href="./Image/LogoConNai.png">
+    <link rel="stylesheet" href="detail.css">
+    <!-- Slick CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Slick JS -->
+    <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+</head>
+<body>
+
+<!-- Banner GIF full màn hình -->
+<div class="promo-banner">
+    <img src="./Image/Promotion.gif" alt="Promotion Banner">
+</div>
+
+<!-- Header -->
+<div class="header">
+    <div class="container header-inner">
+        <!-- Logo -->
+        <a href="index.html">   <!-- hoặc trangchu.jsp -->
+            <img src="./Image/Logo7.png" alt="Logo" width="150" height="100">
+        </a>
+
+
+        <!-- Search -->
+        <div class="search-bar">
+            <div class="search-wrap">
+                <input type="text" placeholder="Bạn cần tìm ....">
+                <span class="search-icon">
+            <svg viewBox="0 0 24 27" aria-hidden="true">
+              <path d="M10,2C4.5,2,0,6.5,0,12s4.5,10,10,10s10-4.5,10-10S15.5,2,10,2z M10,19c-3.9,0-7-3.1-7-7s3.1-7,7-7s7,3.1,7,7S13.9,19,10,19z"></path>
+              <rect x="17" y="17" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -9.2844 19.5856)" width="4" height="8"></rect>
+            </svg>
+          </span>
+            </div>
+        </div>
+
+        <!-- Icons (User + Cart) -->
+        <div class="header-icons">
+            <!-- User Section -->
+            <div class="user-section">
+                <!-- Nút user -->
+                <button class="user-btn" aria-label="Tài khoản">
+                    <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+                        <path fill="currentColor"
+                              d="M17.75 14c1.24 0 2.25 1.01 2.25 2.25v.92c0 .57-.18 1.13-.52 1.6C18 20.9 15.5 22 12 22s-6-1.1-7.48-3.23c-.34-.47-.52-1.03-.52-1.6v-.92C4 15.01 5.01 14 6.25 14h11.5ZM12 2a5 5 0 1 1 0 10 5 5 0 0 1 0-10Z"/>
+                    </svg>
+                </button>
+
+                <!-- Dropdown (ẩn mặc định, hiện khi hover hoặc click) -->
+                <div class="user-dropdown">
+                    <a href="../trangdangnhap/trangdangnhap.html" id="login-btn">Đăng nhập</a>
+                    <a href="../trangthongtincanhan/trangthongitncanhan.html" id="account-info">Thông tin tài khoản</a>
+                    <a href="#" id="logout-btn">Đăng xuất</a>
+                </div>
+            </div>
+
+
+            <!-- Cart Section -->
+            <div class="cart-section">
+                <a href="#" class="cart-pill" title="Giỏ hàng">
+                    <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
+                        <path fill="currentColor"
+                              d="M7 4h-2l-1 2h2l3.6 7.59-1.35 2.44C7.89 16.37 8.29 17 8.94 17h9.56v-2H9.42l1.1-2h7.25c.75 0 1.41-.41 1.75-1.03L22 7H6.42l-.7-1h1.28L7 4Zm-1 16a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm12 0a2 2 0 1 0 .001-3.999A2 2 0 0 0 18 20Z"/>
+                    </svg>
+                    <span>Giỏ hàng</span>
+                </a>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<!-- Menu -->
+<div class="menu-bar">
+    <div class="container menu-inner">
+
+        <!-- Danh Mục Sản Phẩm -->
+        <div class="dropdown">
+            <a href="#">☰ DANH MỤC SẢN PHẨM</a>
+
+            <!-- Menu cấp 1 -->
+            <ul class="dropdown-content">
+                <li class="has-submenu">
+                    <a href="#">
+                        <img class="menu-icon" src="./Image/Skincare.png" alt="Chăm sóc da mặt" >Chăm sóc da mặt </a>
+                    <!-- Menu cấp 2 mở sang phải -->
+                    <ul class="submenu">
+                        <li><a href="#">Tẩy Trang<span class="count">6</span></a></li>
+                        <li><a href="#">Sữa Rửa Mặt<span class="count">15</span></a></li>
+                        <li><a href="#">Tẩy Tế Bào Chết<span class="count">5</span></a></li>
+                        <li><a href="#">Kem dưỡng/Gel dưỡng<span class="count">8</span></a></li>
+                        <li><a href="#">Toner / Lotion<span class="count">10</span></a></li>
+                        <li><a href="#">Serum / Essence<span class="count">9</span></a></li>
+                        <li><a href="#">Son Dưỡng<span class="count">7</span></a></li>
+                        <li><a href="#">Chống Nắng<span class="count">15</span></a></li>
+                        <li><a href="#">Xịt khoáng<span class="count">11</span></a></li>
+                    </ul>
+                </li>
+
+                <!--Trang điểm-->
+                <li class="has-submenu">
+                    <a href="#">
+                        <img class="menu-icon" src="./Image/Makeup.png" alt="Trang điểm" >Trang điểm </a>
+                    <!-- Menu cấp 2 mở sang phải -->
+                    <ul class="submenu">
+                        <li><a href="#">Kem Lót<span class="count">5</span></a></li>
+                        <li><a href="#">Che Khuyết Điểm<span class="count">10</span></a></li>
+                        <li><a href="#">Highlight<span class="count">6</span></a></li>
+                        <li><a href="#">Masccara<span class="count">8</span></a></li>
+                        <li><a href="#">Son Môi<span class="count">9</span></a></li>
+                        <li><a href="#">Kem Nền<span class="count">11</span></a></li>
+                        <li><a href="#">Son Dưỡng<span class="count">7</span></a></li>
+                        <li><a href="#">Phấn Phủ<span class="count">8</span></a></li>
+                        <li><a href="#">Xịt Khoá Nền<span class="count">11</span></a></li>
+                    </ul>
+                </li>
+
+                <!--Chăm sóc cơ thể-->
+                <li class="has-submenu">
+                    <a href="#">
+                        <img class="menu-icon" src="./image/Bodycare.png" alt="Chăm sóc cơ thể" >Chăm sóc cơ thể </a>
+                    <!-- Menu cấp 2 mở sang phải -->
+                    <ul class="submenu">
+                        <li><a href="#">Sữa Tắm<span class="count">16</span></a></li>
+                        <li><a href="#">Dưỡng Thể<span class="count">10</span></a></li>
+                        <li><a href="#">Tẩy Tế Bào Chết Body<span class="count">12</span></a></li>
+                        <li><a href="#">Chăm Sóc Răng Miệng<span class="count">13</span></a></li>
+                        <li><a href="#">Xịt Khử Mùi<span class="count">6</span></a></li>
+                        <li><a href="#">Kem Dưỡng Da Tay<span class="count">9</span></a></li>
+                        <li><a href="#">Giảm Mụn Lưng<span class="count">10</span></a></li>
+                    </ul>
+                </li>
+
+                <!--Chăm sóc cơ thể-->
+                <li class="has-submenu">
+                    <a href="#">
+                        <img class="menu-icon" src="./Image/Haircare.png" alt="Chăm sóc tóc" >Chăm sóc tóc </a>
+                    <!-- Menu cấp 2 mở sang phải -->
+                    <ul class="submenu">
+                        <li><a href="#">Dầu Gội<span class="count">16</span></a></li>
+                        <li><a href="#">Dầu Xả<span class="count">10</span></a></li>
+                        <li><a href="#">Ủ Tóc<span class="count">6</span></a></li>
+                        <li><a href="#">Tinh Chất Dưỡng Tóc<span class="count">8</span></a></li>
+                        <li><a href="#">Tẩy Tế Bào Chết Da Đầu<span class="count">5</span></a></li>
+                    </ul>
+                </li>
+                <!--Dược mỹ phẩm -->
+                <li class="has-submenu">
+                    <a href="#">
+                        <img class="menu-icon" src="./Image/Cosmeceuticals.png" alt="Dược mỹ phẩm">Dược mỹ phẩm
+                    </a>
+                    <!-- Menu cấp 2 mở sang phải -->
+                    <ul class="submenu">
+                        <li><a href="#">Sản phẩm trị mụn <span class="count">11</span></a></li>
+                        <li><a href="#">Chống lão hóa <span class="count">6</span></a></li>
+                        <li><a href="#">Làm sáng da <span class="count">9</span></a></li>
+                        <li><a href="#">Phục hồi da sau điều trị <span class="count">4</span></a></li>
+                        <li><a href="#">Sản phẩm đặc trị <span class="count">8</span></a></li>
+                        <li><a href="#">Sản phẩm mờ thâm mụn  <span class="count">4</span></a></li>
+                        <li><a href="#">Sữa rửa mặt hỗ trợ trị mụn <span class="count">8</span></a></li>
+                    </ul>
+                </li>
+                <!-- Thực phẩm chức năng -->
+                <li class="has-submenu">
+                    <a href="#">
+                        <img class="menu-icon" src="./Image/Health-supplements.png" alt="Thực phẩm chức năng">
+                        Thực phẩm chức năng
+                    </a>
+                    <ul class="submenu">
+                        <li><a href="#">Vitamin & Khoáng chất <span class="count">18</span></a></li>
+                        <li><a href="#">Thực phẩm bổ sung Collagen <span class="count">9</span></a></li>
+                        <li><a href="#">Tăng cường đề kháng <span class="count">12</span></a></li>
+                        <li><a href="#">Thực phẩm hỗ trợ tiêu hóa <span class="count">7</span></a></li>
+                        <li><a href="#">Hỗ trợ xương khớp <span class="count">10</span></a></li>
+                        <li><a href="#">Giảm cân & Detox <span class="count">8</span></a></li>
+                        <li><a href="#">Sản phẩm cho trẻ em <span class="count">6</span></a></li>
+                        <li><a href="#">Sản phẩm cho người lớn tuổi <span class="count">5</span></a></li>
+                    </ul>
+                </li>
+                <!-- Best Seller -->
+                <li class="has-submenu">
+                    <a href="#">
+                        <img class="menu-icon" src="./Image/Best-seller.png" alt="Best Seller">
+                        BEST SELLER
+                    </a>
+                    <ul class="submenu">
+                        <li><a href="#">Top Skincare bán chạy <span class="count">12</span></a></li>
+                        <li><a href="#">Top Makeup bán chạy <span class="count">9</span></a></li>
+                        <li><a href="#">Top Bodycare bán chạy <span class="count">7</span></a></li>
+                        <li><a href="#">Top Haircare bán chạy <span class="count">5</span></a></li>
+                        <li><a href="#">Top Thực phẩm chức năng <span class="count">6</span></a></li>
+                        <li><a href="#">Top Dược mỹ phẩm <span class="count">4</span></a></li>
+                        <li><a href="#">Top Nước hoa bán chạy <span class="count">8</span></a></li>
+                        <li><a href="#">Top Phụ kiện làm đẹp <span class="count">10</span></a></li>
+                        <li><a href="#">Top Chăm sóc răng miệng <span class="count">3</span></a></li>
+                        <li><a href="#">Top Sản phẩm organic <span class="count">6</span></a></li>
+
+
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Sản Phẩm Mới -->
+        <a href="#">SẢN PHẨM MỚI</a>
+
+        <!-- Lam Thảo Beauty -->
+        <div class="dropdown">
+            <a href="#">NAI VANG BEAUTY</a>
+            <ul class="dropdown-content">
+                <li><a href="#">Thương hiệu A</a></li>
+                <li><a href="#">Thương hiệu B</a></li>
+                <li><a href="#">Thương hiệu C</a></li>
+            </ul>
+        </div>
+
+        <!-- Deal hot -->
+        <a href="#">💖 DEAL HOT DƯỚI 100K 💖</a>
+
+        <!-- Tin tức -->
+        <div class="dropdown">
+            <a href="#">TIN TỨC</a>
+            <ul class="dropdown-content">
+                <li><a href="#">Blog làm đẹp</a></li>
+                <li><a href="#">Khuyến mãi</a></li>
+                <li><a href="#">Mẹo chăm sóc</a></li>
+            </ul>
+        </div>
+
+        <!-- Tra cứu đơn -->
+        <a href="#">TRA CỨU ĐƠN HÀNG</a>
+    </div>
+</div>
+
+
+<!-- Breadcrumb -->
+<nav class="breadcrumb">
+    <a href="/">
+        <img src="./Image/Home_icon.png" alt="Home" class="breadcrumb-icon">
+        Trang chủ
+    </a>
+    <span>&gt;</span>
+    <a href="/danh-muc">Danh mục</a>
+    <span>&gt;</span>
+    <span class="current">Sữa rửa mặt Cerave</span>
+</nav>
+
+<!-- Mục sản phẩm -->
+<div class="product-detail-container">
+    <!-- Cột trái: Ảnh sản phẩm -->
+    <div class="product-images">
+        <div class="main-image">
+            <img id="currentImage" src="./Image/Cerave1.jpg" alt="Image 1">
+        </div>
+
+        <!-- Thumbnails -->
+        <div class="thumbnail-images">
+            <img class="thumbnail active" src="./Image/Cerave1.jpg" alt="Image 1">
+            <img class="thumbnail" src="./Image/Cerave2.jpg" alt="Image 2">
+            <img class="thumbnail" src="./Image/Cerave3.jpg" alt="Image 3">
+            <img class="thumbnail" src="./Image/Cerave4.png" alt="Image 4">
+        </div>
+    </div>
+
+
+
+    <!-- Cột phải: Thông tin sản phẩm -->
+    <div class="product-info">
+        <h1 class="product-title">Sữa Rửa Mặt Cerave Foaming Cleanser 473ml</h1>
+
+        <div class="product-meta">
+            <span class="brand">Thương hiệu: <strong>CeraVe</strong></span> |
+            <span class="category">Loại sản phẩm: <strong>Sữa rửa mặt</strong></span> |
+            <span class="sold">Đã bán: <strong>1.2k</strong></span>
+        </div>
+
+        <div class="product-rating">
+            <span class="stars" data-rating="4.2"></span>
+            <span class="review-count">(120 đánh giá)</span>
+        </div>
+
+        <div class="wishlist">
+            <i id="wishlistIcon" class="fa-regular fa-heart"></i>
+        </div>
+
+        <div class="price-box">
+            <span class="current-price">285,000đ</span>
+            <span class="old-price">350,000đ</span>
+            <span class="discount">-19%</span>
+        </div>
+
+        <!-- Mô tả sản phẩm -->
+        <p class="product-description">
+            Sữa Rửa Mặt Cerave Sạch Sâu là sản phẩm sữa rửa mặt đến từ thương hiệu mỹ phẩm Cerave của Mỹ, với sự kết hợp của ba Ceramides thiết yếu, Hyaluronic Acid sản phẩm giúp làm sạch và giữ ẩm cho làn da mà không ảnh hưởng đến hàng rào bảo vệ da mặt và cơ thể.
+        </p>
+
+        <!-- Thông tin phụ -->
+        <div class="extra-info">
+            <div class="info-item">
+                🚚 <span>Miễn phí vận chuyển cho đơn từ 199K</span>
+            </div>
+            <div class="info-item">
+                ⚡ <span>Giao hàng nhanh trong 2h nội thành Hồ Chí Minh</span>
+            </div>
+            <div class="info-item">
+                🛡️ <span>Cam kết 100% chính hãng từ Nai Vàng</span>
+            </div>
+            <div class="info-item">
+                🔄 <span>Đổi trả trong 15 ngày nếu sản phẩm lỗi</span>
+            </div>
+            <div class="info-item">
+                🎁 <span>Giảm 10% tối đa 30K cho khách hàng lần đầu mua hàng</span>
+            </div>
+        </div>
+
+        <div class="quantity-box">
+            <label for="quantity">Số lượng:</label>
+            <input type="number" id="quantity" value="1" min="1">
+            <span class="stock-status">Còn hàng</span>
+        </div>
+
+        <div class="action-buttons">
+            <button class="add-cart">Thêm vào giỏ hàng</button>
+            <button class="buy-now">Mua ngay</button>
+        </div>
+
+    </div>
+</div>
+
+<div class="product-tabs">
+    <div class="tab-buttons">
+        <button class="tab-btn active" data-tab="gioithieu">Giới Thiệu</button>
+        <button class="tab-btn" data-tab="congdung">Công Dụng</button>
+        <button class="tab-btn" data-tab="thanhphan">Thành Phần</button>
+        <button class="tab-btn" data-tab="huongdan">Hướng Dẫn Sử Dụng</button>
+        <button class="tab-btn" data-tab="thongtin">Thông tin thêm</button>
+    </div>
+
+    <!-- Nội dung các tab -->
+    <div class="tab-content active" id="gioithieu">
+        <p>
+            <span class="link">Sữa Rửa Mặt </span>Cerave Sạch Sâu là sản phẩm sữa rửa mặt đến từ thương hiệu mỹ phẩm
+            <span class="link">Cerave</span> của Mỹ, với sự kết hợp của ba Ceramides thiết yếu,
+            Hyaluronic Acid giúp làm sạch và giữ ẩm cho làn da mà không ảnh hưởng đến hàng rào bảo vệ.
+        </p>
+        <img src="./Image/Ceraveinfo.jpg" alt="Cerave" class="product-img">
+    </div>
+
+    <div class="tab-content" id="congdung">
+        <p>Sản phẩm giúp làm sạch sâu, loại bỏ dầu thừa và bụi bẩn, mang lại làn da tươi mát.</p>
+    </div>
+
+    <div class="tab-content" id="thanhphan">
+        <p>Thành phần gồm: Ceramides, Hyaluronic Acid, Niacinamide, không chứa hương liệu.</p>
+    </div>
+
+    <div class="tab-content" id="huongdan">
+        <p>Lấy một lượng vừa đủ, tạo bọt với nước, massage nhẹ nhàng trên da mặt và rửa lại với nước.</p>
+    </div>
+
+    <div class="tab-content" id="thongtin">
+        <p>Sản phẩm được phát triển bởi các bác sĩ da liễu tại Mỹ. Thích hợp cho da thường đến da dầu.</p>
+    </div>
+</div>
+
+
+
+
+<!-- FOOTER -->
+<div class="subscribe-bar">
+    <h2>ĐĂNG KÝ NHẬN ƯU ĐÃI</h2>
+    <form class="subscribe-form" id="subscribeForm">
+        <div class="input-wrap">
+            <input type="email" id="emailInput" placeholder="Nhập email của bạn">
+            <!-- dòng báo lỗi -->
+            <small id="emailError" class="error-msg"></small>
+        </div>
+        <button type="submit">ĐĂNG KÝ</button>
+    </form>
+</div>
+
+
+
+<footer class="footer">
+    <div class="footer-main">
+        <!-- Cột 1: Logo + thông tin -->
+        <div class="footer-col">
+            <img src="./image/logo7.png" alt="Nai Vang Logo" class="footer-logo">
+            <p><strong>CÔNG TY TNHH MTV THƯƠNG MẠI VÀ ĐẦU TƯ LIÊN Á CHÂU</strong></p>
+            <p>Giấy chứng nhận đăng ký doanh nghiệp số 0310618188, cấp ngày 29.01.2011, nơi cấp Sở Kế Hoạch và Đầu Tư TP. Hồ Chí Minh</p>
+            <p>Trụ sở chính: L2-VP-01, 346 Bến Vân Đồn, Phường Vĩnh Hội, TP. Hồ Chí Minh</p>
+            <p>Hotline: <a href="tel:19004449">19004449</a>
+                Điện thoại: <a href="tel:02838328272">02838328272</a></p>
+            <img src="./image/bocongthuong_1_1.webp" alt="Đã thông báo Bộ Công Thương" class="boct-logo">
+        </div>
+
+        <!-- Cột 2: Theo dõi + App + Thanh toán -->
+        <div class="footer-col">
+            <h4>Theo dõi chúng tôi</h4>
+            <div class="social-links">
+                <a href="#"><img src="./image/facebook.webp" alt="Facebook"></a>
+                <a href="#"><img src="./image/instagram.webp" alt="Instagram"></a>
+                <a href="#"><img src="./image/youtube.webp" alt="YouTube"></a>
+                <a href="#"><img src="./image/tiktok.webp" alt="TikTok"></a>
+            </div>
+
+            <h4>Tải App Ngay</h4>
+            <div class="app-links">
+                <img src="./image/maqr.png" alt="QR Code" class="qr-code">
+                <div>
+                    <a href="#"><img src="./image/googleplay.webp" alt="Google Play"></a>
+                    <a href="#"><img src="./image/appstore.webp" alt="App Store"></a>
+                </div>
+            </div>
+
+            <h4>Chấp nhận Phương thức thanh toán</h4>
+            <div class="pay-methods">
+                <img src="./image/vnpay.png" alt="VNPay">
+                <img src="./image/momo.webp" alt="MoMo" class="momo-logo">
+                <img src="./image/visa.png" alt="Visa">
+            </div>
+        </div>
+
+        <!-- Cột 3: Về chúng tôi -->
+        <div class="footer-col">
+            <h4>Về chúng tôi</h4>
+            <ul>
+                <li><a href="#">Giới thiệu</a></li>
+                <li><a href="#">Tin Tức</a></li>
+                <li><a href="#">Cẩm nang Làm đẹp</a></li>
+                <li><a href="#">Tuyển dụng</a></li>
+                <li><a href="#">Đổi điểm Hội Cam</a></li>
+                <li><a href="#">Liên hệ</a></li>
+                <li><a href="#">Địa chỉ cửa hàng</a></li>
+                <li><a href="#">Cho thuê mặt bằng</a></li>
+                <li><a href="#">Hợp tác cùng Guardian</a></li>
+            </ul>
+        </div>
+
+        <!-- Cột 4: Chính sách -->
+        <div class="footer-col">
+            <h4>Chính sách</h4>
+            <ul>
+                <li><a href="#">Chính sách và quy định chung</a></li>
+                <li><a href="#">Quy định và hình thức thanh toán</a></li>
+                <li><a href="#">Chính sách vận chuyển</a></li>
+                <li><a href="#">Chính sách đổi/trả hàng và hoàn tiền</a></li>
+                <li><a href="#">Chính sách bảo mật thông tin cá nhân</a></li>
+                <li><a href="#">Hướng dẫn mua hàng</a></li>
+                <li><a href="#">Quy trình xuất hóa đơn Điện Tử</a></li>
+                <li><a href="#">Chính sách Thông tin Hội Cam</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        <p>© 2025 Nai Vang. All rights reserved.</p>
+    </div>
+</footer>
+
+<script src="detail.js"></script>
+</body>
+</html>
+
