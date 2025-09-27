@@ -1,15 +1,17 @@
 <!DOCTYPE html>
-<html lang="vi" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nai Vang Cosmetic</title>
     <link rel="icon" type="image/png" href="./Image/LogoConNai.png">
-    <link rel="stylesheet" href="trangsanpham.css">
+    <link rel="stylesheet" href="Hotdeal.css">
     <!-- Slick CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
 
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -27,8 +29,9 @@
 <!-- Header -->
 <div class="header">
     <div class="container header-inner">
-        <a th:href="@{/}">
-            <img th:src="@{/Customer/Example/Image/Logo7.png}" alt="Logo" width="150" height="100">
+        <!-- Logo -->
+        <a href="index.html">   <!-- hoặc trangchu.jsp -->
+            <img src="./Image/Logo7.png" alt="Logo" width="150" height="100">
         </a>
 
 
@@ -255,7 +258,7 @@
     <span>&gt;</span>
     <a href="/danh-muc">Danh mục</a>
     <span>&gt;</span>
-    <span class="current">Chăm sóc da mặt</span>
+    <span class="current">Deal HOT Dưới 100K</span>
 </nav>
 
 
@@ -384,22 +387,6 @@
     <!-- Nội dung bên phải -->
     <div class="content-area">
 
-        <!-- Ưu đãi hot hôm nay -->
-        <div class="hot-deal">
-            <h2 class="hot-deal-title">ƯU ĐÃI HOT HÔM NAY</h2>
-            <div class="hot-deal-list">
-                <div class="hot-deal-item">
-                    <img src="./Image/Taytrangsale.png" alt="Tẩy trang">
-                </div>
-                <div class="hot-deal-item">
-                    <img src="./Image/Serumsale.png" alt="Serum">
-                </div>
-                <div class="hot-deal-item">
-                    <img src="./Image/Srmsale.png" alt="Sữa rửa mặt">
-                </div>
-            </div>
-        </div>
-
         <!-- Danh sách sản phẩm -->
         <main class="product-page">
             <section class="product-list">
@@ -426,9 +413,13 @@
                         </div>
                         <div class="rating">
                             ⭐ 5.0 <span>Đã bán 12k</span>
+                            <div class="hd-progress">
+              <span style="width:70%">
+                <i class="fire">🔥</i>
+              </span>
+                            </div>
                         </div>
                         <button class="buy-btn">Thêm vào giỏ hàng</button>
-
                         <!-- icon riêng -->
                         <div class="cart-icon">
                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 21 20" fill="none">
@@ -453,13 +444,19 @@
                         <div class="brand">JM SOLUTION</div>
                         <h4 class="title">Nước Tẩy Trang H9 Hyaluronic</h4>
                         <div class="price">
-                            <span class="new">128.000đ</span>
+                            <span class="new">99.000đ</span>
                             <span class="old">199.000đ</span>
                             <span class="discount">-36%</span>
                         </div>
                         <div class="rating">
                             ⭐ 5.0 <span>Đã bán 7.6k</span>
                         </div>
+                        <div class="hd-progress">
+              <span style="width:70%">
+                <i class="fire">🔥</i>
+              </span>
+                        </div>
+
                         <button class="buy-btn">Thêm vào giỏ hàng</button>
 
                         <!-- icon riêng -->
@@ -493,6 +490,11 @@
                         <div class="rating">
                             ⭐ 5.0 <span>Đã bán 6.1k</span>
                         </div>
+                        <div class="hd-progress">
+              <span style="width:70%">
+                <i class="fire">🔥</i>
+              </span>
+                        </div>
                         <button class="buy-btn">Thêm vào giỏ hàng</button>
 
                         <!-- icon riêng -->
@@ -519,17 +521,21 @@
                         <div class="brand">SIMPLE</div>
                         <h4 class="title">Kind to Skin Cleansing</h4>
                         <div class="price">
-                            <span class="new">125.000đ</span>
+                            <span class="new">99.000đ</span>
                             <span class="old">200.000đ</span>
                             <span class="discount">-38%</span>
                         </div>
                         <div class="rating">
                             ⭐ 5.0 <span>Đã bán 5.0k</span>
                         </div>
+                        <div class="hd-progress">
+              <span style="width:70%">
+                <i class="fire">🔥</i>
+              </span>
+                        </div>
 
                         <!-- nút thêm vào giỏ hàng -->
                         <button class="buy-btn">Thêm vào giỏ hàng</button>
-
                         <!-- icon riêng -->
                         <div class="cart-icon">
                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 21 20" fill="none">
@@ -555,12 +561,17 @@
                         <div class="brand">SIMPLE</div>
                         <h4 class="title">Kind to Skin Cleansing</h4>
                         <div class="price">
-                            <span class="new">125.000đ</span>
+                            <span class="new">99.000đ</span>
                             <span class="old">200.000đ</span>
                             <span class="discount">-38%</span>
                         </div>
                         <div class="rating">
                             ⭐ 5.0 <span>Đã bán 5.0k</span>
+                        </div>
+                        <div class="hd-progress">
+              <span style="width:70%">
+                <i class="fire">🔥</i>
+              </span>
                         </div>
                         <button class="buy-btn">Thêm vào giỏ hàng</button>
 
@@ -595,6 +606,11 @@
                         <div class="rating">
                             ⭐ 5.0 <span>Đã bán 12k</span>
                         </div>
+                        <div class="hd-progress">
+              <span style="width:70%">
+                <i class="fire">🔥</i>
+              </span>
+                        </div>
                         <button class="buy-btn">Thêm vào giỏ hàng</button>
 
                         <!-- icon riêng -->
@@ -615,18 +631,23 @@
                         </div>
                     </div>
 
-                    <!-- Sản phẩm 2 -->
+                    <!-- Sản phẩm 1 -->
                     <div class="product-card">
-                        <img src="./Image/phanma.jpg" alt="JM Solution">
-                        <div class="brand">JM SOLUTION</div>
-                        <h4 class="title">Nước Tẩy Trang H9 Hyaluronic</h4>
+                        <img src="./Image/phanma.jpg" alt="Phấn má hồng">
+                        <div class="brand">COCOON</div>
+                        <h4 class="title">[DEAL CỬA HÀNG SIZE 500ML GIÁ SỐC] Nước Tẩy Trang Dành Cho Da Dầu, Mụn Chiết Xuất Bí Đao Cocoon Winter Melon Micellar Water</h4>
                         <div class="price">
-                            <span class="new">128.000đ</span>
-                            <span class="old">199.000đ</span>
-                            <span class="discount">-36%</span>
+                            <span class="new">76.000đ</span>
+                            <span class="old">95.000đ</span>
+                            <span class="discount">-20%</span>
                         </div>
                         <div class="rating">
-                            ⭐ 5.0 <span>Đã bán 7.6k</span>
+                            ⭐ 5.0 <span>Đã bán 12k</span>
+                        </div>
+                        <div class="hd-progress">
+              <span style="width:70%">
+                <i class="fire">🔥</i>
+              </span>
                         </div>
                         <button class="buy-btn">Thêm vào giỏ hàng</button>
 
@@ -661,6 +682,11 @@
                         <div class="rating">
                             ⭐ 5.0 <span>Đã bán 6.1k</span>
                         </div>
+                        <div class="hd-progress">
+              <span style="width:70%">
+                <i class="fire">🔥</i>
+              </span>
+                        </div>
                         <button class="buy-btn">Thêm vào giỏ hàng</button>
 
                         <!-- icon riêng -->
@@ -687,12 +713,17 @@
                         <div class="brand">SIMPLE</div>
                         <h4 class="title">Kind to Skin Cleansing</h4>
                         <div class="price">
-                            <span class="new">125.000đ</span>
+                            <span class="new">99.000đ</span>
                             <span class="old">200.000đ</span>
                             <span class="discount">-38%</span>
                         </div>
                         <div class="rating">
                             ⭐ 5.0 <span>Đã bán 5.0k</span>
+                        </div>
+                        <div class="hd-progress">
+              <span style="width:70%">
+                <i class="fire">🔥</i>
+              </span>
                         </div>
                         <button class="buy-btn">Thêm vào giỏ hàng</button>
 
@@ -720,12 +751,17 @@
                         <div class="brand">SIMPLE</div>
                         <h4 class="title">Kind to Skin Cleansing</h4>
                         <div class="price">
-                            <span class="new">125.000đ</span>
+                            <span class="new">99.000đ</span>
                             <span class="old">200.000đ</span>
                             <span class="discount">-38%</span>
                         </div>
                         <div class="rating">
                             ⭐ 5.0 <span>Đã bán 5.0k</span>
+                        </div>
+                        <div class="hd-progress">
+              <span style="width:70%">
+                <i class="fire">🔥</i>
+              </span>
                         </div>
                         <button class="buy-btn">Thêm vào giỏ hàng</button>
 
@@ -873,7 +909,7 @@
     </div>
 </footer>
 
-<script src="trangsanpham.js"></script>
+<script src="Hotdeal.js"></script>
 </body>
 </html>
 
