@@ -29,16 +29,19 @@ document.addEventListener("DOMContentLoaded", () => {
   let isLoggedIn = false; // mặc định chưa đăng nhập
 
   const loginBtn   = document.getElementById("login-btn");
+  const subcribeBtn   = document.getElementById("subcribe-btn");
   const logoutBtn  = document.getElementById("logout-btn");
   const accountInfo = document.getElementById("account-info");
 
   function updateMenu() {
     if (isLoggedIn) {
       loginBtn.style.display = "none";
+      subcribeBtn.style.display = "none";
       accountInfo.style.display = "block";
       logoutBtn.style.display = "block";
     } else {
       loginBtn.style.display = "block";
+      subcribeBtn.style.display = "block";
       accountInfo.style.display = "none";
       logoutBtn.style.display = "none";
     }
