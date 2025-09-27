@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/blog")
-public class ShowBlogPage {
+public class BlogController {
     @GetMapping()
-    public String showHomePage(Model model) {
+    public String showBlogPage(Model model) {
         return "Customer/Blog";
     }
 
