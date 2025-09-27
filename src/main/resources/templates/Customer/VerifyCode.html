@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nai Vang Cosmetic</title>
     <link rel="icon" type="image/png" th:href="@{/Customer/Home/LogoConNai.png}">
-    <link rel="stylesheet" th:href="@{/Customer/Home/Home.css}">
+    <link rel="stylesheet" th:href="@{/Customer/Example/Example.css}">
+    <link rel="stylesheet" th:href="@{/Customer/VerifyCode/VerifyCode.css}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -236,11 +237,9 @@
           <button type="submit" class="verifyBtn" hidden>Xác nhận</button>
       </form>
 
-      <form th:action="@{/sign-up/resend}" method="post" class="resend-form">
-          <input type="hidden" name="userId" th:value="${userId}"/>
+      <form th:action="@{/sign-up/resend-code}" method="post" class="resend-form">
           <button type="submit" class="resendBtn">Gửi lại mã</button>
       </form>
-
 
       <div th:if="${errorMessage}" class="message error" th:text="${errorMessage}"></div>
       <div th:if="${successMessage}" class="message success" th:text="${successMessage}"></div>

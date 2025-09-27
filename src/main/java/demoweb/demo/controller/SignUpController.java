@@ -71,4 +71,22 @@ public class SignUpController {
             return "Customer/VerifyCode";
         }
     }
+
+    @PostMapping("/resend-code")
+    public String resendCode(HttpSession session, Model model) {
+        SignUpCustomer dto = (SignUpCustomer) session.getAttribute("pendingUser");
+        if (dto == null) {
+            model.addAttribute("errorMessage", "Không tìm thấy thông tin đăng ký. Vui lòng đăng ký lại.");
+            return "Customer/SignUp";
+        }
+        try {
+            String newCode = customerService.generateVerificationCode(dto.getEmail());
+            customerService.sendVerificationEmail(dto.getEmail(), newCode);
+            session.setAttribute("verificationCode", newCode);
+            model.addAttribute("successMessage", "Mã xác thực mới đã được gửi lại email của bạn.");
+        } catch (Exception e) {
+            model.addAttribute("errorMessage", "Không thể gửi lại mã: " + e.getMessage());
+        }
+        return "Customer/VerifyCode";
+    }
 }
