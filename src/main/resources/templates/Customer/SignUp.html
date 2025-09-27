@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<html lang="vi" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Đăng ký</title>
-    <link rel="icon" type="image/png" th:src="@{/Customer/Example/Image/LogoConNai.png}">
+    <link rel="icon" type="image/png" th:href="@{/Customer/Home/LogoConNai.png}">
+    <link rel="stylesheet" th:href="@{/Customer/Home/Home.css}">
     <link rel="stylesheet" th:href="@{/Customer/SignUp/SignUp.css}">
-    <link rel="stylesheet" th:href="@{/Customer/Example/Example.css}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -15,10 +15,9 @@
 <body>
 
 <div class="promo-banner">
-    <img th:src="@{/Customer/Example/Image/Example.gif}" alt="Khuyến mãi Lam Thao">
+    <img th:src="@{/Customer/Home/Home.gif}" alt="Khuyến mãi Lam Thao">
 </div>
 
-<!-- Header -->
 <div class="header">
     <div class="container header-inner">
         <a th:href="@{/}">
@@ -39,6 +38,7 @@
 
         <div class="header-icons">
             <div class="user-section">
+                <!-- Nút user -->
                 <button class="user-btn" aria-label="Tài khoản">
                     <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
                         <path fill="currentColor"
@@ -47,12 +47,17 @@
                 </button>
 
                 <div class="user-dropdown">
-                    <a th:href="@{/login}" id="login-btn">Đăng nhập</a>
-                    <a th:href="@{/Information/Information.html}" id="account-info">Thông tin tài khoản</a>
-                    <a href="#" id="logout-btn">Đăng xuất</a>
+                    <a th:href="@{/login}" id="login-btn" sec:authorize="isAnonymous()">Đăng nhập</a>
+                    <a th:href="@{/sign-up}" id="subcribe-btn" sec:authorize="isAnonymous()">Đăng ký</a>
+
+                    <a th:href="@{/profile}" id="account-info" sec:authorize="isAuthenticated()">Thông tin tài khoản</a>
+                    <a th:href="@{/logout}" id="logout-btn" sec:authorize="isAuthenticated()">Đăng xuất</a>
                 </div>
+
             </div>
 
+
+            <!-- Cart Section -->
             <div class="cart-section">
                 <a href="#" class="cart-pill" title="Giỏ hàng">
                     <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
@@ -66,15 +71,16 @@
     </div>
 </div>
 
-<!-- Menu -->
 <div class="menu-bar">
     <div class="container menu-inner">
+
+        <!-- Danh Mục Sản Phẩm -->
         <div class="dropdown">
             <a href="#">☰ DANH MỤC SẢN PHẨM</a>
             <ul class="dropdown-content">
                 <li class="has-submenu">
                     <a href="#">
-                        <img class="menu-icon" th:src="@{/Customer/Example/Image/Skincare.png}" alt="Chăm sóc da mặt" >Chăm sóc da mặt </a>
+                        <img class="menu-icon" th:src="@{/Customer/Home/Skincare.png}" alt="Chăm sóc da mặt" >Chăm sóc da mặt </a>
                     <ul class="submenu">
                         <li><a href="#">Tẩy Trang<span class="count">6</span></a></li>
                         <li><a href="#">Sữa Rửa Mặt<span class="count">15</span></a></li>
@@ -88,9 +94,10 @@
                     </ul>
                 </li>
 
+                <!--Trang điểm-->
                 <li class="has-submenu">
                     <a href="#">
-                        <img class="menu-icon" th:src="@{/Customer/Example/Image/Makeup.png}" alt="Trang điểm" >Trang điểm </a>
+                        <img class="menu-icon" th:src="@{/Customer/Home/Makeup.png}" alt="Trang điểm" >Trang điểm </a>
                     <ul class="submenu">
                         <li><a href="#">Kem Lót<span class="count">5</span></a></li>
                         <li><a href="#">Che Khuyết Điểm<span class="count">10</span></a></li>
@@ -104,9 +111,10 @@
                     </ul>
                 </li>
 
+                <!--Chăm sóc cơ thể-->
                 <li class="has-submenu">
                     <a href="#">
-                        <img class="menu-icon" th:src="@{/Customer/Example/Image/Bodycare.png}" alt="Chăm sóc cơ thể" >Chăm sóc cơ thể </a>
+                        <img class="menu-icon" th:src="@{/Customer/Home/Bodycare.png}" alt="Chăm sóc cơ thể" >Chăm sóc cơ thể </a>
                     <ul class="submenu">
                         <li><a href="#">Sữa Tắm<span class="count">16</span></a></li>
                         <li><a href="#">Dưỡng Thể<span class="count">10</span></a></li>
@@ -118,9 +126,10 @@
                     </ul>
                 </li>
 
+                <!--Chăm sóc tóc-->
                 <li class="has-submenu">
                     <a href="#">
-                        <img class="menu-icon" th:src="@{/Customer/Example/Image/Haircare.png}" alt="Chăm sóc tóc" >Chăm sóc tóc </a>
+                        <img class="menu-icon" th:src="@{/Customer/Home/Haircare.png}" alt="Chăm sóc tóc" >Chăm sóc tóc </a>
                     <ul class="submenu">
                         <li><a href="#">Dầu Gội<span class="count">16</span></a></li>
                         <li><a href="#">Dầu Xả<span class="count">10</span></a></li>
@@ -129,10 +138,10 @@
                         <li><a href="#">Tẩy Tế Bào Chết Da Đầu<span class="count">5</span></a></li>
                     </ul>
                 </li>
-
+                <!--Dược mỹ phẩm -->
                 <li class="has-submenu">
                     <a href="#">
-                        <img class="menu-icon" th:src="@{/Customer/Example/Image/Cosmeceuticals.png}" alt="Dược mỹ phẩm">Dược mỹ phẩm
+                        <img class="menu-icon" th:src="@{/Customer/Home/Cosmeceuticals.png}" alt="Dược mỹ phẩm">Dược mỹ phẩm
                     </a>
                     <ul class="submenu">
                         <li><a href="#">Sản phẩm trị mụn <span class="count">11</span></a></li>
@@ -144,10 +153,10 @@
                         <li><a href="#">Sữa rửa mặt hỗ trợ trị mụn <span class="count">8</span></a></li>
                     </ul>
                 </li>
-
+                <!-- Thực phẩm chức năng -->
                 <li class="has-submenu">
                     <a href="#">
-                        <img class="menu-icon" th:src="@{/Customer/Example/Image/Health-supplements.png}" alt="Thực phẩm chức năng">
+                        <img class="menu-icon" th:src="@{/Customer/Home/Health-supplements.png}" alt="Thực phẩm chức năng">
                         Thực phẩm chức năng
                     </a>
                     <ul class="submenu">
@@ -161,10 +170,10 @@
                         <li><a href="#">Sản phẩm cho người lớn tuổi <span class="count">5</span></a></li>
                     </ul>
                 </li>
-
+                <!-- Best Seller -->
                 <li class="has-submenu">
                     <a href="#">
-                        <img class="menu-icon" th:src="@{/Customer/Example/Image/Best-seller.png}" alt="Best Seller">
+                        <img class="menu-icon" th:src="@{/Customer/Home/Best-seller.png}" alt="Best Seller">
                         BEST SELLER
                     </a>
                     <ul class="submenu">
@@ -185,6 +194,7 @@
 
         <a href="#">SẢN PHẨM MỚI</a>
 
+        <!-- Lam Thảo Beauty -->
         <div class="dropdown">
             <a href="#">NAI VANG BEAUTY</a>
             <ul class="dropdown-content">
@@ -194,16 +204,15 @@
             </ul>
         </div>
 
+        <!-- Deal hot -->
         <a href="#">💖 DEAL HOT DƯỚI 100K 💖</a>
 
+        <!-- Tin tức -->
         <div class="dropdown">
-            <a href="#">TIN TỨC</a>
-            <ul class="dropdown-content">
-                <li><a href="#">Blog làm đẹp</a></li>
-                <li><a href="#">Khuyến mãi</a></li>
-                <li><a href="#">Mẹo chăm sóc</a></li>
-            </ul>
+            <a href="/blog">TIN TỨC</a>
         </div>
+
+        <!-- Tra cứu đơn -->
         <a href="#">TRA CỨU ĐƠN HÀNG</a>
     </div>
 </div>
