@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="/src/main/resources/static/Manager/Background/Background.css">
+  <link rel="stylesheet" href="/src/main/resources/static/Manager/ReviewManagement/ReviewManagement.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="icon" type="image/png" href="/src/main/resources/static/Customer/Example/Image/LogoConNai.png">
+</head>
+<body class="admin-body">
+
+  <!-- Sidebar -->
+  <nav class="admin-sidebar">
+    <div class="sidebar-logo">
+      <img src="/src/main/resources/static/Customer/Example/Image/LogoConNai.png" alt="Logo" class="logo-img">
+      <h2 class="logo-text">Manager</h2>
+    </div>
+    <ul>
+      <li><a href="/src/main/resources/templates/Manager/Dashboard.html"><i class="fa-solid fa-gauge"></i> Dashboard</a></li>
+      <li><a href="/src/main/resources/templates/Manager/ProductManagement.html"><i class="fa-solid fa-box"></i> Sản phẩm</a></li>
+      <li><a href="/src/main/resources/templates/Manager/CategoryManagement.html"><i class="fa-solid fa-list"></i> Danh mục</a></li>
+      <li><a href="/src/main/resources/templates/Manager/DealManagement.html"><i class="fa-solid fa-tags"></i> Khuyến mãi</a></li>
+      <li><a href="/src/main/resources/templates/Manager/ReviewManagement.html"><i class="fa-solid fa-star"></i> Đánh giá</a></li>
+      <li><a href="/src/main/resources/templates/Manager/OrderManagement.html"><i class="fa-solid fa-receipt"></i> Đơn hàng</a></li>
+      <li><a href="/src/main/resources/templates/Manager/BlogManagement.html"><i class="fa-solid fa-blog"></i> Blog</a></li>
+    </ul>
+  </nav>
+
+  <!-- Main content -->
+  <div class="admin-content">
+    <!-- Top bar -->
+    <div class="top-bar">
+      <div class="user-menu">
+        <div class="user-info">
+          <i class="fa-solid fa-user-circle"></i>
+          <span>Manager</span>
+          <i class="fa-solid fa-chevron-down"></i>
+        </div>
+        <!-- Dropdown -->
+        <ul class="dropdown">
+          <li><a href="/src/main/resources/templates/Manager/InforManager.html"><i class="fa-solid fa-user"></i> Hồ sơ</a></li>
+          <li><a href="/src/main/resources/templates/Customer/Login.html"><i class="fa-solid fa-right-from-bracket"></i> Đăng xuất</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="main-area">
+<div class="admin-review-container">
+    <h2>Quản lý đánh giá</h2>
+
+    <!-- Filter & search -->
+    <div class="review-controls">
+        <label for="product-search">Tìm theo ID sản phẩm:</label>
+        <input type="text" id="product-search" placeholder="Nhập ID sản phẩm...">
+
+        <label for="sort-filter">Sắp xếp:</label>
+        <select id="sort-filter">
+            <option value="latest">Mới nhất</option>
+            <option value="oldest">Cũ nhất</option>
+        </select>
+
+        <button id="apply-filter">Áp dụng</button>
+        <button id="show-all">Hiện tất cả</button>
+    </div>
+
+    <!-- Table đánh giá -->
+    <table id="review-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Tên khách hàng</th>
+                <th>Rating</th>
+                <th>Nhận xét</th>
+                <th>Reply</th>
+                <th>Ngày</th>
+                <th>Hành động</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <!-- Phân trang -->
+    <div class="pagination-controls">
+        <button id="prev-page">Prev</button>
+        <span id="page-info"></span>
+        <button id="next-page">Next</button>
+    </div>
+</div>
+  </div>
+
+  <script src="/src/main/resources/static/Manager/Background/Background.js"></script>
+  <script src="/src/main/resources/static/Manager/ReviewManagement/ReviewManagement.js"></script>
+</body>
+</html>
+
+
