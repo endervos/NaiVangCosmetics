@@ -96,7 +96,7 @@ function loadOrders(status) {
             </div>
             <div class="order-item-footer">
                 <div class="order-item-footer-body">
-                    <button class="review-btn">Đánh Giá</button>
+                   
                     <button class="reorder-btn">Mua Lại</button>
                 </div>
             </div>

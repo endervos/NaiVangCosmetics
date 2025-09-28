@@ -1,0 +1,155 @@
+.admin-review-container {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+.admin-review-container h2 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* Controls (filter/search) */
+.review-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 15px;
+    align-items: center;
+}
+
+.review-controls input,
+.review-controls select,
+.review-controls button {
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+}
+
+.review-controls button {
+    background-color: #ffc281;
+    color: #000000;
+    border: none;
+    cursor: pointer;
+}
+
+.review-controls button:hover {
+    background-color: #76541e;
+    color: white;
+}
+
+/* Bảng */
+#review-table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+#review-table th,
+#review-table td {
+    padding: 8px 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+    word-wrap: break-word;
+}
+
+#review-table th {
+    background-color: #f2f2f2;
+}
+
+/* Thu hẹp cột ID sản phẩm */
+#review-table th:first-child,
+#review-table td:first-child {
+    width: 60px;
+    text-align: center;
+}
+
+/* Thu hẹp cột Hành động */
+#review-table th:last-child,
+#review-table td:last-child {
+    width: 100px;
+    text-align: center;
+}
+
+/* Cột comment rộng ra */
+#review-table th:nth-child(4),
+#review-table td:nth-child(4) {
+    width: 35%;
+    font-size: 15px;
+}
+
+/* Cột tên người comment */
+#review-table td:nth-child(2) {
+    width: 120px;
+}
+
+/* Reply input */
+.reply-input {
+    width: 100%;
+    padding: 4px;
+    font-size: 13px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    margin-top: 5px;
+}
+
+/* Reply hiển thị dưới comment */
+.review-reply {
+    margin-top: 5px;
+    padding-left: 10px;
+    font-style: italic;
+    color: #555;
+    background-color: #f1f8ff;
+    border-left: 3px solid #ffac6c;
+    border-radius: 3px;
+}
+
+/* Nút Reply/Xóa */
+.reply-btn, .delete-btn {
+    padding: 3px 6px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 11px;
+    margin: 2px 1px;
+}
+
+.reply-btn { background-color: #ffac6c; color: #000; }
+.reply-btn:hover { background-color: #eb8912; }
+
+.delete-btn { background-color: #dc3545; color: #fff; }
+.delete-btn:hover { background-color: #c82333; }
+
+/* Phân trang */
+.pagination-controls {
+    margin-top: 15px;
+    text-align: center;
+}
+
+.pagination-controls button {
+    padding: 5px 12px;
+    margin: 0 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    background-color: #5b9c9e;
+    color: #fff;
+}
+
+.pagination-controls button:hover {
+    background-color: #0056b3;
+}
+
+#page-info {
+    font-weight: bold;
+    margin: 0 10px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    #review-table td:nth-child(4) { width: 40%; }
+    #review-table td:first-child { width: 60px; }
+    #review-table td:nth-child(2) { width: 100px; }
+}

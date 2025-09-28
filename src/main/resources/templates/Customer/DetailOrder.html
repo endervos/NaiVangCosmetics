@@ -6,7 +6,8 @@
     <title>Chi tiết đơn hàng</title>
     <link rel="icon" type="image/png" th:href="@{/Customer/Home/LogoConNai.png}">
     <link rel="stylesheet" th:href="@{/Customer/Home/Home.css}">
-    <link rel="stylesheet" th:href="@{/Customer/DetailOrder/DetailOrder.css}">
+    <link rel="stylesheet" href="/src/main/resources/static/Customer/DetailOrder/DetailOrder.css">
+    <link rel="stylesheet" href="/src/main/resources/static/Customer/Example/Example.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -262,6 +263,18 @@
         <button id="back-button" class="action-btn" onclick="goBack()">Quay lại</button>
         <button id="review-button" class="action-btn" onclick="openReview()">Đánh giá</button>
     </div>
+        <!-- Review Modal -->
+    <div id="review-modal" class="review-modal">
+        <div class="review-modal-content">
+            <span class="close-btn" id="close-review">&times;</span>
+            <h2>Đánh giá sản phẩm</h2>
+            <div id="review-products-container">
+                <!-- Các sản phẩm sẽ được thêm vào bằng JS -->
+            </div>
+            <button id="submit-review" class="submit-btn">Gửi đánh giá</button>
+        </div>
+    </div>
+
 </div>
 
 <!-- FOOTER -->
@@ -354,7 +367,7 @@
     </div>
 </footer>
 
-<script src="/src/main/resources/static/DetailOrder/DetailOrder.js"></script>
+<script src="/src/main/resources/static/Customer/DetailOrder/DetailOrder.js"></script>
 <script src="/src/main/resources/static/Example/Example.js"></script>
 
 </body>
