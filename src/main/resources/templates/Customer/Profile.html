@@ -217,125 +217,59 @@
     </div>
 </div>
 
-<!-- Main Content -->
 <div class="main-container">
     <!-- Sidebar -->
     <aside class="menu-sidebar">
-        <h3>Chào zz</h3>
+        <h3>Chào <span th:text="${user.fullname}">User</span></h3>
         <ul>
-            <li class="menu-item"><a href="quanly.html">Quản lý tài khoản</a></li>
-            <li class="menu-item">
-                <a href="/Profile/Profile.css">Thông tin tài khoản</a>
+            <li class="menu-item active">
+                <a th:href="@{/profile}">Thông tin tài khoản</a>
             </li>
-            <li class="menu-item">
-                <a href="/OrderManage/OrderManage.css.html">Quản lý đơn hàng</a>
-            </li>
-            <li class="menu-item">
-                <a href="/FavouriteList/FavouriteList.html">Danh sách yêu thích</a>
-            </li>
-            <li class="menu-item"><a href="hoidap.html">Hỏi đáp</a></li>
+            <li class="menu-item"><a th:href="@{/quanly}">Quản lý tài khoản</a></li>
+            <li class="menu-item"><a th:href="@{/orderManage}">Quản lý đơn hàng</a></li>
+            <li class="menu-item"><a th:href="@{/favouriteList}">Danh sách yêu thích</a></li>
+            <li class="menu-item"><a th:href="@{/hoidap}">Hỏi đáp</a></li>
         </ul>
     </aside>
 
-    <!-- Main Content -->
-    <div class="main-container">
-        <!-- Sidebar -->
-        <aside class="menu-sidebar">
-            <h3>Chào zz</h3>
-            <ul>
-                <li class="menu-item"><a href="quanly.html">Quản lý tài khoản</a></li>
-                <li class="menu-item">
-                    <a href="trangthongtincanhan.html">Thông tin tài khoản</a>
-                </li>
-                <li class="menu-item">
-                    <a href="trangquanlydonhang.html">Quản lý đơn hàng</a>
-                </li>
-                <li class="menu-item">
-                    <a href="trangdanhsachyeuthich.html">Danh sách yêu thích</a>
-                </li>
-                <li class="menu-item"><a href="hoidap.html">Hỏi đáp</a></li>
-            </ul>
-        </aside>
+    <main class="account-info" th:object="${user}">
+        <h2>Thông tin tài khoản</h2>
+        <div class="profile-container">
+            <label>Tài khoản</label>
+            <input type="text" th:field="*{email}" disabled />
 
-        <main class="favorite-content">
-            <h2>Danh sách yêu thích</h2>
-            <section class="viewed-products">
-                <div class="product-grid">
-                    <!-- Sản phẩm 1 -->
-                    <div class="product-card">
-                        <button class="remove-btn">✖</button>
-                        <img src="./hinhAnh/helloKitty.jpg" alt="Serum Vichy" />
-                        <div class="product-card-info">
-                            <p class="product-card-name">Serum Vichy Liftactiv 30ml</p>
-                            <span class="product-card-price">450.000₫</span>
-                        </div>
-                    </div>
+            <label>Họ và tên</label>
+            <input type="text" th:field="*{fullname}" disabled />
 
-                    <!-- Sản phẩm 2 -->
-                    <div class="product-card">
-                        <button class="remove-btn">✖</button>
-                        <img src="./hinhAnh/helloKitty.jpg" alt="Serum Vichy" />
-                        <div class="product-card-info">
-                            <p class="product-card-name">Serum Vichy Liftactiv 30ml</p>
-                            <span class="product-card-price">450.000₫</span>
-                        </div>
-                    </div>
+            <label>Số điện thoại</label>
+            <input type="text" th:field="*{phoneNumber}" disabled />
 
-                    <!-- Sản phẩm 3 -->
-                    <div class="product-card">
-                        <button class="remove-btn">✖</button>
-                        <img src="./hinhAnh/helloKitty.jpg" alt="Serum Vichy" />
-                        <div class="product-card-info">
-                            <p class="product-card-name">Serum Vichy Liftactiv 30ml</p>
-                            <span class="product-card-price">450.000₫</span>
-                        </div>
-                    </div>
+            <label>Địa chỉ</label>
+            <input type="text" id="address" value="" />
+<!--            <input type="text" th:field="*{address}" />-->
 
-                    <!-- Sản phẩm 4 -->
-                    <div class="product-card">
-                        <button class="remove-btn">✖</button>
-                        <img src="./hinhAnh/helloKitty.jpg" alt="Serum Vichy" />
-                        <div class="product-card-info">
-                            <p class="product-card-name">Serum Vichy Liftactiv 30ml</p>
-                            <span class="product-card-price">450.000₫</span>
-                        </div>
-                    </div>
+            <label>Ngày sinh</label>
+            <input type="text" th:field="*{birthday}" disabled />
 
-                    <!-- Sản phẩm 5 -->
-                    <div class="product-card">
-                        <button class="remove-btn">✖</button>
-                        <img src="./hinhAnh/helloKitty.jpg" alt="Serum Vichy" />
-                        <div class="product-card-info">
-                            <p class="product-card-name">Serum Vichy Liftactiv 30ml</p>
-                            <span class="product-card-price">450.000₫</span>
-                        </div>
-                    </div>
+            <!-- Giới tính -->
+            <label>Giới tính</label>
+            <div class="d-flex gender-container" >
+                <label>
+                    <input type="radio" th:field="*{gender}" disabled value="Nam" /> Nam
+                </label>
+                <label>
+                    <input type="radio" th:field="*{gender}" disabled value="Nữ" /> Nữ
+                </label>
+            </div>
 
-                    <!-- Sản phẩm 6 -->
-                    <div class="product-card">
-                        <button class="remove-btn">✖</button>
-                        <img src="./hinhAnh/helloKitty.jpg" alt="Serum Vichy" />
-                        <div class="product-card-info">
-                            <p class="product-card-name">Serum Vichy Liftactiv 30ml</p>
-                            <span class="product-card-price">450.000₫</span>
-                        </div>
-                    </div>
+            <button class="btn">Cập nhật thông tin</button>
+        </div>
+    </main>
 
-                    <!-- Sản phẩm 7 -->
-                    <div class="product-card">
-                        <button class="remove-btn">✖</button>
-                        <img src="./hinhAnh/helloKitty.jpg" alt="Serum Vichy" />
-                        <div class="product-card-info">
-                            <p class="product-card-name">Serum Vichy Liftactiv 30ml</p>
-                            <span class="product-card-price">450.000₫</span>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </main>
-    </div>
-    <!-- End Main Content -->
+</div>
+<!-- End Main Content -->
 
+</div>
     <!-- FOOTER -->
     <div class="subscribe-bar">
         <h2>ĐĂNG KÝ NHẬN ƯU ĐÃI</h2>
