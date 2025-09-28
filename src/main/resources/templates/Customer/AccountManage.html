@@ -6,7 +6,8 @@
     <title>Nai Vang Cosmetic</title>
     <link rel="icon" type="image/png" th:href="@{/Customer/Home/LogoConNai.png}">
     <link rel="stylesheet" th:href="@{/Customer/Home/Home.css}">
-    <link rel="stylesheet" th:href="@{/Customer/Profile/Profile.css}">
+    <link rel="stylesheet" th:href="@{/Customer/AccountManage/AccountManage.css}">
+    <link rel="stylesheet" th:href="@{/Customer/AccountManage/AccountManage.js}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -222,18 +223,13 @@
     <aside class="menu-sidebar">
         <h3>Chào <span th:text="${user.fullname}">User</span></h3>
         <ul>
-            <li class="menu-item active">
+            <li class="menu-item">
                 <a th:href="@{/profile}">Thông tin tài khoản</a>
             </li>
-            <li class="menu-item">
-                <a th:href="@{/account}">Quản lý tài khoản</a>
-            </li>
-            <li class="menu-item">
-                <a th:href="@{/orderManage}">Quản lý đơn hàng</a>
-            </li>
-            <li class="menu-item">
-                <a th:href="@{/favouriteList}">Danh sách yêu thích</a>
-            </li>
+            <li class="menu-item active"><a th:href="@{/account}">Quản lý tài khoản</a></li>
+            <li class="menu-item"><a th:href="@{/orderManage}">Quản lý đơn hàng</a></li>
+            <li class="menu-item"><a th:href="@{/favouriteList}">Danh sách yêu thích</a></li>
+            <li class="menu-item"><a th:href="@{/hoidap}">Hỏi đáp</a></li>
         </ul>
     </aside>
 
@@ -241,33 +237,41 @@
         <h2>Thông tin tài khoản</h2>
         <div class="profile-container">
             <label>Tài khoản</label>
-            <input type="text" th:field="*{email}" disabled />
+            <input type="text" th:field="*{email}"  />
 
             <label>Họ và tên</label>
-            <input type="text" th:field="*{fullname}" disabled />
+            <input type="text" th:field="*{fullname}"  />
 
             <label>Số điện thoại</label>
-            <input type="text" th:field="*{phoneNumber}" disabled />
+            <input type="text" th:field="*{phoneNumber}"  />
 
-            <label>Địa chỉ</label>
-            <input type="text" id="address" value="" />
-<!--            <input type="text" th:field="*{address}" />-->
+            <div class="address-group">
+                <label>Địa chỉ</label>
+                <div class="address-row">
+                    <input type="text" name="addresses" class="address-input" />
+                    <button type="button" class="add-address-btn">+ Thêm địa chỉ</button>
+                </div>
+            </div>
+
+            <!-- Container để chứa các địa chỉ bổ sung -->
+            <div id="extra-addresses"></div>
+
 
             <label>Ngày sinh</label>
-            <input type="text" th:field="*{birthday}" disabled />
+            <input type="text" th:field="*{birthday}"  />
 
             <!-- Giới tính -->
             <label>Giới tính</label>
             <div class="d-flex gender-container" >
                 <label>
-                    <input type="radio" th:field="*{gender}" disabled value="Nam" /> Nam
+                    <input type="radio" th:field="*{gender}"  value="Nam" /> Nam
                 </label>
                 <label>
-                    <input type="radio" th:field="*{gender}" disabled value="Nữ" /> Nữ
+                    <input type="radio" th:field="*{gender}"  value="Nữ" /> Nữ
                 </label>
             </div>
 
-            <button class="btn">Chỉnh sửa thông tin</button>
+            <button class="btn">Cập nhật thông tin</button>
         </div>
     </main>
 
@@ -275,96 +279,96 @@
 <!-- End Main Content -->
 
 </div>
-    <!-- FOOTER -->
-    <div class="subscribe-bar">
-        <h2>ĐĂNG KÝ NHẬN ƯU ĐÃI</h2>
-        <form class="subscribe-form" id="subscribeForm">
-            <div class="input-wrap">
-                <input type="email" id="emailInput" placeholder="Nhập email của bạn">
-                <!-- dòng báo lỗi -->
-                <small id="emailError" class="error-msg"></small>
+<!-- FOOTER -->
+<div class="subscribe-bar">
+    <h2>ĐĂNG KÝ NHẬN ƯU ĐÃI</h2>
+    <form class="subscribe-form" id="subscribeForm">
+        <div class="input-wrap">
+            <input type="email" id="emailInput" placeholder="Nhập email của bạn">
+            <!-- dòng báo lỗi -->
+            <small id="emailError" class="error-msg"></small>
+        </div>
+        <button type="submit">ĐĂNG KÝ</button>
+    </form>
+</div>
+
+<footer class="footer">
+    <div class="footer-main">
+        <!-- Cột 1: Logo + thông tin -->
+        <div class="footer-col">
+            <img th:src="@{/Home/Logo7.png}" alt="Nai Vang Logo" class="footer-logo">
+            <p><strong>CÔNG TY TNHH MTV THƯƠNG MẠI VÀ ĐẦU TƯ LIÊN Á CHÂU</strong></p>
+            <p>Giấy chứng nhận đăng ký doanh nghiệp số 0310618188, cấp ngày 29.01.2011, nơi cấp Sở Kế Hoạch và Đầu Tư TP. Hồ Chí Minh</p>
+            <p>Trụ sở chính: L2-VP-01, 346 Bến Vân Đồn, Phường Vĩnh Hội, TP. Hồ Chí Minh</p>
+            <p>Hotline: <a href="tel:19004449">19004449</a>
+                Điện thoại: <a href="tel:02838328272">02838328272</a></p>
+            <img th:src="@{/Home/Bocongthuong_1_1.webp}" alt="Đã thông báo Bộ Công Thương" class="boct-logo">
+        </div>
+
+        <!-- Cột 2: Theo dõi + App + Thanh toán -->
+        <div class="footer-col">
+            <h4>Theo dõi chúng tôi</h4>
+            <div class="social-links">
+                <a href="#"><img th:src="@{/Home/Facebook.webp}" alt="Facebook"></a>
+                <a href="#"><img th:src="@{/Home/Instagram.webp}" alt="Instagram"></a>
+                <a href="#"><img th:src="@{/Home/Youtube.webp}" alt="YouTube"></a>
+                <a href="#"><img th:src="@{/Home/Tiktok.webp}" alt="TikTok"></a>
             </div>
-            <button type="submit">ĐĂNG KÝ</button>
-        </form>
+
+            <h4>Tải App Ngay</h4>
+            <div class="app-links">
+                <img th:src="@{/Home/Maqr.png}" alt="QR Code" class="qr-code">
+                <div>
+                    <a href="#"><img th:src="@{/Home/Googleplay.webp}" alt="Google Play"></a>
+                    <a href="#"><img th:src="@{/Home/Appstore.webp}" alt="App Store"></a>
+                </div>
+            </div>
+
+            <h4>Chấp nhận Phương thức thanh toán</h4>
+            <div class="pay-methods">
+                <img th:src="@{/Home/Vnpay.png}" alt="VNPay">
+                <img th:src="@{/Home/Momo.webp}" alt="MoMo" class="momo-logo">
+                <img th:src="@{/Home/Visa.png}" alt="Visa">
+            </div>
+        </div>
+
+        <!-- Cột 3: Về chúng tôi -->
+        <div class="footer-col">
+            <h4>Về chúng tôi</h4>
+            <ul>
+                <li><a href="#">Giới thiệu</a></li>
+                <li><a href="#">Tin Tức</a></li>
+                <li><a href="#">Cẩm nang Làm đẹp</a></li>
+                <li><a href="#">Tuyển dụng</a></li>
+                <li><a href="#">Đổi điểm Hội Cam</a></li>
+                <li><a href="#">Liên hệ</a></li>
+                <li><a href="#">Địa chỉ cửa hàng</a></li>
+                <li><a href="#">Cho thuê mặt bằng</a></li>
+                <li><a href="#">Hợp tác cùng Guardian</a></li>
+            </ul>
+        </div>
+
+        <!-- Cột 4: Chính sách -->
+        <div class="footer-col">
+            <h4>Chính sách</h4>
+            <ul>
+                <li><a href="#">Chính sách và quy định chung</a></li>
+                <li><a href="#">Quy định và hình thức thanh toán</a></li>
+                <li><a href="#">Chính sách vận chuyển</a></li>
+                <li><a href="#">Chính sách đổi/trả hàng và hoàn tiền</a></li>
+                <li><a href="#">Chính sách bảo mật thông tin cá nhân</a></li>
+                <li><a href="#">Hướng dẫn mua hàng</a></li>
+                <li><a href="#">Quy trình xuất hóa đơn Điện Tử</a></li>
+                <li><a href="#">Chính sách Thông tin Hội Cam</a></li>
+            </ul>
+        </div>
     </div>
 
-    <footer class="footer">
-        <div class="footer-main">
-            <!-- Cột 1: Logo + thông tin -->
-            <div class="footer-col">
-                <img th:src="@{/Home/Logo7.png}" alt="Nai Vang Logo" class="footer-logo">
-                <p><strong>CÔNG TY TNHH MTV THƯƠNG MẠI VÀ ĐẦU TƯ LIÊN Á CHÂU</strong></p>
-                <p>Giấy chứng nhận đăng ký doanh nghiệp số 0310618188, cấp ngày 29.01.2011, nơi cấp Sở Kế Hoạch và Đầu Tư TP. Hồ Chí Minh</p>
-                <p>Trụ sở chính: L2-VP-01, 346 Bến Vân Đồn, Phường Vĩnh Hội, TP. Hồ Chí Minh</p>
-                <p>Hotline: <a href="tel:19004449">19004449</a>
-                    Điện thoại: <a href="tel:02838328272">02838328272</a></p>
-                <img th:src="@{/Home/Bocongthuong_1_1.webp}" alt="Đã thông báo Bộ Công Thương" class="boct-logo">
-            </div>
+    <div class="footer-bottom">
+        <p>© 2025 Nai Vang. All rights reserved.</p>
+    </div>
+</footer>
 
-            <!-- Cột 2: Theo dõi + App + Thanh toán -->
-            <div class="footer-col">
-                <h4>Theo dõi chúng tôi</h4>
-                <div class="social-links">
-                    <a href="#"><img th:src="@{/Home/Facebook.webp}" alt="Facebook"></a>
-                    <a href="#"><img th:src="@{/Home/Instagram.webp}" alt="Instagram"></a>
-                    <a href="#"><img th:src="@{/Home/Youtube.webp}" alt="YouTube"></a>
-                    <a href="#"><img th:src="@{/Home/Tiktok.webp}" alt="TikTok"></a>
-                </div>
-
-                <h4>Tải App Ngay</h4>
-                <div class="app-links">
-                    <img th:src="@{/Home/Maqr.png}" alt="QR Code" class="qr-code">
-                    <div>
-                        <a href="#"><img th:src="@{/Home/Googleplay.webp}" alt="Google Play"></a>
-                        <a href="#"><img th:src="@{/Home/Appstore.webp}" alt="App Store"></a>
-                    </div>
-                </div>
-
-                <h4>Chấp nhận Phương thức thanh toán</h4>
-                <div class="pay-methods">
-                    <img th:src="@{/Home/Vnpay.png}" alt="VNPay">
-                    <img th:src="@{/Home/Momo.webp}" alt="MoMo" class="momo-logo">
-                    <img th:src="@{/Home/Visa.png}" alt="Visa">
-                </div>
-            </div>
-
-            <!-- Cột 3: Về chúng tôi -->
-            <div class="footer-col">
-                <h4>Về chúng tôi</h4>
-                <ul>
-                    <li><a href="#">Giới thiệu</a></li>
-                    <li><a href="#">Tin Tức</a></li>
-                    <li><a href="#">Cẩm nang Làm đẹp</a></li>
-                    <li><a href="#">Tuyển dụng</a></li>
-                    <li><a href="#">Đổi điểm Hội Cam</a></li>
-                    <li><a href="#">Liên hệ</a></li>
-                    <li><a href="#">Địa chỉ cửa hàng</a></li>
-                    <li><a href="#">Cho thuê mặt bằng</a></li>
-                    <li><a href="#">Hợp tác cùng Guardian</a></li>
-                </ul>
-            </div>
-
-            <!-- Cột 4: Chính sách -->
-            <div class="footer-col">
-                <h4>Chính sách</h4>
-                <ul>
-                    <li><a href="#">Chính sách và quy định chung</a></li>
-                    <li><a href="#">Quy định và hình thức thanh toán</a></li>
-                    <li><a href="#">Chính sách vận chuyển</a></li>
-                    <li><a href="#">Chính sách đổi/trả hàng và hoàn tiền</a></li>
-                    <li><a href="#">Chính sách bảo mật thông tin cá nhân</a></li>
-                    <li><a href="#">Hướng dẫn mua hàng</a></li>
-                    <li><a href="#">Quy trình xuất hóa đơn Điện Tử</a></li>
-                    <li><a href="#">Chính sách Thông tin Hội Cam</a></li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="footer-bottom">
-            <p>© 2025 Nai Vang. All rights reserved.</p>
-        </div>
-    </footer>
-
-    <script th:src="@{/Home/Home.js}"></script>
+<script th:src="@{/Home/Home.js}"></script>
 </body>
 </html>

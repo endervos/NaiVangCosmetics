@@ -1,0 +1,153 @@
+body {
+    font-family: Arial, sans-serif;
+    background: #f5f5f5;
+    margin: 0;
+    padding: 0;
+}
+
+/* Main container */
+.main-container {
+    display: flex;
+    margin: 30px auto;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    height: 100vh;
+    overflow: hidden;
+}
+
+
+.menu-sidebar {
+    flex: 0 0 340px;
+    border-right: 1px solid #eee;
+    padding: 20px;
+    background: #fafafa;
+    height: 100%;
+    overflow-y: auto;
+}
+
+
+.account-info {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.menu-sidebar h3 {
+    margin-bottom: 15px;
+}
+
+.menu-sidebar ul {
+    list-style: none;
+    padding: 0;
+    flex-direction: column; /* xếp dọc các li */
+    align-items: center;    /* căn giữa theo chiều ngang */
+}
+
+.menu-sidebar ul li {
+    padding: 10px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.menu-sidebar ul li a {
+    text-decoration: none;
+    color: #333;
+    padding: 8px;
+    border-radius: 4px;
+    font-size: 17px;
+    display: block;
+}
+
+.menu-sidebar ul li.active a {
+    color: #fff;
+    background: orange;
+    font-weight: bold;
+}
+
+.menu-sidebar ul li a:hover {
+    background: orange;
+    color: #fff;
+    transition: 0.3s ease;
+}
+
+header {
+    background: #ff6600;
+    padding: 15px;
+    text-align: center;
+    color: #fff;
+}
+
+.profile-container {
+    width: 1000px;
+    margin-left: 40px;
+    padding: 20px;
+    font-size: 16px;
+
+}
+.account-info::-webkit-scrollbar {
+    display: none;
+}
+
+.account-info h2 {
+    margin-bottom: 0;
+    margin-left: 40px;
+    font-size: 25px;
+}
+
+.account-info label {
+    display: block;
+    font-weight: 500;
+    margin: 10px 0 5px;
+    color: #333;
+}
+
+.account-info input,
+.account-info select {
+    width: 100%;
+    padding: 8px 10px;
+    margin-bottom: 10px;
+    border: 1px solid #dddddd;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.account-info input[disabled] {
+    background: #f5f5f5;
+    color: #ff9900;
+    cursor: not-allowed;
+}
+
+.account-info button.btn {
+    display: inline-block;
+    margin-top: 15px;
+    background: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.account-info button.btn:hover {
+    background: #0056b3;
+}
+.gender-container {
+    display: flex;
+    flex-wrap: nowrap; /* Keep options on one line */
+    gap: 16px; /* Reduced spacing for compact layout */
+    align-items: center;
+}
+
+.gender-check {
+    display: flex;
+    align-items: center;
+}
+
+
+footer {
+    background: #ff6600;
+    padding: 15px;
+    color: #fff;
+    margin-top: 20px;
+}
