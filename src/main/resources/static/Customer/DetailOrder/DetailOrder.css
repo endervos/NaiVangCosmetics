@@ -154,3 +154,92 @@ body {
 .subscribe-bar{
   margin-top: 30px;
 }
+
+/* Modal background */
+.review-modal {
+    display: none; /* ẩn mặc định */
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.5);
+}
+
+/* Modal content */
+.review-modal-content {
+    background-color: #fff;
+    margin: 50px auto;
+    padding: 20px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 600px;
+}
+
+.close-btn {
+    float: right;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+/* Product review item */
+.review-product {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    gap: 15px;
+}
+
+.review-product img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.review-product-info {
+    flex: 1;
+}
+
+.review-product-name {
+    font-weight: 600;
+}
+
+.star-rating {
+    display: flex;
+    gap: 5px;
+    cursor: pointer;
+}
+
+.star-rating span {
+    font-size: 20px;
+    color: #ccc;
+    transition: color 0.2s;
+}
+
+.star-rating span.active {
+    color: #ff6b35;
+}
+
+.review-comment {
+    width: 100%;
+    margin-top: 5px;
+    padding: 5px 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.submit-btn {
+    background-color: #ff6b35;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 600;
+}
+.submit-btn:hover {
+    background-color: #e55b2f;
+}

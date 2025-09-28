@@ -24,14 +24,11 @@ public class ProfileController {
     @GetMapping()
     public String showProfilePage(Model model,
                                   @AuthenticationPrincipal UserDetails userDetails) {
-        // Lấy email của người dùng đang đăng nhập
         String email = userDetails.getUsername();
 
-        // Lấy thông tin user từ database
         User user = userService.getUserByEmail(email)
                 .orElseThrow(() -> new RuntimeException("Người dùng không tồn tại"));
 
-        // Đẩy toàn bộ user lên view
         model.addAttribute("user", user);
 
         return "Customer/Profile";
