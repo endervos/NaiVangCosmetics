@@ -16,9 +16,9 @@ body {
     overflow: hidden;
 }
 
-/* Sidebar */
+
 .menu-sidebar {
-    flex: 0 0 220px;
+    flex: 0 0 340px;
     border-right: 1px solid #eee;
     padding: 20px;
     background: #fafafa;
@@ -26,7 +26,7 @@ body {
     overflow-y: auto;
 }
 
-/* Main content */
+
 .account-info {
     flex: 1;
     padding: 20px;
@@ -40,6 +40,8 @@ body {
 .menu-sidebar ul {
     list-style: none;
     padding: 0;
+    flex-direction: column; /* xếp dọc các li */
+    align-items: center;    /* căn giữa theo chiều ngang */
 }
 
 .menu-sidebar ul li {
@@ -50,9 +52,10 @@ body {
 .menu-sidebar ul li a {
     text-decoration: none;
     color: #333;
+    padding: 8px;
+    border-radius: 4px;
+    font-size: 17px;
     display: block;
-    padding: 8px; /* thêm vào */
-    border-radius: 4px; /* thêm vào để hover và active đồng bộ */
 }
 
 .menu-sidebar ul li.active a {
@@ -73,13 +76,22 @@ header {
     text-align: center;
     color: #fff;
 }
+
+.profile-container {
+    width: 1000px;
+    margin-left: 40px;
+    padding: 20px;
+    font-size: 16px;
+
+}
 .account-info::-webkit-scrollbar {
     display: none;
 }
 
 .account-info h2 {
-    margin-bottom: 20px;
-    font-size: 18px;
+    margin-bottom: 0;
+    margin-left: 40px;
+    font-size: 25px;
 }
 
 .account-info label {
@@ -120,36 +132,16 @@ header {
 .account-info button.btn:hover {
     background: #0056b3;
 }
-
-/* Chỉnh kích thước các ô Ngày - Tháng - Năm */
-.dob-select {
+.gender-container {
     display: flex;
-    align-items: center; /* căn giữa theo chiều dọc */
-    justify-content: flex-start; /* các ô nằm cạnh nhau */
-    gap: 10px; /* khoảng cách giữa các ô */
-    margin-bottom: 15px;
+    flex-wrap: nowrap; /* Keep options on one line */
+    gap: 16px; /* Reduced spacing for compact layout */
+    align-items: center;
 }
 
-.dob-select select {
-    padding: 6px 8px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 14px;
-    height: 36px; /* đồng bộ chiều cao */
-    box-sizing: border-box;
-}
-
-/* Tùy chỉnh từng ô */
-.dob-select #day {
-    width: 80px; /* Ngày */
-}
-
-.dob-select #month {
-    width: 110px; /* Tháng */
-}
-
-.dob-select #year {
-    width: 90px; /* Năm */
+.gender-check {
+    display: flex;
+    align-items: center;
 }
 
 footer {
