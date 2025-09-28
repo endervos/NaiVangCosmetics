@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nai Vang Cosmetic</title>
-    <link rel="icon" type="image/png" href="./Image/LogoConNai.png">
-    <link rel="stylesheet" href="detail.css">
+    <link rel="icon" type="image/png" th:src="@{/Customer/Productdetail/Image/LogoConNai.png}">
+    <link rel="stylesheet" th:href="@{/Customer/Productdetail/Product.css}">
     <!-- Slick CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css">
@@ -22,15 +22,14 @@
 
 <!-- Banner GIF full màn hình -->
 <div class="promo-banner">
-    <img src="./Image/Promotion.gif" alt="Promotion Banner">
+    <img th:src="@{/Customer/Productdetail/Image/Example.gif}" alt="Promotion Nai Vang">
 </div>
 
 <!-- Header -->
 <div class="header">
     <div class="container header-inner">
-        <!-- Logo -->
-        <a href="index.html">   <!-- hoặc trangchu.jsp -->
-            <img src="./Image/Logo7.png" alt="Logo" width="150" height="100">
+        <a th:href="@{/}">
+            <img th:src="@{/Customer/Productdetail/Image/Logo7.png}" alt="Logo" width="150" height="100">
         </a>
 
 
@@ -61,10 +60,11 @@
 
                 <!-- Dropdown (ẩn mặc định, hiện khi hover hoặc click) -->
                 <div class="user-dropdown">
-                    <a href="../trangdangnhap/trangdangnhap.html" id="login-btn">Đăng nhập</a>
-                    <a href="#" id="subcribe-btn">Đăng kí</a>
-                    <a href="../trangthongtincanhan/trangthongitncanhan.html" id="account-info">Thông tin tài khoản</a>
-                    <a href="#" id="logout-btn">Đăng xuất</a>
+                    <a th:href="@{/login}" id="login-btn" sec:authorize="isAnonymous()">Đăng nhập</a>
+                    <a th:href="@{/sign-up}" id="subcribe-btn" sec:authorize="isAnonymous()">Đăng ký</a>
+
+                    <a th:href="@{/profile}" id="account-info" sec:authorize="isAuthenticated()">Thông tin tài khoản</a>
+                    <a th:href="@{/logout}" id="logout-btn" sec:authorize="isAuthenticated()">Đăng xuất</a>
                 </div>
             </div>
 
@@ -97,7 +97,7 @@
             <ul class="dropdown-content">
                 <li class="has-submenu">
                     <a href="#">
-                        <img class="menu-icon" src="./Image/Skincare.png" alt="Chăm sóc da mặt" >Chăm sóc da mặt </a>
+                        <img class="menu-icon" th:src="@{/Customer/Productdetail/Image/Skincare.png}" alt="Chăm sóc da mặt" >Chăm sóc da mặt </a>
                     <!-- Menu cấp 2 mở sang phải -->
                     <ul class="submenu">
                         <li><a href="#">Tẩy Trang<span class="count">6</span></a></li>
@@ -115,7 +115,7 @@
                 <!--Trang điểm-->
                 <li class="has-submenu">
                     <a href="#">
-                        <img class="menu-icon" src="./Image/Makeup.png" alt="Trang điểm" >Trang điểm </a>
+                        <img class="menu-icon" th:src="@{/Customer/Productdetail/Image/Makeup.png}" alt="Trang điểm" >Trang điểm </a>
                     <!-- Menu cấp 2 mở sang phải -->
                     <ul class="submenu">
                         <li><a href="#">Kem Lót<span class="count">5</span></a></li>
@@ -133,7 +133,7 @@
                 <!--Chăm sóc cơ thể-->
                 <li class="has-submenu">
                     <a href="#">
-                        <img class="menu-icon" src="./image/Bodycare.png" alt="Chăm sóc cơ thể" >Chăm sóc cơ thể </a>
+                        <img class="menu-icon" th:src="@{/Customer/Productdetail/Image/Bodycare.png}" alt="Chăm sóc cơ thể" >Chăm sóc cơ thể </a>
                     <!-- Menu cấp 2 mở sang phải -->
                     <ul class="submenu">
                         <li><a href="#">Sữa Tắm<span class="count">16</span></a></li>
@@ -149,7 +149,7 @@
                 <!--Chăm sóc cơ thể-->
                 <li class="has-submenu">
                     <a href="#">
-                        <img class="menu-icon" src="./Image/Haircare.png" alt="Chăm sóc tóc" >Chăm sóc tóc </a>
+                        <img class="menu-icon" th:src="@{/Customer/Productdetail/Image/Haircare.png}" alt="Chăm sóc tóc" >Chăm sóc tóc </a>
                     <!-- Menu cấp 2 mở sang phải -->
                     <ul class="submenu">
                         <li><a href="#">Dầu Gội<span class="count">16</span></a></li>
@@ -162,7 +162,7 @@
                 <!--Dược mỹ phẩm -->
                 <li class="has-submenu">
                     <a href="#">
-                        <img class="menu-icon" src="./Image/Cosmeceuticals.png" alt="Dược mỹ phẩm">Dược mỹ phẩm
+                        <img class="menu-icon" th:src="@{/Customer/Productdetail/Image/Cosmeceuticals.png}" alt="Dược mỹ phẩm">Dược mỹ phẩm
                     </a>
                     <!-- Menu cấp 2 mở sang phải -->
                     <ul class="submenu">
@@ -178,7 +178,7 @@
                 <!-- Thực phẩm chức năng -->
                 <li class="has-submenu">
                     <a href="#">
-                        <img class="menu-icon" src="./Image/Health-supplements.png" alt="Thực phẩm chức năng">
+                        <img class="menu-icon" th:src="@{/Customer/Productdetail/Image/Health-supplements.png}" alt="Thực phẩm chức năng">
                         Thực phẩm chức năng
                     </a>
                     <ul class="submenu">
@@ -195,7 +195,7 @@
                 <!-- Best Seller -->
                 <li class="has-submenu">
                     <a href="#">
-                        <img class="menu-icon" src="./Image/Best-seller.png" alt="Best Seller">
+                        <img class="menu-icon" th:src="@{/Customer/Productdetail/Image/Best-seller.png}" alt="Best Seller">
                         BEST SELLER
                     </a>
                     <ul class="submenu">
@@ -251,7 +251,7 @@
 <!-- Breadcrumb -->
 <nav class="breadcrumb">
     <a href="/">
-        <img src="./Image/Home_icon.png" alt="Home" class="breadcrumb-icon">
+        <img th:src="@{/Customer/Productdetail/Image/Home_icon.png}" alt="Home" class="breadcrumb-icon">
         Trang chủ
     </a>
     <span>&gt;</span>
@@ -265,15 +265,15 @@
     <!-- Cột trái: Ảnh sản phẩm -->
     <div class="product-images">
         <div class="main-image">
-            <img id="currentImage" src="./Image/Cerave1.jpg" alt="Image 1">
+            <img id="currentImage" th:src="@{/Customer/Productdetail/Image/Cerave1.jpg}" alt="Image 1">
         </div>
 
         <!-- Thumbnails -->
         <div class="thumbnail-images">
-            <img class="thumbnail active" src="./Image/Cerave1.jpg" alt="Image 1">
-            <img class="thumbnail" src="./Image/Cerave2.jpg" alt="Image 2">
-            <img class="thumbnail" src="./Image/Cerave3.jpg" alt="Image 3">
-            <img class="thumbnail" src="./Image/Cerave4.png" alt="Image 4">
+            <img class="thumbnail active" th:src="@{/Customer/Product/Image/Cerave1.jpg}" alt="Image 1">
+            <img class="thumbnail" th:src="@{/Customer/Productdetail/Image/Cerave2.jpg}" alt="Image 2">
+            <img class="thumbnail" th:src="@{/Customer/Productdetail/Image/Cerave3.jpg}" alt="Image 3">
+            <img class="thumbnail" th:src="@{/Customer/Productdetail/Image/Cerave4.png}" alt="Image 4">
         </div>
     </div>
 
@@ -358,7 +358,7 @@
             <span class="link">Cerave</span> của Mỹ, với sự kết hợp của ba Ceramides thiết yếu,
             Hyaluronic Acid giúp làm sạch và giữ ẩm cho làn da mà không ảnh hưởng đến hàng rào bảo vệ.
         </p>
-        <img src="./Image/Ceraveinfo.jpg" alt="Cerave" class="product-img">
+        <img th:src="@{/Customer/Productdetail/Image/Ceraveinfo.jpg}" alt="Cerave" class="product-img">
     </div>
 
     <div class="tab-content" id="congdung">
@@ -369,7 +369,7 @@
                     <li>3 loại Ceramides (1, 3, 6-II) thiết yếu giúp khôi phục hàng rào độ ẩm da.</li>
                     <li>Hyaluronic Acid giúp duy trì độ ẩm tự nhiên của da.</li>
                 </ul>
-                <img src="./Image/Cerave2.jpg" alt="Công dụng Cerave" class="product-img">
+                <img th:src="@{/Customer/Productdetail/Image/Cerave2.jpg}" alt="Công dụng Cerave" class="product-img">
                 <ul>
                     <li>Niacinamide giúp làm dịu, nuôi dưỡng, củng cố hàng rào da.</li>
                     <li>Kết cấu dạng gel tạo bọt giúp làm sạch sâu, loại bỏ dầu thừa, thông thoáng lỗ chân lông nhưng vẫn duy trì độ ẩm tự nhiên của da.</li>
@@ -462,39 +462,39 @@
     <div class="footer-main">
         <!-- Cột 1: Logo + thông tin -->
         <div class="footer-col">
-            <img src="./image/logo7.png" alt="Nai Vang Logo" class="footer-logo">
+            <img th:src="@{/Customer/Productdetail/Image/logo7.png}" alt="Nai Vang Logo" class="footer-logo">
             <p><strong>CÔNG TY TNHH MTV THƯƠNG MẠI VÀ ĐẦU TƯ LIÊN Á CHÂU</strong></p>
             <p>Giấy chứng nhận đăng ký doanh nghiệp số 0310618188, cấp ngày 29.01.2011, nơi cấp Sở Kế Hoạch và Đầu Tư TP. Hồ Chí Minh</p>
             <p>Trụ sở chính: L2-VP-01, 346 Bến Vân Đồn, Phường Vĩnh Hội, TP. Hồ Chí Minh</p>
             <p>Hotline: <a href="tel:19004449">19004449</a>
                 Điện thoại: <a href="tel:02838328272">02838328272</a></p>
-            <img src="./image/bocongthuong_1_1.webp" alt="Đã thông báo Bộ Công Thương" class="boct-logo">
+            <img th:src="@{/Customer/Productdetail/Image/bocongthuong_1_1.webp}" alt="Đã thông báo Bộ Công Thương" class="boct-logo">
         </div>
 
         <!-- Cột 2: Theo dõi + App + Thanh toán -->
         <div class="footer-col">
             <h4>Theo dõi chúng tôi</h4>
             <div class="social-links">
-                <a href="#"><img src="./image/facebook.webp" alt="Facebook"></a>
-                <a href="#"><img src="./image/instagram.webp" alt="Instagram"></a>
-                <a href="#"><img src="./image/youtube.webp" alt="YouTube"></a>
-                <a href="#"><img src="./image/tiktok.webp" alt="TikTok"></a>
+                <a href="#"><img th:src="@{/Customer/Productdetail/Image/facebook.webp}" alt="Facebook"></a>
+                <a href="#"><img th:src="@{/Customer/Productdetail/Image/instagram.webp}" alt="Instagram"></a>
+                <a href="#"><img th:src="@{/Customer/Productdetail/Image/youtube.webp}" alt="YouTube"></a>
+                <a href="#"><img th:src="@{/Customer/Productdetail/Image/tiktok.webp}" alt="TikTok"></a>
             </div>
 
             <h4>Tải App Ngay</h4>
             <div class="app-links">
-                <img src="./image/maqr.png" alt="QR Code" class="qr-code">
+                <img th:src="@{/Customer/Productdetail/Image/maqr.png}" alt="QR Code" class="qr-code">
                 <div>
-                    <a href="#"><img src="./image/googleplay.webp" alt="Google Play"></a>
-                    <a href="#"><img src="./image/appstore.webp" alt="App Store"></a>
+                    <a href="#"><img th:src="@{/Customer/Productdetail/Image/googleplay.webp}" alt="Google Play"></a>
+                    <a href="#"><img th:src="@{/Customer/Productdetail/Image/appstore.webp}" alt="App Store"></a>
                 </div>
             </div>
 
             <h4>Chấp nhận Phương thức thanh toán</h4>
             <div class="pay-methods">
-                <img src="./image/vnpay.png" alt="VNPay">
-                <img src="./image/momo.webp" alt="MoMo" class="momo-logo">
-                <img src="./image/visa.png" alt="Visa">
+                <img th:src="@{/Customer/Productdetail/Image/vnpay.png}" alt="VNPay">
+                <img th:src="@{/Customer/Productdetail/Image/momo.webp}" alt="MoMo" class="momo-logo">
+                <img th:src="@{/Customer/Productdetail/Image/visa.png}" alt="Visa">
             </div>
         </div>
 
@@ -535,7 +535,7 @@
     </div>
 </footer>
 
-<script src="detail.js"></script>
+<script th:src="@{/Customer/Productdetail/Product.js}"></script>
 </body>
 </html>
 
