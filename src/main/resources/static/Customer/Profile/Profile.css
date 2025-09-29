@@ -144,6 +144,26 @@ header {
     align-items: center;
 }
 
+.address-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+#addAddressBtn {
+    padding: 0 10px;
+    cursor: pointer;
+}
+
+#addressContainer {
+    display: block;
+    margin-top: 5px;
+    padding: 5px;
+    width: 250px;
+}
+
+
 footer {
     background: #ff6600;
     padding: 15px;

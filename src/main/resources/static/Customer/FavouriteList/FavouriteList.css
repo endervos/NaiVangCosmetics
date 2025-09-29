@@ -5,7 +5,7 @@ body {
     padding: 0;
 }
 
-/* ====== CONTAINER CHÍNH ====== */
+/* Main container */
 .main-container {
     display: flex;
     margin: 30px auto;
@@ -16,13 +16,20 @@ body {
     overflow: hidden;
 }
 
-/* ====== SIDEBAR ====== */
+
 .menu-sidebar {
-    flex: 0 0 220px;
+    flex: 0 0 340px;
     border-right: 1px solid #eee;
     padding: 20px;
     background: #fafafa;
     height: 100%;
+    overflow-y: auto;
+}
+
+
+.account-info {
+    flex: 1;
+    padding: 20px;
     overflow-y: auto;
 }
 
@@ -33,6 +40,8 @@ body {
 .menu-sidebar ul {
     list-style: none;
     padding: 0;
+    flex-direction: column; /* xếp dọc các li */
+    align-items: center;    /* căn giữa theo chiều ngang */
 }
 
 .menu-sidebar ul li {
@@ -43,9 +52,10 @@ body {
 .menu-sidebar ul li a {
     text-decoration: none;
     color: #333;
-    display: block;
     padding: 8px;
     border-radius: 4px;
+    font-size: 17px;
+    display: block;
 }
 
 .menu-sidebar ul li.active a {
@@ -60,7 +70,6 @@ body {
     transition: 0.3s ease;
 }
 
-/* ====== HEADER & FOOTER ====== */
 header {
     background: #ff6600;
     padding: 15px;
@@ -68,96 +77,96 @@ header {
     color: #fff;
 }
 
+.profile-container {
+    width: 1000px;
+    margin-left: 40px;
+    padding: 20px;
+    font-size: 16px;
+
+}
+.account-info::-webkit-scrollbar {
+    display: none;
+}
+
+.account-info h2 {
+    margin-bottom: 0;
+    margin-left: 40px;
+    font-size: 25px;
+}
+
+.account-info label {
+    display: block;
+    font-weight: 500;
+    margin: 10px 0 5px;
+    color: #333;
+}
+
+.account-info input,
+.account-info select {
+    width: 100%;
+    padding: 8px 10px;
+    margin-bottom: 10px;
+    border: 1px solid #dddddd;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.account-info input[disabled] {
+    background: #f5f5f5;
+    color: #ff9900;
+    cursor: not-allowed;
+}
+
+.account-info button.btn {
+    display: inline-block;
+    margin-top: 15px;
+    background: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.account-info button.btn:hover {
+    background: #0056b3;
+}
+.gender-container {
+    display: flex;
+    flex-wrap: nowrap; /* Keep options on one line */
+    gap: 16px; /* Reduced spacing for compact layout */
+    align-items: center;
+}
+
+.gender-check {
+    display: flex;
+    align-items: center;
+}
+
+.address-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+#addAddressBtn {
+    padding: 0 10px;
+    cursor: pointer;
+}
+
+#addressContainer {
+    display: block;
+    margin-top: 5px;
+    padding: 5px;
+    width: 250px;
+}
+
+
 footer {
     background: #ff6600;
     padding: 15px;
     color: #fff;
     margin-top: 20px;
-}
-
-/* ====== NỘI DUNG YÊU THÍCH ====== */
-.favorite-content {
-    flex: 1;
-    padding: 20px;
-    overflow-y: auto;
-}
-
-.favorite-content::-webkit-scrollbar {
-    display: none;
-}
-
-.favorite-content h2 {
-    margin-bottom: 20px;
-    font-size: 18px;
-    font-weight: bold;
-    color: #333;
-}
-
-.viewed-products {
-    width: 100%;
-    margin: 20px auto;
-    padding: 0 20px;
-}
-
-.product-grid {
-    display: grid;
-    gap: 20px; /* khoảng cách ngang dọc */
-    width: 100%;
-}
-
-.product-card {
-    position: relative;
-    background: #fff;
-    border: 1px solid #eee;
-    border-radius: 8px;
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
-    min-width: 0; /* để grid tự co giãn */
-    min-height: 250px;
-}
-
-.product-card img {
-    width: 100%;
-    border-radius: 6px;
-    margin-bottom: 10px;
-}
-
-.product-card-info {
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-}
-
-.product-card-name {
-    font-size: 14px;
-    color: #333;
-    margin: 0 0 5px 0;
-    line-height: 1.4;
-}
-
-.product-card-price {
-    font-size: 16px;
-    font-weight: bold;
-    color: #e74c3c;
-    margin-top: auto;
-    text-align: left;
-}
-
-.remove-btn {
-    position: absolute;
-    top: 8px;
-    right: 8px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 18px;
-    color: #999;
-    z-index: 10; /* chắc chắn nổi lên trên */
-    transition: color 0.3s, transform 0.2s;
-}
-
-.remove-btn:hover {
-    color: red;
-    transform: scale(1.2);
 }

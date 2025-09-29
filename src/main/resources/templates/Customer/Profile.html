@@ -225,15 +225,9 @@
             <li class="menu-item active">
                 <a th:href="@{/profile}">Thông tin tài khoản</a>
             </li>
-            <li class="menu-item">
-                <a th:href="@{/account}">Quản lý tài khoản</a>
-            </li>
-            <li class="menu-item">
-                <a th:href="@{/orderManage}">Quản lý đơn hàng</a>
-            </li>
-            <li class="menu-item">
-                <a th:href="@{/favouriteList}">Danh sách yêu thích</a>
-            </li>
+            <li class="menu-item"><a th:href="@{/account}">Quản lý tài khoản</a></li>
+            <li class="menu-item"><a th:href="@{/orderManage}">Quản lý đơn hàng</a></li>
+            <li class="menu-item"><a th:href="@{/favourite}">Danh sách yêu thích</a></li>
         </ul>
     </aside>
 
@@ -249,14 +243,14 @@
             <label>Số điện thoại</label>
             <input type="text" th:field="*{phoneNumber}" disabled />
 
-            <label>Địa chỉ</label>
-            <input type="text" id="address" value="" />
-<!--            <input type="text" th:field="*{address}" />-->
+            <label >Địa chỉ</label>
+            <button type="button" id="addAddressBtn" style="padding: 0 10px;">+</button>
+            <input type="text" name="address" placeholder="Nhập địa chỉ..." />
+
 
             <label>Ngày sinh</label>
             <input type="text" th:field="*{birthday}" disabled />
 
-            <!-- Giới tính -->
             <label>Giới tính</label>
             <div class="d-flex gender-container" >
                 <label>
@@ -366,5 +360,7 @@
     </footer>
 
     <script th:src="@{/Home/Home.js}"></script>
+    <script th:src="@{/Profile/Profile.js}"></script>
+
 </body>
 </html>

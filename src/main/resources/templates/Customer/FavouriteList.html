@@ -223,17 +223,12 @@
     <aside class="menu-sidebar">
         <h3>Chào zz</h3>
         <ul>
-            <li class="menu-item"><a href="quanly.html">Quản lý tài khoản</a></li>
-            <li class="menu-item">
-                <a href="/Infomation/Infomation.css">Thông tin tài khoản</a>
-            </li>
-            <li class="menu-item">
-                <a href="/OrderManage/OrderManage.css.html">Quản lý đơn hàng</a>
-            </li>
-            <li class="menu-item">
-                <a href="/FavouriteList/FavouriteList.html">Danh sách yêu thích</a>
-            </li>
-            <li class="menu-item"><a href="hoidap.html">Hỏi đáp</a></li>
+                <li class="menu-item">
+                    <a th:href="@{/profile}">Thông tin tài khoản</a>
+                </li>
+                <li class="menu-item"><a th:href="@{/account}">Quản lý tài khoản</a></li>
+                <li class="menu-item"><a th:href="@{/orderManage}">Quản lý đơn hàng</a></li>
+                <li class="menu-item active"><a th:href="@{/favourite}">Danh sách yêu thích</a></li>
         </ul>
     </aside>
         <main class="favorite-content">
