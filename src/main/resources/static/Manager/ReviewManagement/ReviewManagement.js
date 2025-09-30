@@ -33,16 +33,36 @@ function getRatingStars(rating) {
 // Hàm xóa đánh giá
 function deleteReview(id) {
     reviews = reviews.filter(review => review.id !== id);
-    renderReviews(reviews);
-    renderPagination(reviews);
+    currentPage = 1; // Đặt lại trang về 1 khi xóa
+    const filteredReviews = getFilteredAndSortedReviews();
+    renderReviews(filteredReviews);
+    renderPagination(filteredReviews);
+}
+
+// Hàm lấy danh sách đã lọc và sắp xếp
+function getFilteredAndSortedReviews() {
+    const searchQuery = document.getElementById('product-search').value.toLowerCase();
+    const sortOrder = document.getElementById('sort-filter').value;
+
+    let filteredReviews = reviews.filter(review => review.productName.toLowerCase().includes(searchQuery));
+
+    if (sortOrder === "latest") {
+        filteredReviews.sort((a, b) => new Date(b.date) - new Date(a.date));
+    } else {
+        filteredReviews.sort((a, b) => new Date(a.date) - new Date(b.date));
+    }
+
+    return filteredReviews;
 }
 
 // Hiển thị danh sách đánh giá
-function renderReviews(filteredReviews) {
+function renderReviews(reviewList) {
     const tbody = document.querySelector('#review-table tbody');
     tbody.innerHTML = ''; // Xóa dữ liệu cũ
 
-    filteredReviews.forEach(review => {
+    const reviewsToShow = paginateReviews(reviewList); // Luôn áp dụng phân trang
+
+    reviewsToShow.forEach(review => {
         const row = document.createElement('tr');
         row.innerHTML = `
             <td>${review.productName}</td>
@@ -62,78 +82,74 @@ function renderReviews(filteredReviews) {
     const deleteButtons = document.querySelectorAll('.delete-btn');
     deleteButtons.forEach(button => {
         button.addEventListener('click', (e) => {
-            const reviewId = e.target.dataset.id;
-            deleteReview(parseInt(reviewId));
+            const reviewId = parseInt(e.target.dataset.id);
+            deleteReview(reviewId);
         });
     });
 }
 
-// Bộ lọc và sắp xếp
-document.getElementById('apply-filter').addEventListener('click', () => {
-    const searchQuery = document.getElementById('product-search').value.toLowerCase();
-    const sortOrder = document.getElementById('sort-filter').value;
-
-    let filteredReviews = reviews.filter(review => review.productName.toLowerCase().includes(searchQuery));
-
-    if (sortOrder === "latest") {
-        filteredReviews.sort((a, b) => new Date(b.date) - new Date(a.date));
-    } else {
-        filteredReviews.sort((a, b) => new Date(a.date) - new Date(b.date));
-    }
-
-    renderReviews(filteredReviews);
-    renderPagination(filteredReviews);
-});
-
-// Hiển thị tất cả
-document.getElementById('show-all').addEventListener('click', () => {
-    renderReviews(reviews);
-    renderPagination(reviews);
-});
-
 // Phân trang
 let currentPage = 1;
-const reviewsPerPage = 10;  // Giới hạn hiển thị 10 bình luận mỗi lần
+const reviewsPerPage = 10; // Giới hạn hiển thị 10 bình luận mỗi trang
 
-function renderPagination(filteredReviews) {
-    const totalPages = Math.ceil(filteredReviews.length / reviewsPerPage);
+function paginateReviews(reviewList) {
+    const startIndex = (currentPage - 1) * reviewsPerPage;
+    const endIndex = startIndex + reviewsPerPage;
+    return reviewList.slice(startIndex, endIndex);
+}
+
+function renderPagination(reviewList) {
+    const totalPages = Math.ceil(reviewList.length / reviewsPerPage);
     const prevPageBtn = document.getElementById('prev-page');
     const nextPageBtn = document.getElementById('next-page');
     const pageInfo = document.getElementById('page-info');
 
     prevPageBtn.disabled = currentPage === 1;
-    nextPageBtn.disabled = currentPage === totalPages;
+    nextPageBtn.disabled = currentPage === totalPages || totalPages === 0;
 
-    pageInfo.textContent = `Trang ${currentPage} / ${totalPages}`;
+    pageInfo.textContent = `Trang ${currentPage} / ${totalPages || 1}`;
 }
 
-function paginateReviews(filteredReviews) {
-    const startIndex = (currentPage - 1) * reviewsPerPage;
-    const endIndex = startIndex + reviewsPerPage;
-    return filteredReviews.slice(startIndex, endIndex);
-}
+// Sự kiện áp dụng bộ lọc
+document.getElementById('apply-filter').addEventListener('click', () => {
+    currentPage = 1; // Đặt lại trang về 1 khi áp dụng bộ lọc
+    const filteredReviews = getFilteredAndSortedReviews();
+    renderReviews(filteredReviews);
+    renderPagination(filteredReviews);
+});
 
+// Sự kiện hiển thị tất cả
+document.getElementById('show-all').addEventListener('click', () => {
+    currentPage = 1; // Đặt lại trang về 1
+    document.getElementById('product-search').value = ''; // Xóa tìm kiếm
+    document.getElementById('sort-filter').value = 'latest'; // Đặt lại sắp xếp
+    renderReviews(reviews);
+    renderPagination(reviews);
+});
+
+// Sự kiện chuyển trang trước
 document.getElementById('prev-page').addEventListener('click', () => {
     if (currentPage > 1) {
         currentPage--;
-        const filteredReviews = reviews.filter(review => review.productName.toLowerCase().includes(document.getElementById('product-search').value.toLowerCase()));
-        renderReviews(paginateReviews(filteredReviews));
+        const filteredReviews = getFilteredAndSortedReviews();
+        renderReviews(filteredReviews);
         renderPagination(filteredReviews);
     }
 });
 
+// Sự kiện chuyển trang tiếp theo
 document.getElementById('next-page').addEventListener('click', () => {
-    const filteredReviews = reviews.filter(review => review.productName.toLowerCase().includes(document.getElementById('product-search').value.toLowerCase()));
+    const filteredReviews = getFilteredAndSortedReviews();
     const totalPages = Math.ceil(filteredReviews.length / reviewsPerPage);
     if (currentPage < totalPages) {
         currentPage++;
-        renderReviews(paginateReviews(filteredReviews));
+        renderReviews(filteredReviews);
         renderPagination(filteredReviews);
     }
 });
 
-// Khi trang tải, hiển thị tất cả đánh giá và phân trang
-window.onload = function() {
+// Khi trang tải, hiển thị 10 đánh giá đầu tiên
+document.addEventListener('DOMContentLoaded', function () {
     renderReviews(reviews);
     renderPagination(reviews);
-};
+});
