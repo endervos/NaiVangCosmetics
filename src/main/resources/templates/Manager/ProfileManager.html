@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard</title>
+  <title>Quản lý Thông tin Cá nhân - Manager</title>
   <link rel="stylesheet" href="/src/main/resources/static/Manager/Background/Background.css">
-  <link rel="stylesheet" href="/src/main/resources/static/Manager/ReviewManagement/ReviewManagement.css">
+  <link rel="stylesheet" href="/src/main/resources/static/Manager/ProfileManager/ProfileManager.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="icon" type="image/png" href="/src/main/resources/static/Customer/Example/Image/LogoConNai.png">
 </head>
-<body class="admin-body">
+<body class="admin-body">   
 
   <!-- Sidebar -->
   <nav class="admin-sidebar">
@@ -46,53 +46,56 @@
       </div>
     </div>
 
+    <!-- Main area -->
     <div class="main-area">
-      <div class="admin-review-container">
-          <h2>Quản lý đánh giá</h2>
+  <div class="admin-manager-info">
+        <h2>Quản lý Thông tin Cá nhân</h2>
 
-          <!-- Filter & search -->
-          <div class="review-controls">
-              <label for="product-search">Tìm theo tên sản phẩm:</label>
-              <input type="text" id="product-search" placeholder="Nhập ....">
+        <div class="manager-info-container">
+          <form id="manager-info-form">
+            <div class="info-item">
+              <label for="manager-id">ID Manager</label>
+              <input type="text" id="manager-id" name="manager-id" value="12345" readonly>
+            </div>
+            <div class="info-item">
+              <label for="manager-name">Họ và tên</label>
+              <input type="text" id="manager-name" name="manager-name" value="Nguyễn Văn A" required>
+            </div>
+            <div class="info-item">
+              <label for="manager-email">Email</label>
+              <input type="email" id="manager-email" name="manager-email" value="manager@conai.com" readonly>
+            </div>
+            <div class="info-item">
+              <label for="manager-dob">Ngày tháng năm sinh</label>
+              <input type="date" id="manager-dob" name="manager-dob" value="1985-01-01" required>
+            </div>
+            <div class="info-item">
+            <label for="manager-gender">Giới tính</label>
+            <div class="gender-options">
+                <label class="gender-label">
+                <input type="radio" id="manager-gender-male" name="manager-gender" value="male" checked>
+                <span class="gender-text">Nam</span>
+                </label>
+                <label class="gender-label">
+                <input type="radio" id="manager-gender-female" name="manager-gender" value="female">
+                <span class="gender-text">Nữ</span>
+                </label>
+            </div>
+            </div>
+            <div class="info-item">
+              <label for="manager-phone">Số điện thoại</label>
+              <input type="tel" id="manager-phone" name="manager-phone" value="0123456789" required>
+            </div>
 
-              <label for="sort-filter">Sắp xếp:</label>
-              <select id="sort-filter">
-                  <option value="latest">Mới nhất</option>
-                  <option value="oldest">Cũ nhất</option>
-              </select>
-
-              <button id="apply-filter">Áp dụng</button>
-              <button id="show-all">Hiện tất cả</button>
-          </div>
-
-          <!-- Table đánh giá -->
-          <table id="review-table">
-              <thead>
-                  <tr>
-                      <th>Tên sản phẩm</th>
-                      <th>Tên khách hàng</th>
-                      <th>Rating</th>
-                      <th>Nhận xét</th>
-                      <!-- <th>Reply</th> -->
-                      <th>Ngày</th>
-                      <th>Tùy chọn </th>
-                  </tr>
-              </thead>
-              <tbody></tbody>
-          </table>
-
-          <!-- Phân trang -->
-          <div class="pagination-controls">
-              <button id="prev-page">Prev</button>
-              <span id="page-info"></span>
-              <button id="next-page">Next</button>
-          </div>
+            <div class="button-container">
+              <button type="submit" class="save-btn">Lưu thông tin</button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
+  </div>
 
-  <script src="/src/main/resources/static/Manager/Background/Background.js"></script>
-  <script src="/src/main/resources/static/Manager/ReviewManagement/ReviewManagement.js"></script>
+  <script src="/src/main/resources/static/Manager/ProfileManager/ProfileManager.js"></script>
 </body>
 </html>
-
-

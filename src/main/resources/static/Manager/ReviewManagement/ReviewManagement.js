@@ -1,116 +1,139 @@
+// Giả sử bạn có dữ liệu mẫu
 let reviews = [
-    {id:1, productId:"A001", userId:"U001", userName:"Nguyễn Văn A", rating:5, comment:"Rất tốt!", reply:"Cảm ơn bạn!", date:"2025-09-25"},
-    {id:2, productId:"A001", userId:"U002", userName:"Trần Thị B", rating:4, comment:"Ổn", reply:"", date:"2025-09-24"},
-    {id:3, productId:"B002", userId:"U003", userName:"Lê Văn C", rating:3, comment:"Bình thường", reply:"", date:"2025-09-26"},
-    {id:4, productId:"B002", userId:"U004", userName:"Phạm Thị D", rating:5, comment:"Tuyệt vời!", reply:"", date:"2025-09-23"},
-    {id:5, productId:"C003", userId:"U005", userName:"Ngô Văn E", rating:2, comment:"Không hài lòng", reply:"", date:"2025-09-25"},
-    {id:6, productId:"C004", userId:"U006", userName:"Trần Văn F", rating:4, comment:"Ok", reply:"", date:"2025-09-22"},
-    {id:7, productId:"C005", userId:"U007", userName:"Nguyễn Thị G", rating:3, comment:"Tạm ổn", reply:"", date:"2025-09-20"},
-    {id:8, productId:"C006", userId:"U008", userName:"Lê Thị H", rating:5, comment:"Rất tốt!", reply:"", date:"2025-09-21"},
-    {id:9, productId:"C007", userId:"U009", userName:"Phạm Văn I", rating:4, comment:"Ổn", reply:"", date:"2025-09-19"},
-    {id:10, productId:"C008", userId:"U010", userName:"Ngô Thị J", rating:5, comment:"Tuyệt!", reply:"", date:"2025-09-18"},
-    {id:11, productId:"C009", userId:"U011", userName:"Trần Văn K", rating:2, comment:"Không hài lòng", reply:"", date:"2025-09-17"}
+    { productName: "Sản phẩm 1", customerName: "Nguyễn Văn A", rating: 4, comment: "Rất tốt", date: "2025-09-30 9:30", id: 1 },
+    { productName: "Sản phẩm 2", customerName: "Trần Thị B", rating: 5, comment: "Tuyệt vời", date: "2025-09-29 16:12", id: 2 },
+    { productName: "Sản phẩm 3", customerName: "Lê Thị C", rating: 3, comment: "Bình thường", date: "2025-09-28 3:02", id: 3 },
+    { productName: "Sản phẩm 4", customerName: "Vũ Minh D", rating: 2, comment: "Không hài lòng", date: "2025-09-27 19:05", id: 4 },
+    { productName: "Sản phẩm 5", customerName: "Phạm Quỳnh E", rating: 5, comment: "Sản phẩm chất lượng tuyệt vời!", date: "2025-09-26 20:10", id: 5 },
+    { productName: "Sản phẩm 6", customerName: "Đỗ Minh F", rating: 4, comment: "Tốt nhưng có thể cải thiện", date: "2025-09-25 12:30", id: 6 },
+    { productName: "Sản phẩm 7", customerName: "Hoàng Hải G", rating: 1, comment: "Không như mong đợi", date: "2025-09-24 9:12", id: 7 },
+    { productName: "Sản phẩm 8", customerName: "Lê Thị H", rating: 4, comment: "Chất lượng ổn", date: "2025-09-23 3:50", id: 8 },
+    { productName: "Sản phẩm 9", customerName: "Nguyễn Phương I", rating: 3, comment: "Bình thường", date: "2025-09-22 12:30", id: 9 },
+    { productName: "Sản phẩm 10", customerName: "Trần Minh K", rating: 2, comment: "Chưa đạt yêu cầu", date: "2025-09-21 5:12", id: 10 },
+    { productName: "Sản phẩm 11", customerName: "Nguyễn Văn L", rating: 3, comment: "Cần cải thiện", date: "2025-09-20 9:10", id: 11 },
+    { productName: "Sản phẩm 12", customerName: "Trần Thi L", rating: 5, comment: "Rất hài lòng", date: "2025-09-19 18:20", id: 12 },
+    { productName: "Sản phẩm 13", customerName: "Lê Thị M", rating: 4, comment: "Ok nhưng có thể tốt hơn", date: "2025-09-18 14:30", id: 13 },
+    { productName: "Sản phẩm 14", customerName: "Phạm Quỳnh N", rating: 2, comment: "Không như mong đợi", date: "2025-09-17 22:05", id: 14 },
+    { productName: "Sản phẩm 15", customerName: "Đỗ Minh P", rating: 5, comment: "Tuyệt vời", date: "2025-09-16 15:50", id: 15 }
 ];
 
-const reviewTableBody = document.querySelector("#review-table tbody");
-const productSearch = document.getElementById("product-search");
-const sortFilter = document.getElementById("sort-filter");
-const applyFilterBtn = document.getElementById("apply-filter");
-const showAllBtn = document.getElementById("show-all");
-const prevPageBtn = document.getElementById("prev-page");
-const nextPageBtn = document.getElementById("next-page");
-const pageInfo = document.getElementById("page-info");
-
-let currentPage = 1;
-const rowsPerPage = 10;
-
-function renderTable() {
-    reviewTableBody.innerHTML = "";
-    let filtered = [...reviews];
-
-    // Filter theo ID sản phẩm
-    const keyword = productSearch.value.trim().toLowerCase();
-    if(keyword){
-        filtered = filtered.filter(r => r.productId.toLowerCase().includes(keyword));
+// Hàm hiển thị sao
+function getRatingStars(rating) {
+    let stars = '';
+    for (let i = 1; i <= 5; i++) {
+        if (i <= rating) {
+            stars += '<span class="star">★</span>';
+        } else {
+            stars += '<span class="star gray">★</span>';
+        }
     }
-
-    // Sort theo ngày
-    const sortValue = sortFilter.value;
-    filtered.sort((a,b) => {
-        if(sortValue === "latest") return new Date(b.date) - new Date(a.date);
-        return new Date(a.date) - new Date(b.date);
-    });
-
-    // Phân trang
-    const totalPages = Math.ceil(filtered.length / rowsPerPage);
-    if(currentPage > totalPages) currentPage = totalPages;
-    if(currentPage < 1) currentPage = 1;
-
-    const start = (currentPage - 1) * rowsPerPage;
-    const end = start + rowsPerPage;
-    const paginated = filtered.slice(start, end);
-
-    paginated.forEach((r) => {
-        const tr = document.createElement("tr");
-        const replyDisplay = r.reply ? `<div class="review-reply">${r.reply}</div>` : "";
-        tr.innerHTML = `
-            <td>${r.productId}</td>
-            <td>${r.userName}</td>
-            <td>${r.rating} ⭐</td>
-            <td style="width:35%">${r.comment}${replyDisplay}</td>
-            <td>
-                <input type="text" class="reply-input" value="${r.reply || ""}" placeholder="Nhập reply...">
-                <button class="reply-btn">Gửi</button>
-            </td>
-            <td>${r.date}</td>
-            <td>
-                <button class="delete-btn">Xóa</button>
-            </td>
-        `;
-        reviewTableBody.appendChild(tr);
-
-        const replyInput = tr.querySelector(".reply-input");
-        const replyBtn = tr.querySelector(".reply-btn");
-        const deleteBtn = tr.querySelector(".delete-btn");
-
-        replyBtn.addEventListener("click", () => {
-            r.reply = replyInput.value.trim();
-            renderTable();
-        });
-
-        deleteBtn.addEventListener("click", () => {
-            if(confirm("Bạn có chắc muốn xóa đánh giá này?")){
-                reviews.splice(reviews.indexOf(r),1);
-                renderTable();
-            }
-        });
-    });
-
-    pageInfo.textContent = `Trang ${currentPage} / ${totalPages || 1}`;
+    return stars;
 }
 
-// Nút phân trang
-prevPageBtn.addEventListener("click", () => {
-    currentPage--;
-    renderTable();
-});
-nextPageBtn.addEventListener("click", () => {
-    currentPage++;
-    renderTable();
-});
+// Hàm xóa đánh giá
+function deleteReview(id) {
+    reviews = reviews.filter(review => review.id !== id);
+    renderReviews(reviews);
+    renderPagination(reviews);
+}
 
-// Áp dụng filter
-applyFilterBtn.addEventListener("click", () => { currentPage = 1; renderTable(); });
+// Hiển thị danh sách đánh giá
+function renderReviews(filteredReviews) {
+    const tbody = document.querySelector('#review-table tbody');
+    tbody.innerHTML = ''; // Xóa dữ liệu cũ
+
+    filteredReviews.forEach(review => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${review.productName}</td>
+            <td>${review.customerName}</td>
+            <td class="rating">${getRatingStars(review.rating)}</td>
+            <td>${review.comment}</td>
+            <td>${new Date(review.date).toLocaleString('vi-VN', { 
+                hour: '2-digit', minute: '2-digit', hour12: false,
+                year: 'numeric', month: '2-digit', day: '2-digit' 
+            })}</td>
+            <td><button class="delete-btn" data-id="${review.id}">Xóa</button></td>
+        `;
+        tbody.appendChild(row);
+    });
+
+    // Thêm sự kiện xóa
+    const deleteButtons = document.querySelectorAll('.delete-btn');
+    deleteButtons.forEach(button => {
+        button.addEventListener('click', (e) => {
+            const reviewId = e.target.dataset.id;
+            deleteReview(parseInt(reviewId));
+        });
+    });
+}
+
+// Bộ lọc và sắp xếp
+document.getElementById('apply-filter').addEventListener('click', () => {
+    const searchQuery = document.getElementById('product-search').value.toLowerCase();
+    const sortOrder = document.getElementById('sort-filter').value;
+
+    let filteredReviews = reviews.filter(review => review.productName.toLowerCase().includes(searchQuery));
+
+    if (sortOrder === "latest") {
+        filteredReviews.sort((a, b) => new Date(b.date) - new Date(a.date));
+    } else {
+        filteredReviews.sort((a, b) => new Date(a.date) - new Date(b.date));
+    }
+
+    renderReviews(filteredReviews);
+    renderPagination(filteredReviews);
+});
 
 // Hiển thị tất cả
-showAllBtn.addEventListener("click", () => {
-    productSearch.value = "";
-    sortFilter.value = "latest";
-    currentPage = 1;
-    renderTable();
+document.getElementById('show-all').addEventListener('click', () => {
+    renderReviews(reviews);
+    renderPagination(reviews);
 });
 
-// Load lần đầu
-document.addEventListener("DOMContentLoaded", () => {
-    renderTable();
+// Phân trang
+let currentPage = 1;
+const reviewsPerPage = 10;  // Giới hạn hiển thị 10 bình luận mỗi lần
+
+function renderPagination(filteredReviews) {
+    const totalPages = Math.ceil(filteredReviews.length / reviewsPerPage);
+    const prevPageBtn = document.getElementById('prev-page');
+    const nextPageBtn = document.getElementById('next-page');
+    const pageInfo = document.getElementById('page-info');
+
+    prevPageBtn.disabled = currentPage === 1;
+    nextPageBtn.disabled = currentPage === totalPages;
+
+    pageInfo.textContent = `Trang ${currentPage} / ${totalPages}`;
+}
+
+function paginateReviews(filteredReviews) {
+    const startIndex = (currentPage - 1) * reviewsPerPage;
+    const endIndex = startIndex + reviewsPerPage;
+    return filteredReviews.slice(startIndex, endIndex);
+}
+
+document.getElementById('prev-page').addEventListener('click', () => {
+    if (currentPage > 1) {
+        currentPage--;
+        const filteredReviews = reviews.filter(review => review.productName.toLowerCase().includes(document.getElementById('product-search').value.toLowerCase()));
+        renderReviews(paginateReviews(filteredReviews));
+        renderPagination(filteredReviews);
+    }
 });
+
+document.getElementById('next-page').addEventListener('click', () => {
+    const filteredReviews = reviews.filter(review => review.productName.toLowerCase().includes(document.getElementById('product-search').value.toLowerCase()));
+    const totalPages = Math.ceil(filteredReviews.length / reviewsPerPage);
+    if (currentPage < totalPages) {
+        currentPage++;
+        renderReviews(paginateReviews(filteredReviews));
+        renderPagination(filteredReviews);
+    }
+});
+
+// Khi trang tải, hiển thị tất cả đánh giá và phân trang
+window.onload = function() {
+    renderReviews(reviews);
+    renderPagination(reviews);
+};

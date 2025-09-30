@@ -1,0 +1,139 @@
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="/src/main/resources/static/Manager/Background/Background.css">
+  <link rel="stylesheet" href="/src/main/resources/static/Manager/OrderManagement/OrderManagement.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="icon" type="image/png" href="/src/main/resources/static/Customer/Example/Image/LogoConNai.png">
+</head>
+<body class="admin-body">   
+
+  <!-- Sidebar -->
+  <nav class="admin-sidebar">
+    <div class="sidebar-logo">
+      <img src="/src/main/resources/static/Customer/Example/Image/LogoConNai.png" alt="Logo" class="logo-img">
+      <h2 class="logo-text">Manager</h2>
+    </div>
+    <ul>
+      <li><a href="/src/main/resources/templates/Manager/Dashboard.html"><i class="fa-solid fa-gauge"></i> Dashboard</a></li>
+      <li><a href="/src/main/resources/templates/Manager/ProductManagement.html"><i class="fa-solid fa-box"></i> Sản phẩm</a></li>
+      <li><a href="/src/main/resources/templates/Manager/CategoryManagement.html"><i class="fa-solid fa-list"></i> Danh mục</a></li>
+      <li><a href="/src/main/resources/templates/Manager/DealManagement.html"><i class="fa-solid fa-tags"></i> Khuyến mãi</a></li>
+      <li><a href="/src/main/resources/templates/Manager/ReviewManagement.html"><i class="fa-solid fa-star"></i> Đánh giá</a></li>
+      <li><a href="/src/main/resources/templates/Manager/OrderManagement.html"><i class="fa-solid fa-receipt"></i> Đơn hàng</a></li>
+      <li><a href="/src/main/resources/templates/Manager/BlogManagement.html"><i class="fa-solid fa-blog"></i> Blog</a></li>
+    </ul>
+  </nav>
+
+  <!-- Main content -->
+  <div class="admin-content">
+    <!-- Top bar -->
+    <div class="top-bar">
+      <div class="user-menu">
+        <div class="user-info">
+          <i class="fa-solid fa-user-circle"></i>
+          <span>Manager</span>
+          <i class="fa-solid fa-chevron-down"></i>
+        </div>
+        <!-- Dropdown -->
+        <ul class="dropdown">
+          <li><a href="/src/main/resources/templates/Manager/InforManager.html"><i class="fa-solid fa-user"></i> Hồ sơ</a></li>
+          <li><a href="/src/main/resources/templates/Customer/Login.html"><i class="fa-solid fa-right-from-bracket"></i> Đăng xuất</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="main-area">
+<div class="admin-order-container">
+    <h2>Quản lý đơn hàng</h2>
+
+    <!-- Form tìm kiếm và sắp xếp -->
+    <div class="order-controls">
+        <input type="text" id="order-search" placeholder="Tìm ID hoặc tên khách">
+        <select id="sort-order">
+            <option value="latest">Mới nhất</option>
+            <option value="oldest">Cũ nhất</option>
+        </select>
+        <button id="apply-order-filter">Áp dụng</button>
+        <button id="show-all-orders">Hiện tất cả</button>
+    </div>
+
+    <!-- Bảng hiển thị danh sách đơn hàng -->
+    <table id="order-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Khách hàng</th>
+                <th>Tổng tiền</th>
+                <th>Trạng thái</th>
+                <th>Ngày</th>
+                <th>Chi tiết</th>
+                <th>Cập nhật trạng thái</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <!-- Phân trang đơn hàng -->
+    <div class="pagination-controls">
+        <button id="prev-order-page">Prev</button>
+        <span id="order-page-info"></span>
+        <button id="next-order-page">Next</button>
+    </div>
+
+    <!-- Khung chi tiết đơn hàng -->
+    <div class="order-container" id="order-container" style="display: none;">
+        <div class="order-header" id="order-header">
+            <h1 id="order-title"></h1>
+            <p id="order-date"></p>
+        </div>
+        <div class="order-info" id="order-info">
+            <div class="detail-item" id="delivery-address">
+                <span>Địa chỉ nhận hàng</span>
+                <strong id="delivery-address-value"></strong>
+            </div>
+            <div class="detail-item" id="payment-method">
+                <span>Hình thức thanh toán</span>
+                <strong id="payment-method-value"></strong>
+            </div>
+            <div class="detail-item" id="subtotal">
+                <span>Tạm tính</span>
+                <strong id="subtotal-value"></strong>
+            </div>
+            <div class="detail-item" id="discount">
+                <span>Giảm giá</span>
+                <strong id="discount-value"></strong>
+            </div>
+            <div class="detail-item" id="shipping-fee">
+                <span>Phí vận chuyển</span>
+                <strong id="shipping-fee-value"></strong>
+            </div>
+            <div class="detail-item total" id="total">
+                <span>Thành tiền</span>
+                <strong id="total-value"></strong>
+            </div>
+        </div>
+        <div class="product-section" id="product-section">
+            <div class="product-item" id="product-item">
+                <img id="product-image" class="product-image" alt="Product Image">
+                <div class="product-info" id="product-info">
+                    <p class="product-name" id="product-name"></p>
+                    <p class="product-quantity" id="product-quantity"></p>
+                </div>
+                <span class="price" id="product-price"></span>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+  <script src="/src/main/resources/static/Manager/Background/Background.js"></script>
+  <script src="/src/main/resources/static/Manager/OrderManagement/OrderManagement.js"></script>
+</body>
+</html>
+
+

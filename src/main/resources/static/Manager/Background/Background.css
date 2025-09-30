@@ -1,118 +1,99 @@
-/* Reset */
+/* General Reset */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+/* Body Styling */
 .admin-body {
-  font-family: 'Segoe UI', Arial, sans-serif;
-  background: #f8f9fa;
   display: flex;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
 }
 
-/* Sidebar */
+/* Sidebar Styling */
 .admin-sidebar {
-  width: 220px;
-  background: #9c734ec9; /* cam */
+  width: 250px;
+  background: #2c3e50;
   color: #fff;
-  min-height: 100vh;   /* full chiều cao */
-  display: flex;
-  flex-direction: column;
-  box-shadow: 2px 0 6px rgba(0,0,0,0.1);
+  padding: 20px 0;
+  position: fixed;
+  height: 100vh; /* Chiều cao bằng toàn bộ viewport */
+  overflow-y: auto;
+  transition: all 0.3s ease;
 }
 
 .sidebar-logo {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 15px;
-  border-bottom: 1px solid rgba(255,255,255,0.2);
+  padding: 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .logo-img {
-  height: 30px;
-  width: auto;
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
 }
 
 .logo-text {
-  font-size: 18px;
+  font-size: 24px;
   font-weight: bold;
 }
 
 .admin-sidebar ul {
   list-style: none;
-  flex: 1;
+  margin-top: 20px;
+}
+
+.admin-sidebar ul li {
+  padding: 25px 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05); /* Gạch ngang phân cách */
 }
 
 .admin-sidebar ul li a {
-  color: #fff;
+  color: #dfe6e9;
   text-decoration: none;
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 12px 20px;
-  transition: background 0.3s, padding-left 0.3s;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+.admin-sidebar ul li a i {
+  margin-right: 10px;
 }
 
 .admin-sidebar ul li a:hover {
-  background: #dca580;
-  padding-left: 28px;
+  color: #3498db;
+  background: rgba(255, 255, 255, 0.1);
+  padding-left: 10px;
 }
 
-/* Content */
+/* Main Content */
 .admin-content {
-  flex: 1;
+  margin-left: 250px;
+  width: calc(100% - 250px);
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  min-height: 100vh; /* Đảm bảo admin-content cao bằng viewport */
 }
 
-/* Top bar nằm trong content */
+/* Top Bar */
 .top-bar {
-  height: 60px;
   background: #fff;
-  border-bottom: 1px solid #ddd;
+  padding: 15px 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  padding: 0 20px;
+  position: sticky;
+  top: 0; /* Sát mép trên */
+  z-index: 1000;
   border-radius: 0 0 20px 20px;
 }
-
-.user-info {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-weight: 500;
-  cursor: pointer;
-}
-
-.logout-icon {
-  color: #e67e22;
-  cursor: pointer;
-  transition: color 0.2s;
-}
-
-.logout-icon:hover {
-  color: #d35400;
-}
-
-/* Main area */
-.main-area {
-  flex: 1;
-  padding: 20px;
-  overflow-y: auto;
-
-  /* ẩn thanh cuộn */
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-}
-.main-area::-webkit-scrollbar {
-  display: none;
-}
-
-
 
 .user-menu {
   position: relative;
@@ -121,40 +102,106 @@
 .user-info {
   display: flex;
   align-items: center;
-  gap: 8px;
   cursor: pointer;
-  font-weight: 500;
+  font-size: 16px;
+  color: #2c3e50;
 }
 
 .user-info i {
-  font-size: 18px;
+  margin-right: 8px;
 }
 
-/* Dropdown */
+.user-info .fa-chevron-down {
+  margin-left: 8px;
+}
+
 .dropdown {
+  display: none;
   position: absolute;
-  top: 110%;
+  top: 40px;
   right: 0;
   background: #fff;
-  color: #333;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   list-style: none;
-  min-width: 160px;
-  border-radius: 6px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-  display: none;
+  min-width: 150px;
+  border-radius: 5px;
   overflow: hidden;
-  z-index: 100;
 }
 
 .dropdown li a {
   display: block;
   padding: 10px 15px;
+  color: #2c3e50;
   text-decoration: none;
-  color: #333;
-  transition: background 0.2s;
+  font-size: 14px;
 }
 
 .dropdown li a:hover {
-  background: #ffcf81;
+  background: #3498db;
   color: #fff;
+}
+
+.user-menu:hover .dropdown {
+  display: block;
+}
+
+/* Main Area */
+.main-area {
+  flex: 1; /* Chiếm toàn bộ không gian còn lại */
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  margin-top: 20px; 
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden; /* Ngăn cuộn trong main-area */
+  height: calc(100vh - 60px); /* Chiều cao bằng sidebar, trừ chiều cao top-bar */
+  width: 100%; /* Full chiều rộng của admin-content */
+}
+
+/* Main Area Content */
+.main-area h2 {
+  font-size: 24px;
+  color: #2c3e50;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.main-area p {
+  font-size: 16px;
+  color: #34495e;
+  text-align: center;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .admin-sidebar {
+    width: 200px;
+  }
+
+  .admin-content {
+    margin-left: 200px;
+    width: calc(100% - 200px);
+  }
+}
+
+@media (max-width: 576px) {
+  .admin-sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+  }
+
+  .admin-content {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .top-bar {
+    position: relative; /* Bỏ sticky trên màn hình nhỏ */
+  }
+
+  .main-area {
+    height: auto; /* Trên màn hình nhỏ, để main-area tự điều chỉnh chiều cao */
+    overflow: auto; /* Cho phép cuộn trên màn hình nhỏ nếu cần */
+  }
 }
