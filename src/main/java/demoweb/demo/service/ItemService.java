@@ -18,11 +18,25 @@ public class ItemService {
         this.itemRepository = itemRepository;
     }
 
-    public Optional<Item> getItemByID(Integer itemId) {
+    // Lấy item theo id
+    public Optional<Item> getItemById(Integer itemId) {
         return itemRepository.findById(itemId);
     }
 
+    // Lấy tất cả item
     public List<Item> getAllItems() {
         return itemRepository.findAll();
     }
+
+    // Thêm hoặc update item
+    public Item save(Item item) {
+        return itemRepository.save(item);
+    }
+
+    // Xóa item
+    public void delete(Integer itemId) {
+        itemRepository.deleteById(itemId);
+    }
+
+
 }

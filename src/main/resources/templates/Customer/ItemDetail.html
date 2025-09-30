@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nai Vang Cosmetic</title>
+    <link rel="icon" type="image/png" th:src="@{/Customer/Item/Image/LogoConNai.png}">
+    <link rel="stylesheet" th:href="@{/Customer/ItemDetail/ItemDetail.css}">
+    <!-- Slick CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Slick JS -->
+    <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+</head>
+<body>
+
+<!-- Banner GIF full màn hình -->
+<div class="promo-banner">
+    <img th:src="@{/Customer/Item/Image/Example.gif}" alt="Promotion Nai Vang">
+</div>
+
+<!-- Header -->
+<div class="header">
+    <div class="container header-inner">
+        <a th:href="@{/}">
+            <img th:src="@{/Customer/Item/Image/Logo7.png}" alt="Logo" width="150" height="100">
+        </a>
+
+
+        <!-- Search -->
+        <div class="search-bar">
+            <div class="search-wrap">
+                <input type="text" placeholder="Bạn cần tìm ....">
+                <span class="search-icon">
+            <svg viewBox="0 0 24 27" aria-hidden="true">
+              <path d="M10,2C4.5,2,0,6.5,0,12s4.5,10,10,10s10-4.5,10-10S15.5,2,10,2z M10,19c-3.9,0-7-3.1-7-7s3.1-7,7-7s7,3.1,7,7S13.9,19,10,19z"></path>
+              <rect x="17" y="17" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -9.2844 19.5856)" width="4" height="8"></rect>
+            </svg>
+          </span>
+            </div>
+        </div>
+
+        <!-- Icons (User + Cart) -->
+        <div class="header-icons">
+            <!-- User Section -->
+            <div class="user-section">
+                <!-- Nút user -->
+                <button class="user-btn" aria-label="Tài khoản">
+                    <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+                        <path fill="currentColor"
+                              d="M17.75 14c1.24 0 2.25 1.01 2.25 2.25v.92c0 .57-.18 1.13-.52 1.6C18 20.9 15.5 22 12 22s-6-1.1-7.48-3.23c-.34-.47-.52-1.03-.52-1.6v-.92C4 15.01 5.01 14 6.25 14h11.5ZM12 2a5 5 0 1 1 0 10 5 5 0 0 1 0-10Z"/>
+                    </svg>
+                </button>
+
+                <!-- Dropdown (ẩn mặc định, hiện khi hover hoặc click) -->
+                <div class="user-dropdown">
+                    <a th:href="@{/login}" id="login-btn" sec:authorize="isAnonymous()">Đăng nhập</a>
+                    <a th:href="@{/sign-up}" id="subcribe-btn" sec:authorize="isAnonymous()">Đăng ký</a>
+
+                    <a th:href="@{/profile}" id="account-info" sec:authorize="isAuthenticated()">Thông tin tài khoản</a>
+                    <a th:href="@{/logout}" id="logout-btn" sec:authorize="isAuthenticated()">Đăng xuất</a>
+                </div>
+            </div>
+
+
+            <!-- Cart Section -->
+            <div class="cart-section">
+                <a href="#" class="cart-pill" title="Giỏ hàng">
+                    <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
+                        <path fill="currentColor"
+                              d="M7 4h-2l-1 2h2l3.6 7.59-1.35 2.44C7.89 16.37 8.29 17 8.94 17h9.56v-2H9.42l1.1-2h7.25c.75 0 1.41-.41 1.75-1.03L22 7H6.42l-.7-1h1.28L7 4Zm-1 16a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm12 0a2 2 0 1 0 .001-3.999A2 2 0 0 0 18 20Z"/>
+                    </svg>
+                    <span>Giỏ hàng</span>
+                </a>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<!-- Menu -->
+<div class="menu-bar">
+    <div class="container menu-inner">
+
+        <!-- Danh Mục Sản Phẩm -->
+        <div class="dropdown">
+            <a href="#">☰ DANH MỤC SẢN PHẨM</a>
+
+            <!-- Menu cấp 1 -->
+            <ul class="dropdown-content"> <li class="has-submenu" th:each="cat : ${rootCategories}"> <a th:href="@{/category/{id}(id=${cat.categoryId})}"> <span th:text="${cat.name}"></span> </a> </li> </ul>
+        </div>
+
+        <!-- Sản Phẩm Mới -->
+        <a href="#">SẢN PHẨM MỚI</a>
+
+        <!-- Lam Thảo Beauty -->
+        <div class="dropdown">
+            <a href="#">NAI VANG BEAUTY</a>
+            <ul class="dropdown-content">
+                <li><a href="#">Thương hiệu A</a></li>
+                <li><a href="#">Thương hiệu B</a></li>
+                <li><a href="#">Thương hiệu C</a></li>
+            </ul>
+        </div>
+
+        <!-- Deal hot -->
+        <a href="#">💖 DEAL HOT DƯỚI 100K 💖</a>
+
+        <!-- Tin tức -->
+        <div class="dropdown">
+            <a href="/blog">TIN TỨC</a>
+        </div>
+
+        <!-- Tra cứu đơn -->
+        <a href="#">TRA CỨU ĐƠN HÀNG</a>
+    </div>
+</div>
+
+
+
+<!-- Breadcrumb -->
+<nav class="breadcrumb">
+    <a th:href="@{/}">
+        <img th:src="@{/Customer/ItemDetail/Image/Home_icon.png}" alt="Home" class="breadcrumb-icon">
+        Trang chủ
+    </a>
+    <span>&gt;</span>
+    <a th:href="@{/item}">Danh mục</a>
+    <span>&gt;</span>
+    <span class="current" th:text="${item.name}">Tên sản phẩm</span>
+</nav>
+
+
+<!-- Mục sản phẩm -->
+<div class="product-detail-container">
+    <!-- Cột trái: Ảnh sản phẩm -->
+    <div class="product-images">
+        <div class="main-image">
+            <img id="currentImage" th:src="@{/Customer/ItemDetail/Image/Cerave1.jpg}" alt="Image 1">
+        </div>
+
+        <!-- Thumbnails -->
+        <div class="thumbnail-images">
+            <img class="thumbnail active" th:src="@{/Customer/Item/Image/Cerave1.jpg}" alt="Image 1">
+            <img class="thumbnail" th:src="@{/Customer/ItemDetail/Image/Cerave2.jpg}" alt="Image 2">
+            <img class="thumbnail" th:src="@{/Customer/ItemDetail/Image/Cerave3.jpg}" alt="Image 3">
+            <img class="thumbnail" th:src="@{/Customer/ItemDetail/Image/Cerave4.png}" alt="Image 4">
+        </div>
+    </div>
+
+
+
+    <!-- Cột phải: Thông tin sản phẩm -->
+    <div class="product-info">
+        <!-- Tên sản phẩm -->
+        <h1 class="product-title" th:text="${item.name}">Tên sản phẩm</h1>
+
+        <!-- Meta: loại sản phẩm -->
+        <div class="product-meta">
+        <span class="category">
+            Loại sản phẩm:
+            <strong th:text="${item.category != null ? item.category.name : 'Chưa có'}">Tên category</strong>
+        </span>
+            <!--
+            | <span class="sold">
+                Đã bán: <strong th:text="${item.sold != null ? item.sold : 0}"></strong>
+            </span>
+            👆 Field 'sold' chưa có trong entity Item, cần thêm cột sold (int) nếu muốn.
+            -->
+        </div>
+
+        <!-- Rating (hiện tại fix cứng, DB chưa có rating) -->
+        <div class="product-rating">
+            <span class="stars" data-rating="4.2"></span>
+            <span class="review-count">(120 đánh giá)</span>
+        </div>
+
+        <!-- Wishlist icon -->
+        <div class="wishlist">
+            <i id="wishlistIcon" class="fa-regular fa-heart"></i>
+        </div>
+
+        <!-- Giá -->
+        <div class="price-box">
+        <span class="current-price"
+              th:text="${#numbers.formatInteger(item.price, 0, 'POINT')} + ' đ'">0đ</span>
+
+            <!--
+            <span class="old-price" th:if="${item.oldPrice != null}"
+                  th:text="${#numbers.formatInteger(item.oldPrice, 0, 'POINT')} + ' đ'">0đ</span>
+            <span class="discount" th:if="${item.discount != null}"
+                  th:text="'-' + ${item.discount} + '%'">-0%</span>
+            👆 Field 'oldPrice' và 'discount' chưa có trong entity Item.
+            -->
+        </div>
+
+        <!-- Mô tả -->
+        <p class="product-description" th:text="${item.description}">
+            Mô tả sản phẩm…
+        </p>
+
+        <!-- Thông tin phụ (fix cứng, sau có thể bind DB) -->
+        <div class="extra-info">
+            <div class="info-item">🚚 <span>Miễn phí vận chuyển cho đơn từ 199K</span></div>
+            <div class="info-item">⚡ <span>Giao hàng nhanh trong 2h nội thành Hồ Chí Minh</span></div>
+            <div class="info-item">🛡️ <span>Cam kết 100% chính hãng từ Nai Vàng</span></div>
+            <div class="info-item">🔄 <span>Đổi trả trong 15 ngày nếu sản phẩm lỗi</span></div>
+            <div class="info-item">🎁 <span>Giảm 10% tối đa 30K cho khách hàng lần đầu mua hàng</span></div>
+        </div>
+
+        <!-- Số lượng -->
+        <div class="quantity-box">
+            <label for="quantity">Số lượng:</label>
+            <input type="number" id="quantity" name="quantity" value="1" min="1">
+
+            <!--
+            <span class="stock-status"
+                  th:text="${item.stock > 0 ? 'Còn hàng' : 'Hết hàng'}">Còn hàng</span>
+            👆 Field 'stock' chưa có trong entity Item.
+            -->
+            <span class="stock-status">Còn hàng</span> <!-- tạm fix cứng -->
+        </div>
+
+        <!-- Nút hành động -->
+        <div class="action-buttons">
+            <button class="add-cart">Thêm vào giỏ hàng</button>
+            <button class="buy-now">Mua ngay</button>
+        </div>
+    </div>
+
+
+</div>
+
+<div class="product-tabs">
+
+
+    <!-- Nội dung các tab -->
+    <div class="tab-content active" id="gioithieu">
+        <p>
+            <span class="link">Sữa Rửa Mặt </span>Cerave Sạch Sâu là sản phẩm sữa rửa mặt đến từ thương hiệu mỹ phẩm
+            <span class="link">Cerave</span> của Mỹ, với sự kết hợp của ba Ceramides thiết yếu,
+            Hyaluronic Acid giúp làm sạch và giữ ẩm cho làn da mà không ảnh hưởng đến hàng rào bảo vệ.
+        </p>
+        <img th:src="@{/Customer/ItemDetail/Image/Ceraveinfo.jpg}" alt="Cerave" class="product-img">
+    </div>
+
+    <div class="tab-content" id="congdung">
+        <div class="desc-wrapper">
+            <div class="desc-text" id="congdungText">
+                <p><b>CÔNG DỤNG CHÍNH – MAIN FUNCTION:</b></p>
+                <ul>
+                    <li>3 loại Ceramides (1, 3, 6-II) thiết yếu giúp khôi phục hàng rào độ ẩm da.</li>
+                    <li>Hyaluronic Acid giúp duy trì độ ẩm tự nhiên của da.</li>
+                </ul>
+                <img th:src="@{/Customer/ItemDetail/Image/Cerave2.jpg}" alt="Công dụng Cerave" class="product-img">
+                <ul>
+                    <li>Niacinamide giúp làm dịu, nuôi dưỡng, củng cố hàng rào da.</li>
+                    <li>Kết cấu dạng gel tạo bọt giúp làm sạch sâu, loại bỏ dầu thừa, thông thoáng lỗ chân lông nhưng vẫn duy trì độ ẩm tự nhiên của da.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="tab-content" id="thanhphan">
+        <div class="desc-wrapper">
+            <div class="desc-text" id="thanhphanText">
+                <p><b>THÀNH PHẦN - INGREDIENTS:</b></p>
+                <ul>
+                    <li>3 loại Ceramides (1, 3, 6-II): thiết yếu giúp khôi phục hàng rào độ ẩm da. </li>
+                    <li>Hyaluronic Acid: giúp duy trì độ ẩm tự nhiên của da.</li>
+                    <li> Niacinamide: giúp làm dịu, nuôi dưỡng, củng cố hàng rào da.</li>
+                </ul>
+                <p><b>Thành phần đầy đủ:</b></p>
+                <ul>
+                    <li>Purified Water (Aqua), Cocamidopropyl Hydroxysultaine, Glycerin, Sodium Lauroyl Sarcosinate, Peg-150 Pentaerythrityl Tetrastearate (And) Peg-6 Caprylic/Capric Glycerides, Niacinamide, Propylene Glycol, Sodium Methyl Cocoyl Taurate, Ceramide 3, Ceramide 6-Ii, Ceramide 1, Hyaluronic Acid, Cholesterol, Sodium Chloride, Phytosphingosine, Citric Acid, Edetate Disodium Dihydrate, Sodium Lauroyl Lactylate, Methylparaben, Propylparaben, Carbomer, Xanthan Gum. </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="tab-content" id="huongdan">
+        <div class="desc-wrapper">
+            <div class="desc-text" id="huongdanText">
+                <p><b>CÁCH DÙNG – DIRECTION FOR USE</b></p>
+                <ul>
+                    <li>Làm ẩm da với nước và cho một lượng sản phẩm vừa đủ ra lòng bàn tay</li>
+                    <li>Thoa sản phẩm lên mặt và nhẹ nhàng massage trong vòng 30 giây</li>
+                    <li> Nhẹ nhàng rửa sạch lại với nước</li>
+                </ul>
+                <p><b>Quy cách:</b></p>
+                <ul>
+                    <li>Chai, 473ml</li>
+                </ul>
+                <p><b>Bảo quản:</b></p>
+                <ul>
+                    <li>Bảo quản nơi khô ráo, thoáng mát, tránh ánh sáng trực tiếp</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="tab-content" id="thongtin">
+        <table class="info-table">
+            <tr>
+                <th>Dành cho da</th>
+                <td>Mọi Loại Da</td>
+            </tr>
+            <tr>
+                <th>Xuất xứ thương hiệu</th>
+                <td>United States</td>
+            </tr>
+            <tr>
+                <th>Hạn sử dụng (tháng)</th>
+                <td>36</td>
+            </tr>
+            <tr>
+                <th>Thương hiệu</th>
+                <td>CERAVE</td>
+            </tr>
+        </table>
+    </div>
+
+</div>
+
+
+
+
+
+<!-- FOOTER -->
+<div class="subscribe-bar">
+    <h2>ĐĂNG KÝ NHẬN ƯU ĐÃI</h2>
+    <form class="subscribe-form" id="subscribeForm">
+        <div class="input-wrap">
+            <input type="email" id="emailInput" placeholder="Nhập email của bạn">
+            <!-- dòng báo lỗi -->
+            <small id="emailError" class="error-msg"></small>
+        </div>
+        <button type="submit">ĐĂNG KÝ</button>
+    </form>
+</div>
+
+
+
+<footer class="footer">
+    <div class="footer-main">
+        <!-- Cột 1: Logo + thông tin -->
+        <div class="footer-col">
+            <img th:src="@{/Customer/ItemDetail/Image/logo7.png}" alt="Nai Vang Logo" class="footer-logo">
+            <p><strong>CÔNG TY TNHH MTV THƯƠNG MẠI VÀ ĐẦU TƯ LIÊN Á CHÂU</strong></p>
+            <p>Giấy chứng nhận đăng ký doanh nghiệp số 0310618188, cấp ngày 29.01.2011, nơi cấp Sở Kế Hoạch và Đầu Tư TP. Hồ Chí Minh</p>
+            <p>Trụ sở chính: L2-VP-01, 346 Bến Vân Đồn, Phường Vĩnh Hội, TP. Hồ Chí Minh</p>
+            <p>Hotline: <a href="tel:19004449">19004449</a>
+                Điện thoại: <a href="tel:02838328272">02838328272</a></p>
+            <img th:src="@{/Customer/ItemDetail/Image/bocongthuong_1_1.webp}" alt="Đã thông báo Bộ Công Thương" class="boct-logo">
+        </div>
+
+        <!-- Cột 2: Theo dõi + App + Thanh toán -->
+        <div class="footer-col">
+            <h4>Theo dõi chúng tôi</h4>
+            <div class="social-links">
+                <a href="#"><img th:src="@{/Customer/ItemDetail/Image/facebook.webp}" alt="Facebook"></a>
+                <a href="#"><img th:src="@{/Customer/ItemDetail/Image/instagram.webp}" alt="Instagram"></a>
+                <a href="#"><img th:src="@{/Customer/ItemDetail/Image/youtube.webp}" alt="YouTube"></a>
+                <a href="#"><img th:src="@{/Customer/ItemDetail/Image/tiktok.webp}" alt="TikTok"></a>
+            </div>
+
+            <h4>Tải App Ngay</h4>
+            <div class="app-links">
+                <img th:src="@{/Customer/ItemDetail/Image/maqr.png}" alt="QR Code" class="qr-code">
+                <div>
+                    <a href="#"><img th:src="@{/Customer/ItemDetail/Image/googleplay.webp}" alt="Google Play"></a>
+                    <a href="#"><img th:src="@{/Customer/ItemDetail/Image/appstore.webp}" alt="App Store"></a>
+                </div>
+            </div>
+
+            <h4>Chấp nhận Phương thức thanh toán</h4>
+            <div class="pay-methods">
+                <img th:src="@{/Customer/ItemDetail/Image/vnpay.png}" alt="VNPay">
+                <img th:src="@{/Customer/ItemDetail/Image/momo.webp}" alt="MoMo" class="momo-logo">
+                <img th:src="@{/Customer/ItemDetail/Image/visa.png}" alt="Visa">
+            </div>
+        </div>
+
+        <!-- Cột 3: Về chúng tôi -->
+        <div class="footer-col">
+            <h4>Về chúng tôi</h4>
+            <ul>
+                <li><a href="#">Giới thiệu</a></li>
+                <li><a href="#">Tin Tức</a></li>
+                <li><a href="#">Cẩm nang Làm đẹp</a></li>
+                <li><a href="#">Tuyển dụng</a></li>
+                <li><a href="#">Đổi điểm Hội Cam</a></li>
+                <li><a href="#">Liên hệ</a></li>
+                <li><a href="#">Địa chỉ cửa hàng</a></li>
+                <li><a href="#">Cho thuê mặt bằng</a></li>
+                <li><a href="#">Hợp tác cùng Guardian</a></li>
+            </ul>
+        </div>
+
+        <!-- Cột 4: Chính sách -->
+        <div class="footer-col">
+            <h4>Chính sách</h4>
+            <ul>
+                <li><a href="#">Chính sách và quy định chung</a></li>
+                <li><a href="#">Quy định và hình thức thanh toán</a></li>
+                <li><a href="#">Chính sách vận chuyển</a></li>
+                <li><a href="#">Chính sách đổi/trả hàng và hoàn tiền</a></li>
+                <li><a href="#">Chính sách bảo mật thông tin cá nhân</a></li>
+                <li><a href="#">Hướng dẫn mua hàng</a></li>
+                <li><a href="#">Quy trình xuất hóa đơn Điện Tử</a></li>
+                <li><a href="#">Chính sách Thông tin Hội Cam</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        <p>© 2025 Nai Vang. All rights reserved.</p>
+    </div>
+</footer>
+
+<script th:src="@{/Customer/ItemDetail/Item.js}"></script>
+</body>
+</html>
+

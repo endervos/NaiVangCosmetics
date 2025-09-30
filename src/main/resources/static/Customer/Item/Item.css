@@ -496,6 +496,18 @@
   max-width: 1200px;
   margin: 20px auto;
 }
+/* Link bao sản phẩm */
+.product-card a {
+    text-decoration: none;  /* bỏ gạch chân */
+    color: inherit;         /* giữ nguyên màu chữ */
+    display: block;         /* để link bao hết card */
+}
+
+.product-card a:hover {
+    color: inherit;         /* khi hover cũng không đổi màu */
+}
+
+
 
 /* Sidebar */
 .sidebar {

@@ -14,6 +14,10 @@ public class Item {
     @Column(name = "item_id", nullable = false)
     private Integer itemId;
 
+    // One-to-Many với ItemImage
+    @OneToMany(mappedBy = "item", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<ItemImage> images = new ArrayList<>();
+
     @Column(name = "name", nullable = false, unique = true, length = 100)
     private String name;
 
@@ -29,23 +33,16 @@ public class Item {
     @Column(name = "price", nullable = false)
     private Integer price;
 
-    @Column(name = "category_id", nullable = false)
-    private Integer categoryId;
-
-//    @Column(name = "isActive", nullable = false)
-//    private Boolean isActive;
+    // Quan hệ N-1: nhiều Item thuộc 1 Category
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id", nullable = false)
+    private Category category;
 
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
-
-//    @Column(name = "updating")
-//    private Integer updating;
-
-//    @OneToMany(mappedBy = "item", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-//    private List<ItemImage> images = new ArrayList<>();
 
     @PrePersist
     protected void onCreate() {
@@ -58,16 +55,23 @@ public class Item {
         this.updatedAt = LocalDateTime.now();
     }
 
-    public Item() {
-    }
+    public Item() {}
 
-    // Getters & Setters
+    // ----- Getter & Setter -----
     public Integer getItemId() {
         return itemId;
     }
 
     public void setItemId(Integer itemId) {
         this.itemId = itemId;
+    }
+
+    public List<ItemImage> getImages() {
+        return images;
+    }
+
+    public void setImages(List<ItemImage> images) {
+        this.images = images;
     }
 
     public String getName() {
@@ -110,21 +114,13 @@ public class Item {
         this.price = price;
     }
 
-    public Integer getCategoryId() {
-        return categoryId;
+    public Category getCategory() {
+        return category;
     }
 
-    public void setCategoryId(Integer categoryId) {
-        this.categoryId = categoryId;
+    public void setCategory(Category category) {
+        this.category = category;
     }
-
-//    public Boolean getIsActive() {
-//        return isActive;
-//    }
-//
-//    public void setIsActive(Boolean active) {
-//        isActive = active;
-//    }
 
     public LocalDateTime getCreatedAt() {
         return createdAt;
@@ -141,12 +137,4 @@ public class Item {
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
-
-//    public Integer getUpdating() {
-//        return updating;
-//    }
-//
-//    public void setUpdating(Integer updating) {
-//        this.updating = updating;
-//    }
 }
