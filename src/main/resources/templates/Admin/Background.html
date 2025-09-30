@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dashboard</title>
   <link rel="stylesheet" href="/src/main/resources/static/Manager/Background/Background.css">
-  <link rel="stylesheet" href="/src/main/resources/static/Manager/ReviewManagement/ReviewManagement.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="icon" type="image/png" href="/src/main/resources/static/Customer/Example/Image/LogoConNai.png">
 </head>
@@ -15,7 +14,7 @@
   <nav class="admin-sidebar">
     <div class="sidebar-logo">
       <img src="/src/main/resources/static/Customer/Example/Image/LogoConNai.png" alt="Logo" class="logo-img">
-      <h2 class="logo-text">Manager</h2>
+      <h2 class="logo-text">Admin</h2>
     </div>
     <ul>
       <li><a href="/src/main/resources/templates/Manager/Dashboard.html"><i class="fa-solid fa-gauge"></i> Dashboard</a></li>
@@ -35,7 +34,7 @@
       <div class="user-menu">
         <div class="user-info">
           <i class="fa-solid fa-user-circle"></i>
-          <span>Manager</span>
+          <span>Admin</span>
           <i class="fa-solid fa-chevron-down"></i>
         </div>
         <!-- Dropdown -->
@@ -45,53 +44,13 @@
       </div>
     </div>
 
+    <!-- Main area -->
     <div class="main-area">
-      <div class="admin-review-container">
-          <h2>Quản lý đánh giá</h2>
-
-          <!-- Filter & search -->
-          <div class="review-controls">
-              <label for="product-search">Tìm theo tên sản phẩm:</label>
-              <input type="text" id="product-search" placeholder="Nhập ....">
-
-              <label for="sort-filter">Sắp xếp:</label>
-              <select id="sort-filter">
-                  <option value="latest">Mới nhất</option>
-                  <option value="oldest">Cũ nhất</option>
-              </select>
-
-              <button id="apply-filter">Áp dụng</button>
-              <button id="show-all">Hiện tất cả</button>
-          </div>
-
-          <!-- Table đánh giá -->
-          <table id="review-table">
-              <thead>
-                  <tr>
-                      <th>Tên sản phẩm</th>
-                      <th>Tên khách hàng</th>
-                      <th>Rating</th>
-                      <th>Nhận xét</th>
-                      <!-- <th>Reply</th> -->
-                      <th>Ngày</th>
-                      <th>Tùy chọn </th>
-                  </tr>
-              </thead>
-              <tbody></tbody>
-          </table>
-
-          <!-- Phân trang -->
-          <div class="pagination-controls">
-              <button id="prev-page">Prev</button>
-              <span id="page-info"></span>
-              <button id="next-page">Next</button>
-          </div>
-      </div>
+      <h2>Dashboard</h2>
+      <p>Nội dung quản trị hiển thị ở đây...</p>
     </div>
+  </div>
 
   <script src="/src/main/resources/static/Manager/Background/Background.js"></script>
-  <script src="/src/main/resources/static/Manager/ReviewManagement/ReviewManagement.js"></script>
 </body>
 </html>
-
-

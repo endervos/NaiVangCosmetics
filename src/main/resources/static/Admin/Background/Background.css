@@ -1,0 +1,207 @@
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Body Styling */
+.admin-body {
+  display: flex;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+/* Sidebar Styling */
+.admin-sidebar {
+  width: 250px;
+  background: #2c3e50;
+  color: #fff;
+  padding: 20px 0;
+  position: fixed;
+  height: 100vh; /* Chiều cao bằng toàn bộ viewport */
+  overflow-y: auto;
+  transition: all 0.3s ease;
+}
+
+.sidebar-logo {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.logo-img {
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+}
+
+.logo-text {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.admin-sidebar ul {
+  list-style: none;
+  margin-top: 20px;
+}
+
+.admin-sidebar ul li {
+  padding: 25px 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05); /* Gạch ngang phân cách */
+}
+
+.admin-sidebar ul li a {
+  color: #dfe6e9;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+.admin-sidebar ul li a i {
+  margin-right: 10px;
+}
+
+.admin-sidebar ul li a:hover {
+  color: #3498db;
+  background: rgba(255, 255, 255, 0.1);
+  padding-left: 10px;
+}
+
+/* Main Content */
+.admin-content {
+  margin-left: 250px;
+  width: calc(100% - 250px);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Đảm bảo admin-content cao bằng viewport */
+}
+
+/* Top Bar */
+.top-bar {
+  background: #fff;
+  padding: 15px 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  position: sticky;
+  top: 0; /* Sát mép trên */
+  z-index: 1000;
+  border-radius: 0 0 20px 20px;
+}
+
+.user-menu {
+  position: relative;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-size: 16px;
+  color: #2c3e50;
+}
+
+.user-info i {
+  margin-right: 8px;
+}
+
+.user-info .fa-chevron-down {
+  margin-left: 8px;
+}
+
+.dropdown {
+  display: none;
+  position: absolute;
+  top: 40px;
+  right: 0;
+  background: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  list-style: none;
+  min-width: 150px;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.dropdown li a {
+  display: block;
+  padding: 10px 15px;
+  color: #2c3e50;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.dropdown li a:hover {
+  background: #3498db;
+  color: #fff;
+}
+
+.user-menu:hover .dropdown {
+  display: block;
+}
+
+/* Main Area */
+.main-area {
+  flex: 1; /* Chiếm toàn bộ không gian còn lại */
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  margin-top: 20px; 
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden; /* Ngăn cuộn trong main-area */
+  height: calc(100vh - 60px); /* Chiều cao bằng sidebar, trừ chiều cao top-bar */
+  width: 100%; /* Full chiều rộng của admin-content */
+}
+
+/* Main Area Content */
+.main-area h2 {
+  font-size: 24px;
+  color: #2c3e50;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.main-area p {
+  font-size: 16px;
+  color: #34495e;
+  text-align: center;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .admin-sidebar {
+    width: 200px;
+  }
+
+  .admin-content {
+    margin-left: 200px;
+    width: calc(100% - 200px);
+  }
+}
+
+@media (max-width: 576px) {
+  .admin-sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+  }
+
+  .admin-content {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .top-bar {
+    position: relative; /* Bỏ sticky trên màn hình nhỏ */
+  }
+
+  .main-area {
+    height: auto; /* Trên màn hình nhỏ, để main-area tự điều chỉnh chiều cao */
+    overflow: auto; /* Cho phép cuộn trên màn hình nhỏ nếu cần */
+  }
+}

@@ -1,0 +1,132 @@
+/* Container chính */
+.admin-review-container {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.admin-review-container h2 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* Controls (filter/search) */
+.review-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.review-controls label {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.review-controls input,
+.review-controls select,
+.review-controls button {
+    padding: 6px 12px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+}
+
+
+.review-controls input:focus,
+.review-controls select:focus,
+.review-controls button:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+.review-controls button {
+    background: #24cb84;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+.review-controls button:hover {
+    background-color: #000000;
+    color : rgb(255, 255, 255);
+}
+
+/* Table */
+#review-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 30px;
+}
+
+#review-table th, #review-table td {
+    padding: 15px;
+    text-align: center;
+    border: 1px solid #ddd;
+    font-size: 14px;
+}
+
+#review-table th {
+    background-color: #f1f1f1;
+    color: #555;
+}
+
+/* Rating stars */
+.rating {
+    font-size: 20px;
+    color: gold;
+}
+
+.rating span {
+    margin-right: 2px;
+}
+
+.rating span.gray {
+    color: #ddd;
+}
+
+/* Pagination Controls */
+.pagination-controls {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.pagination-controls button {
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    background-color: #f0f0f0;
+    color: #333;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.pagination-controls button:hover {
+    background-color: #007bff;
+    color: white;
+}
+
+#page-info {
+    font-size: 16px;
+    color: #333;
+}
+
+/* Delete Button */
+.delete-btn {
+    padding: 8px 16px;
+    background-color: red;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.delete-btn:hover {
+    background-color: darkred;
+}
