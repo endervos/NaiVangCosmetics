@@ -45,7 +45,7 @@
 }
 
 .review-controls button {
-    background: #24cb84;
+    background: #379387;
     color: #fff;
     border: none;
     cursor: pointer;
@@ -107,8 +107,8 @@
 }
 
 .pagination-controls button:hover {
-    background-color: #007bff;
-    color: white;
+    background-color: #3e776b;
+
 }
 
 #page-info {
@@ -129,4 +129,13 @@
 
 .delete-btn:hover {
     background-color: darkred;
+}
+
+#prev-page:disabled, #next-page:disabled {
+  background: #95a5a6;
+  cursor: not-allowed;
+}
+
+#prev-page:hover:not(:disabled), #next-page:hover:not(:disabled) {
+  background: #379387;
 }
