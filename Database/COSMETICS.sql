@@ -86,7 +86,7 @@ CREATE TABLE voucher (
   used_count INT DEFAULT 0,
   start_date DATETIME,
   end_date DATETIME,
-  isActive BOOLEAN DEFAULT TRUE
+  is_active BOOLEAN DEFAULT TRUE
 ) ENGINE=InnoDB;
 
 CREATE TABLE category (
@@ -107,7 +107,7 @@ CREATE TABLE item (
   ingredient TEXT,
   price INT NOT NULL CHECK (price >= 0),
   category_id INT,
-  isActive BOOLEAN NOT NULL DEFAULT TRUE,
+  is_active BOOLEAN NOT NULL DEFAULT TRUE,
   created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   updating INT NOT NULL DEFAULT 1,
@@ -118,7 +118,7 @@ CREATE TABLE item (
 CREATE TABLE item_image (
   item_image_id INT AUTO_INCREMENT PRIMARY KEY,
   item_id INT NOT NULL,
-  imageBlob BLOB,
+  image_blob BLOB,
   alt VARCHAR(255),
   is_primary BOOLEAN DEFAULT FALSE,
   created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
