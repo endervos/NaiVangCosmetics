@@ -3,11 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nai Vang Cosmetic</title>
+    <title>Đổi mật khẩu</title>
     <link rel="icon" type="image/png" th:href="@{/Customer/Home/LogoConNai.png}">
-    <link rel="stylesheet" th:href="@{/Customer/Home/Home.css}">
     <link rel="stylesheet" th:href="@{/Customer/AccountManage/AccountManage.css}">
-    <link rel="stylesheet" th:href="@{/Customer/AccountManage/AccountManage.js}">
+    <link rel="stylesheet" th:href="@{/Customer/Home/Home.css}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -218,65 +217,43 @@
     </div>
 </div>
 
+
 <div class="main-container">
-    <!-- Sidebar -->
     <aside class="menu-sidebar">
         <h3>Chào <span th:text="${user.fullname}">User</span></h3>
         <ul>
             <li class="menu-item">
-                <a th:href="@{/profile}">Thông tin tài khoản</a>
+            <a th:href="@{/profile}">Thông tin tài khoản</a>
             </li>
             <li class="menu-item active"><a th:href="@{/account}">Quản lý tài khoản</a></li>
             <li class="menu-item"><a th:href="@{/orderManage}">Quản lý đơn hàng</a></li>
             <li class="menu-item"><a th:href="@{/favourite}">Danh sách yêu thích</a></li>
         </ul>
     </aside>
-
-    <main class="account-info" th:object="${user}">
-        <h2>Thông tin tài khoản</h2>
-        <div class="profile-container">
-            <label>Tài khoản</label>
-            <input type="text" th:field="*{email}"  />
-
-            <label>Họ và tên</label>
-            <input type="text" th:field="*{fullname}"  />
-
-            <label>Số điện thoại</label>
-            <input type="text" th:field="*{phoneNumber}"  />
-
-            <div class="address-group">
-                <label>Địa chỉ</label>
-                <div class="address-row">
-                    <input type="text" name="addresses" class="address-input" />
-                    <button type="button" class="add-address-btn">+ Thêm địa chỉ</button>
-                </div>
-            </div>
-
-            <!-- Container để chứa các địa chỉ bổ sung -->
-            <div id="extra-addresses"></div>
+ <!-- Đổi mật khẩu -->
 
 
-            <label>Ngày sinh</label>
-            <input type="text" th:field="*{birthday}"  />
+<div class="change-password-container">
+  <div class="change-password-box">
 
-            <!-- Giới tính -->
-            <label>Giới tính</label>
-            <div class="d-flex gender-container" >
-                <label>
-                    <input type="radio" th:field="*{gender}"  value="Nam" /> Nam
-                </label>
-                <label>
-                    <input type="radio" th:field="*{gender}"  value="Nữ" /> Nữ
-                </label>
-            </div>
+    <h2 class="change-password-title">Đổi Mật Khẩu</h2>
+    <div class="warning-message">
+      <span>Cảnh báo: Mật khẩu mới phải khác với mật khẩu cũ.</span>
+    </div>
+    <form class="change-password-form">
+      <label for="current-password" class="password-label">Mật khẩu cũ</label>
+      <input type="password" id="current-password" class="password-input" placeholder="Nhập mật khẩu cũ">
 
-            <button class="btn">Cập nhật thông tin</button>
-        </div>
-    </main>
+      <label for="new-password" class="password-label">Mật khẩu mới</label>
+      <input type="password" id="new-password" class="password-input" placeholder="Nhập mật khẩu mới">
 
-</div>
-<!-- End Main Content -->
+      <label for="confirm-password" class="password-label">Xác nhận mật khẩu</label>
+      <input type="password" id="confirm-password" class="password-input" placeholder="Xác nhận mật khẩu mới">
 
+      <button type="submit" class="custom-button">Đổi mật khẩu</button>
+    </form>
+    </div>
+    </div>
 </div>
 <!-- FOOTER -->
 <div class="subscribe-bar">
@@ -290,44 +267,45 @@
         <button type="submit">ĐĂNG KÝ</button>
     </form>
 </div>
+</div>
 
 <footer class="footer">
     <div class="footer-main">
         <!-- Cột 1: Logo + thông tin -->
         <div class="footer-col">
-            <img th:src="@{/Home/Logo7.png}" alt="Nai Vang Logo" class="footer-logo">
+            <img th:src="@{/Customer/Home/Logo7.png}" alt="Nai Vang Logo" class="footer-logo">
             <p><strong>CÔNG TY TNHH MTV THƯƠNG MẠI VÀ ĐẦU TƯ LIÊN Á CHÂU</strong></p>
             <p>Giấy chứng nhận đăng ký doanh nghiệp số 0310618188, cấp ngày 29.01.2011, nơi cấp Sở Kế Hoạch và Đầu Tư TP. Hồ Chí Minh</p>
             <p>Trụ sở chính: L2-VP-01, 346 Bến Vân Đồn, Phường Vĩnh Hội, TP. Hồ Chí Minh</p>
             <p>Hotline: <a href="tel:19004449">19004449</a>
                 Điện thoại: <a href="tel:02838328272">02838328272</a></p>
-            <img th:src="@{/Home/Bocongthuong_1_1.webp}" alt="Đã thông báo Bộ Công Thương" class="boct-logo">
+            <img th:src="@{/Customer/Home/Bocongthuong_1_1.webp}" alt="Đã thông báo Bộ Công Thương" class="boct-logo">
         </div>
 
         <!-- Cột 2: Theo dõi + App + Thanh toán -->
         <div class="footer-col">
             <h4>Theo dõi chúng tôi</h4>
             <div class="social-links">
-                <a href="#"><img th:src="@{/Home/Facebook.webp}" alt="Facebook"></a>
-                <a href="#"><img th:src="@{/Home/Instagram.webp}" alt="Instagram"></a>
-                <a href="#"><img th:src="@{/Home/Youtube.webp}" alt="YouTube"></a>
-                <a href="#"><img th:src="@{/Home/Tiktok.webp}" alt="TikTok"></a>
+                <a href="#"><img th:src="@{/Customer/Home/Facebook.webp}" alt="Facebook"></a>
+                <a href="#"><img th:src="@{/Customer/Home/Instagram.webp}" alt="Instagram"></a>
+                <a href="#"><img th:src="@{/Customer/Home/Youtube.webp}" alt="YouTube"></a>
+                <a href="#"><img th:src="@{/Customer/Home/Tiktok.webp}" alt="TikTok"></a>
             </div>
 
             <h4>Tải App Ngay</h4>
             <div class="app-links">
-                <img th:src="@{/Home/Maqr.png}" alt="QR Code" class="qr-code">
+                <img th:src="@{/Customer/Home/Maqr.png}" alt="QR Code" class="qr-code">
                 <div>
-                    <a href="#"><img th:src="@{/Home/Googleplay.webp}" alt="Google Play"></a>
-                    <a href="#"><img th:src="@{/Home/Appstore.webp}" alt="App Store"></a>
+                    <a href="#"><img th:src="@{/Customer/Home/Googleplay.webp}" alt="Google Play"></a>
+                    <a href="#"><img th:src="@{/Customer/Home/Appstore.webp}" alt="App Store"></a>
                 </div>
             </div>
 
             <h4>Chấp nhận Phương thức thanh toán</h4>
             <div class="pay-methods">
-                <img th:src="@{/Home/Vnpay.png}" alt="VNPay">
-                <img th:src="@{/Home/Momo.webp}" alt="MoMo" class="momo-logo">
-                <img th:src="@{/Home/Visa.png}" alt="Visa">
+                <img th:src="@{/Customer/Home/Vnpay.png}" alt="VNPay">
+                <img th:src="@{/Customer/Home/Momo.webp}" alt="MoMo" class="momo-logo">
+                <img th:src="@{/Customer/Home/Visa.png}" alt="Visa">
             </div>
         </div>
 
@@ -368,6 +346,7 @@
     </div>
 </footer>
 
-<script th:src="@{/Home/Home.js}"></script>
+<script src="/src/main/resources/static/ChangePass/ChangePass.js"></script>
+<script src="/src/main/resources/static/Example/Example.js"></script>
 </body>
 </html>

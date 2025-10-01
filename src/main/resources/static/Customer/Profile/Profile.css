@@ -5,6 +5,13 @@ body {
     padding: 0;
 }
 
+
+.account-info {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+}
+
 /* Main container */
 .main-container {
     display: flex;
@@ -23,13 +30,6 @@ body {
     padding: 20px;
     background: #fafafa;
     height: 100%;
-    overflow-y: auto;
-}
-
-
-.account-info {
-    flex: 1;
-    padding: 20px;
     overflow-y: auto;
 }
 
