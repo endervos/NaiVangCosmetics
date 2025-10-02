@@ -80,6 +80,66 @@ INSERT INTO category (name, slug) VALUES
 ('Accessories','accessories'),
 ('Others','others');
 
+-- Category con Skincare
+INSERT INTO category (name, parent_id, slug)
+SELECT 'Cleansers', category_id, 'cleansers' FROM category WHERE slug='skincare';
+INSERT INTO category (name, parent_id, slug)
+SELECT 'Moisturizers', category_id, 'moisturizers' FROM category WHERE slug='skincare';
+INSERT INTO category (name, parent_id, slug)
+SELECT 'Serums', category_id, 'serums' FROM category WHERE slug='skincare';
+
+-- Category con Makeup
+INSERT INTO category (name, parent_id, slug)
+SELECT 'Lipsticks', category_id, 'lipsticks' FROM category WHERE slug='makeup';
+INSERT INTO category (name, parent_id, slug)
+SELECT 'Foundations', category_id, 'foundations' FROM category WHERE slug='makeup';
+INSERT INTO category (name, parent_id, slug)
+SELECT 'Mascaras', category_id, 'mascaras' FROM category WHERE slug='makeup';
+
+-- Category con Perfume
+INSERT INTO category (name, parent_id, slug)
+SELECT 'Eau de Parfum', category_id, 'eau-de-parfum' FROM category WHERE slug='perfume';
+INSERT INTO category (name, parent_id, slug)
+SELECT 'Eau de Toilette', category_id, 'eau-de-toilette' FROM category WHERE slug='perfume';
+
+-- Category con Haircare
+INSERT INTO category (name, parent_id, slug)
+SELECT 'Shampoo', category_id, 'shampoo' FROM category WHERE slug='haircare';
+INSERT INTO category (name, parent_id, slug)
+SELECT 'Conditioner', category_id, 'conditioner' FROM category WHERE slug='haircare';
+INSERT INTO category (name, parent_id, slug)
+SELECT 'Hair Oil', category_id, 'hair-oil' FROM category WHERE slug='haircare';
+
+-- Category con Body
+INSERT INTO category (name, parent_id, slug)
+SELECT 'Body Lotion', category_id, 'body-lotion' FROM category WHERE slug='body';
+INSERT INTO category (name, parent_id, slug)
+SELECT 'Body Wash', category_id, 'body-wash' FROM category WHERE slug='body';
+
+-- Category con Men
+INSERT INTO category (name, parent_id, slug)
+SELECT 'Men Skincare', category_id, 'men-skincare' FROM category WHERE slug='men';
+INSERT INTO category (name, parent_id, slug)
+SELECT 'Men Perfume', category_id, 'men-perfume' FROM category WHERE slug='men';
+
+-- Category con Women
+INSERT INTO category (name, parent_id, slug)
+SELECT 'Women Skincare', category_id, 'women-skincare' FROM category WHERE slug='women';
+INSERT INTO category (name, parent_id, slug)
+SELECT 'Women Perfume', category_id, 'women-perfume' FROM category WHERE slug='women';
+
+-- Category con Kids
+INSERT INTO category (name, parent_id, slug)
+SELECT 'Kids Shampoo', category_id, 'kids-shampoo' FROM category WHERE slug='kids';
+INSERT INTO category (name, parent_id, slug)
+SELECT 'Kids Lotion', category_id, 'kids-lotion' FROM category WHERE slug='kids';
+
+-- Category con Accessories
+INSERT INTO category (name, parent_id, slug)
+SELECT 'Makeup Brushes', category_id, 'makeup-brushes' FROM category WHERE slug='accessories';
+INSERT INTO category (name, parent_id, slug)
+SELECT 'Hair Accessories', category_id, 'hair-accessories' FROM category WHERE slug='accessories';
+
 INSERT INTO item (name, description, color, ingredient, price, category_id) VALUES
 ('Item1','Mo ta 1','Red','Ingredient1',100000,1),
 ('Item2','Mo ta 2','Blue','Ingredient2',150000,2),
