@@ -15,7 +15,6 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- Slick JS -->
     <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-
 </head>
 <body>
 
@@ -31,17 +30,16 @@
             <img th:src="@{/Customer/Item/Image/Logo7.png}" alt="Logo" width="150" height="100">
         </a>
 
-
         <!-- Search -->
         <div class="search-bar">
             <div class="search-wrap">
                 <input type="text" placeholder="Bạn cần tìm ....">
                 <span class="search-icon">
-            <svg viewBox="0 0 24 27" aria-hidden="true">
-              <path d="M10,2C4.5,2,0,6.5,0,12s4.5,10,10,10s10-4.5,10-10S15.5,2,10,2z M10,19c-3.9,0-7-3.1-7-7s3.1-7,7-7s7,3.1,7,7S13.9,19,10,19z"></path>
-              <rect x="17" y="17" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -9.2844 19.5856)" width="4" height="8"></rect>
-            </svg>
-          </span>
+                    <svg viewBox="0 0 24 27" aria-hidden="true">
+                        <path d="M10,2C4.5,2,0,6.5,0,12s4.5,10,10,10s10-4.5,10-10S15.5,2,10,2z M10,19c-3.9,0-7-3.1-7-7s3.1-7,7-7s7,3.1,7,7S13.9,19,10,19z"></path>
+                        <rect x="17" y="17" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -9.2844 19.5856)" width="4" height="8"></rect>
+                    </svg>
+                </span>
             </div>
         </div>
 
@@ -49,7 +47,6 @@
         <div class="header-icons">
             <!-- User Section -->
             <div class="user-section">
-                <!-- Nút user -->
                 <button class="user-btn" aria-label="Tài khoản">
                     <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
                         <path fill="currentColor"
@@ -57,16 +54,13 @@
                     </svg>
                 </button>
 
-                <!-- Dropdown (ẩn mặc định, hiện khi hover hoặc click) -->
                 <div class="user-dropdown">
                     <a th:href="@{/login}" id="login-btn" sec:authorize="isAnonymous()">Đăng nhập</a>
                     <a th:href="@{/sign-up}" id="subcribe-btn" sec:authorize="isAnonymous()">Đăng ký</a>
-
                     <a th:href="@{/profile}" id="account-info" sec:authorize="isAuthenticated()">Thông tin tài khoản</a>
                     <a th:href="@{/logout}" id="logout-btn" sec:authorize="isAuthenticated()">Đăng xuất</a>
                 </div>
             </div>
-
 
             <!-- Cart Section -->
             <div class="cart-section">
@@ -78,28 +72,36 @@
                     <span>Giỏ hàng</span>
                 </a>
             </div>
-
         </div>
-
     </div>
 </div>
 
 <!-- Menu -->
 <div class="menu-bar">
     <div class="container menu-inner">
-
-        <!-- Danh Mục Sản Phẩm -->
         <div class="dropdown">
             <a href="#">☰ DANH MỤC SẢN PHẨM</a>
-
-            <!-- Menu cấp 1 -->
-            <ul class="dropdown-content"> <li class="has-submenu" th:each="cat : ${rootCategories}"> <a th:href="@{/category/{id}(id=${cat.categoryId})}"> <span th:text="${cat.name}"></span> </a> </li> </ul>
+            <ul class="dropdown-content">
+                <li class="has-submenu" th:each="cat : ${rootCategories}">
+                    <a th:href="@{/category/{id}/item(id=${cat.categoryId})}">
+                        <img class="menu-icon"
+                             th:src="@{/Customer/Home/{icon}(icon=${cat.slug + '.png'})}"
+                             th:alt="${cat.name}" />
+                        <span th:text="${cat.name}"></span>
+                    </a>
+                    <ul class="submenu" th:if="${#lists.size(cat.children) > 0}">
+                        <li th:each="sub : ${cat.children}">
+                            <a th:href="@{/category/{id}/item(id=${sub.categoryId})}">
+                                <span th:text="${sub.name}"></span>
+                                <span class="count" th:text="${#lists.size(sub.items)}"></span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
         </div>
 
-        <!-- Sản Phẩm Mới -->
         <a href="#">SẢN PHẨM MỚI</a>
-
-        <!-- Lam Thảo Beauty -->
         <div class="dropdown">
             <a href="#">NAI VANG BEAUTY</a>
             <ul class="dropdown-content">
@@ -108,33 +110,25 @@
                 <li><a href="#">Thương hiệu C</a></li>
             </ul>
         </div>
-
-        <!-- Deal hot -->
         <a href="#">💖 DEAL HOT DƯỚI 100K 💖</a>
-
-        <!-- Tin tức -->
         <div class="dropdown">
             <a href="/blog">TIN TỨC</a>
         </div>
-
-        <!-- Tra cứu đơn -->
         <a href="#">TRA CỨU ĐƠN HÀNG</a>
     </div>
 </div>
 
-
 <!-- Breadcrumb -->
 <nav class="breadcrumb">
-    <a href="/">
+    <a th:href="@{/}">
         <img th:src="@{/Customer/Item/Image/Home_icon.png}" alt="Home" class="breadcrumb-icon">
         Trang chủ
     </a>
     <span>&gt;</span>
-    <a href="/danh-muc">Danh mục</a>
+    <a th:href="@{/danh-muc}">Danh mục</a>
     <span>&gt;</span>
-    <span class="current">Chăm sóc da mặt</span>
+    <span class="current" th:text="${category.name}"></span>
 </nav>
-
 
 <!-- Banner -->
 <div class="banner">
@@ -146,101 +140,29 @@
 <section class="page-layout">
     <!-- Sidebar -->
     <aside class="sidebar">
-        <h2 class="sidebar-main-title">Chăm sóc da mặt</h2>
-        <h3 class="sidebar-sub-title">Bạn đang tìm gì ?</h3>
-
-        <!-- CHĂM SÓC DA MẶT -->
-        <div class="listmenu1link1">
-            <a href="#" class="clickmenu2col">
-                <span>CHĂM SÓC DA MẶT</span>
-                <span>
-        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="7" viewBox="0 0 10 7" fill="none">
-          <path d="M5 6.03561L0.5 1.69501L1.4661 0.77539L4.32627 3.53425L5 4.23564L5.67373 3.53425L8.5339 0.775391L9.5 1.69501L5 6.03561Z" fill="#131518"/>
-        </svg>
-      </span>
+        <div class="listmenu1link1"
+             th:each="cat : ${rootCategories}"
+             th:classappend="${currentCategory.parent != null and currentCategory.parent.categoryId == cat.categoryId} ? 'active'">
+            <a th:href="@{'/category/' + ${cat.categoryId} + '/item'}"
+               class="clickmenu2col"
+               th:classappend="${currentCategory.categoryId == cat.categoryId} ? ' highlight'">
+                <span th:text="${cat.name}"></span>
+                <span th:if="${#lists.size(cat.children) > 0}">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="10" height="7" viewBox="0 0 10 7" fill="none">
+                        <path d="M5 6.03561L0.5 1.69501L1.4661 0.77539L4.32627 3.53425L5 4.23564L5.67373 3.53425L8.5339 0.775391L9.5 1.69501L5 6.03561Z" fill="#131518"/>
+                    </svg>
+                </span>
             </a>
-            <ul>
-                <li><a href="#">Tẩy Trang (83)</a></li>
-                <li><a href="#">Sữa Rửa Mặt (116)</a></li>
-                <li><a href="#">Tẩy Tế Bào Chết (17)</a></li>
-                <li><a href="#">Toner/Lotion (102)</a></li>
-                <li><a href="#">Serum/Essence (168)</a></li>
-                <li><a href="#">Kem Dưỡng (142)</a></li>
-                <li><a href="#">Chăm Sóc Mắt (8)</a></li>
+            <ul th:if="${#lists.size(cat.children) > 0}">
+                <li th:each="sub : ${cat.children}"
+                    th:classappend="${currentCategory.categoryId == sub.categoryId} ? 'active-sub'">
+                    <a th:href="@{'/category/' + ${sub.categoryId} + '/item'}">
+                        <span th:text="${sub.name}"></span>
+                        <span class="count" th:text="${#lists.size(sub.items)}"></span>
+                    </a>
+                </li>
             </ul>
         </div>
-
-        <!-- CHĂM SÓC CƠ THỂ -->
-        <div class="listmenu1link1">
-            <a href="#" class="clickmenu2col">
-                <span>CHĂM SÓC CƠ THỂ</span>
-                <span>
-        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="7" viewBox="0 0 10 7" fill="none">
-          <path d="M5 6.03561L0.5 1.69501L1.4661 0.77539L4.32627 3.53425L5 4.23564L5.67373 3.53425L8.5339 0.775391L9.5 1.69501L5 6.03561Z" fill="#131518"/>
-        </svg>
-      </span>
-            </a>
-            <ul>
-                <li><a href="#">Sữa Tắm (50)</a></li>
-                <li><a href="#">Tẩy Tế Bào Chết Body (30)</a></li>
-            </ul>
-        </div>
-
-        <!-- TRANG ĐIỂM -->
-        <div class="listmenu1link1">
-            <a href="#" class="clickmenu2col">
-                <span>TRANG ĐIỂM</span>
-                <span>
-        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="7" viewBox="0 0 10 7" fill="none">
-          <path d="M5 6.03561L0.5 1.69501L1.4661 0.77539L4.32627 3.53425L5 4.23564L5.67373 3.53425L8.5339 0.775391L9.5 1.69501L5 6.03561Z" fill="#131518"/>
-        </svg>
-      </span>
-            </a>
-            <ul>
-                <li><a href="#">Son (120)</a></li>
-                <li><a href="#">Kem Nền (60)</a></li>
-            </ul>
-        </div>
-
-        <!-- Dược mỹ phẩm -->
-        <div class="listmenu1link1">
-            <a href="#" class="clickmenu2col">
-                <span>DƯỢC MỸ PHẨM</span>
-            </a>
-        </div>
-
-        <!-- Thực phẩm chức năng-->
-        <div class="listmenu1link1">
-            <a href="#" class="clickmenu2col">
-                <span>THỰC PHẨM CHỨC NĂNG</span>
-            </a>
-        </div>
-
-        <!-- Best seller -->
-        <div class="listmenu1link1">
-            <a href="#" class="clickmenu2col">
-                <span>BEST SELLER</span>
-            </a>
-        </div>
-
-        <!-- FILTER: Loại da -->
-        <div class="listmenu1link1">
-            <a href="#" class="clickmenu2col">
-                <span>LOẠI DA</span>
-                <span>
-        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="7" viewBox="0 0 10 7" fill="none">
-          <path d="M5 6.03561L0.5 1.69501L1.4661 0.77539L4.32627 3.53425L5 4.23564L5.67373 3.53425L8.5339 0.775391L9.5 1.69501L5 6.03561Z" fill="#131518"/>
-        </svg>
-      </span>
-            </a>
-            <ul class="checkbox-list">
-                <li><input type="checkbox" id="skin-oil"><label for="skin-oil">Da dầu / hỗn hợp thiên dầu</label></li>
-                <li><input type="checkbox" id="skin-dry"><label for="skin-dry">Da khô / hỗn hợp thiên khô</label></li>
-                <li><input type="checkbox" id="skin-normal"><label for="skin-normal">Da thường</label></li>
-                <li><input type="checkbox" id="skin-sensitive"><label for="skin-sensitive">Da nhạy cảm</label></li>
-            </ul>
-        </div>
-
 
         <!-- FILTER: Khoảng giá -->
         <div class="listmenu1link1">
@@ -248,20 +170,21 @@
                 <span>Khoảng giá</span>
             </a>
             <div class="filter_group-content filter-price">
-                <div class="pricegia" >0 - 500.000đ</div>
-                <div class="pricegia" >500.000đ - 1.000.000đ</div>
-                <div class="pricegia" >Trên 1.000.000đ</div>
+                <a th:href="@{|/item/filter?categoryId=${category.categoryId}&range=0-500|}"
+                   th:classappend="${selectedRange == '0-500'} ? 'active' : ''"
+                   class="pricegia">0 - 500.000đ</a>
+                <a th:href="@{|/item/filter?categoryId=${category.categoryId}&range=500-1000|}"
+                   th:classappend="${selectedRange == '500-1000'} ? 'active' : ''"
+                   class="pricegia">500.000đ - 1.000.000đ</a>
+                <a th:href="@{|/item/filter?categoryId=${category.categoryId}&range=1000+|}"
+                   th:classappend="${selectedRange == '1000+'} ? 'active' : ''"
+                   class="pricegia">Trên 1.000.000đ</a>
             </div>
         </div>
-
     </aside>
 
-
-
-    <!-- Nội dung bên phải -->
+    <!-- Nội dung -->
     <div class="content-area">
-
-        <!-- Ưu đãi hot hôm nay -->
         <div class="hot-deal">
             <h2 class="hot-deal-title">ƯU ĐÃI HOT HÔM NAY</h2>
             <div class="hot-deal-list">
@@ -277,10 +200,8 @@
             </div>
         </div>
 
-        <!-- Danh sách sản phẩm -->
         <main class="product-page">
             <section class="product-list">
-                <!-- Thanh sort -->
                 <div class="sort-bar">
                     <button class="active">Bán chạy</button>
                     <button>Mới nhất</button>
@@ -288,22 +209,13 @@
                     <button>Giá cao đến thấp</button>
                 </div>
 
-                <!-- Lưới sản phẩm -->
                 <div class="grid">
-                    <!-- Vòng lặp tất cả sản phẩm -->
                     <div class="product-card" th:each="item : ${items}">
                         <a th:href="@{/item/{id}(id=${item.itemId})}">
-                            <!-- Ảnh chính -->
                             <img th:src="@{'/api/item-images/by-item/' + ${item.itemId} + '/primary'}"
                                  th:alt="${item.name}" width="200" height="200"/>
-
-                            <!-- Brand -->
                             <div class="brand">COCOON</div>
-
-                            <!-- Tên sản phẩm -->
                             <h4 class="title" th:text="${item.name}"></h4>
-
-                            <!-- Giá -->
                             <div class="price">
                                 <span class="new" th:text="${item.price} + ' đ'"></span>
                                 <span class="old">95.000đ</span>
@@ -313,66 +225,46 @@
                     </div>
                 </div>
 
-
-                <!-- Thanh phân trang -->
                 <div id="pagination">
                     <ul class="pagination">
-                        <!-- Previous (disable khi ở trang 1) -->
-                        <li class="disabled">
-                            <span><i class="fa fa-angle-double-left"></i></span>
-                        </li>
-
-                        <!-- Các trang -->
+                        <li class="disabled"><span><i class="fa fa-angle-double-left"></i></span></li>
                         <li><span class="current">1</span></li>
                         <li><a href="?page=2">2</a></li>
                         <li><a href="?page=3">3</a></li>
                         <li><span>…</span></li>
                         <li><a href="?page=5">5</a></li>
-
-                        <!-- Next -->
-                        <li>
-                            <a href="?page=2">
-                                <i class="fa fa-angle-double-right"></i>
-                            </a>
-                        </li>
+                        <li><a href="?page=2"><i class="fa fa-angle-double-right"></i></a></li>
                     </ul>
                 </div>
-
             </section>
         </main>
-
     </div>
 </section>
 
-<!-- FOOTER -->
+<!-- Subscribe -->
 <div class="subscribe-bar">
     <h2>ĐĂNG KÝ NHẬN ƯU ĐÃI</h2>
     <form class="subscribe-form" id="subscribeForm">
         <div class="input-wrap">
             <input type="email" id="emailInput" placeholder="Nhập email của bạn">
-            <!-- dòng báo lỗi -->
             <small id="emailError" class="error-msg"></small>
         </div>
         <button type="submit">ĐĂNG KÝ</button>
     </form>
 </div>
 
-
-
+<!-- Footer -->
 <footer class="footer">
     <div class="footer-main">
-        <!-- Cột 1: Logo + thông tin -->
         <div class="footer-col">
             <img th:src="@{/Customer/Item/Image/Logo7.png}" alt="Nai Vang Logo" class="footer-logo">
             <p><strong>CÔNG TY TNHH MTV THƯƠNG MẠI VÀ ĐẦU TƯ LIÊN Á CHÂU</strong></p>
             <p>Giấy chứng nhận đăng ký doanh nghiệp số 0310618188, cấp ngày 29.01.2011, nơi cấp Sở Kế Hoạch và Đầu Tư TP. Hồ Chí Minh</p>
             <p>Trụ sở chính: L2-VP-01, 346 Bến Vân Đồn, Phường Vĩnh Hội, TP. Hồ Chí Minh</p>
-            <p>Hotline: <a href="tel:19004449">19004449</a>
-                Điện thoại: <a href="tel:02838328272">02838328272</a></p>
+            <p>Hotline: <a href="tel:19004449">19004449</a> Điện thoại: <a href="tel:02838328272">02838328272</a></p>
             <img th:src="@{/Customer/Item/Image/Bocongthuong_1_1.webp}" alt="Đã thông báo Bộ Công Thương" class="boct-logo">
         </div>
 
-        <!-- Cột 2: Theo dõi + App + Thanh toán -->
         <div class="footer-col">
             <h4>Theo dõi chúng tôi</h4>
             <div class="social-links">
@@ -399,7 +291,6 @@
             </div>
         </div>
 
-        <!-- Cột 3: Về chúng tôi -->
         <div class="footer-col">
             <h4>Về chúng tôi</h4>
             <ul>
@@ -415,7 +306,6 @@
             </ul>
         </div>
 
-        <!-- Cột 4: Chính sách -->
         <div class="footer-col">
             <h4>Chính sách</h4>
             <ul>

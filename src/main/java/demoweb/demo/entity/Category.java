@@ -20,21 +20,25 @@ public class Category implements Serializable {
     @Column(name = "name", nullable = false, length = 150)
     private String name;
 
-    // Self reference (category cha - con)
+    // -----------------------------
+    // Quan hệ cha – con (self reference)
+    // -----------------------------
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parent_id")
     private Category parent;
 
-    @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL, orphanRemoval = false, fetch = FetchType.LAZY)
     private List<Category> children = new ArrayList<>();
 
+    // -----------------------------
+    // Các cột khác
+    // -----------------------------
     @Column(name = "slug", nullable = false, length = 150)
     private String slug;
 
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
-    // Quan hệ 1 Category có nhiều Item
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Item> items = new ArrayList<>();
 
@@ -43,7 +47,17 @@ public class Category implements Serializable {
         this.createdAt = LocalDateTime.now();
     }
 
-    // ----- Getter & Setter -----
+    @Transient
+    public String getFullSlugPath() {
+        if (parent != null) {
+            return parent.getFullSlugPath() + "/" + this.slug;
+        }
+        return this.slug;
+    }
+
+    // -----------------------------
+    // Getter & Setter
+    // -----------------------------
     public Integer getCategoryId() {
         return categoryId;
     }

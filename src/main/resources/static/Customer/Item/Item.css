@@ -380,6 +380,11 @@
   transition: transform 0.3s ease;
 }
 
+.clickmenu2col.highlight {
+    color: #f26522;
+    font-weight: bold;
+}
+
 .listmenu1link1 ul {
   display: none;
   list-style: none;
@@ -390,6 +395,17 @@
 .listmenu1link1.active ul {
   display: block;
 }
+
+.listmenu1link1 ul li.active-sub > a {
+    color: #f26522;
+    font-weight: bold;
+}
+
+/* Giữ menu cha mở khi active */
+.listmenu1link1.active > ul {
+    display: block;
+}
+
 
 .listmenu1link1 ul li {
   margin: 8px 0;        /* tăng khoảng cách giữa các mục */
