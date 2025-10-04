@@ -24,16 +24,14 @@ public class CategoryController {
         Category category = categoryService.findByCategoryId(id)
                 .orElseThrow(() -> new RuntimeException("Danh mục không tồn tại"));
 
-        // Truyền category hiện tại
         model.addAttribute("category", category);
         model.addAttribute("currentCategory", category); // 👈 Quan trọng cho sidebar
         model.addAttribute("categoryId", category.getCategoryId());
-        // Truyền toàn bộ item thuộc category hiện tại
         model.addAttribute("items", category.getItems());
         // Truyền root categories để render sidebar
         model.addAttribute("rootCategories", categoryService.getRootCategoriesWithChildren());
 
-        return "Customer/Item"; // file Thymeleaf để render danh sách sản phẩm
+        return "Customer/Item";
     }
 
 

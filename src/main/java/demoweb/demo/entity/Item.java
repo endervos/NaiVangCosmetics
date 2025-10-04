@@ -33,7 +33,6 @@ public class Item {
     @Column(name = "price", nullable = false)
     private Integer price;
 
-    // Quan hệ N-1: nhiều Item thuộc 1 Category
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id", nullable = false)
     private Category category;
@@ -50,6 +49,7 @@ public class Item {
         this.updatedAt = LocalDateTime.now();
     }
 
+
     @PreUpdate
     protected void onUpdate() {
         this.updatedAt = LocalDateTime.now();
@@ -57,7 +57,6 @@ public class Item {
 
     public Item() {}
 
-    // ----- Getter & Setter -----
     public Integer getItemId() {
         return itemId;
     }

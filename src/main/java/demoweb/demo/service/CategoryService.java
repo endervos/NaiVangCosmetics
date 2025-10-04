@@ -41,5 +41,7 @@ public class CategoryService {
         return categoryRepository.findCategoryByCategoryId(id);
     }
 
-
+    public Optional<Category> getCategoryById(Integer id) {
+        return categoryRepository.findById(id);
+    }
 }

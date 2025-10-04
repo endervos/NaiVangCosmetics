@@ -17,15 +17,14 @@
     <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 </head>
 <body>
-
 <!-- Banner GIF full màn hình -->
-<div class="promo-banner">
-    <img th:src="@{/Customer/Item/Image/Example.gif}" alt="Promotion Nai Vang">
-</div>
+    <div class="promo-banner">
+        <img th:src="@{/Customer/Item/Image/Example.gif}" alt="Promotion Nai Vang">
+    </div>
 
-<!-- Header -->
-<div class="header">
-    <div class="container header-inner">
+    <!-- Header -->
+    <div class="header">
+        <div class="container header-inner">
         <a th:href="@{/}">
             <img th:src="@{/Customer/Item/Image/Logo7.png}" alt="Logo" width="150" height="100">
         </a>
@@ -71,17 +70,17 @@
                     </svg>
                     <span>Giỏ hàng</span>
                 </a>
+                </div>
             </div>
         </div>
-    </div>
-</div>
+        </div>
 
 <!-- Menu -->
-<div class="menu-bar">
-    <div class="container menu-inner">
-        <div class="dropdown">
-            <a href="#">☰ DANH MỤC SẢN PHẨM</a>
-            <ul class="dropdown-content">
+    <div class="menu-bar">
+        <div class="container menu-inner">
+            <div class="dropdown">
+                <a href="#">☰ DANH MỤC SẢN PHẨM</a>
+                <ul class="dropdown-content">
                 <li class="has-submenu" th:each="cat : ${rootCategories}">
                     <a th:href="@{/category/{id}/item(id=${cat.categoryId})}">
                         <img class="menu-icon"
@@ -96,10 +95,10 @@
                                 <span class="count" th:text="${#lists.size(sub.items)}"></span>
                             </a>
                         </li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
+                      </ul>
+                    </li>
+                 </ul>
+            </div>
 
         <a href="#">SẢN PHẨM MỚI</a>
         <div class="dropdown">
@@ -116,7 +115,7 @@
         </div>
         <a href="#">TRA CỨU ĐƠN HÀNG</a>
     </div>
-</div>
+    </div>
 
 <!-- Breadcrumb -->
 <nav class="breadcrumb">
@@ -128,7 +127,18 @@
     <a th:href="@{/danh-muc}">Danh mục</a>
     <span>&gt;</span>
     <span class="current" th:text="${category.name}"></span>
+
+    <!-- Nếu đang lọc theo khoảng giá thì hiển thị thêm -->
+    <span th:if="${selectedRange != null}">
+        <span>&gt;</span>
+        <span class="current" th:switch="${selectedRange}">
+            <span th:case="'0-500'">0 - 500.000đ</span>
+            <span th:case="'500-1000'">500.000đ - 1.000.000đ</span>
+            <span th:case="'1000+'">Trên 1.000.000đ</span>
+        </span>
+    </span>
 </nav>
+
 
 <!-- Banner -->
 <div class="banner">
@@ -165,22 +175,41 @@
         </div>
 
         <!-- FILTER: Khoảng giá -->
-        <div class="listmenu1link1">
-            <a href="#" class="clickmenu2col">
+        <div class="listmenu1link1"
+             th:classappend="${selectedRange != null} ? 'active'">
+            <a href="#"
+               class="clickmenu2col"
+               th:classappend="${selectedRange != null} ? ' highlight'">
                 <span>Khoảng giá</span>
+                <span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="10" height="7" viewBox="0 0 10 7" fill="none">
+                <path d="M5 6.03561L0.5 1.69501L1.4661 0.77539L4.32627 3.53425L5 4.23564L5.67373 3.53425L8.5339 0.775391L9.5 1.69501L5 6.03561Z" fill="#131518"/>
+            </svg>
+        </span>
             </a>
-            <div class="filter_group-content filter-price">
-                <a th:href="@{|/item/filter?categoryId=${category.categoryId}&range=0-500|}"
-                   th:classappend="${selectedRange == '0-500'} ? 'active' : ''"
-                   class="pricegia">0 - 500.000đ</a>
-                <a th:href="@{|/item/filter?categoryId=${category.categoryId}&range=500-1000|}"
-                   th:classappend="${selectedRange == '500-1000'} ? 'active' : ''"
-                   class="pricegia">500.000đ - 1.000.000đ</a>
-                <a th:href="@{|/item/filter?categoryId=${category.categoryId}&range=1000+|}"
-                   th:classappend="${selectedRange == '1000+'} ? 'active' : ''"
-                   class="pricegia">Trên 1.000.000đ</a>
-            </div>
+
+            <!-- Submenu khoảng giá -->
+            <ul>
+                <li th:classappend="${selectedRange == '0-500'} ? 'active-sub'">
+                    <a th:href="@{|/item/filter?categoryId=${category.categoryId}&range=0-500|}">
+                        <span>0 - 500.000đ</span>
+                    </a>
+                </li>
+
+                <li th:classappend="${selectedRange == '500-1000'} ? 'active-sub'">
+                    <a th:href="@{|/item/filter?categoryId=${category.categoryId}&range=500-1000|}">
+                        <span>500.000đ - 1.000.000đ</span>
+                    </a>
+                </li>
+
+                <li th:classappend="${selectedRange == '1000+'} ? 'active-sub'">
+                    <a th:href="@{|/item/filter?categoryId=${category.categoryId}&range=1000%2B|}">
+                        <span>Trên 1.000.000đ</span>
+                    </a>
+                </li>
+            </ul>
         </div>
+
     </aside>
 
     <!-- Nội dung -->

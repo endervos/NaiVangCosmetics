@@ -55,9 +55,6 @@ public class Category implements Serializable {
         return this.slug;
     }
 
-    // -----------------------------
-    // Getter & Setter
-    // -----------------------------
     public Integer getCategoryId() {
         return categoryId;
     }

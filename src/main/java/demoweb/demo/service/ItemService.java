@@ -40,21 +40,16 @@ public class ItemService {
         itemRepository.deleteById(itemId);
     }
 
-    public List<Item> filterByPrice(Integer categoryId, Double min, Double max) {
+    public List<Item> filterByPrice(Integer categoryId, Integer min, Integer max) {
         return itemRepository.findAll((root, query, cb) -> {
             List<Predicate> predicates = new ArrayList<>();
 
-            // lọc theo categoryId
             if (categoryId != null) {
                 predicates.add(cb.equal(root.get("category").get("categoryId"), categoryId));
             }
-
-            // lọc giá min
             if (min != null) {
                 predicates.add(cb.greaterThanOrEqualTo(root.get("price"), min));
             }
-
-            // lọc giá max
             if (max != null) {
                 predicates.add(cb.lessThanOrEqualTo(root.get("price"), max));
             }
@@ -62,4 +57,5 @@ public class ItemService {
             return cb.and(predicates.toArray(new Predicate[0]));
         });
     }
+
 }
