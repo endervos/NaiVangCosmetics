@@ -33,20 +33,31 @@ public class ItemImageService {
     public List<ItemImage> getImagesByItemId(Integer itemId) {
         return itemImageRepository.findByItem_ItemId(itemId);
     }
-
     public ItemImage getPrimaryImage(Integer itemId) {
         return itemImageRepository.findByItem_ItemIdAndIsPrimaryTrue(itemId)
-                .orElseThrow(() -> new RuntimeException("Primary image not found for itemId = " + itemId));
+                .orElseGet(() -> {
+                    // ✅ Tạo ảnh mặc định giả (nếu không có ảnh trong DB)
+                    ItemImage placeholder = new ItemImage();
+                    placeholder.setAlt("default image");
+                    placeholder.setImageBlob(null); // không có ảnh thực, bạn có thể xử lý ở view
+                    return placeholder;
+                });
     }
 
+    /**
+     * ✅ Thêm ảnh mới cho item
+     */
     public ItemImage saveForItem(Integer itemId, ItemImage itemImage) {
         Item item = itemRepository.findById(itemId)
                 .orElseThrow(() -> new RuntimeException("Item not found with id = " + itemId));
 
-        itemImage.setItem(item); // liên kết ảnh với item
+        itemImage.setItem(item);
         return itemImageRepository.save(itemImage);
     }
 
+    /**
+     * ✅ Xóa ảnh
+     */
     public void delete(Integer imageId) {
         itemImageRepository.deleteById(imageId);
     }

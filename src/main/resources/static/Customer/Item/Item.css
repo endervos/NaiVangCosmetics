@@ -1036,10 +1036,19 @@
   border-top: 1px solid #eee;
 }
 
+.rating {
+    margin-top: 5px;
+    color: #ffb400; /* vàng sao */
+    font-size: 18px;
+}
+.star {
+    color: #ccc;
+}
+.star.filled {
+    color: #ffb400;
+}
 
 
-
-/* ========== RESPONSIVE ========== */
 @media (max-width:992px){
   .header-inner{grid-template-columns:120px 1fr 180px}
 }

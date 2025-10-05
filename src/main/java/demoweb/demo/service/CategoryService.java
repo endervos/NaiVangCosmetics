@@ -38,10 +38,18 @@ public class CategoryService {
 
     @Transactional(readOnly = true)
     public Optional<Category> findByCategoryId(Integer id) {
-        return categoryRepository.findCategoryByCategoryId(id);
+        return categoryRepository.findById(id)
+                .map(category -> {
+                    // ⚡ ép Hibernate load toàn bộ item thật
+                    category.getItems().size();
+                    return category;
+                });
     }
 
+    @Transactional(readOnly = true)
     public Optional<Category> getCategoryById(Integer id) {
         return categoryRepository.findById(id);
     }
+
+
 }

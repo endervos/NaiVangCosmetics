@@ -43,12 +43,12 @@ public class Item {
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
 
+
     @PrePersist
     protected void onCreate() {
         this.createdAt = LocalDateTime.now();
         this.updatedAt = LocalDateTime.now();
     }
-
 
     @PreUpdate
     protected void onUpdate() {
@@ -136,4 +136,34 @@ public class Item {
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
+
+    // ⭐ Getter & Setter cho rating
+    public Double getAverageRating() {
+        return averageRating;
+    }
+
+    public void setAverageRating(Double averageRating) {
+        this.averageRating = averageRating;
+    }
+
+    public String getRatingStars() {
+        return ratingStars;
+    }
+
+    public void setRatingStars(String ratingStars) {
+        this.ratingStars = ratingStars;
+    }
+    @Transient
+    private Double averageRating;
+
+    @Transient
+    private String ratingStars;
+
+    @Transient
+    private Integer reviewCount;
+
+    public Integer getReviewCount() { return reviewCount; }
+    public void setReviewCount(Integer reviewCount) { this.reviewCount = reviewCount; }
+
+
 }

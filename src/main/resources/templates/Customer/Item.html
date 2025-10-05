@@ -152,20 +152,20 @@
     <aside class="sidebar">
         <div class="listmenu1link1"
              th:each="cat : ${rootCategories}"
-             th:classappend="${currentCategory.parent != null and currentCategory.parent.categoryId == cat.categoryId} ? 'active'">
+             th:classappend="${currentCategory != null and currentCategory.parent != null and currentCategory.parent.categoryId == cat.categoryId} ? 'active'">
             <a th:href="@{'/category/' + ${cat.categoryId} + '/item'}"
                class="clickmenu2col"
-               th:classappend="${currentCategory.categoryId == cat.categoryId} ? ' highlight'">
+               th:classappend="${currentCategory != null and currentCategory.categoryId == cat.categoryId} ? ' highlight'">
                 <span th:text="${cat.name}"></span>
                 <span th:if="${#lists.size(cat.children) > 0}">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="10" height="7" viewBox="0 0 10 7" fill="none">
-                        <path d="M5 6.03561L0.5 1.69501L1.4661 0.77539L4.32627 3.53425L5 4.23564L5.67373 3.53425L8.5339 0.775391L9.5 1.69501L5 6.03561Z" fill="#131518"/>
-                    </svg>
-                </span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="10" height="7" viewBox="0 0 10 7" fill="none">
+                <path d="M5 6.03561L0.5 1.69501L1.4661 0.77539L4.32627 3.53425L5 4.23564L5.67373 3.53425L8.5339 0.775391L9.5 1.69501L5 6.03561Z" fill="#131518"/>
+            </svg>
+        </span>
             </a>
             <ul th:if="${#lists.size(cat.children) > 0}">
                 <li th:each="sub : ${cat.children}"
-                    th:classappend="${currentCategory.categoryId == sub.categoryId} ? 'active-sub'">
+                    th:classappend="${currentCategory != null and currentCategory.categoryId == sub.categoryId} ? 'active-sub'">
                     <a th:href="@{'/category/' + ${sub.categoryId} + '/item'}">
                         <span th:text="${sub.name}"></span>
                         <span class="count" th:text="${#lists.size(sub.items)}"></span>
@@ -173,6 +173,7 @@
                 </li>
             </ul>
         </div>
+
 
         <!-- FILTER: Khoảng giá -->
         <div class="listmenu1link1"
@@ -240,31 +241,30 @@
 
                 <div class="grid">
                     <div class="product-card" th:each="item : ${items}">
-                        <a th:href="@{/item/{id}(id=${item.itemId})}">
+                        <a th:href="@{/item/{id}(id=${item.itemId})}" class="product-link">
                             <img th:src="@{'/api/item-images/by-item/' + ${item.itemId} + '/primary'}"
                                  th:alt="${item.name}" width="200" height="200"/>
                             <div class="brand">COCOON</div>
                             <h4 class="title" th:text="${item.name}"></h4>
-                            <div class="price">
-                                <span class="new" th:text="${item.price} + ' đ'"></span>
-                                <span class="old">95.000đ</span>
-                                <span class="discount">-20%</span>
-                            </div>
                         </a>
+
+                        <div class="price">
+                            <span class="new" th:text="${item.price} + ' đ'"></span>
+                            <span class="old">95.000đ</span>
+                            <span class="discount">-20%</span>
+                        </div>
+
+                        <div class="rating">
+                            <span th:utext="${item.ratingStars}"></span>
+                            <span th:text="'(' + ${#numbers.formatDecimal(item.averageRating, 1, 1)} + '/5 - ' + ${item.reviewCount} + ' lượt đánh giá)'"></span>
+                        </div>
+
+
+
+
                     </div>
                 </div>
 
-                <div id="pagination">
-                    <ul class="pagination">
-                        <li class="disabled"><span><i class="fa fa-angle-double-left"></i></span></li>
-                        <li><span class="current">1</span></li>
-                        <li><a href="?page=2">2</a></li>
-                        <li><a href="?page=3">3</a></li>
-                        <li><span>…</span></li>
-                        <li><a href="?page=5">5</a></li>
-                        <li><a href="?page=2"><i class="fa fa-angle-double-right"></i></a></li>
-                    </ul>
-                </div>
             </section>
         </main>
     </div>
