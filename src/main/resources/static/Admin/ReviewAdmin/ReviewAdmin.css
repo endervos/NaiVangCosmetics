@@ -6,7 +6,7 @@
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     background-color: #fff;
     border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    /* box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); */
 }
 
 .admin-review-container h2 {
@@ -45,14 +45,14 @@
 }
 
 .review-controls button {
-    background: #24cb84;
+    background: #415a73;
     color: #fff;
     border: none;
     cursor: pointer;
 }
 
 .review-controls button:hover {
-    background-color: #000000;
+    background-color: #2c6991;
     color : rgb(255, 255, 255);
 }
 
@@ -107,8 +107,8 @@
 }
 
 .pagination-controls button:hover {
-    background-color: #007bff;
-    color: white;
+    background-color: #3e776b;
+
 }
 
 #page-info {
@@ -129,4 +129,14 @@
 
 .delete-btn:hover {
     background-color: darkred;
+}
+
+#prev-page:disabled, #next-page:disabled {
+  background: #95a5a6;
+  cursor: not-allowed;
+}
+
+#prev-page:hover:not(:disabled), #next-page:hover:not(:disabled) {
+  background: #415a73;
+  color: white;
 }

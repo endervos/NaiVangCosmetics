@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Quản lý Thông tin Cá nhân</title>
+  <title>Quản lý thông tin cá nhân</title>
   <link rel="stylesheet" href="/src/main/resources/static/Admin/Background/Background.css">
-  <link rel="stylesheet" href="/src/main/resources/static/Admin/ProfileManager/ProfileManager.css">
+  <link rel="stylesheet" href="/src/main/resources/static/Admin/ProfileAdmin/ProfileAdmin.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="icon" type="image/png" href="/src/main/resources/static/Customer/Example/Image/LogoConNai.png">
 </head>
-<body class="admin-body">   
+<body class="admin-body">
 
   <!-- Sidebar -->
   <nav class="admin-sidebar">
@@ -19,11 +19,11 @@
     </div>
     <ul>
       <li><a href="/src/main/resources/templates/Admin/Dashboard.html"><i class="fa-solid fa-gauge"></i> Dashboard</a></li>
-      <li><a href="/src/main/resources/templates/Admin/ProductManagement.html"><i class="fa-solid fa-box"></i> Sản phẩm</a></li>
-      <li><a href="/src/main/resources/templates/Admin/CategoryManagement.html"><i class="fa-solid fa-list"></i> Danh mục</a></li>
-      <li><a href="/src/main/resources/templates/Admin/DealManagement.html"><i class="fa-solid fa-tags"></i> Khuyến mãi</a></li>
-      <li><a href="/src/main/resources/templates/Admin/ReviewManagement.html"><i class="fa-solid fa-star"></i> Đánh giá</a></li>
-      <li><a href="/src/main/resources/templates/Admin/OrderManagement.html"><i class="fa-solid fa-receipt"></i> Đơn hàng</a></li>
+      <li><a href="/src/main/resources/templates/Admin/ProductAdmin.html"><i class="fa-solid fa-box"></i> Sản phẩm</a></li>
+      <li><a href="/src/main/resources/templates/Admin/CategoryAdmin.html"><i class="fa-solid fa-list"></i> Danh mục</a></li>
+      <li><a href="/src/main/resources/templates/Admin/DealAdmin.html"><i class="fa-solid fa-tags"></i> Khuyến mãi</a></li>
+      <li><a href="/src/main/resources/templates/Admin/ReviewAdmin.html"><i class="fa-solid fa-star"></i> Đánh giá</a></li>
+      <li><a href="/src/main/resources/templates/Admin/OrderAdmin.html"><i class="fa-solid fa-receipt"></i> Đơn hàng</a></li>
       <li><a href="/src/main/resources/templates/Admin/ProfileAdmin.html"><i class="fa-solid fa-user"></i> Hồ sơ</a></li>
     </ul>
   </nav>
@@ -53,7 +53,7 @@
         <div class="manager-info-container">
           <form id="manager-info-form">
             <div class="info-item">
-              <label for="manager-id">ID Manager</label>
+              <label for="manager-id">ID Admin</label>
               <input type="text" id="manager-id" name="manager-id" value="12345" readonly>
             </div>
             <div class="info-item">
@@ -96,6 +96,6 @@
   </div>
 
   <script src="/src/main/resources/static/Admin/Background/Background.js"></script>
-    <script src="/src/main/resources/static/Admin/ProfileManager/ProfileManager.js"></script>
+  <script src="/src/main/resources/static/Admin/ProfileAdmin/ProfileAdmin.js"></script>
 </body>
 </html>

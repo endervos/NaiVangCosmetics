@@ -1,4 +1,4 @@
-// Giả sử bạn có dữ liệu mẫu
+// Dữ liệu mẫu đánh giá
 let reviews = [
     { productName: "Sản phẩm 1", customerName: "Nguyễn Văn A", rating: 4, comment: "Rất tốt", date: "2025-09-30 9:30", id: 1 },
     { productName: "Sản phẩm 2", customerName: "Trần Thị B", rating: 5, comment: "Tuyệt vời", date: "2025-09-29 16:12", id: 2 },
@@ -33,7 +33,7 @@ function getRatingStars(rating) {
 // Hàm xóa đánh giá
 function deleteReview(id) {
     reviews = reviews.filter(review => review.id !== id);
-    currentPage = 1; // Đặt lại trang về 1 khi xóa
+    currentPage = 1;
     const filteredReviews = getFilteredAndSortedReviews();
     renderReviews(filteredReviews);
     renderPagination(filteredReviews);
@@ -58,9 +58,9 @@ function getFilteredAndSortedReviews() {
 // Hiển thị danh sách đánh giá
 function renderReviews(reviewList) {
     const tbody = document.querySelector('#review-table tbody');
-    tbody.innerHTML = ''; // Xóa dữ liệu cũ
+    tbody.innerHTML = '';
 
-    const reviewsToShow = paginateReviews(reviewList); // Luôn áp dụng phân trang
+    const reviewsToShow = paginateReviews(reviewList);
 
     reviewsToShow.forEach(review => {
         const row = document.createElement('tr');
@@ -90,7 +90,7 @@ function renderReviews(reviewList) {
 
 // Phân trang
 let currentPage = 1;
-const reviewsPerPage = 10; // Giới hạn hiển thị 10 bình luận mỗi trang
+const reviewsPerPage = 10;
 
 function paginateReviews(reviewList) {
     const startIndex = (currentPage - 1) * reviewsPerPage;
@@ -112,7 +112,7 @@ function renderPagination(reviewList) {
 
 // Sự kiện áp dụng bộ lọc
 document.getElementById('apply-filter').addEventListener('click', () => {
-    currentPage = 1; // Đặt lại trang về 1 khi áp dụng bộ lọc
+    currentPage = 1;
     const filteredReviews = getFilteredAndSortedReviews();
     renderReviews(filteredReviews);
     renderPagination(filteredReviews);
@@ -120,9 +120,9 @@ document.getElementById('apply-filter').addEventListener('click', () => {
 
 // Sự kiện hiển thị tất cả
 document.getElementById('show-all').addEventListener('click', () => {
-    currentPage = 1; // Đặt lại trang về 1
-    document.getElementById('product-search').value = ''; // Xóa tìm kiếm
-    document.getElementById('sort-filter').value = 'latest'; // Đặt lại sắp xếp
+    currentPage = 1;
+    document.getElementById('product-search').value = '';
+    document.getElementById('sort-filter').value = 'latest';
     renderReviews(reviews);
     renderPagination(reviews);
 });
@@ -143,8 +143,9 @@ document.getElementById('next-page').addEventListener('click', () => {
     const totalPages = Math.ceil(filteredReviews.length / reviewsPerPage);
     if (currentPage < totalPages) {
         currentPage++;
-        renderReviews(filteredReviews);
-        renderPagination(filteredReviews);
+        const updatedFilteredReviews = getFilteredAndSortedReviews(); // Lấy lại danh sách để đảm bảo đồng bộ
+        renderReviews(updatedFilteredReviews);
+        renderPagination(updatedFilteredReviews);
     }
 });
 

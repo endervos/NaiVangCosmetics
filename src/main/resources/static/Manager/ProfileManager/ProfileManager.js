@@ -1,6 +1,23 @@
 document.addEventListener('DOMContentLoaded', function () {
   const form = document.getElementById('manager-info-form');
-  
+
+  // Hàm hiển thị toast notification
+  function showToast(message, type = 'success') {
+    const toast = document.createElement('div');
+    toast.className = `toast toast-${type}`;
+    toast.textContent = message;
+    document.body.appendChild(toast);
+    setTimeout(() => {
+      toast.classList.add('show');
+    }, 100);
+    setTimeout(() => {
+      toast.classList.remove('show');
+      setTimeout(() => {
+        toast.remove();
+      }, 300);
+    }, 3000);
+  }
+
   form.addEventListener('submit', function (event) {
     event.preventDefault(); // Ngăn hành vi submit mặc định
 
@@ -32,7 +49,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     if (!isValid) {
-      alert(errorMessage);
+      showToast(errorMessage, 'error');
       return;
     }
 
@@ -48,24 +65,27 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Giả lập gửi dữ liệu đến server
     console.log('Dữ liệu gửi đi:', formData);
-    alert('Thông tin đã được lưu thành công!');
+    showToast('Thông tin đã được lưu thành công!', 'success');
 
     // Có thể thêm logic gửi dữ liệu đến API thực tế ở đây
-    // Ví dụ: 
     /*
     fetch('/api/manager/update', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'X-CSRF-TOKEN': document.querySelector('meta[name="_csrf"]').content
       },
       body: JSON.stringify(formData)
     })
-    .then(response => response.json())
+    .then(response => {
+      if (!response.ok) throw new Error('Lỗi cập nhật thông tin');
+      return response.json();
+    })
     .then(data => {
-      alert('Thông tin đã được lưu thành công!');
+      showToast('Thông tin đã được lưu thành công!', 'success');
     })
     .catch(error => {
-      alert('Có lỗi xảy ra khi lưu thông tin: ' + error.message);
+      showToast('Có lỗi xảy ra khi lưu thông tin: ' + error.message, 'error');
     });
     */
   });
