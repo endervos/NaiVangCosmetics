@@ -1,68 +1,125 @@
-document.getElementById("signUpForm").addEventListener("submit", function(event) {
-    event.preventDefault();
-    let isValid = true;
+document.addEventListener("DOMContentLoaded", function () {
+    const container = document.querySelector(".account-info");
+    if (!container) return;
 
-    document.querySelectorAll('.error').forEach(div => div.innerHTML = '');
+    const updateBtn = container.querySelector(".btn"); // Nút "Cập nhật thông tin"
+    const fullnameInput = container.querySelector('[th\\:field="*{fullname}"]');
+    const phoneInput = container.querySelector('[th\\:field="*{phoneNumber}"]');
+    const emailInput = container.querySelector('[th\\:field="*{email}"]');
+    const birthdayInput = container.querySelector('[th\\:field="*{birthday}"]');
+    const genderInputs = container.querySelectorAll('input[th\\:field="*{gender}"]');
+    const addressInputs = container.querySelectorAll(".address-input");
 
-    let fullname = document.getElementById("fullname").value.trim();
-    if (fullname === "") {
-        document.getElementById("fullnameError").innerHTML = "Họ và tên không được để trống";
-        isValid = false;
+    // 🔹 Regex chuẩn
+    const namePattern = /^[A-Za-zÀ-ỹà-ỹĐđ\s'-]{2,50}$/;
+    const phonePattern = /^(0[3|5|7|8|9])[0-9]{8}$/;
+    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    const addressPattern = /^[A-Za-zÀ-ỹà-ỹĐđ0-9\s,./()-]{5,100}$/; // cho phép ký tự thông thường và , . / ( ) -
+
+    // 🔹 Hàm hiển thị lỗi (tự thêm .error nếu thiếu)
+    function showError(element, message) {
+        let err = element.nextElementSibling;
+        if (!err || !err.classList.contains("error")) {
+            err = document.createElement("div");
+            err.classList.add("error");
+            err.style.color = "red";
+            err.style.fontSize = "14px";
+            err.style.marginTop = "4px";
+            element.insertAdjacentElement("afterend", err);
+        }
+        err.textContent = message;
     }
 
-    let phoneNumber = document.getElementById("phoneNumber").value.trim();
-    let phonePattern = /^\d{10}$/;
-    if (!phonePattern.test(phoneNumber)) {
-        document.getElementById("phoneNumberError").innerHTML = "Số điện thoại phải bao gồm đúng 10 số";
-        isValid = false;
+    // 🔹 Reset lỗi
+    function clearErrors() {
+        container.querySelectorAll(".error").forEach(e => e.textContent = "");
     }
 
-    let email = document.getElementById("email").value.trim();
-    let emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    if (!emailPattern.test(email)) {
-        document.getElementById("emailError").innerHTML = "Email không hợp lệ";
-        isValid = false;
-    }
+    // 🔹 Bắt sự kiện click nút cập nhật
+    updateBtn.addEventListener("click", function (e) {
+        e.preventDefault();
+        clearErrors();
+        let isValid = true;
 
-    let gender = document.querySelector('input[name="gender"]:checked');
-    if (!gender) {
-        document.getElementById("genderError").innerHTML = "Giới tính không được để trống";
-        isValid = false;
-    }
+        // ===== Họ và tên =====
+        const fullname = fullnameInput.value.trim();
+        if (fullname === "") {
+            showError(fullnameInput, "Họ và tên không được để trống");
+            isValid = false;
+        } else if (!namePattern.test(fullname)) {
+            showError(fullnameInput, "Họ tên chỉ được chứa chữ cái và dấu cách");
+            isValid = false;
+        } else {
+            fullnameInput.value = fullname
+                .toLowerCase()
+                .replace(/(^|\s)\S/g, l => l.toUpperCase());
+        }
 
-    let birthday = document.getElementById("birthday").value;
-    if (!birthday) {
-        document.getElementById("birthdayError").innerHTML = "Ngày sinh không được để trống";
-        isValid = false;
-    } else {
-        let today = new Date();
-        let dob = new Date(birthday);
-        if (dob >= today) {
-            document.getElementById("birthdayError").innerHTML = "Ngày sinh phải là ngày trong quá khứ";
+        // ===== Số điện thoại =====
+        const phone = phoneInput.value.trim();
+        if (phone === "") {
+            showError(phoneInput, "Số điện thoại không được để trống");
+            isValid = false;
+        } else if (!phonePattern.test(phone)) {
+            showError(phoneInput, "Số điện thoại phải gồm 10 số và bắt đầu bằng 03, 05, 07, 08 hoặc 09");
             isValid = false;
         }
-    }
 
-    let password = document.getElementById("password").value;
-    let passwordPattern = /^(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{15,}$/;
-    if (!passwordPattern.test(password)) {
-        document.getElementById("passwordError").innerHTML = "Mật khẩu phải có ít nhất 15 ký tự, bao gồm ít nhất 1 chữ hoa và 1 ký tự đặc biệt";
-        isValid = false;
-    }
+        // ===== Email =====
+        const email = emailInput.value.trim();
+        if (email === "") {
+            showError(emailInput, "Email không được để trống");
+            isValid = false;
+        } else if (!emailPattern.test(email)) {
+            showError(emailInput, "Email không hợp lệ");
+            isValid = false;
+        }
 
-    let confirmPassword = document.getElementById("confirmPassword").value;
-    if (confirmPassword !== password) {
-        document.getElementById("confirmPasswordError").innerHTML = "Mật khẩu xác nhận không khớp";
-        isValid = false;
-    }
+        // ===== Ngày sinh =====
+        const birthday = birthdayInput.value.trim();
+        if (birthday === "") {
+            showError(birthdayInput, "Ngày sinh không được để trống");
+            isValid = false;
+        } else {
+            const dob = new Date(birthday);
+            const today = new Date();
+            if (dob >= today) {
+                showError(birthdayInput, "Ngày sinh phải là ngày trong quá khứ");
+                isValid = false;
+            }
+        }
 
-    let termsCheck = document.getElementById("termsCheck").checked;
-    if (!termsCheck) {
-        document.getElementById("termsError").innerHTML = "Bạn phải đồng ý với Điều khoản & Chính sách.";
-        isValid = false;
-    }
+        // ===== Giới tính =====
+        const genderChecked = Array.from(genderInputs).some(g => g.checked);
+        if (!genderChecked) {
+            const genderDiv = container.querySelector(".gender-container");
+            showError(genderDiv, "Vui lòng chọn giới tính");
+            isValid = false;
+        }
 
-    if (isValid) {
-        this.submit();
-    }
+        // ===== Địa chỉ =====
+        const addressList = container.querySelectorAll(".address-input");
+        if (addressList.length === 0) {
+            alert("Bạn cần nhập ít nhất 1 địa chỉ!");
+            isValid = false;
+        } else {
+            addressList.forEach((input, idx) => {
+                const val = input.value.trim();
+                if (val === "") {
+                    showError(input, `Địa chỉ ${idx + 1} không được để trống`);
+                    isValid = false;
+                } else if (!addressPattern.test(val)) {
+                    showError(input, `Địa chỉ ${idx + 1} chứa ký tự không hợp lệ (chỉ cho phép chữ, số, ',', '.', '/', '-')`);
+                    isValid = false;
+                }
+            });
+        }
+
+        // Nếu tất cả hợp lệ
+        if (isValid) {
+            alert("✅ Tất cả thông tin hợp lệ — tiến hành gửi về server!");
+            // TODO: Gọi API hoặc submit form thật:
+            // document.querySelector("form").submit();
+        }
+    });
 });

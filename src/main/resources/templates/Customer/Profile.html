@@ -142,6 +142,7 @@
 
     <main class="account-info" th:object="${user}">
         <h2>Thông tin tài khoản</h2>
+        <form th:action="@{/update}" th:object="${user}" method="post">
         <div class="profile-container">
             <label>Tài khoản</label>
             <input type="text" th:field="*{email}" disabled />
@@ -153,25 +154,44 @@
             <input type="text" th:field="*{phoneNumber}"  />
 
             <div class="form-group">
-                <label>Địa chỉ</label>
-                <button type="button" id="addAddressBtn" class="btn-add">+</button>
+                <div class="address-header">
+                    <label>Địa chỉ</label>
+                    <button type="button" id="addAddressBtn" class="btn-add">Thêm địa chỉ</button>
+                </div>
 
                 <div id="addressContainer">
-                    <!-- Mỗi dòng địa chỉ -->
                     <div class="address-row">
                         <span class="address-label">Địa chỉ 1</span>
-                        <input type="text" name="addresses[]" placeholder="Nhập địa chỉ..." class="address-input">
-                        <button type="button" class="removeAddressBtn btn-remove">–</button>
+
+                        <select name="city[]" class="address-select city-select">
+                            <option value="">-- Tỉnh / Thành phố --</option>
+                            <option value="Hà Nội">Hà Nội</option>
+                            <option value="Hồ Chí Minh">Hồ Chí Minh</option>
+                            <option value="Đà Nẵng">Đà Nẵng</option>
+                            <option value="Hải Phòng">Hải Phòng</option>
+                            <option value="Cần Thơ">Cần Thơ</option>
+                        </select>
+
+                        <select name="district[]" class="address-select district-select">
+                            <option value="">-- Quận / Huyện --</option>
+                        </select>
+
+                        <input type="text" name="street[]" placeholder="Nhập đường / số nhà..." class="address-input street-input">
+
+                        <button type="button" id="removeAddressBtn" class="btn-remove">–</button>
                     </div>
                 </div>
             </div>
-
-
-
-            <label>Ngày sinh</label>
-            <input type="text" th:field="*{birthday}"  />
-
-            <label>Giới tính</label>
+            <div class="mb-3">
+                <input
+                        type="date"
+                        class="form-control"
+                        style="appearance:none; -webkit-appearance:none;"
+                        onfocus="this.showPicker()"
+                        id="birthday"
+                        name="birthday"
+                        value="2005-08-02">
+                <label>Giới tính</label>
             <div class="d-flex gender-container" >
                 <label>
                     <input type="radio" th:field="*{gender}" value="Nam" /> Nam
@@ -180,14 +200,15 @@
                     <input type="radio" th:field="*{gender}" value="Nữ" /> Nữ
                 </label>
             </div>
-            <button class="btn">Cập nhật thông tin</button>
+                <button type="button" class="btn" id="updateBtn">Cập nhật thông tin</button>
         </div>
+        </div>
+        </form>
     </main>
 
 </div>
 <!-- End Main Content -->
 
-</div>
     <!-- FOOTER -->
     <div class="subscribe-bar">
         <h2>ĐĂNG KÝ NHẬN ƯU ĐÃI</h2>
@@ -278,7 +299,6 @@
         </div>
     </footer>
 
-    <script th:src="@{/Home/Home.js}"></script>
     <script th:src="@{/Customer/Profile/Profile.js}"></script>
 
 </body>

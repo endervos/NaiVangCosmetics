@@ -44,9 +44,8 @@ public class ItemService {
         return items;
     }
 
-    /** ✅ Lấy item theo ID (kèm rating) */
     public Optional<Item> getItemById(Integer itemId) {
-        Optional<Item> itemOpt = itemRepository.findById(itemId);
+        Optional<Item> itemOpt = itemRepository.findByIdWithImages(itemId); // ✅ dùng query có JOIN FETCH
         itemOpt.ifPresent(this::attachRating);
         return itemOpt;
     }

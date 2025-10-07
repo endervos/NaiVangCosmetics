@@ -24,4 +24,18 @@ public class UserService {
                 .orElseThrow(() -> new RuntimeException("User not found with email: " + email));
     }
 
+    public void updateUser(User updatedUser) {
+        userRepository.findById(updatedUser.getUserId()).ifPresent(user -> {
+            user.setFullname(updatedUser.getFullname());
+            user.setPhoneNumber(updatedUser.getPhoneNumber());
+            user.setBirthday(updatedUser.getBirthday());
+            user.setGender(updatedUser.getGender());
+            userRepository.save(user);
+        });
+    }
+
+    public void save(User user) {
+        userRepository.save(user);
+    }
+
 }

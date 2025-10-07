@@ -5,14 +5,13 @@ body {
     padding: 0;
 }
 
-
+/* ================== ACCOUNT INFO ================== */
 .account-info {
     flex: 1;
     padding: 20px;
     overflow-y: auto;
 }
 
-/* Main container */
 .main-container {
     display: flex;
     margin: 30px auto;
@@ -23,7 +22,7 @@ body {
     overflow: hidden;
 }
 
-
+/* Sidebar */
 .menu-sidebar {
     flex: 0 0 340px;
     border-right: 1px solid #eee;
@@ -40,8 +39,8 @@ body {
 .menu-sidebar ul {
     list-style: none;
     padding: 0;
-    flex-direction: column; /* xếp dọc các li */
-    align-items: center;    /* căn giữa theo chiều ngang */
+    flex-direction: column;
+    align-items: center;
 }
 
 .menu-sidebar ul li {
@@ -70,6 +69,7 @@ body {
     transition: 0.3s ease;
 }
 
+/* Header + Footer */
 header {
     background: #ff6600;
     padding: 15px;
@@ -77,13 +77,21 @@ header {
     color: #fff;
 }
 
+footer {
+    background: #ff6600;
+    padding: 15px;
+    color: #fff;
+    margin-top: 20px;
+}
+
+/* Profile */
 .profile-container {
     width: 1000px;
     margin-left: 40px;
     padding: 20px;
     font-size: 16px;
-
 }
+
 .account-info::-webkit-scrollbar {
     display: none;
 }
@@ -132,72 +140,117 @@ header {
 .account-info button.btn:hover {
     background: #0056b3;
 }
+
 .gender-container {
     display: flex;
-    flex-wrap: nowrap; /* Keep options on one line */
-    gap: 16px; /* Reduced spacing for compact layout */
+    flex-wrap: nowrap;
+    gap: 16px;
     align-items: center;
 }
 
-.gender-check {
-    display: flex;
-    align-items: center;
+/* ================== PHẦN ĐỊA CHỈ ================== */
+.form-group {
+    margin-bottom: 20px;
+    position: relative;
 }
 
-.address-wrapper {
+/* Label + nút thêm */
+.address-header {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
     margin-bottom: 10px;
 }
 
+/* Nút thêm địa chỉ (+) */
 #addAddressBtn {
-    padding: 0 10px;
+    height: 30px;
+    width: 100px;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #28a745;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s ease, transform 0.1s ease;
 }
 
+#addAddressBtn:hover {
+    background-color: #218838;
+    transform: scale(1.05);
+}
+
+/* Container chứa nhiều dòng địa chỉ */
 #addressContainer {
-    display: block;
-    margin-top: 5px;
-    padding: 5px;
-    width: 250px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
 }
 
 .address-row {
+    display: grid;
+    grid-template-columns: 100px repeat(3, 1fr) 45px;
+    /* Label | City | District | Street | Remove */
+    align-items: center;   /* ✅ Căn giữa tất cả phần tử trong hàng */
+    gap: 10px;
+    width: 100%;
+}
+/* Label “Địa chỉ 1” */
+.address-row .address-label {
+    font-weight: 600;
+    color: #333;
     display: flex;
     align-items: center;
-    margin-top: 10px;
 }
-
-.address-row span {
-    width: 80px;
-    font-weight: bold;
-    margin-right: 8px;
-}
-
+.address-row select,
 .address-row input {
-    flex: 1;
-    padding: 6px 10px;
-    border: 1px solid #ccc;
+    width: 100%;
+    height: 35px;
+    border: 1px solid #000; /* ✅ viền đen */
+    border-radius: 4px;
+    /* ✅ Bo góc giống form chính */
+    font-size: 14px;
+    padding: 8px 10px;             /* ✅ Giống padding chung */
+    background-color: #fff;
+    color: #000;
+    box-sizing: border-box;
+    outline: none;
+    appearance: none;
+    line-height: normal;
+    vertical-align: middle;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease; /* ✅ hiệu ứng hover */
+}
+
+.account-info input,
+.account-info select {
+    border: 1px solid #dddddd;
     border-radius: 4px;
 }
 
-.removeAddressBtn {
-    background-color: #ff4d4f;
-    color: white;
+
+/* Nút xóa “–” */
+.address-row .btn-remove {
+    height: 35px; /* ✅ cùng chiều cao */
+    width: 35px;
     border: none;
-    padding: 4px 10px;
     border-radius: 4px;
-    cursor: pointer;
-}
-
-.removeAddressBtn:hover {
-    background-color: #e63946;
-}
-
-footer {
-    background: #ff6600;
-    padding: 15px;
+    font-size: 16px;
+    font-weight: bold;
     color: #fff;
-    margin-top: 20px;
+    background-color: #ff4d4f;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.address-row .btn-remove:hover {
+    background-color: #e63946;
+    transform: scale(1.05);
 }
