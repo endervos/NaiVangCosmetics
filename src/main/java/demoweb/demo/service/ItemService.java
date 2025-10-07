@@ -24,6 +24,7 @@ public class ItemService {
 
     /** ✅ Gắn rating cho 1 item */
     private void attachRating(Item item) {
+        System.out.println("Attach rating for itemId = " + item.getItemId() + ", name = " + item.getName());
         if (item.getItemId() == null) return;
 
         Double avg = reviewService.getAverageRating(item.getItemId());
@@ -50,17 +51,13 @@ public class ItemService {
         return itemOpt;
     }
 
-    /** ✅ Lấy item theo category, kèm rating (fetch thật như filter) */
     public List<Item> getItemsByCategoryIdWithFullData(Integer categoryId) {
-        List<Item> items = itemRepository.findAll((root, query, cb) -> {
-            List<Predicate> predicates = new ArrayList<>();
-            predicates.add(cb.equal(root.get("category").get("categoryId"), categoryId));
-            return cb.and(predicates.toArray(new Predicate[0]));
-        });
-
-        items.forEach(this::attachRating);
+        List<Item> items = itemRepository.findByCategory_CategoryId(categoryId);
+        items.forEach(this::attachRating);  // ⚡ Gắn rating cho từng item
         return items;
     }
+
+
 
     /** ✅ Lọc item theo khoảng giá và category (vẫn kèm rating) */
     public List<Item> filterByPrice(Integer categoryId, Integer min, Integer max) {

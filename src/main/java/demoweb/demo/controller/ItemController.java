@@ -2,6 +2,7 @@ package demoweb.demo.controller;
 
 import demoweb.demo.entity.Category;
 import demoweb.demo.entity.Item;
+import demoweb.demo.entity.Review;
 import demoweb.demo.service.CategoryService;
 import demoweb.demo.service.ItemService;
 import demoweb.demo.service.ReviewService;
@@ -36,16 +37,30 @@ public class ItemController {
         return "Customer/Item";
     }
 
-    /** ✅ Trang chi tiết sản phẩm */
     @GetMapping("/{id:\\d+}")
     public String getItemById(@PathVariable("id") Integer id, Model model) {
         return itemService.getItemById(id)
                 .map(item -> {
+                    // ✅ Lấy danh sách review theo itemId
+                    List<Review> reviews = reviewService.getByItemId(id);
+
+                    // ✅ Thêm các dữ liệu cần hiển thị
                     model.addAttribute("item", item);
+                    model.addAttribute("reviews", reviews);
+
+                    // ✅ Lấy luôn rating tổng hợp (đề phòng nếu bạn chưa attach trong ItemService)
+                    model.addAttribute("averageRating", reviewService.getAverageRating(id));
+                    model.addAttribute("reviewCount", reviewService.getReviewCount(id));
+                    model.addAttribute("ratingStars", reviewService.getRatingStars(reviewService.getAverageRating(id)));
+
+                    // ✅ Lấy root categories cho header/menu
+                    model.addAttribute("rootCategories", categoryService.getRootCategoriesWithChildren());
+
                     return "Customer/ItemDetail";
                 })
                 .orElse("error/404");
     }
+
 
     /** ✅ Lọc sản phẩm theo khoảng giá */
     @GetMapping("/filter")
@@ -74,10 +89,15 @@ public class ItemController {
     /** ✅ Trang sản phẩm theo danh mục */
     @GetMapping("/category/{id}/item")
     public String showCategoryItems(@PathVariable("id") Integer id, Model model) {
+        System.out.println("===> Loading category items for categoryId = " + id);
+
         Category category = categoryService.findByCategoryId(id)
                 .orElseThrow(() -> new RuntimeException("Danh mục không tồn tại"));
 
+
         List<Item> items = itemService.getItemsByCategoryIdWithFullData(id);
+
+        System.out.println("===> Total items found: " + items.size());
 
         model.addAttribute("category", category);
         model.addAttribute("items", items);
@@ -85,4 +105,5 @@ public class ItemController {
         model.addAttribute("currentCategory", category);
         return "Customer/Item";
     }
+
 }

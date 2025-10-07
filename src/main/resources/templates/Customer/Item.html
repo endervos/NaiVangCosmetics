@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -235,8 +236,6 @@
                 <div class="sort-bar">
                     <button class="active">Bán chạy</button>
                     <button>Mới nhất</button>
-                    <button>Giá thấp đến cao</button>
-                    <button>Giá cao đến thấp</button>
                 </div>
 
                 <div class="grid">
@@ -258,6 +257,7 @@
                             <span th:utext="${item.ratingStars}"></span>
                             <span th:text="'(' + ${#numbers.formatDecimal(item.averageRating, 1, 1)} + '/5 - ' + ${item.reviewCount} + ' lượt đánh giá)'"></span>
                         </div>
+
 
 
 

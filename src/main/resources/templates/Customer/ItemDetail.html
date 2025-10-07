@@ -175,10 +175,10 @@
             -->
         </div>
 
-        <!-- Rating (hiện tại fix cứng, DB chưa có rating) -->
         <div class="product-rating">
-            <span class="stars" data-rating="4.2"></span>
-            <span class="review-count">(120 đánh giá)</span>
+            <span th:utext="${item.ratingStars}"></span>
+            <span th:text="'(' + ${#numbers.formatDecimal(item.averageRating, 1, 1)} + '/5 - '
+                    + ${item.reviewCount} + ' lượt đánh giá)'"></span>
         </div>
 
         <!-- Wishlist icon -->
