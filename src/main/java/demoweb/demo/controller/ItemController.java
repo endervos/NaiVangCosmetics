@@ -44,22 +44,40 @@ public class ItemController {
                     // ✅ Lấy danh sách review theo itemId
                     List<Review> reviews = reviewService.getByItemId(id);
 
-                    // ✅ Thêm các dữ liệu cần hiển thị
+                    // ✅ Tính toán rating trung bình và các thông tin liên quan
+                    Double averageRating = reviewService.getAverageRating(id);
+                    Integer reviewCount = reviewService.getReviewCount(id);
+                    String ratingStars = reviewService.getRatingStars(averageRating);
+
+                    // ✅ Thêm dữ liệu vào model
                     model.addAttribute("item", item);
-                    model.addAttribute("reviews", reviews);
-
-                    // ✅ Lấy luôn rating tổng hợp (đề phòng nếu bạn chưa attach trong ItemService)
-                    model.addAttribute("averageRating", reviewService.getAverageRating(id));
-                    model.addAttribute("reviewCount", reviewService.getReviewCount(id));
-                    model.addAttribute("ratingStars", reviewService.getRatingStars(reviewService.getAverageRating(id)));
-
-                    // ✅ Lấy root categories cho header/menu
+                    model.addAttribute("reviews", reviewService.getByItemId(id));
+                    model.addAttribute("averageRating", averageRating);
+                    model.addAttribute("reviewCount", reviewCount);
+                    model.addAttribute("ratingStars", ratingStars);
                     model.addAttribute("rootCategories", categoryService.getRootCategoriesWithChildren());
+
+                    // ✅ LOG KIỂU DỮ LIỆU + GIÁ TRỊ
+                    System.out.println("========== ITEM DETAIL DEBUG ==========");
+                    System.out.println("Item ID: " + id);
+                    System.out.println("Item Name: " + item.getName());
+                    System.out.println("---------------------------------------");
+                    System.out.println("averageRating = " + averageRating + " (" + (averageRating == null ? "null" : averageRating.getClass().getSimpleName()) + ")");
+                    System.out.println("reviewCount = " + reviewCount + " (" + (reviewCount == null ? "null" : reviewCount.getClass().getSimpleName()) + ")");
+                    System.out.println("ratingStars = " + ratingStars + " (" + (ratingStars == null ? "null" : ratingStars.getClass().getSimpleName()) + ")");
+                    System.out.println("---------------------------------------");
+                    System.out.println("Reviews loaded: " + reviews.size());
+                    reviews.stream().limit(3).forEach(r -> {
+                        System.out.println(" - ReviewID: " + r.getReviewId() + ", rating=" + r.getRating() + ", comment=\"" + r.getComment() + "\"");
+                    });
+                    if (reviews.size() > 3) System.out.println(" ... (" + (reviews.size() - 3) + " more reviews)");
+                    System.out.println("=======================================");
 
                     return "Customer/ItemDetail";
                 })
                 .orElse("error/404");
     }
+
 
 
     /** ✅ Lọc sản phẩm theo khoảng giá */

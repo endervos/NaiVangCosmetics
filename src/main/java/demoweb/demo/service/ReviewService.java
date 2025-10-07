@@ -52,7 +52,7 @@ public class ReviewService {
     }
 
     public List<Review> getByItemId(Integer itemId) {
-        return reviewRepository.findByItem_ItemIdOrderByCreatedAtDesc(itemId);
+        return reviewRepository.findByItemIdWithUser(itemId);
     }
 
     public List<Review> getByCustomerId(Integer customerId) {
@@ -65,14 +65,19 @@ public class ReviewService {
     }
 
     /* ========== RATING LOGIC ========== */
-
     public Double getAverageRating(Integer itemId) {
         List<Review> reviews = reviewRepository.findByItem_ItemId(itemId);
-        int count = reviews.size();
-        if (count == 0) return 0.0;
-        double avg = reviews.stream().mapToInt(Review::getRating).average().orElse(0.0);
+        if (reviews == null || reviews.isEmpty()) return 0.0;
+
+        double avg = reviews.stream()
+                .filter(r -> r.getRating() != null)
+                .mapToInt(Review::getRating)
+                .average()
+                .orElse(0.0);
+
         return Math.round(avg * 10.0) / 10.0;
     }
+
 
     public int getReviewCount(Integer itemId) {
         return reviewRepository.findByItem_ItemId(itemId).size();

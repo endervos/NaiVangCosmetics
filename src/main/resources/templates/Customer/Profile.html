@@ -147,30 +147,40 @@
             <input type="text" th:field="*{email}" disabled />
 
             <label>Họ và tên</label>
-            <input type="text" th:field="*{fullname}" disabled />
+            <input type="text" th:field="*{fullname}"  />
 
             <label>Số điện thoại</label>
-            <input type="text" th:field="*{phoneNumber}" disabled />
+            <input type="text" th:field="*{phoneNumber}"  />
 
-            <label >Địa chỉ</label>
-            <button type="button" id="addAddressBtn" style="padding: 0 10px;">+</button>
-            <input type="text" name="address" placeholder="Nhập địa chỉ..." />
+            <div class="form-group">
+                <label>Địa chỉ</label>
+                <button type="button" id="addAddressBtn" class="btn-add">+</button>
+
+                <div id="addressContainer">
+                    <!-- Mỗi dòng địa chỉ -->
+                    <div class="address-row">
+                        <span class="address-label">Địa chỉ 1</span>
+                        <input type="text" name="addresses[]" placeholder="Nhập địa chỉ..." class="address-input">
+                        <button type="button" class="removeAddressBtn btn-remove">–</button>
+                    </div>
+                </div>
+            </div>
+
 
 
             <label>Ngày sinh</label>
-            <input type="text" th:field="*{birthday}" disabled />
+            <input type="text" th:field="*{birthday}"  />
 
             <label>Giới tính</label>
             <div class="d-flex gender-container" >
                 <label>
-                    <input type="radio" th:field="*{gender}" disabled value="Nam" /> Nam
+                    <input type="radio" th:field="*{gender}" value="Nam" /> Nam
                 </label>
                 <label>
-                    <input type="radio" th:field="*{gender}" disabled value="Nữ" /> Nữ
+                    <input type="radio" th:field="*{gender}" value="Nữ" /> Nữ
                 </label>
             </div>
-
-            <button class="btn">Chỉnh sửa thông tin</button>
+            <button class="btn">Cập nhật thông tin</button>
         </div>
     </main>
 
@@ -269,7 +279,7 @@
     </footer>
 
     <script th:src="@{/Home/Home.js}"></script>
-    <script th:src="@{/Profile/Profile.js}"></script>
+    <script th:src="@{/Customer/Profile/Profile.js}"></script>
 
 </body>
 </html>

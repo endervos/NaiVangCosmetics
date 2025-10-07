@@ -163,6 +163,37 @@ header {
     width: 250px;
 }
 
+.address-row {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.address-row span {
+    width: 80px;
+    font-weight: bold;
+    margin-right: 8px;
+}
+
+.address-row input {
+    flex: 1;
+    padding: 6px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.removeAddressBtn {
+    background-color: #ff4d4f;
+    color: white;
+    border: none;
+    padding: 4px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.removeAddressBtn:hover {
+    background-color: #e63946;
+}
 
 footer {
     background: #ff6600;
