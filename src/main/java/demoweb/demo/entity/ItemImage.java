@@ -15,10 +15,9 @@ public class ItemImage {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "item_id", nullable = false)
-    @JsonIgnore   // tránh vòng lặp khi trả JSON (item -> images -> item -> images)
+    @JsonIgnore
     private Item item;
 
-    // ảnh lưu trong DB (BLOB), ẩn khi trả JSON
     @Lob
     @Column(name = "image_blob", columnDefinition = "BLOB")
     @JsonIgnore
@@ -82,4 +81,5 @@ public class ItemImage {
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
+
 }

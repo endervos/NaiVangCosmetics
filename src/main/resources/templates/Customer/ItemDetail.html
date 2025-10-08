@@ -91,9 +91,24 @@
         <!-- Danh Mục Sản Phẩm -->
         <div class="dropdown">
             <a href="#">☰ DANH MỤC SẢN PHẨM</a>
-
-            <!-- Menu cấp 1 -->
-            <ul class="dropdown-content"> <li class="has-submenu" th:each="cat : ${rootCategories}"> <a th:href="@{/category/{id}(id=${cat.categoryId})}"> <span th:text="${cat.name}"></span> </a> </li> </ul>
+            <ul class="dropdown-content">
+                <li class="has-submenu" th:each="cat : ${rootCategories}">
+                    <a th:href="@{/category/{id}/item(id=${cat.categoryId})}">
+                        <img class="menu-icon"
+                             th:src="@{/Customer/Home/{icon}(icon=${cat.slug + '.png'})}"
+                             th:alt="${cat.name}" />
+                        <span th:text="${cat.name}"></span>
+                    </a>
+                    <ul class="submenu" th:if="${#lists.size(cat.children) > 0}">
+                        <li th:each="sub : ${cat.children}">
+                            <a th:href="@{/category/{id}/item(id=${sub.categoryId})}">
+                                <span th:text="${sub.name}"></span>
+                                <span class="count" th:text="${#lists.size(sub.items)}"></span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
         </div>
 
         <!-- Sản Phẩm Mới -->
@@ -141,20 +156,36 @@
 <div class="product-detail-container">
     <!-- Cột trái: Ảnh sản phẩm -->
     <div class="product-images">
+
+        <!-- Ảnh chính -->
         <div class="main-image">
-            <img id="currentImage" th:src="@{/Customer/ItemDetail/Image/Cerave1.jpg}" alt="Image 1">
+            <img id="currentImage"
+                 class="main-photo"
+                 th:if="${primaryImage != null && primaryImage.itemImageId != null}"
+                 th:src="@{'/api/item-images/blob/' + ${primaryImage.itemImageId}}"
+                 th:alt="${primaryImage.alt != null ? primaryImage.alt : 'Primary image'}"
+                 alt="Primary image" />
         </div>
 
         <!-- Thumbnails -->
         <div class="thumbnail-images">
-            <img class="thumbnail active" th:src="@{/Customer/Item/Image/Cerave1.jpg}" alt="Image 1">
-            <img class="thumbnail" th:src="@{/Customer/ItemDetail/Image/Cerave2.jpg}" alt="Image 2">
-            <img class="thumbnail" th:src="@{/Customer/ItemDetail/Image/Cerave3.jpg}" alt="Image 3">
-            <img class="thumbnail" th:src="@{/Customer/ItemDetail/Image/Cerave4.png}" alt="Image 4">
+
+            <!-- Ảnh chính (hiển thị đầu tiên, có class active) -->
+            <img class="thumbnail active"
+                 th:if="${primaryImage != null && primaryImage.itemImageId != null}"
+                 th:src="@{'/api/item-images/blob/' + ${primaryImage.itemImageId}}"
+                 th:alt="${primaryImage.alt != null ? primaryImage.alt : 'Primary image'}"
+                 alt="Primary image" />
+
+            <!-- Các ảnh phụ -->
+            <img th:each="img : ${subImages}"
+                 th:if="${!img.isPrimary}"
+                 class="thumbnail"
+                 th:src="@{'/api/item-images/blob/' + ${img.itemImageId}}"
+                 th:alt="${img.alt != null ? img.alt : 'Sub image'}"
+                 alt="Sub image" />
         </div>
     </div>
-
-
 
     <!-- Cột phải: Thông tin sản phẩm -->
     <div class="product-info">
@@ -250,7 +281,7 @@
         <!-- Nếu có review -->
         <div th:each="review : ${reviews}" class="review-card">
             <div class="review-header">
-                <img th:src="@{/Customer/Item/Image/default-avatar.png}" alt="user avatar" class="review-avatar">
+                <img th:src="@{/Customer/ItemDetail/Image/UserImage.jpg}" alt="user avatar" class="review-avatar">
 
                 <div class="review-user-info">
                     <p class="review-username" th:text="${review.customer.user.fullname}">Nguyễn Văn A</p>

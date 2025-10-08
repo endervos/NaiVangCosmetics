@@ -43,10 +43,6 @@ public class ItemImageService {
                     return placeholder;
                 });
     }
-
-    /**
-     * ✅ Thêm ảnh mới cho item
-     */
     public ItemImage saveForItem(Integer itemId, ItemImage itemImage) {
         Item item = itemRepository.findById(itemId)
                 .orElseThrow(() -> new RuntimeException("Item not found with id = " + itemId));
@@ -55,9 +51,7 @@ public class ItemImageService {
         return itemImageRepository.save(itemImage);
     }
 
-    /**
-     * ✅ Xóa ảnh
-     */
+
     public void delete(Integer imageId) {
         itemImageRepository.deleteById(imageId);
     }

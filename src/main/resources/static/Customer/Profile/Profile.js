@@ -155,9 +155,10 @@ document.addEventListener("DOMContentLoaded", function () {
                     window.location.href = response.url;
                 } else {
                     console.log("✅ Cập nhật thành công!");
-                    alert("Cập nhật thành công!");
+                    alert("✅ Thông tin của bạn đã được cập nhật thành công!");
                 }
             })
+
             .catch(err => {
                 console.error("❌ Lỗi khi gửi dữ liệu:", err);
                 alert("Có lỗi xảy ra khi cập nhật!");

@@ -2,8 +2,10 @@ package demoweb.demo.controller;
 
 import demoweb.demo.entity.Category;
 import demoweb.demo.entity.Item;
+import demoweb.demo.entity.ItemImage;
 import demoweb.demo.entity.Review;
 import demoweb.demo.service.CategoryService;
+import demoweb.demo.service.ItemImageService;
 import demoweb.demo.service.ItemService;
 import demoweb.demo.service.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +30,6 @@ public class ItemController {
         this.reviewService = reviewService;
     }
 
-    /** ✅ Trang tất cả sản phẩm */
     @GetMapping
     public String showItemPage(Model model) {
         List<Item> items = itemService.getAllItems();
@@ -37,40 +38,37 @@ public class ItemController {
         return "Customer/Item";
     }
 
+    @Autowired
+    private ItemImageService itemImageService;
     @GetMapping("/{id:\\d+}")
     public String getItemById(@PathVariable("id") Integer id, Model model) {
         return itemService.getItemById(id)
                 .map(item -> {
-                    // ✅ Lấy danh sách review theo itemId
                     List<Review> reviews = reviewService.getByItemId(id);
 
-                    // ✅ Tính toán rating trung bình và các thông tin liên quan
                     Double averageRating = reviewService.getAverageRating(id);
                     Integer reviewCount = reviewService.getReviewCount(id);
                     String ratingStars = reviewService.getRatingStars(averageRating);
 
-                    // ✅ Thêm dữ liệu vào model
+                    ItemImage primaryImage = itemImageService.getPrimaryImage(id);
+                    List<ItemImage> subImages = itemImageService.getImagesByItemId(id);
+
                     model.addAttribute("item", item);
-                    model.addAttribute("reviews", reviewService.getByItemId(id));
+                    model.addAttribute("reviews", reviews);
                     model.addAttribute("averageRating", averageRating);
                     model.addAttribute("reviewCount", reviewCount);
                     model.addAttribute("ratingStars", ratingStars);
                     model.addAttribute("rootCategories", categoryService.getRootCategoriesWithChildren());
+                    model.addAttribute("primaryImage", primaryImage);
+                    model.addAttribute("subImages", subImages);
 
-                    // ✅ LOG KIỂU DỮ LIỆU + GIÁ TRỊ
                     System.out.println("========== ITEM DETAIL DEBUG ==========");
                     System.out.println("Item ID: " + id);
                     System.out.println("Item Name: " + item.getName());
-                    System.out.println("---------------------------------------");
-                    System.out.println("averageRating = " + averageRating + " (" + (averageRating == null ? "null" : averageRating.getClass().getSimpleName()) + ")");
-                    System.out.println("reviewCount = " + reviewCount + " (" + (reviewCount == null ? "null" : reviewCount.getClass().getSimpleName()) + ")");
-                    System.out.println("ratingStars = " + ratingStars + " (" + (ratingStars == null ? "null" : ratingStars.getClass().getSimpleName()) + ")");
-                    System.out.println("---------------------------------------");
-                    System.out.println("Reviews loaded: " + reviews.size());
-                    reviews.stream().limit(3).forEach(r -> {
-                        System.out.println(" - ReviewID: " + r.getReviewId() + ", rating=" + r.getRating() + ", comment=\"" + r.getComment() + "\"");
-                    });
-                    if (reviews.size() > 3) System.out.println(" ... (" + (reviews.size() - 3) + " more reviews)");
+                    System.out.println("averageRating = " + averageRating);
+                    System.out.println("reviewCount = " + reviewCount);
+                    System.out.println("Primary Image: " + (primaryImage != null ? primaryImage.getItemImageId() : "none"));
+                    System.out.println("Sub Images: " + subImages.size());
                     System.out.println("=======================================");
 
                     return "Customer/ItemDetail";
@@ -80,7 +78,6 @@ public class ItemController {
 
 
 
-    /** ✅ Lọc sản phẩm theo khoảng giá */
     @GetMapping("/filter")
     public String filterItems(@RequestParam("categoryId") Integer categoryId,
                               @RequestParam("range") String range, Model model) {
@@ -104,7 +101,6 @@ public class ItemController {
         return "Customer/Item";
     }
 
-    /** ✅ Trang sản phẩm theo danh mục */
     @GetMapping("/category/{id}/item")
     public String showCategoryItems(@PathVariable("id") Integer id, Model model) {
         System.out.println("===> Loading category items for categoryId = " + id);
