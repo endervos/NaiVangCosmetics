@@ -151,7 +151,7 @@
   background: #fff;
   padding: 20px;
   border-radius: 10px;
-  margin-top: 20px; 
+  margin-top: 10px; 
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   overflow: hidden; /* Ngăn cuộn trong main-area */
   height: calc(100vh - 60px); /* Chiều cao bằng sidebar, trừ chiều cao top-bar */

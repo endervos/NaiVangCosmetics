@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quản lý tài khoản</title>
+  <link rel="stylesheet" href="/src/main/resources/static/Admin/Background/Background.css">
+  <link rel="stylesheet" href="/src/main/resources/static/Admin/AccountManagement/AccountManagement.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="icon" type="image/png" href="/src/main/resources/static/Customer/Example/Image/LogoConNai.png">
+</head>
+<body class="admin-body">
+
+  <!-- Sidebar -->
+  <nav class="admin-sidebar">
+    <div class="sidebar-logo">
+      <img src="/src/main/resources/static/Customer/Example/Image/LogoConNai.png" alt="Logo" class="logo-img">
+      <h2 class="logo-text">Admin</h2>
+    </div>
+    <ul>
+      <li><a href="/src/main/resources/templates/Admin/Dashboard.html"><i class="fa-solid fa-gauge"></i> Dashboard</a></li>
+      <li><a href="/src/main/resources/templates/Admin/ProductAdmin.html"><i class="fa-solid fa-box"></i> Sản phẩm</a></li>
+      <li><a href="/src/main/resources/templates/Admin/CategoryAdmin.html"><i class="fa-solid fa-list"></i> Danh mục</a></li>
+      <li><a href="/src/main/resources/templates/Admin/DealAdmin.html"><i class="fa-solid fa-tags"></i> Khuyến mãi</a></li>
+      <li><a href="/src/main/resources/templates/Admin/ReviewAdmin.html"><i class="fa-solid fa-star"></i> Đánh giá</a></li>
+      <li><a href="/src/main/resources/templates/Admin/OrderAdmin.html"><i class="fa-solid fa-receipt"></i> Đơn hàng</a></li>
+      <li><a href="/src/main/resources/templates/Admin/AccountManagement.html"><i class="fa-solid fa-users"></i> Quản lý tài khoản</a></li>
+      <li><a href="/src/main/resources/templates/Admin/ProfileAdmin.html"><i class="fa-solid fa-user"></i> Hồ sơ</a></li>
+    </ul>
+  </nav>
+
+  <!-- Main content -->
+  <div class="admin-content">
+    <!-- Top bar -->
+    <div class="top-bar">
+      <div class="user-menu">
+        <div class="user-info">
+          <i class="fa-solid fa-user-circle"></i>
+          <span>Admin</span>
+          <i class="fa-solid fa-chevron-down"></i>
+        </div>
+        <!-- Dropdown -->
+        <ul class="dropdown">
+          <li><a href="/src/main/resources/templates/Customer/Login.html"><i class="fa-solid fa-right-from-bracket"></i> Đăng xuất</a></li>
+        </ul>
+      </div>
+    </div>
+
+      <!-- Main area -->
+    <div class="main-area">
+      <h2>Quản lý Tài khoản</h2>
+      <div class="filter-container">
+        <input id="name-search" type="text" placeholder="Tìm kiếm theo họ tên">
+        <input id="email-search" type="text" placeholder="Tìm kiếm theo email">
+        <select id="role-filter">
+          <option value="">Tất cả vai trò</option>
+          <option value="customer">Customer</option>
+          <option value="manager">Manager</option>
+          <option value="admin">Admin</option>
+        </select>
+        <button id="apply-filter">Áp dụng</button>
+        <button id="show-all">Hiển thị tất cả</button>
+      </div>
+      <table id="account-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Họ tên</th>
+            <th>Email</th>
+            <th>Ngày sinh</th>
+            <th>Giới tính</th>
+            <th>Vai trò</th>
+            <th>Hành động</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      <div class="pagination">
+        <button id="prev-page">Trang trước</button>
+        <span id="page-info"></span>
+        <button id="next-page">Trang sau</button>
+      </div>
+
+      <!-- Modal cho sửa thông tin tài khoản -->
+      <div id="edit-account-modal" class="modal">
+        <div class="modal-content">
+          <span class="close-btn">&times;</span>
+          <h3>Sửa thông tin tài khoản</h3>
+          <form id="edit-account-form">
+            <input type="hidden" id="edit-account-id">
+            <div class="form-group">
+              <label for="edit-name">Họ tên:</label>
+              <input type="text" id="edit-name" required>
+            </div>
+            <div class="form-group">
+              <label for="edit-email">Email:</label>
+              <input type="email" id="edit-email" readonly>
+            </div>
+            <div class="form-group">
+              <label for="edit-dob">Ngày sinh:</label>
+              <input type="date" id="edit-dob" required>
+            </div>
+            <div class="form-group">
+              <label for="edit-gender">Giới tính:</label>
+              <select id="edit-gender" required>
+                <option value="Nam">Nam</option>
+                <option value="Nữ">Nữ</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="edit-role">Vai trò:</label>
+              <select id="edit-role" required>
+                <option value="customer">Customer</option>
+                <option value="manager">Manager</option>
+                <option value="admin">Admin</option>
+              </select>
+            </div>
+            <button type="submit" class="confirm-btn">Cập nhật</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Modal cho đổi mật khẩu -->
+      <div id="change-password-modal" class="modal">
+        <div class="modal-content">
+          <span class="close-btn">&times;</span>
+          <h3>Đổi mật khẩu</h3>
+          <form id="change-password-form">
+            <input type="hidden" id="change-password-id">
+            <div class="form-group">
+              <label for="new-password">Mật khẩu mới:</label>
+              <input type="password" id="new-password" required>
+            </div>
+            <div class="form-group">
+              <label for="confirm-password">Xác nhận mật khẩu:</label>
+              <input type="password" id="confirm-password" required>
+            </div>
+            <button type="submit" class="confirm-btn">Cập nhật mật khẩu</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Modal cho xác nhận xóa -->
+      <div id="delete-confirm-modal" class="modal">
+        <div class="modal-content">
+          <span class="close-btn">&times;</span>
+          <h3>Xác nhận xóa</h3>
+          <p id="delete-confirm-message"></p>
+          <div class="modal-actions">
+            <button id="confirm-delete-btn" class="confirm-btn">Xóa</button>
+            <button id="cancel-delete-btn" class="cancel-btn">Hủy</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/src/main/resources/static/Admin/AccountManagement/AccountManagement.js"></script>
+</body>
+</html>
