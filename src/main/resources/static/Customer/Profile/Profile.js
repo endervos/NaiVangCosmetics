@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const namePattern = /^[\p{L}\s]{2,50}$/u;
     const phonePattern = /^(0[3|5|7|8|9])[0-9]{8}$/;
     const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    const addressPattern = /^[A-Za-zÀ-ỹà-ỹĐđ0-9\s,./()-]{5,100}$/;
+    const addressPattern = /^[A-Za-zÀ-ỹà-ỹĐđ0-9\s]{5,100}$/;
 
     // 🔹 Danh sách quận / huyện theo tỉnh
     const districtsByCity = {
@@ -150,19 +150,19 @@ document.addEventListener("DOMContentLoaded", function () {
             })
         })
             .then(response => {
-                if (response.redirected) {
-                    console.log("✅ Server redirect →", response.url);
-                    window.location.href = response.url;
+                if (response.ok) {
+                    alert("Thông tin đã được cập nhật thành công!");
+                    console.log("Cập nhật thành công!");
                 } else {
-                    console.log("✅ Cập nhật thành công!");
-                    alert("✅ Thông tin của bạn đã được cập nhật thành công!");
+                    alert("Có lỗi khi cập nhật thông tin!");
+                    console.error("Lỗi phản hồi:", response.status);
                 }
             })
-
             .catch(err => {
-                console.error("❌ Lỗi khi gửi dữ liệu:", err);
-                alert("Có lỗi xảy ra khi cập nhật!");
+                console.error("Lỗi khi gửi dữ liệu:", err);
+                alert("Có lỗi xảy ra khi gửi dữ liệu!");
             });
+
     });
 
     // ================== 🔹 QUẢN LÝ THÊM / XÓA ĐỊA CHỈ 🔹 ==================
@@ -206,6 +206,8 @@ document.addEventListener("DOMContentLoaded", function () {
             const removeBtn = newRow.querySelector(".btn-remove");
             const citySelect = newRow.querySelector(".city-select");
             const districtSelect = newRow.querySelector(".district-select");
+            const streetInput = newRow.querySelector(".street-input");
+
 
             // 🔹 Xóa dòng
             removeBtn.addEventListener("click", function () {
