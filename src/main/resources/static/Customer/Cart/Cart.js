@@ -39,12 +39,5 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    const checkoutBtn = document.getElementById("checkout-btn");
-    if (checkoutBtn) {
-        checkoutBtn.addEventListener("click", () => {
-            alert("Đặt hàng thành công! Cảm ơn bạn.");
-        });
-    }
-
     updateCart();
 });

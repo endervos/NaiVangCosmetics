@@ -56,7 +56,6 @@
 
             </div>
 
-
             <!-- Cart Section -->
             <div class="cart-section">
                 <a href="#" class="cart-pill" title="Giỏ hàng">
@@ -267,7 +266,9 @@
   <div class="checkout-address">
     <div>
       <h3>Địa chỉ giao hàng</h3>
-      <p id="address-text">Hiền | 0945120375 | 123 Lê Lợi, Quận 1, TP. Hồ Chí Minh</p>
+        <p id="address-text" th:text="${defaultAddress != null ? defaultAddress : 'Chưa có địa chỉ mặc định'}">
+            Chưa có địa chỉ mặc định
+        </p>
     </div>
     <button id="change-address">Thay đổi</button>
   </div>
@@ -276,76 +277,41 @@
   <div class="checkout-main">
     <!-- Bên trái: sản phẩm -->
     <div class="checkout-left">
-      <div class="checkout-products">
-        <h2>Sản phẩm của bạn</h2>
-
-        <div class="product-item">
-        <img src="/src/main/resources/static/Payment/Image/item1.png" alt="Sản phẩm 1">
-        <div class="product-details">
-            <h4>Sản phẩm 1</h4>
-        </div>
-        <div class="product-price">
-            <p>
-            <span class="qty">2</span> × 
-            <span class="unit-price" data-price="100000">100.000</span>đ
-            </p>
-        </div>
-        </div>
-
-        <div class="product-item">
-        <img src="/src/main/resources/static/Payment/Image/item2.png" alt="Sản phẩm 2">
-        <div class="product-details">
-            <h4>Sản phẩm 2</h4>
-        </div>
-        <div class="product-price">
-            <p>
-            <span class="qty">1</span> × 
-            <span class="unit-price" data-price="200000">200.000</span>đ
-            </p>
-        </div>
-        </div>
-
-         <div class="product-item">
-            <img src="/src/main/resources/static/Payment/Image/item3.png" alt="Sản phẩm 1">
-            <div class="product-details">
-                <h4>Sản phẩm 1</h4>
-            </div>
-            <div class="product-price">
-                <p>
-                <span class="qty">2</span> × 
-                <span class="unit-price" data-price="100000">100.000</span>đ
-                </p>
+        <div class="checkout-products">
+            <h2>Sản phẩm của bạn</h2>
+            <div class="product-item" th:each="cartItem : ${cartItems}">
+                <img th:if="${cartItem.item.images != null and !cartItem.item.images.isEmpty()}"
+                     th:src="@{'/api/item-images/blob/' + ${cartItem.item.images[0].itemImageId}}"
+                     th:alt="${cartItem.item.images[0].alt ?: 'Sản phẩm'}" />
+                <span th:if="${cartItem.item.images == null or cartItem.item.images.isEmpty()}">
+                    [Không có hình]
+                </span>
+                <div class="product-details">
+                    <h4 th:text="${cartItem.item.name}">Tên sản phẩm</h4>
+                </div>
+                <div class="product-price">
+                    <p>
+                        <span class="qty" th:text="${cartItem.quantity}">1</span> ×
+                        <span th:text="${#numbers.formatInteger(cartItem.item.price, 0, 'POINT')} + 'đ'">0₫</span>
+                    </p>
+                </div>
             </div>
         </div>
-
-        <div class="product-item">
-            <img src="/src/main/resources/static/Payment/Image/item4.png" alt="Sản phẩm 2">
-            <div class="product-details">
-                <h4>Sản phẩm 2</h4>
-            </div>
-            <div class="product-price">
-                <p>
-                <span class="qty">1</span> × 
-                <span class="unit-price" data-price="200000">200.000</span>đ
-                </p>
-            </div>
-         </div>
-
-      </div>
     </div>
 
     <!-- Bên phải: hóa đơn + discount + payment -->
     <div class="checkout-right">
       <!-- Hóa đơn -->
-      <div class="checkout-summary">
-        <h2>Hóa đơn</h2>
-        <p>Tạm tính: <span id="subtotal">400.000đ</span></p>
-        <p>Phí vận chuyển: <span id="shipping">30.000đ</span></p>
-        <p>Giảm giá: <span id="discount">0đ</span></p>
-        <hr>
-        <p class="total">Tổng cộng: <span id="total">430.000đ</span></p>
-        <button id="pay-btn">Thanh toán</button>
-      </div>
+        <div class="checkout-summary">
+            <h2>Hóa đơn</h2>
+            <p>Tạm tính: <span th:text="|${#numbers.formatInteger(subtotal, 0, 'POINT')}đ|">0đ</span></p>
+            <p>Phí vận chuyển: <span th:text="|${#numbers.formatInteger(shippingCost, 0, 'POINT')}đ|">0đ</span></p>
+            <p>Giảm giá: <span th:text="|-${#numbers.formatInteger(discount, 0, 'POINT')}đ|">0đ</span></p>
+            <p class="total">Tổng cộng:
+                <span th:text="|${#numbers.formatInteger(totalAmount, 0, 'POINT')}đ|">0đ</span>
+            </p>
+            <button id="pay-btn">Thanh toán</button>
+        </div>
 
       <!-- Mã giảm giá -->
       <div class="checkout-discount">
@@ -355,11 +321,11 @@
       </div>
 
       <!-- Phương thức thanh toán -->
-      <div class="checkout-payment">
-        <h3>Phương thức thanh toán</h3>
-        <label><input type="radio" name="payment" value="wallet"> Ví điện tử (Momo, ZaloPay, PayPal)</label><br>
-        <label><input type="radio" name="payment" value="cod"> Thanh toán khi nhận hàng (COD)</label>
-      </div>
+        <div class="checkout-payment">
+            <h3>Phương thức thanh toán</h3>
+            <label><input type="radio" name="payment" value="wallet"> Ví điện tử (Momo, ZaloPay, PayPal)</label><br>
+            <label><input type="radio" name="payment" value="cod" checked> Thanh toán khi nhận hàng (COD)</label>
+        </div>
     </div>
   </div>
 </div>
@@ -455,7 +421,7 @@
     </div>
 </footer>
 
-<script src="/src/main/resources/static/Payment/Payment.js"></script>
-<script src="/src/main/resources/static/Example/Example.js"></script>
+<script th:src="@{/Customer/Payment/Payment.js}"></script>
+<script th:src="@{/Customer/Example/Example.js}"></script>
 </body>
 </html>
