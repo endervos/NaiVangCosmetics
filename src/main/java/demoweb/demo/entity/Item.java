@@ -14,7 +14,6 @@ public class Item {
     @Column(name = "item_id", nullable = false)
     private Integer itemId;
 
-    // One-to-Many với ItemImage
     @OneToMany(mappedBy = "item", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<ItemImage> images = new ArrayList<>();
 
@@ -42,7 +41,6 @@ public class Item {
 
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
-
 
     @PrePersist
     protected void onCreate() {
@@ -137,7 +135,6 @@ public class Item {
         this.updatedAt = updatedAt;
     }
 
-    // ⭐ Getter & Setter cho rating
     public Double getAverageRating() {
         return averageRating;
     }
@@ -163,7 +160,6 @@ public class Item {
     private Integer reviewCount;
 
     public Integer getReviewCount() { return reviewCount; }
+
     public void setReviewCount(Integer reviewCount) { this.reviewCount = reviewCount; }
-
-
 }

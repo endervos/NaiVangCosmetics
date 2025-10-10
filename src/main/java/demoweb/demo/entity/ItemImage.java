@@ -33,7 +33,6 @@ public class ItemImage {
             columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private LocalDateTime createdAt;
 
-    // --- Getter & Setter ---
     public Integer getItemImageId() {
         return itemImageId;
     }

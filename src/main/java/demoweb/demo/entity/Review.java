@@ -24,12 +24,10 @@ public class Review implements Serializable {
     @Column(name = "review_id")
     private Integer reviewId;
 
-    // Liên kết đến bảng Item (sản phẩm được đánh giá)
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "item_id", referencedColumnName = "item_id")
     private Item item;
 
-    // Liên kết đến bảng Customer (người đánh giá)
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_id", referencedColumnName = "customer_id")
     private Customer customer;

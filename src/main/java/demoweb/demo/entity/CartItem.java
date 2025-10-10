@@ -10,7 +10,7 @@ public class CartItem {
     private CartItemId id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @MapsId("cartId") // Liên kết với khóa chính Cart
+    @MapsId("cartId")
     @JoinColumn(name = "cart_id", nullable = false)
     private Cart cart;
 
@@ -24,13 +24,6 @@ public class CartItem {
 
     public CartItem() {}
 
-    // Constructor bổ sung để khởi tạo nhanh
-    public CartItem(CartItemId id, int quantity) {
-        this.id = id;
-        this.quantity = quantity;
-    }
-
-    // Constructor tiện dụng khi có Cart và Item
     public CartItem(Cart cart, Item item, Integer quantity) {
         this.cart = cart;
         this.item = item;
@@ -38,7 +31,6 @@ public class CartItem {
         this.id = new CartItemId(cart.getCartId(), item.getItemId());
     }
 
-    // ===== Getter & Setter =====
     public CartItemId getId() {
         return id;
     }

@@ -217,49 +217,48 @@
 </div>
 
 <div class="checkout-container">
-<!-- Modal quản lý địa chỉ -->
-<div class="modal" id="address-modal">
-  <div class="modal-content">
-    <h3>Chọn địa chỉ giao hàng</h3>
+    <!-- Modal quản lý địa chỉ -->
+    <div class="modal" id="address-modal">
+        <div class="modal-content">
+            <h3>Chọn địa chỉ giao hàng</h3>
 
-    <!-- Danh sách địa chỉ -->
-    <div id="address-list">
-      <div class="address-item">
-        <input type="radio" name="address" value="Nguyễn Văn A | 0901234567 | 123 Lê Lợi, TP. HCM, Hồ Chí Minh" checked>
-        <span>Nguyễn Văn A | 0901234567 | 123 Lê Lợi, TP. HCM, Hồ Chí Minh</span>
-      </div>
-      <div class="address-item">
-        <input type="radio" name="address" value="Trần Thị B | 0912345678 | 456 Trần Hưng Đạo, Hà Nội, Hà Nội">
-        <span>Trần Thị B | 0912345678 | 456 Trần Hưng Đạo, Hà Nội, Hà Nội</span>
-      </div>
+            <!-- Danh sách địa chỉ -->
+            <div id="address-list">
+                <div th:each="addr : ${addresses}" class="address-item">
+                    <input type="radio" name="address"
+                           th:data-id="${addr.addressId}"
+                           th:value="${addr.customer.user.fullname + ' | ' + addr.phoneNumber + ' | ' + addr.street + ', ' + addr.district + ', ' + addr.city}"
+                           th:checked="${addr.isDefault}" />
+                    <span th:text="${addr.customer.user.fullname + ' | ' + addr.phoneNumber + ' | ' + addr.street + ', ' + addr.district + ', ' + addr.city}"></span>
+                </div>
+            </div>
+
+            <!-- Form thêm địa chỉ -->
+            <div id="new-address-form" style="display:none; margin-top:15px;">
+                <label>Họ và tên</label>
+                <input type="text" id="fullname" placeholder="Nhập họ và tên">
+
+                <label>Số điện thoại</label>
+                <input type="text" id="phone" placeholder="Nhập số điện thoại">
+
+                <label>Số nhà / Đường</label>
+                <input type="text" id="street" placeholder="Nhập số nhà / đường">
+
+                <label>Quận / Huyện</label>
+                <input type="text" id="city" placeholder="Nhập quận / huyện">
+
+                <label>Tỉnh / Thành phố</label>
+                <input type="text" id="province" placeholder="Nhập tỉnh / thành phố">
+            </div>
+
+            <!-- Nút hành động -->
+            <div class="modal-actions">
+                <button id="add-new-address">Thêm địa chỉ mới</button>
+                <button id="cancel-modal">Hủy</button>
+                <button id="save-modal">Lưu</button>
+            </div>
+        </div>
     </div>
-
-    <!-- Form thêm địa chỉ (ẩn mặc định) -->
-    <div id="new-address-form" style="display:none; margin-top:15px;">
-      <label>Họ và tên</label>
-      <input type="text" id="fullname" placeholder="Nguyễn Văn A">
-
-      <label>Số điện thoại</label>
-      <input type="text" id="phone" placeholder="0901234567">
-
-      <label>Số nhà / Đường</label>
-      <input type="text" id="street" placeholder="123 Lê Lợi">
-
-      <label>Thành phố</label>
-      <input type="text" id="city" placeholder="BMT">
-
-      <label>Tỉnh / Thành</label>
-      <input type="text" id="province" placeholder="TP.Hồ Chí Minh">
-    </div>
-
-    <!-- Nút hành động -->
-    <div class="modal-actions">
-      <button id="add-new-address">Thêm địa chỉ mới</button>
-      <button id="cancel-modal">Hủy</button>
-      <button id="save-modal">Lưu</button>
-    </div>
-  </div>
-</div>
 
 
   <!-- Địa chỉ -->
@@ -314,13 +313,14 @@
         </div>
 
       <!-- Mã giảm giá -->
-      <div class="checkout-discount">
-        <h3>Mã giảm giá</h3>
-        <input type="text" id="discount-code" placeholder="Nhập mã giảm giá">
-        <button id="apply-discount">Áp dụng</button>
-      </div>
+        <div class="checkout-discount">
+            <h3>Mã giảm giá</h3>
+            <input type="text" id="discount-code" placeholder="Nhập mã giảm giá">
+            <button id="apply-discount">Áp dụng</button>
+            <p id="voucher-message" style="margin-top:5px; font-size:14px;"></p>
+        </div>
 
-      <!-- Phương thức thanh toán -->
+        <!-- Phương thức thanh toán -->
         <div class="checkout-payment">
             <h3>Phương thức thanh toán</h3>
             <label><input type="radio" name="payment" value="wallet"> Ví điện tử (Momo, ZaloPay, PayPal)</label><br>

@@ -32,7 +32,6 @@ public class User {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM/dd/yyyy")
     private LocalDate birthday;
 
-
     @Enumerated(EnumType.STRING)
     @Column(name = "gender")
     private Gender gender;

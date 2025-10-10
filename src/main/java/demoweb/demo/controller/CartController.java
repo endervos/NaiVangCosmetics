@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Controller
@@ -23,6 +24,7 @@ public class CartController {
     private final AccountRepository accountRepository;
     private final CustomerRepository customerRepository;
     private final AddressRepository addressRepository;
+    private final VoucherRepository voucherRepository;
 
     public CartController(
             CartRepository cartRepository,
@@ -30,7 +32,8 @@ public class CartController {
             CartService cartService,
             AccountRepository accountRepository,
             CustomerRepository customerRepository,
-            AddressRepository addressRepository
+            AddressRepository addressRepository,
+            VoucherRepository voucherRepository
     ) {
         this.cartRepository = cartRepository;
         this.cartItemRepository = cartItemRepository;
@@ -38,6 +41,7 @@ public class CartController {
         this.accountRepository = accountRepository;
         this.customerRepository = customerRepository;
         this.addressRepository = addressRepository;
+        this.voucherRepository = voucherRepository;
     }
 
     @GetMapping
@@ -76,10 +80,16 @@ public class CartController {
             c.setUpdatedAt(LocalDateTime.now());
             return cartRepository.save(c);
         });
-        CartItemId id = new CartItemId(cart.getCartId(), itemId);
-        CartItem item = cartItemRepository.findById(id).orElse(new CartItem(id, 0));
-        item.setQuantity(item.getQuantity() + quantity);
-        cartItemRepository.save(item);
+        Item itemEntity = cartService.findItemById(itemId)
+                .orElseThrow(() -> new RuntimeException("Không tìm thấy sản phẩm với ID: " + itemId));
+        CartItemId cartItemId = new CartItemId(cart.getCartId(), itemId);
+        CartItem cartItem = cartItemRepository.findById(cartItemId).orElse(null);
+        if (cartItem == null) {
+            cartItem = new CartItem(cart, itemEntity, quantity);
+        } else {
+            cartItem.setQuantity(cartItem.getQuantity() + quantity);
+        }
+        cartItemRepository.save(cartItem);
         cart.setUpdatedAt(LocalDateTime.now());
         cartRepository.save(cart);
         return "redirect:/item/" + itemId;
@@ -102,6 +112,7 @@ public class CartController {
             model.addAttribute("discount", 0);
             model.addAttribute("totalAmount", 0);
             model.addAttribute("defaultAddress", null);
+            model.addAttribute("addresses", List.of());
             return "Customer/Payment";
         }
         Cart cart = cartOpt.get();
@@ -117,10 +128,13 @@ public class CartController {
         model.addAttribute("shippingCost", shipping);
         model.addAttribute("discount", discount);
         model.addAttribute("totalAmount", total);
-        Optional<Address> defaultAddressOpt = accountRepository.findById(accountId)
-                .map(Account::getUser)
-                .flatMap(user -> customerRepository.findByUser(user))
-                .flatMap(customer -> addressRepository.findByCustomerAndIsDefaultTrue(customer));
+        var account = accountRepository.findById(accountId)
+                .orElseThrow(() -> new RuntimeException("Không tìm thấy account với id: " + accountId));
+        var customer = customerRepository.findByUser(account.getUser())
+                .orElseThrow(() -> new RuntimeException("Không tìm thấy customer cho user này"));
+        List<Address> addresses = addressRepository.findByCustomer(customer);
+        model.addAttribute("addresses", addresses);
+        Optional<Address> defaultAddressOpt = addressRepository.findByCustomerAndIsDefaultTrue(customer);
         defaultAddressOpt.ifPresentOrElse(addr -> {
             String fullAddress = String.format(
                     "%s | %s | %s, %s, %s",
@@ -133,5 +147,90 @@ public class CartController {
             model.addAttribute("defaultAddress", fullAddress);
         }, () -> model.addAttribute("defaultAddress", "Chưa có địa chỉ giao hàng mặc định"));
         return "Customer/Payment";
+    }
+
+    @PostMapping("/address/add")
+    @ResponseBody
+    public Map<String, Object> addAddress(@AuthenticationPrincipal UserDetails userDetails,
+                                          @RequestBody Address newAddr) {
+        if (userDetails == null)
+            throw new RuntimeException("Chưa đăng nhập");
+        String email = userDetails.getUsername();
+        var account = accountRepository.findByUser_Email(email)
+                .orElseThrow(() -> new RuntimeException("Không tìm thấy account cho email: " + email));
+        var customer = customerRepository.findByUser(account.getUser())
+                .orElseThrow(() -> new RuntimeException("Không tìm thấy customer cho account này"));
+        List<Address> addresses = addressRepository.findByCustomer(customer);
+        for (Address addr : addresses) {
+            addr.setIsDefault(false);
+        }
+        addressRepository.saveAll(addresses);
+        newAddr.setCustomer(customer);
+        newAddr.setCreatedAt(LocalDateTime.now());
+        newAddr.setIsDefault(true);
+        Address saved = addressRepository.save(newAddr);
+        String fullAddress = String.format(
+                "%s | %s | %s, %s, %s",
+                saved.getCustomer().getUser().getFullname(),
+                saved.getPhoneNumber(),
+                saved.getStreet(),
+                saved.getDistrict(),
+                saved.getCity()
+        );
+        return Map.of(
+                "id", saved.getAddressId(),
+                "fullAddress", fullAddress
+        );
+    }
+
+    @PostMapping("/address/set-default/{id}")
+    @ResponseBody
+    public Map<String, String> setDefaultAddress(@PathVariable("id") Integer addressId,
+                                                 @AuthenticationPrincipal UserDetails userDetails) {
+        if (userDetails == null)
+            throw new RuntimeException("Chưa đăng nhập");
+        String email = userDetails.getUsername();
+        var account = accountRepository.findByUser_Email(email)
+                .orElseThrow(() -> new RuntimeException("Không tìm thấy account cho email: " + email));
+        var customer = customerRepository.findByUser(account.getUser())
+                .orElseThrow(() -> new RuntimeException("Không tìm thấy customer cho account này"));
+        List<Address> addresses = addressRepository.findByCustomer(customer);
+        for (Address a : addresses) {
+            a.setIsDefault(false);
+        }
+        addressRepository.saveAll(addresses);
+        Address selected = addressRepository.findById(addressId)
+                .orElseThrow(() -> new RuntimeException("Không tìm thấy địa chỉ"));
+        selected.setIsDefault(true);
+        addressRepository.save(selected);
+        return Map.of("status", "success");
+    }
+
+    @PostMapping("/apply-voucher")
+    @ResponseBody
+    public Map<String, Object> applyVoucher(@RequestParam("code") String code) {
+        var voucherOpt = voucherRepository.findByCode(code.trim());
+        if (voucherOpt.isEmpty()) {
+            return Map.of("valid", false, "message", "Mã không tồn tại!");
+        }
+        var voucher = voucherOpt.get();
+        LocalDateTime now = LocalDateTime.now();
+        if (!voucher.getIsActive()) {
+            return Map.of("valid", false, "message", "Mã này đã bị khóa hoặc tạm ngưng!");
+        }
+        if (voucher.getStartDate() != null && now.isBefore(voucher.getStartDate())) {
+            return Map.of("valid", false, "message", "Mã giảm giá chưa đến thời gian áp dụng!");
+        }
+        if (voucher.getEndDate() != null && now.isAfter(voucher.getEndDate())) {
+            return Map.of("valid", false, "message", "Mã giảm giá đã hết hạn!");
+        }
+        if (voucher.getMaxUses() != null && voucher.getUsedCount() >= voucher.getMaxUses()) {
+            return Map.of("valid", false, "message", "Mã giảm giá đã hết lượt sử dụng!");
+        }
+        return Map.of(
+                "valid", true,
+                "discountPercent", voucher.getDiscountPercent(),
+                "message", "Áp dụng mã giảm giá thành công!"
+        );
     }
 }

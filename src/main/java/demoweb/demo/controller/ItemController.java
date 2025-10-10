@@ -62,21 +62,10 @@ public class ItemController {
                     model.addAttribute("primaryImage", primaryImage);
                     model.addAttribute("subImages", subImages);
 
-                    System.out.println("========== ITEM DETAIL DEBUG ==========");
-                    System.out.println("Item ID: " + id);
-                    System.out.println("Item Name: " + item.getName());
-                    System.out.println("averageRating = " + averageRating);
-                    System.out.println("reviewCount = " + reviewCount);
-                    System.out.println("Primary Image: " + (primaryImage != null ? primaryImage.getItemImageId() : "none"));
-                    System.out.println("Sub Images: " + subImages.size());
-                    System.out.println("=======================================");
-
                     return "Customer/ItemDetail";
                 })
                 .orElse("error/404");
     }
-
-
 
     @GetMapping("/filter")
     public String filterItems(@RequestParam("categoryId") Integer categoryId,
@@ -108,10 +97,7 @@ public class ItemController {
         Category category = categoryService.findByCategoryId(id)
                 .orElseThrow(() -> new RuntimeException("Danh mục không tồn tại"));
 
-
         List<Item> items = itemService.getItemsByCategoryIdWithFullData(id);
-
-        System.out.println("===> Total items found: " + items.size());
 
         model.addAttribute("category", category);
         model.addAttribute("items", items);
@@ -119,5 +105,4 @@ public class ItemController {
         model.addAttribute("currentCategory", category);
         return "Customer/Item";
     }
-
 }
