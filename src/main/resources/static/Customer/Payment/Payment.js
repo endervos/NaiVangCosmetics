@@ -59,7 +59,6 @@ btnSave.addEventListener("click", async () => {
       if (!res.ok) throw new Error("Lỗi khi lưu địa chỉ");
       const data = await res.json();
 
-      // Cập nhật giao diện
       const div = document.createElement("div");
       div.classList.add("address-item");
       div.innerHTML = `
@@ -156,5 +155,100 @@ applyBtn.addEventListener("click", async () => {
     console.error(err);
     voucherMsg.textContent = "Không thể áp dụng mã giảm giá!";
     voucherMsg.style.color = "red";
+  }
+});
+
+// ======================== Phương thức thanh toán ========================
+const walletOptions = document.getElementById("wallet-options");
+const qrDisplay = document.getElementById("qr-display");
+const qrImg = document.getElementById("qr-img");
+const qrTitle = document.getElementById("qr-title");
+
+document.querySelectorAll("input[name='payment']").forEach(radio => {
+  radio.addEventListener("change", (e) => {
+    if (e.target.value === "wallet") {
+      walletOptions.style.display = "block";
+    } else {
+      walletOptions.style.display = "none";
+      qrDisplay.style.display = "none";
+      document.querySelectorAll(".wallet-btn").forEach(btn => btn.classList.remove("active"));
+    }
+  });
+});
+
+const QR_MAP = {
+  momo: "/Customer/Payment/QR/Momo.png",
+  vnpay: "/Customer/Payment/QR/VNPAY.png",
+  mbbank: "/Customer/Payment/QR/MBBank.png"
+};
+
+document.querySelectorAll(".wallet-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll(".wallet-btn").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+
+    const wallet = btn.dataset.wallet;
+    qrImg.src = QR_MAP[wallet] || "";
+    qrTitle.textContent =
+      wallet === "momo" ? "Quét mã MoMo để thanh toán" :
+      wallet === "vnpay" ? "Quét mã VNPay để thanh toán" :
+      wallet === "mbbank" ? "Quét mã MB Bank để chuyển khoản" :
+      "";
+
+    qrDisplay.style.display = "block";
+  });
+});
+
+// ======================== Thanh toán ========================
+const payBtn = document.getElementById("pay-btn");
+
+payBtn.addEventListener("click", async () => {
+  const selectedAddr = document.querySelector("input[name='address']:checked");
+  if (!selectedAddr) {
+    showToast("Vui lòng chọn địa chỉ giao hàng!", "error");
+    return;
+  }
+  const addressId = selectedAddr.getAttribute("data-id");
+
+  const paymentMethodRadio = document.querySelector("input[name='payment']:checked");
+  const paymentMethod = paymentMethodRadio?.value === "wallet" ? "Transfer" : "Cash";
+  const activeWallet = document.querySelector(".wallet-btn.active");
+  const platform = activeWallet ? activeWallet.dataset.wallet.toUpperCase() : null;
+
+  const discountCode = document.getElementById("discount-code").value.trim() || null;
+
+  const totalElem = document.querySelector(".checkout-summary .total span");
+  const totalAmount = parseInt(totalElem.innerText.replace(/[^\d]/g, ""));
+
+  try {
+    const res = await fetch("/cart/checkout", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        addressId,
+        paymentMethod,
+        platform,
+        totalAmount,
+        voucherCode: discountCode
+      })
+    });
+
+    if (!res.ok) throw new Error("Lỗi khi thanh toán");
+
+    const data = await res.json();
+
+    if (data.status === "success") {
+      showToast("Đặt hàng thành công! Đang chuyển về giỏ hàng...", "success");
+
+      // 🕐 Sau 1.5s redirect về trang giỏ hàng
+      setTimeout(() => {
+        window.location.href = "/cart";
+      }, 1500);
+    } else {
+      showToast(data.message || "Thanh toán thất bại!", "error");
+    }
+  } catch (err) {
+    console.error(err);
+    showToast("Có lỗi xảy ra khi tạo đơn hàng!", "error");
   }
 });

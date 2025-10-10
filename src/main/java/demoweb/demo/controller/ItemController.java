@@ -92,8 +92,6 @@ public class ItemController {
 
     @GetMapping("/category/{id}/item")
     public String showCategoryItems(@PathVariable("id") Integer id, Model model) {
-        System.out.println("===> Loading category items for categoryId = " + id);
-
         Category category = categoryService.findByCategoryId(id)
                 .orElseThrow(() -> new RuntimeException("Danh mục không tồn tại"));
 

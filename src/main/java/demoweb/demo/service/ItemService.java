@@ -22,9 +22,7 @@ public class ItemService {
         this.reviewService = reviewService;
     }
 
-    /** ✅ Gắn rating cho 1 item */
     private void attachRating(Item item) {
-        System.out.println("Attach rating for itemId = " + item.getItemId() + ", name = " + item.getName());
         if (item.getItemId() == null) return;
 
         Double avg = reviewService.getAverageRating(item.getItemId());
@@ -37,7 +35,6 @@ public class ItemService {
         item.setRatingStars(reviewService.getRatingStars(avg));
     }
 
-    /** ✅ Lấy tất cả item có rating */
     public List<Item> getAllItems() {
         List<Item> items = itemRepository.findAll();
         items.forEach(this::attachRating);
@@ -55,8 +52,6 @@ public class ItemService {
         items.forEach(this::attachRating);  // ⚡ Gắn rating cho từng item
         return items;
     }
-
-
 
     /** ✅ Lọc item theo khoảng giá và category (vẫn kèm rating) */
     public List<Item> filterByPrice(Integer categoryId, Integer min, Integer max) {

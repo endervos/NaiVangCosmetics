@@ -330,3 +330,31 @@ body {
   opacity: 1;
   bottom: 50px;
 }
+
+.wallet-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 8px;
+  flex-wrap: wrap;
+}
+
+.wallet-btn {
+  background: #eee;
+  border: 1px solid #ccc;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.wallet-btn:hover {
+  background: #ff8851;
+  color: #fff;
+  border-color: #ff8851;
+}
+
+.wallet-btn.active {
+  background: #e67e22;
+  color: #fff;
+  border-color: #d35400;
+}

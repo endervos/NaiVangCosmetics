@@ -323,8 +323,24 @@
         <!-- Phương thức thanh toán -->
         <div class="checkout-payment">
             <h3>Phương thức thanh toán</h3>
-            <label><input type="radio" name="payment" value="wallet"> Ví điện tử (Momo, ZaloPay, PayPal)</label><br>
-            <label><input type="radio" name="payment" value="cod" checked> Thanh toán khi nhận hàng (COD)</label>
+            <label><input type="radio" name="payment" value="wallet"> Chuyển khoản</label><br>
+            <label><input type="radio" name="payment" value="cod" checked> Thanh toán khi nhận hàng</label>
+
+            <!-- Ẩn/hiện phần ví điện tử -->
+            <div id="wallet-options" style="display:none; margin-top:10px;">
+                <h4>Chọn nền tảng thanh toán</h4>
+                <div class="wallet-buttons">
+                    <button class="wallet-btn" data-wallet="momo">MoMo</button>
+                    <button class="wallet-btn" data-wallet="vnpay">VNPay</button>
+                    <button class="wallet-btn" data-wallet="mbbank">MB Bank</button>
+                </div>
+
+                <!-- QR hiển thị sau khi chọn -->
+                <div id="qr-display" style="margin-top:15px; text-align:center; display:none;">
+                    <h5 id="qr-title" style="margin-bottom:8px;"></h5>
+                    <img id="qr-img" src="" alt="QR thanh toán" style="width:200px; height:200px; border-radius:12px; box-shadow:0 2px 8px rgba(0,0,0,0.3);">
+                </div>
+            </div>
         </div>
     </div>
   </div>
@@ -337,7 +353,6 @@
     <form class="subscribe-form" id="subscribeForm">
         <div class="input-wrap">
             <input type="email" id="emailInput" placeholder="Nhập email của bạn">
-            <!-- dòng báo lỗi -->
             <small id="emailError" class="error-msg"></small>
         </div>
         <button type="submit">ĐĂNG KÝ</button>
