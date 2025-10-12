@@ -1,5 +1,7 @@
 package demoweb.demo.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -7,6 +9,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "customer")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Customer {
 
     @Id
@@ -25,26 +28,25 @@ public class Customer {
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
 
+    // Một khách hàng có nhiều địa chỉ
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Address> addresses = new ArrayList<>();
 
-    public Customer() {
-    }
+    // Một khách hàng có nhiều đơn hàng
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference
+    private List<Order> orders = new ArrayList<>();
 
+    // ===== Constructor =====
+    public Customer() {}
+
+    // ===== Getter & Setter =====
     public Integer getCustomerId() {
         return customerId;
     }
 
     public void setCustomerId(Integer customerId) {
         this.customerId = customerId;
-    }
-
-    public LocalDateTime getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(LocalDateTime updatedAt) {
-        this.updatedAt = updatedAt;
     }
 
     public User getUser() {
@@ -63,14 +65,12 @@ public class Customer {
         this.customerType = customerType;
     }
 
-    @PrePersist
-    protected void onCreate() {
-        this.updatedAt = LocalDateTime.now();
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
     }
 
-    @PreUpdate
-    protected void onUpdate() {
-        this.updatedAt = LocalDateTime.now();
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
     }
 
     public List<Address> getAddresses() {
@@ -79,5 +79,24 @@ public class Customer {
 
     public void setAddresses(List<Address> addresses) {
         this.addresses = addresses;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
+    }
+
+    // ===== Lifecycle Hooks =====
+    @PrePersist
+    protected void onCreate() {
+        this.updatedAt = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        this.updatedAt = LocalDateTime.now();
     }
 }

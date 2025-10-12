@@ -1,28 +1,36 @@
 package demoweb.demo.entity;
 
 import jakarta.persistence.*;
-
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "payment")
 public class Payment {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer paymentId;
 
-    @ManyToOne @JoinColumn(name = "order_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "order_id", nullable = false)
     private Order order;
 
+    @Column(nullable = false)
     private String platform;
+
+    @Column(nullable = false)
     private String paymentMethod;
+
+    @Column(nullable = false)
     private String status;
+
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
-    public Payment() {
-    }
+    // ===== Constructor =====
+    public Payment() {}
 
+    // ===== Getter & Setter =====
     public Integer getPaymentId() {
         return paymentId;
     }

@@ -1,27 +1,40 @@
 package demoweb.demo.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "order_item")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class OrderItem {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer orderItemId;
 
-    @ManyToOne @JoinColumn(name = "order_id")
+    // === Liên kết tới đơn hàng ===
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "order_id", nullable = false)
+    @JsonIgnore // tránh vòng lặp JSON
     private Order order;
 
-    @ManyToOne @JoinColumn(name = "item_id")
+    // === Sản phẩm ===
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "item_id")
+    @JsonIgnoreProperties({"category", "inventory", "hibernateLazyInitializer", "handler"})
     private Item item;
 
-    private int quantity;
-    private int preDiscountPrice;
-    private int totalPriceCents;
+    @Column(nullable = false)
+    private Integer quantity;
 
-    public OrderItem() {
-    }
+    @Column(name = "pre_discount_price", nullable = false)
+    private Integer preDiscountPrice;
 
+    @Column(name = "total_price_cents", nullable = false)
+    private Integer totalPriceCents;
+
+    // ===== Getter & Setter =====
     public Integer getOrderItemId() {
         return orderItemId;
     }
@@ -46,27 +59,27 @@ public class OrderItem {
         this.item = item;
     }
 
-    public int getQuantity() {
+    public Integer getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(Integer quantity) {
         this.quantity = quantity;
     }
 
-    public int getPreDiscountPrice() {
+    public Integer getPreDiscountPrice() {
         return preDiscountPrice;
     }
 
-    public void setPreDiscountPrice(int preDiscountPrice) {
+    public void setPreDiscountPrice(Integer preDiscountPrice) {
         this.preDiscountPrice = preDiscountPrice;
     }
 
-    public int getTotalPriceCents() {
+    public Integer getTotalPriceCents() {
         return totalPriceCents;
     }
 
-    public void setTotalPriceCents(int totalPriceCents) {
+    public void setTotalPriceCents(Integer totalPriceCents) {
         this.totalPriceCents = totalPriceCents;
     }
 }
