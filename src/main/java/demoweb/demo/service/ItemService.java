@@ -81,4 +81,18 @@ public class ItemService {
     public void delete(Integer itemId) {
         itemRepository.deleteById(itemId);
     }
+
+    public Item getItemDetail(Integer id) {
+        Item itemWithReviews = itemRepository.findByIdWithReviews(id)
+                .orElseThrow(() -> new RuntimeException("Không tìm thấy sản phẩm"));
+
+        Optional<Item> itemWithImages = itemRepository.findByIdWithImages(id);
+        itemWithImages.ifPresent(imgItem -> {
+            itemWithReviews.setImages(imgItem.getImages());
+        });
+        attachRating(itemWithReviews);
+        return itemWithReviews;
+    }
+
+
 }

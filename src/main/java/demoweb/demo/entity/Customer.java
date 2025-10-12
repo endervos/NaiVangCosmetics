@@ -3,6 +3,7 @@ package demoweb.demo.entity;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,30 +18,38 @@ public class Customer {
     @Column(name = "customer_id")
     private Integer customerId;
 
+    /** Liên kết 1-1 với User */
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false, unique = true)
     private User user;
 
+    /** Loại khách hàng */
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_type_id")
     private CustomerType customerType;
 
+    /** Thời điểm cập nhật gần nhất */
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
 
-    // Một khách hàng có nhiều địa chỉ
+    /** Một khách hàng có nhiều địa chỉ */
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Address> addresses = new ArrayList<>();
 
-    // Một khách hàng có nhiều đơn hàng
+    /** Một khách hàng có nhiều đơn hàng */
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonManagedReference
+    @JsonManagedReference(value = "customer-orders")
     private List<Order> orders = new ArrayList<>();
 
-    // ===== Constructor =====
+    /** Một khách hàng có nhiều đánh giá (review) */
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference(value = "customer-reviews")
+    private List<Review> reviews = new ArrayList<>();
+
+    // ===== Constructors =====
     public Customer() {}
 
-    // ===== Getter & Setter =====
+    // ===== Getters & Setters =====
     public Integer getCustomerId() {
         return customerId;
     }
@@ -87,6 +96,14 @@ public class Customer {
 
     public void setOrders(List<Order> orders) {
         this.orders = orders;
+    }
+
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
     }
 
     // ===== Lifecycle Hooks =====

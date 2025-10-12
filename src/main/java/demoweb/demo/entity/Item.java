@@ -1,5 +1,7 @@
 package demoweb.demo.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -7,6 +9,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "item")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Item {
 
     @Id
@@ -14,34 +17,57 @@ public class Item {
     @Column(name = "item_id", nullable = false)
     private Integer itemId;
 
+    /** Danh sách hình ảnh của sản phẩm */
     @OneToMany(mappedBy = "item", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<ItemImage> images = new ArrayList<>();
+
+    /** Danh sách đánh giá của sản phẩm */
+    @OneToMany(mappedBy = "item", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @JsonManagedReference(value = "item-reviews") // khớp với @JsonBackReference trong Review
+    private List<Review> reviews = new ArrayList<>();
 
     @Column(name = "name", nullable = false, unique = true, length = 100)
     private String name;
 
-    @Column(name = "description", length = 100)
+    @Column(name = "description", length = 255)
     private String description;
 
     @Column(name = "color", nullable = false, length = 255)
     private String color;
 
-    @Column(name = "ingredient", length = 20)
+    @Column(name = "ingredient", length = 100)
     private String ingredient;
 
     @Column(name = "price", nullable = false)
     private Integer price;
 
+    /** Sản phẩm thuộc một danh mục */
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id", nullable = false)
     private Category category;
 
+    /** Thời gian tạo sản phẩm */
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
+    /** Thời gian cập nhật sản phẩm */
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
 
+    /** Các trường tạm không lưu trong DB */
+    @Transient
+    private Double averageRating;
+
+    @Transient
+    private String ratingStars;
+
+    @Transient
+    private Integer reviewCount;
+
+    // ===== Constructors =====
+    public Item() {}
+
+    // ===== Lifecycle Hooks =====
     @PrePersist
     protected void onCreate() {
         this.createdAt = LocalDateTime.now();
@@ -53,8 +79,7 @@ public class Item {
         this.updatedAt = LocalDateTime.now();
     }
 
-    public Item() {}
-
+    // ===== Getter & Setter =====
     public Integer getItemId() {
         return itemId;
     }
@@ -69,6 +94,14 @@ public class Item {
 
     public void setImages(List<ItemImage> images) {
         this.images = images;
+    }
+
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
     }
 
     public String getName() {
@@ -150,16 +183,12 @@ public class Item {
     public void setRatingStars(String ratingStars) {
         this.ratingStars = ratingStars;
     }
-    @Transient
-    private Double averageRating;
 
-    @Transient
-    private String ratingStars;
+    public Integer getReviewCount() {
+        return reviewCount;
+    }
 
-    @Transient
-    private Integer reviewCount;
-
-    public Integer getReviewCount() { return reviewCount; }
-
-    public void setReviewCount(Integer reviewCount) { this.reviewCount = reviewCount; }
+    public void setReviewCount(Integer reviewCount) {
+        this.reviewCount = reviewCount;
+    }
 }

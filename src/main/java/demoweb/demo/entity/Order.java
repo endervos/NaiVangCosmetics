@@ -1,5 +1,6 @@
 package demoweb.demo.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
@@ -19,6 +20,7 @@ public class Order {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_id", nullable = false)
     @JsonIgnoreProperties({"user", "addresses", "customerType", "orders"})
+    @JsonBackReference(value = "customer-orders")
     private Customer customer;
 
     @ManyToOne(fetch = FetchType.LAZY)

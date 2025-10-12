@@ -150,13 +150,40 @@
             <p class="product-quantity">Số lượng: <span th:text="${orderItem.quantity}"></span></p>
             <p class="product-pre-price">Giá gốc: <span th:text="${#numbers.formatDecimal(orderItem.preDiscountPrice,0,'COMMA',0,'POINT')} + ' ₫'"></span></p>
             <p class="product-total-price">Thành tiền: <span th:text="${#numbers.formatDecimal(orderItem.totalPriceCents,0,'COMMA',0,'POINT')} + ' ₫'"></span></p>
+            <!-- Nút đánh giá -->
+            <button class="review-btn"
+                    th:attr="data-item-id=${orderItem.item.itemId}"
+                    onclick="toggleReviewForm(this)">
+                Đánh giá
+            </button>
+            <!-- Form đánh giá (ẩn mặc định) -->
+            <div class="review-form" th:attr="id='review-form-' + ${orderItem.item.itemId}" style="display: none;">
+                <h3>Viết đánh giá cho sản phẩm</h3>
+
+                <label>Chọn số sao:</label>
+                <select class="rating-input">
+                    <option value="5">★★★★★ (5 sao)</option>
+                    <option value="4">★★★★☆ (4 sao)</option>
+                    <option value="3">★★★☆☆ (3 sao)</option>
+                    <option value="2">★★☆☆☆ (2 sao)</option>
+                    <option value="1">★☆☆☆☆ (1 sao)</option>
+                </select>
+
+                <label>Nội dung đánh giá:</label>
+                <textarea class="comment-input" placeholder="Nhập cảm nhận của bạn..."></textarea>
+
+                <div class="form-buttons">
+                    <button onclick="submitReview(this)" class="submit-btn" type="button">Gửi đánh giá</button>
+                    <button onclick="toggleReviewForm(this)" class="cancel-btn" type="button">Hủy</button>
+                </div>
+            </div>
         </div>
     </div>
 
     <!-- Nút thao tác -->
     <div class="action-buttons">
         <button class="action-btn" onclick="goBack()">Quay lại</button>
-        <button class="action-btn" onclick="openReview()">Đánh giá</button>
+<!--        <button class="action-btn" onclick="openReview()">Đánh giá</button>-->
     </div>
 </main>
 <!-- FOOTER -->
@@ -258,8 +285,58 @@
         window.history.back();
     }
 
-    function openReview() {
-        alert("Chức năng đánh giá đang phát triển!");
+    // function openReview() {
+    //     alert("Chức năng đánh giá đang phát triển!");
+    // }
+</script>
+<script>
+    // Mở hoặc ẩn form đánh giá
+    function toggleReviewForm(button) {
+        const itemId = button.getAttribute('data-item-id') || button.closest('.review-form').id.split('-')[2];
+        const form = document.getElementById('review-form-' + itemId);
+        if (form.style.display === "none") {
+            form.style.display = "block";
+        } else {
+            form.style.display = "none";
+        }
+    }
+
+    // Gửi đánh giá
+    async function submitReview(button) {
+        const form = button.closest('.review-form');
+        const itemId = form.id.split('-')[2];
+        const rating = form.querySelector('.rating-input').value;
+        const comment = form.querySelector('.comment-input').value;
+
+        if (!comment.trim()) {
+            alert("Vui lòng nhập nội dung đánh giá!");
+            return;
+        }
+
+        try {
+            const response = await fetch('/api/reviews', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    item: { itemId: parseInt(itemId) },
+                    rating: parseInt(rating),
+                    comment: comment
+                })
+            });
+
+            if (response.ok) {
+                alert("Cảm ơn bạn! Đánh giá đã được gửi.");
+                form.style.display = "none";
+                form.querySelector('.comment-input').value = '';
+            } else {
+                const error = await response.text();
+                alert("Gửi thất bại: " + error);
+            }
+        } catch (error) {
+            alert("Lỗi kết nối khi gửi đánh giá!");
+        }
     }
 </script>
 

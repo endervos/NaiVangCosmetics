@@ -1,6 +1,7 @@
 package demoweb.demo.repository;
 
 import demoweb.demo.entity.Item;
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
@@ -26,5 +27,8 @@ public interface ItemRepository extends JpaRepository<Item, Integer>, JpaSpecifi
     // ✅ Lấy item theo ID kèm theo ảnh (cho trang chi tiết)
     @Query("SELECT DISTINCT i FROM Item i LEFT JOIN FETCH i.images WHERE i.itemId = :id")
     Optional<Item> findByIdWithImages(@Param("id") Integer id);
+
+    @Query("SELECT DISTINCT i FROM Item i LEFT JOIN FETCH i.reviews WHERE i.itemId = :id")
+    Optional<Item> findByIdWithReviews(@Param("id") Integer id);
 
 }

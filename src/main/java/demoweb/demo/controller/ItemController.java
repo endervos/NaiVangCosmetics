@@ -1,14 +1,13 @@
 package demoweb.demo.controller;
 
-import demoweb.demo.entity.Category;
-import demoweb.demo.entity.Item;
-import demoweb.demo.entity.ItemImage;
-import demoweb.demo.entity.Review;
+import demoweb.demo.entity.*;
+import demoweb.demo.repository.ItemRepository;
 import demoweb.demo.service.CategoryService;
 import demoweb.demo.service.ItemImageService;
 import demoweb.demo.service.ItemService;
 import demoweb.demo.service.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +21,12 @@ public class ItemController {
     private final ItemService itemService;
     private final CategoryService categoryService;
     private final ReviewService reviewService;
+
+    @Autowired
+    private ItemRepository itemRepository;
+
+    @Autowired
+    private ItemImageService itemImageService;
 
     @Autowired
     public ItemController(ItemService itemService, CategoryService categoryService, ReviewService reviewService) {
@@ -38,17 +43,30 @@ public class ItemController {
         return "Customer/Item";
     }
 
-    @Autowired
-    private ItemImageService itemImageService;
     @GetMapping("/{id:\\d+}")
     public String getItemById(@PathVariable("id") Integer id, Model model) {
         return itemService.getItemById(id)
                 .map(item -> {
                     List<Review> reviews = reviewService.getByItemId(id);
 
+                    for (Review review : reviews) {
+                        if (review.getCustomer() == null) {
+                            Customer c = new Customer();
+                            User u = new User();
+                            u.setFullname("Ẩn danh");
+                            c.setUser(u);
+                            review.setCustomer(c);
+                        } else if (review.getCustomer().getUser() == null) {
+                            User u = new User();
+                            u.setFullname("Ẩn danh");
+                            review.getCustomer().setUser(u);
+                        }
+                    }
+
                     Double averageRating = reviewService.getAverageRating(id);
                     Integer reviewCount = reviewService.getReviewCount(id);
                     String ratingStars = reviewService.getRatingStars(averageRating);
+
 
                     ItemImage primaryImage = itemImageService.getPrimaryImage(id);
                     List<ItemImage> subImages = itemImageService.getImagesByItemId(id);
@@ -102,5 +120,11 @@ public class ItemController {
         model.addAttribute("rootCategories", categoryService.getRootCategoriesWithChildren());
         model.addAttribute("currentCategory", category);
         return "Customer/Item";
+    }
+
+    @GetMapping("/api/{id}")
+    public ResponseEntity<Item> getItemDetail(@PathVariable Integer id) {
+        Item item = itemService.getItemDetail(id);
+        return ResponseEntity.ok(item);
     }
 }
