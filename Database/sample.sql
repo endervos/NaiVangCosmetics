@@ -195,10 +195,10 @@ INSERT INTO cart_item (cart_id, item_id, quantity) VALUES
 (7,7,2);
 
 INSERT INTO `order` (customer_id, address_id, voucher_id, total, status) VALUES
-(1,1,1,200000,'Pending'),
-(2,2,2,150000,'Paid'),
-(3,3,3,400000,'Processing'),
-(4,4,4,500000,'Shipped');
+(1,1,1,200000,'PENDING'),
+(2,2,2,150000,'PAID'),
+(3,3,3,400000,'PROCESSING'),
+(4,4,4,500000,'SHIPPED');
 
 INSERT INTO order_item (order_id, item_id, quantity, pre_discount_price, total_price_cents) VALUES
 (1,1,2,100000,200000),
