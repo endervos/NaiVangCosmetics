@@ -1,18 +1,18 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="vi" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
-    <link rel="stylesheet" href="./dashboardad.css">
+    <link rel="stylesheet" th:href="@{/Admin/DashboardAdmin/DashboardAdmin.css}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link rel="icon" type="image/png" href="/src/main/resources/static/Customer/Example/Image/LogoConNai.png">
+    <link rel="icon" type="image/png" th:href="@{/Customer/Example/Image/LogoConNai.png}">
 </head>
 <body class="admin-body">
 <!-- Sidebar -->
 <nav class="admin-sidebar">
     <div class="sidebar-logo">
-        <img src="./Image/LogoConNai.png" alt="Logo" class="logo-img">
+        <img th:src="@{/Customer/Example/Image/LogoConNai.png}" alt="Logo" class="logo-img">
         <h2 class="logo-text">Manager</h2>
     </div>
     <ul>
@@ -150,6 +150,6 @@
 </div> <!-- end admin-content -->
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="./dashboardad.js"></script>
+<script th:src="@{/Admin/DashboardAdmin/DashboardAdmin.js}"></script>
 </body>
 </html>
