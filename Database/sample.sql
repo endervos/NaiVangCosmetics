@@ -200,11 +200,73 @@ INSERT INTO `order` (customer_id, address_id, voucher_id, total, status) VALUES
 (3,3,3,400000,'PROCESSING'),
 (4,4,4,500000,'SHIPPED');
 
+INSERT INTO `order` (customer_id, address_id, voucher_id, total, status, placed_at)
+VALUES
+-- Tháng 1
+(1,1,1,300000,'PAID','2025-01-15'),
+(2,2,2,450000,'SHIPPED','2025-01-20'),
+-- Tháng 2
+(3,3,3,200000,'PENDING','2025-02-10'),
+(4,4,4,350000,'PAID','2025-02-18'),
+-- Tháng 3
+(1,1,5,600000,'SHIPPED','2025-03-05'),
+(2,2,1,250000,'PAID','2025-03-22'),
+-- Tháng 4
+(3,3,2,500000,'PROCESSING','2025-04-02'),
+(4,4,3,700000,'PAID','2025-04-28'),
+-- Tháng 5
+(1,1,4,800000,'CANCELLED','2025-05-12'),
+(2,2,5,900000,'PAID','2025-05-25'),
+-- Tháng 6
+(3,3,1,400000,'PAID','2025-06-09'),
+(4,4,2,300000,'SHIPPED','2025-06-19'),
+-- Tháng 7
+(1,1,3,650000,'PROCESSING','2025-07-11'),
+(2,2,4,500000,'PAID','2025-07-27'),
+-- Tháng 8
+(3,3,5,750000,'PAID','2025-08-06'),
+(4,4,1,850000,'REFUNDED','2025-08-21');
+
+
 INSERT INTO order_item (order_id, item_id, quantity, pre_discount_price, total_price_cents) VALUES
 (1,1,2,100000,200000),
 (2,2,1,150000,150000),
 (3,3,4,100000,400000),
 (4,4,2,250000,500000);
+
+INSERT INTO order_item (order_id, item_id, quantity, pre_discount_price, total_price_cents) VALUES
+-- Order 5–6 (Tháng 1)
+(5,5,2,150000,300000),
+(6,2,3,150000,450000),
+
+-- Order 7–8 (Tháng 2)
+(7,3,2,100000,200000),
+(8,4,2,175000,350000),
+
+-- Order 9–10 (Tháng 3)
+(9,1,3,200000,600000),
+(10,2,1,250000,250000),
+
+-- Order 11–12 (Tháng 4)
+(11,5,2,250000,500000),
+(12,6,2,350000,700000),
+
+-- Order 13–14 (Tháng 5)
+(13,7,4,200000,800000),
+(14,8,3,300000,900000),
+
+-- Order 15–16 (Tháng 6)
+(15,3,4,100000,400000),
+(16,4,1,300000,300000),
+
+-- Order 17–18 (Tháng 7)
+(17,1,2,325000,650000),
+(18,2,2,250000,500000),
+
+-- Order 19–20 (Tháng 8)
+(19,9,3,250000,750000),
+(20,10,2,425000,850000);
+
 
 INSERT INTO voucher_customer_item (voucher_id, customer_id, item_id) VALUES
 (1,1,1),
