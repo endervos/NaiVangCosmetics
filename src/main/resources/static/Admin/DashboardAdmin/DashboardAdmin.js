@@ -29,66 +29,64 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-const ctxRevenue = document.getElementById('revenueChart').getContext('2d');
-new Chart(ctxRevenue, {
-  type: 'line',
-  data: {
-    labels: ['Thứ hai', 'Thứ ba', 'Thứ tư', 'Thứ năm', 'Thứ sáu', 'Thứ bảy', 'Chủ nhật'],
-    datasets: [{
-      label: 'Doanh thu (triệu ₫)',
-      data: [12, 10, 25, 15, 17, 29, 30],
-      borderColor: '#36a2eb',
-      backgroundColor: 'rgba(54, 162, 235, 0.2)',
-      borderWidth: 2,
-      fill: true,
-      tension: 0.3,
-      pointBackgroundColor: '#1d72b8'
-    }]
-  },
-  options: {
-    responsive: true,
-    maintainAspectRatio: false,  // ✅ mặc định auto co theo box
-    plugins: {
-      legend: {
-        display: true,
-        position: 'bottom'
-      },
-      title: {
-        display: false
-      },
-      tooltip: {
-        enabled: true, // ✅ Bật tooltip
-        mode: 'nearest', // Hiển thị giá trị gần nhất điểm chuột
-        intersect: false,
-        backgroundColor: 'rgba(0,0,0,0.8)',
-        titleColor: '#fff',
-        bodyColor: '#fff',
-        padding: 10,
-        callbacks: {
-          label: (context) => ` ${context.parsed.y} triệu ₫`
-    }
-  }
-    },
-    scales: {
-      y: {
-        beginAtZero: true,
-        ticks: { color: '#555' },
-        grid: {
-          drawOnChartArea: false,
-          drawBorder: true,
-          drawTicks: false
-        }
-      },
-      x: {
-        ticks: { color: '#555' },
-        grid: {
-          display: false,
-          drawBorder: true
-        }
-      }
-    },
-  }
+document.addEventListener("DOMContentLoaded", () => {
+  renderLowStock();
 });
+
+function renderLowStock(items = [
+  { name: 'Serum C 30ml', stock: 12 },
+  { name: 'Toner Hoa Cúc', stock: 5 },
+  { name: 'Son Satin #08', stock: 4 },
+  { name: 'Dầu gội 300ml', stock: 27 },
+  { name: 'Kem dưỡng đêm', stock: 3 },
+]) {
+  const ctx = document.getElementById("mainChart");
+  if (!ctx) return console.warn("❌ Không tìm thấy canvas #mainChart");
+
+  window.mainChart?.destroy?.();
+
+  const low = items
+    .filter(i => i.stock <= 10)
+    .sort((a, b) => a.stock - b.stock)
+    .slice(0, 5);
+
+  // 🎨 Tạo gradient màu từ trái sang phải
+  const gradient = ctx.getContext("2d").createLinearGradient(0, 0, ctx.width, 0);
+  gradient.addColorStop(0, "rgb(91, 33, 182)");   // tím đậm đầu
+  gradient.addColorStop(1, "rgb(147, 197, 253)"); // xanh nhạt cuối
+
+  // 🔧 Vẽ biểu đồ
+  window.mainChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: low.map(i => i.name),
+      datasets: [{
+        label: 'Tồn kho',
+        data: low.map(i => i.stock),
+        backgroundColor: gradient, // 💡 Dùng gradient
+        borderRadius: 0
+      }]
+    },
+    options: {
+      indexAxis: 'y',
+      plugins: {
+        title: {
+          display: true,
+          font: { size: 18 }
+        },
+        legend: { display: false }
+      },
+      scales: {
+        x: {
+          beginAtZero: true,
+          grid: { display: false },
+          ticks: { stepSize: 1, precision: 0 }
+        },
+        y: { grid: { display: false } }
+      }
+    }
+  });
+}
 
 
 const ctxYear = document.getElementById('yearChart').getContext('2d');
