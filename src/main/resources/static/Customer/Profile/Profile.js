@@ -92,7 +92,7 @@ document.addEventListener("DOMContentLoaded", function () {
         } else {
             showError(phoneInput, "");
         }
-    });
+    });-m ""
 
     updateBtn.addEventListener("click", function (e) {
         e.preventDefault();
