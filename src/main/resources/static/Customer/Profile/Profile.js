@@ -8,21 +8,23 @@ document.addEventListener("DOMContentLoaded", function () {
     const emailInput = container.querySelector("#email");
     const birthdayInput = container.querySelector("#birthday");
     const genderInputs = container.querySelectorAll('input[name="gender"]');
+    if (birthdayInput) {
+        flatpickr(birthdayInput, {
+            dateFormat: "Y-m-d",       // format thực tế để gửi về server
+            altInput: true,            // hiển thị format dễ đọc cho người dùng
+            altFormat: "d/m/Y",        // định dạng hiển thị ra UI
+            locale: "vn",              // ngôn ngữ Việt Nam
+            maxDate: "today",          // không cho chọn ngày tương lai
+            defaultDate: birthdayInput.value // lấy giá trị sẵn có trong input
+        });
+    }
+
 
     // 🔹 Regex chuẩn
     const namePattern = /^[\p{L}\s]{2,50}$/u;
     const phonePattern = /^(0[3|5|7|8|9])[0-9]{8}$/;
     const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     const addressPattern = /^[A-Za-zÀ-ỹà-ỹĐđ0-9\s,./()-]{5,100}$/;
-
-    // 🔹 Danh sách quận / huyện theo tỉnh
-    const districtsByCity = {
-        "Hà Nội": ["Ba Đình", "Hoàn Kiếm", "Đống Đa", "Cầu Giấy", "Hai Bà Trưng", "Thanh Xuân", "Nam Từ Liêm", "Bắc Từ Liêm", "Tây Hồ", "Long Biên"],
-        "Hồ Chí Minh": ["Quận 1", "Quận 3", "Quận 5", "Quận 7", "Gò Vấp", "Tân Bình", "Phú Nhuận", "Bình Thạnh", "Thủ Đức", "Bình Tân"],
-        "Đà Nẵng": ["Hải Châu", "Thanh Khê", "Sơn Trà", "Ngũ Hành Sơn", "Liên Chiểu", "Cẩm Lệ"],
-        "Hải Phòng": ["Hồng Bàng", "Ngô Quyền", "Lê Chân", "Kiến An", "Hải An", "Đồ Sơn", "Dương Kinh"],
-        "Cần Thơ": ["Ninh Kiều", "Bình Thủy", "Cái Răng", "Ô Môn", "Thốt Nốt"]
-    };
 
     // 🔹 Hàm hiển thị lỗi
     function showError(element, message) {
@@ -165,11 +167,12 @@ document.addEventListener("DOMContentLoaded", function () {
             });
     });
 
-    // ================== 🔹 QUẢN LÝ THÊM / XÓA ĐỊA CHỈ 🔹 ==================
     const addAddressBtn = document.getElementById("addAddressBtn");
     const addressContainer = document.getElementById("addressContainer");
 
     if (addAddressBtn && addressContainer) {
+
+        // 🔹 Cập nhật lại chỉ số hiển thị (Địa chỉ 1, 2, ...)
         function reindexAddresses() {
             const rows = addressContainer.querySelectorAll(".address-row");
             rows.forEach((row, index) => {
@@ -178,70 +181,33 @@ document.addEventListener("DOMContentLoaded", function () {
             });
         }
 
-        // ✅ Tạo 1 dòng địa chỉ mới
+        // 🔹 Hàm tạo dòng địa chỉ mới
         function createAddressRow(index) {
             const newRow = document.createElement("div");
             newRow.classList.add("address-row");
             newRow.innerHTML = `
-                <span class="address-label">Địa chỉ ${index}</span>
+            <span class="address-label">Địa chỉ ${index}</span>
+            <input type="text" name="city[]" placeholder="Tỉnh / Thành phố" class="address-input city-input">
+            <input type="text" name="district[]" placeholder="Quận / Huyện" class="address-input district-input">
+            <input type="text" name="street[]" placeholder="Đường / Số nhà" class="address-input street-input">
 
-                <select name="city[]" class="address-select city-select">
-                    <option value="">-- Tỉnh / Thành phố --</option>
-                    <option value="Hà Nội">Hà Nội</option>
-                    <option value="Hồ Chí Minh">Hồ Chí Minh</option>
-                    <option value="Đà Nẵng">Đà Nẵng</option>
-                    <option value="Hải Phòng">Hải Phòng</option>
-                    <option value="Cần Thơ">Cần Thơ</option>
-                </select>
+            <button type="button" class="btn-remove">–</button>
+            <button type="button" class="btn-default-address" style="display:none;">Địa chỉ mặc định</button>
+            <button type="button" class="btn-default">Đặt làm mặc định</button>
+        `;
 
-                <select name="district[]" class="address-select district-select">
-                    <option value="">-- Quận / Huyện --</option>
-                </select>
-
-                <input type="text" name="street[]" placeholder="Nhập đường / số nhà..." class="address-input street-input">
-
-                <button type="button" class="btn-remove">–</button>
-            `;
-
-            const removeBtn = newRow.querySelector(".btn-remove");
-            const citySelect = newRow.querySelector(".city-select");
-            const districtSelect = newRow.querySelector(".district-select");
-
-            // 🔹 Xóa dòng
-            removeBtn.addEventListener("click", function () {
-                const totalRows = addressContainer.querySelectorAll(".address-row").length;
-                if (totalRows === 1) {
-                    alert("⚠️ Phải có ít nhất một địa chỉ, không thể xóa dòng cuối cùng!");
-                    return;
-                }
-                if (confirm("Bạn có chắc muốn xóa địa chỉ này không?")) {
-                    newRow.remove();
-                    reindexAddresses();
-                }
-            });
-
+            attachRowEvents(newRow);
             return newRow;
         }
 
-        // ✅ Thêm dòng mới
-        addAddressBtn.addEventListener("click", function () {
-            const inputs = addressContainer.querySelectorAll(".street-input");
-            const lastInput = inputs[inputs.length - 1];
-            if (!lastInput || lastInput.value.trim() === "") {
-                alert("⚠️ Vui lòng nhập địa chỉ trước khi thêm mới!");
-                return;
-            }
+        // 🔹 Gắn sự kiện cho mỗi dòng (remove + set default)
+        function attachRowEvents(row) {
+            const removeBtn = row.querySelector(".btn-remove");
+            const defaultBtn = row.querySelector(".btn-default");
+            const defaultLabel = row.querySelector(".btn-default-address");
 
-            const newIndex = inputs.length + 1;
-            const newRow = createAddressRow(newIndex);
-            addressContainer.appendChild(newRow);
-            reindexAddresses();
-        });
-
-        // ✅ Xóa cho các dòng có sẵn
-        addressContainer.querySelectorAll(".btn-remove").forEach(btn => {
-            const row = btn.closest(".address-row");
-            btn.addEventListener("click", function () {
+            // ❌ Xóa dòng địa chỉ
+            removeBtn.addEventListener("click", function () {
                 const totalRows = addressContainer.querySelectorAll(".address-row").length;
                 if (totalRows === 1) {
                     alert("⚠️ Phải có ít nhất một địa chỉ, không thể xóa dòng cuối cùng!");
@@ -252,25 +218,61 @@ document.addEventListener("DOMContentLoaded", function () {
                     reindexAddresses();
                 }
             });
-        });
 
-        // ✅ Gắn sự kiện change cho các city-select có sẵn trong HTML
-        addressContainer.querySelectorAll(".city-select").forEach(citySelect => {
-            const districtSelect = citySelect.closest(".address-row").querySelector(".district-select");
+            // ⭐ Đặt làm mặc định
+            defaultBtn.addEventListener("click", function () {
+                // Reset tất cả dòng khác
+                addressContainer.querySelectorAll(".address-row").forEach(r => {
+                    r.classList.remove("default"); // bỏ highlight
+                    r.querySelector(".btn-default-address").style.display = "none";
+                    r.querySelector(".btn-default").style.display = "inline-flex";
+                });
 
-            citySelect.addEventListener("change", function () {
-                const city = this.value;
-                districtSelect.innerHTML = '<option value="">-- Quận / Huyện --</option>';
-
-                if (districtsByCity[city]) {
-                    districtsByCity[city].forEach(d => {
-                        const opt = document.createElement("option");
-                        opt.value = d;
-                        opt.textContent = d;
-                        districtSelect.appendChild(opt);
-                    });
-                }
+                // Đặt dòng hiện tại làm mặc định
+                row.classList.add("default");
+                defaultBtn.style.display = "none";
+                defaultLabel.style.display = "inline-flex";
             });
+        }
+
+        // 🔹 Nút thêm địa chỉ
+        addAddressBtn.addEventListener("click", function () {
+            const inputs = addressContainer.querySelectorAll(".street-input");
+            const lastInput = inputs[inputs.length - 1];
+            if (!lastInput || lastInput.value.trim() === "") {
+                alert("⚠️ Vui lòng nhập địa chỉ trước khi thêm mới!");
+                return;
+            }
+
+            const newIndex = addressContainer.querySelectorAll(".address-row").length + 1;
+            const newRow = createAddressRow(newIndex);
+            addressContainer.appendChild(newRow);
+            reindexAddresses();
         });
+
+        // 🔹 Gắn event cho các dòng có sẵn (nếu có)
+        addressContainer.querySelectorAll(".address-row").forEach(row => attachRowEvents(row));
     }
+
+    fetch('/profile')
+        .then(res => {
+            if (!res.ok) throw new Error("API Profile lỗi hoặc không kết nối được!");
+            return res.json();
+        })
+        .then(data => {
+            if (!data || !data.addresses) {
+                throw new Error("Profile không chứa thông tin địa chỉ!");
+            }
+
+            if (!Array.isArray(data.addresses)) {
+                throw new Error("Dữ liệu address trong profile không phải danh sách!");
+            }
+
+            loadAddressFromDB(data.addresses);
+        })
+        .catch(err => {
+            alert("Lỗi khi tải dữ liệu: " + err.message);
+            console.error(err);
+        });
+
 });
