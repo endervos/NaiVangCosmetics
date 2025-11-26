@@ -20,8 +20,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/admin")
-public class AdminController {
+@RequestMapping("/manager")
+public class ManagerController {
 
     @Autowired
     private AuthenticationManager authenticationManager;
@@ -33,16 +33,16 @@ public class AdminController {
     private JwtTokenUtil jwtTokenUtil;
 
     @GetMapping("/login_tthhn")
-    public String showAdminLoginPage(Model model) {
-        model.addAttribute("loginType", "admin");
-        model.addAttribute("loginUrl", "/admin/login_tthhn");
-        model.addAttribute("pageTitle", "Đăng nhập Admin");
-        return "Admin/Login";
+    public String showManagerLoginPage(Model model) {
+        model.addAttribute("loginType", "manager");
+        model.addAttribute("loginUrl", "/manager/login_tthhn");
+        model.addAttribute("pageTitle", "Đăng nhập Manager");
+        return "Manager/Login";
     }
 
     @PostMapping("/login_tthhn")
     @ResponseBody
-    public ResponseEntity<?> adminLogin(@RequestBody LoginRequest loginRequest, HttpServletResponse response) {
+    public ResponseEntity<?> managerLogin(@RequestBody LoginRequest loginRequest, HttpServletResponse response) {
         try {
             Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
@@ -53,21 +53,21 @@ public class AdminController {
 
             UserDetails userDetails = (UserDetails) authentication.getPrincipal();
 
-            boolean hasAdminRole = userDetails.getAuthorities().stream()
+            boolean hasManagerRole = userDetails.getAuthorities().stream()
                     .map(GrantedAuthority::getAuthority)
-                    .anyMatch(role -> role.equals("ROLE_Admin"));
+                    .anyMatch(role -> role.equals("ROLE_Manager"));
 
-            if (!hasAdminRole) {
+            if (!hasManagerRole) {
                 return ResponseEntity.status(HttpStatus.FORBIDDEN)
                         .body(new LoginResponse(
                                 false,
-                                "Tài khoản này không có quyền đăng nhập vào trang Admin. Vui lòng sử dụng trang đăng nhập phù hợp với vai trò của bạn.",
+                                "Tài khoản này không có quyền đăng nhập vào trang Manager. Vui lòng sử dụng trang đăng nhập phù hợp với vai trò của bạn.",
                                 null,
                                 null
                         ));
             }
 
-            String token = jwtTokenUtil.generateToken(userDetails, "ROLE_Admin");
+            String token = jwtTokenUtil.generateToken(userDetails, "ROLE_Manager");
 
             Cookie jwtCookie = new Cookie("JWT_TOKEN", token);
             jwtCookie.setHttpOnly(true);
@@ -75,12 +75,11 @@ public class AdminController {
             jwtCookie.setPath("/");
             jwtCookie.setMaxAge(24 * 60 * 60);
             response.addCookie(jwtCookie);
-
             return ResponseEntity.ok(new LoginResponse(
                     true,
-                    "Đăng nhập thành công với quyền Admin",
+                    "Đăng nhập thành công với quyền Manager",
                     token,
-                    "/admin/dashboard"
+                    "/manager/dashboard"
             ));
 
         } catch (BadCredentialsException e) {
@@ -104,7 +103,12 @@ public class AdminController {
 
     @GetMapping("/dashboard")
     public String showDashboardPage(Model model) {
-        model.addAttribute("pageTitle", "Admin Dashboard");
-        return "Admin/DashboardAdmin";
+        model.addAttribute("pageTitle", "Manager Dashboard");
+        return "Manager/DashboardManager";
+    }
+
+    @GetMapping("/product-management")
+    public String showProductManagement(Model model) {
+        return "Manager/ProductManagent";
     }
 }
