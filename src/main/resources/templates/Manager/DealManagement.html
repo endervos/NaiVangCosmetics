@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deal Manager</title>
+    <link rel="stylesheet" href="./DealManager.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="icon" type="image/png" href="/src/main/resources/static/Customer/Example/Image/LogoConNai.png">
+</head>
+<body class="admin-body">
+<!-- Sidebar -->
+<nav class="admin-sidebar">
+    <div class="sidebar-logo">
+        <img src="./Image/LogoConNai.png" alt="Logo" class="logo-img">
+        <h2 class="logo-text">Manager</h2>
+    </div>
+    <ul>
+        <li><a href="/src/main/resources/templates/Manager/Dashboard.html"><i class="fa-solid fa-gauge"></i> Dashboard</a></li>
+        <li><a href="/src/main/resources/templates/Manager/ProductManagement.html"><i class="fa-solid fa-box"></i> Sản phẩm</a></li>
+        <li><a href="/src/main/resources/templates/Manager/CategoryManagement.html"><i class="fa-solid fa-list"></i> Danh mục</a></li>
+        <li><a href="/src/main/resources/templates/Manager/DealManagement.html"><i class="fa-solid fa-tags"></i> Khuyến mãi</a></li>
+        <li><a href="/src/main/resources/templates/Manager/ReviewManagement.html"><i class="fa-solid fa-star"></i> Đánh giá</a></li>
+        <li><a href="/src/main/resources/templates/Manager/OrderManagement.html"><i class="fa-solid fa-receipt"></i> Đơn hàng</a></li>
+        <li><a href="/src/main/resources/templates/Manager/ProfileManager.html"><i class="fa-solid fa-user"></i> Hồ sơ</a></li>
+    </ul>
+</nav>
+
+<!-- Main content -->
+<div class="admin-content">
+    <!-- Top bar -->
+    <div class="top-bar">
+        <div class="user-menu">
+            <div class="user-info">
+                <i class="fa-solid fa-user-circle"></i>
+                <span>Manager</span>
+                <i class="fa-solid fa-chevron-down"></i>
+            </div>
+            <!-- Dropdown -->
+            <ul class="dropdown">
+                <li><a href="#"><i class="fa-solid fa-right-from-bracket"></i> Đăng xuất</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Main area -->
+    <div class="main-area">
+        <!-- ============================================
+        BỔ SUNG – Giao diện Quản lý khuyến mãi
+=============================================== -->
+
+        <h2 class="deal-title">Quản lý khuyến mãi</h2>
+
+        <div class="header-area">
+            <button class="add-btn"><i class="fa-solid fa-plus"></i> Tạo khuyến mãi mới</button>
+        </div>
+
+        <div class="table-container">
+            <table class="deal-table">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Tiêu đề</th>
+                    <th>Giảm (%)</th>
+                    <th>Bắt đầu</th>
+                    <th>Kết thúc</th>
+                    <th>Ảnh</th>
+                    <th>Trạng thái</th>
+                    <th>Chỉnh sửa</th>
+                </tr>
+                </thead>
+                <tbody id="deal-list">
+                <!-- JS Render -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Modal Thêm / Sửa -->
+        <div class="modal" id="deal-modal">
+            <div class="modal-content">
+                <span class="close-modal">&times;</span>
+                <h2 id="modal-title">Tạo khuyến mãi</h2>
+
+                <form id="deal-form">
+                    <label>Tiêu đề:</label>
+                    <input type="text" id="title" required>
+
+                    <label>Giảm giá (%):</label>
+                    <input type="number" id="discount" min="0" max="100" required>
+
+                    <label>Ngày bắt đầu:</label>
+                    <input type="date" id="startDate" required>
+
+                    <label>Ngày kết thúc:</label>
+                    <input type="date" id="endDate" required>
+
+                    <label>Hình ảnh:</label>
+                    <input type="file" id="image">
+
+                    <button type="submit" class="save-btn">Lưu</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- ============================================
+                KẾT THÚC PHẦN BỔ SUNG
+        =============================================== -->
+
+    </div> <!-- end main-area -->
+</div> <!-- end admin-content -->
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="./DealManager.js"></script>
+</body>
+</html>

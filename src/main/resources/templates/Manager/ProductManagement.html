@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Management</title>
+    <link rel="stylesheet" href="./ProductManagement.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="icon" type="image/png" href="/src/main/resources/static/Customer/Example/Image/LogoConNai.png">
+</head>
+<body class="admin-body">
+<!-- Sidebar -->
+<nav class="admin-sidebar">
+    <div class="sidebar-logo">
+        <img src="./Image/LogoConNai.png" alt="Logo" class="logo-img">
+        <h2 class="logo-text">Manager</h2>
+    </div>
+    <ul>
+        <li><a href="/src/main/resources/templates/Manager/Dashboard.html"><i class="fa-solid fa-gauge"></i> Dashboard</a></li>
+        <li><a href="/src/main/resources/templates/Manager/ProductManagement.html"><i class="fa-solid fa-box"></i> Sản phẩm</a></li>
+        <li><a href="/src/main/resources/templates/Manager/CategoryManagement.html"><i class="fa-solid fa-list"></i> Danh mục</a></li>
+        <li><a href="/src/main/resources/templates/Manager/DealManagement.html"><i class="fa-solid fa-tags"></i> Khuyến mãi</a></li>
+        <li><a href="/src/main/resources/templates/Manager/ReviewManagement.html"><i class="fa-solid fa-star"></i> Đánh giá</a></li>
+        <li><a href="/src/main/resources/templates/Manager/OrderManagement.html"><i class="fa-solid fa-receipt"></i> Đơn hàng</a></li>
+        <li><a href="/src/main/resources/templates/Manager/ProfileManager.html"><i class="fa-solid fa-user"></i> Hồ sơ</a></li>
+    </ul>
+</nav>
+
+<!-- Main content -->
+<div class="admin-content">
+    <!-- Top bar -->
+    <div class="top-bar">
+        <div class="user-menu">
+            <div class="user-info">
+                <i class="fa-solid fa-user-circle"></i>
+                <span>Manager</span>
+                <i class="fa-solid fa-chevron-down"></i>
+            </div>
+            <!-- Dropdown -->
+            <ul class="dropdown">
+                <li><a href="#"><i class="fa-solid fa-right-from-bracket"></i> Đăng xuất</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Main area -->
+    <div class="main-area">
+        <h2 class="page-title">QUẢN LÝ SẢN PHẨM</h2>
+        <!-- ================================
+        Bổ sung giao diện quản lý sản phẩm
+    ================================ -->
+
+        <div class="product-header">
+            <button class="add-product-btn">
+                <i class="fa-solid fa-plus"></i> Thêm sản phẩm mới
+            </button>
+        </div>
+
+        <div class="product-table-container">
+            <table class="product-table">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Ảnh</th>
+                    <th>Tên sản phẩm</th>
+                    <th>Giá</th>
+                    <th>Số lượng</th>
+                    <th>Danh mục</th>
+                    <th>Trạng thái</th>
+                    <th>Sửa</th>
+                </tr>
+                </thead>
+                <tbody id="product-list">
+                <!-- JS Render -->
+                </tbody>
+            </table>
+        </div>
+
+
+        <!-- ================================
+                MODAL THÊM / SỬA SẢN PHẨM
+        ================================ -->
+
+        <div class="modal" id="product-modal">
+            <div class="modal-content">
+                <span class="close-modal">&times;</span>
+                <h2 id="modal-title">Thêm sản phẩm</h2>
+
+                <form id="product-form">
+
+                    <label>Tên sản phẩm:</label>
+                    <input type="text" id="product-name" required>
+
+                    <label>Giá (VNĐ):</label>
+                    <input type="number" id="product-price" required>
+
+                    <label>Danh mục:</label>
+                    <select id="product-category" required>
+                        <option value="">-- Chọn danh mục --</option>
+                        <option value="Skincare">Skincare</option>
+                        <option value="Makeup">Makeup</option>
+                        <option value="Haircare">Haircare</option>
+                        <option value="Bodycare">Bodycare</option>
+                    </select>
+                    <label>Số lượng:</label>
+                    <input type="number" id="product-quantity" min="0" required>
+
+                    <label>Ảnh sản phẩm:</label>
+                    <input type="file" id="product-image">
+
+                    <label>Trạng thái:</label>
+                    <select id="product-status" required>
+                        <option value="Còn hàng">Còn hàng</option>
+                        <option value="Hết hàng">Hết hàng</option>
+                    </select>
+
+                    <button type="submit" class="save-product-btn">Lưu</button>
+
+                </form>
+            </div>
+        </div>
+
+        <!-- ===== Kết thúc bổ sung ===== -->
+
+    </div> <!-- end main-area -->
+</div> <!-- end admin-content -->
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="./ProductManagement.js"></script>
+</body>
+</html>

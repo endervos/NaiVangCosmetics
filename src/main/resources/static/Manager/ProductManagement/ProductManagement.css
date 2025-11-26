@@ -1,0 +1,422 @@
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Body Styling */
+.admin-body {
+  display: flex;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+/* Sidebar Styling */
+.admin-sidebar {
+  width: 250px;
+  background: #2c3e50;
+  color: #fff;
+  padding: 20px 0;
+  position: fixed;
+  height: 100vh; /* Chiều cao bằng toàn bộ viewport */
+  overflow-y: auto;
+  transition: all 0.3s ease;
+}
+
+.sidebar-logo {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.logo-img {
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+}
+
+.logo-text {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.admin-sidebar ul {
+  list-style: none;
+  margin-top: 20px;
+}
+
+.admin-sidebar ul li {
+  padding: 25px 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05); /* Gạch ngang phân cách */
+}
+
+.admin-sidebar ul li a {
+  color: #dfe6e9;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+.admin-sidebar ul li a i {
+  margin-right: 10px;
+}
+
+.admin-sidebar ul li a:hover {
+  color: #3498db;
+  background: rgba(255, 255, 255, 0.1);
+  padding-left: 10px;
+}
+
+/* Main Content */
+.admin-content {
+  margin-left: 250px;
+  width: calc(100% - 250px);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Đảm bảo admin-content cao bằng viewport */
+}
+
+/* Top Bar */
+.top-bar {
+  background: #fff;
+  padding: 15px 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  position: sticky;
+  top: 0; /* Sát mép trên */
+  z-index: 1000;
+  border-radius: 0 0 20px 20px;
+}
+
+.user-menu {
+  position: relative;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-size: 16px;
+  color: #2c3e50;
+}
+
+.user-info i {
+  margin-right: 8px;
+}
+
+.user-info .fa-chevron-down {
+  margin-left: 8px;
+}
+
+.dropdown {
+  display: none;
+  position: absolute;
+  top: 40px;
+  right: 0;
+  background: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  list-style: none;
+  min-width: 150px;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.dropdown li a {
+  display: block;
+  padding: 10px 15px;
+  color: #2c3e50;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.dropdown li a:hover {
+  background: #3498db;
+  color: #fff;
+}
+
+.user-menu:hover .dropdown {
+  display: block;
+}
+
+/* Main Area */
+.main-area {
+  flex: 1; /* Chiếm toàn bộ không gian còn lại */
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  margin-top: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden; /* Ngăn cuộn trong main-area */
+  height: calc(100vh - 60px); /* Chiều cao bằng sidebar, trừ chiều cao top-bar */
+  width: 100%; /* Full chiều rộng của admin-content */
+}
+
+/* Main Area Content */
+.main-area h2 {
+  font-size: 24px;
+  color: #2c3e50;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.main-area p {
+  font-size: 16px;
+  color: #34495e;
+  text-align: center;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .admin-sidebar {
+    width: 200px;
+  }
+
+  .admin-content {
+    margin-left: 200px;
+    width: calc(100% - 200px);
+  }
+}
+
+@media (max-width: 576px) {
+  .admin-sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+  }
+
+  .admin-content {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .top-bar {
+    position: relative; /* Bỏ sticky trên màn hình nhỏ */
+  }
+
+  .main-area {
+    height: auto; /* Trên màn hình nhỏ, để main-area tự điều chỉnh chiều cao */
+    overflow: auto; /* Cho phép cuộn trên màn hình nhỏ nếu cần */
+  }
+}
+
+.main-area {
+  padding: 25px;
+  background: #f6f8fb;
+  min-height: 100vh;
+}
+
+/* =========================
+   Product Management – Bổ sung
+========================= */
+
+/* Header */
+.product-header {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 20px;
+}
+
+.add-product-btn {
+  background: #3498db;
+  color: white;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+.add-product-btn:hover {
+  background: #2980b9;
+}
+
+/* Table */
+.product-table-container {
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.product-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.product-table th,
+.product-table td {
+  padding: 14px 16px;
+  border-bottom: 1px solid #e3e6ea;
+  text-align: center;
+}
+
+.product-table th {
+  background: #2c3e50;
+  color: white;
+  font-weight: 600;
+}
+
+/* Ảnh sản phẩm */
+.product-img {
+  width: 65px;
+  height: 65px;
+  object-fit: cover;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+/* Badge */
+.status-instock {
+  background: #27ae60;
+  color: white;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 13px;
+}
+
+.status-outstock {
+  background: #e67e22;
+  color: white;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 13px;
+}
+
+/* Edit button */
+.edit-btn {
+  background: #f1c40f;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.edit-btn:hover {
+  background: #d4ac0d;
+}
+
+/* Modal */
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+.modal.show {
+  display: flex;
+}
+
+.modal-content {
+  background: white;
+  width: 90%;
+  max-width: 500px;
+  padding: 25px;
+  border-radius: 12px;
+  position: relative;
+}
+
+.close-modal {
+  position: absolute;
+  top: 12px;
+  right: 18px;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+.save-product-btn {
+  background: #3498db;
+  padding: 12px;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  margin-top: 10px;
+}
+
+/* Ghi đè căn trái cho tiêu đề Quản lý khuyến mãi */
+.page-title {
+  text-align: left !important;
+  padding-left: 10px;
+}
+
+/* ==============================================
+   FIX BỐ CỤC FORM MODAL SẢN PHẨM — BỔ SUNG
+============================================== */
+
+#product-form {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px 25px;
+  margin-top: 20px !important;
+}
+
+/* Label nằm trên input, không kéo dài 2 cột */
+#product-form label {
+  font-weight: 600;
+  grid-column: span 2; /* mỗi label chiếm 2 cột để xuống dòng */
+}
+
+/* Input chiếm trọn 2 cột */
+#product-form input,
+#product-form select {
+  width: 100%;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  grid-column: span 2;
+}
+
+/* Chỉ những ô cần 2 cột mới span */
+#product-name,
+#product-price,
+#product-image {
+  grid-column: span 2;
+}
+
+/* Nút Lưu nằm bên trái, không full 2 cột */
+.save-product-btn {
+  grid-column: 1 / 2;
+  width: 120px;
+  padding: 10px;
+  justify-self: start;
+}
+
+/* ======================================================
+   FIX CĂN CHỈNH CỘT TÊN SẢN PHẨM + THÊM CỘT SỐ LƯỢNG
+====================================================== */
+
+/* Tên sản phẩm căn trái đẹp */
+.product-table td:nth-child(3),
+.product-table th:nth-child(3) {
+  text-align: left !important;
+  padding-left: 10px;
+}
+
+/* Cột số lượng */
+.product-table td:nth-child(5),
+.product-table th:nth-child(5) {
+  text-align: center;
+  width: 120px;
+}
+
+/* Giữ layout bảng gọn đẹp */
+.product-table th,
+.product-table td {
+  vertical-align: middle;
+}
+
+/* Form modal: thêm ô Số lượng */
+#product-quantity {
+  grid-column: span 2 !important;
+}

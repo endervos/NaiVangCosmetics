@@ -481,7 +481,7 @@
   font-size: 15px;
   font-weight: 600;
   color: #333;
-  position: static; /* ✅ bỏ absolute để nằm dưới */
+  position: static;
 }
 
 /* Số tiền chi tiêu */
@@ -493,7 +493,7 @@
   background: #ede6ff;
   padding: 4px 12px;
   border-radius: 10px;
-  position: static; /* ✅ bỏ absolute để nằm dưới */
+  position: static;
 }
 
 /* Hiệu ứng ánh sáng cho top 1 */
@@ -516,7 +516,7 @@
 /* Responsive cho màn hình nhỏ */
 @media (max-width: 992px) {
   .charts {
-    grid-template-columns: 1fr; /* Xếp chồng khi nhỏ */
+    grid-template-columns: 1fr;
   }
 
   .chart-box canvas#revenueChart,
