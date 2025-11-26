@@ -1,20 +1,35 @@
 package demoweb.demo.security;
 
 import demoweb.demo.service.AccountService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
+@EnableWebSecurity
 public class SecurityConfiguration {
+
+    @Autowired
+    private JwtAuthenticationFilter jwtAuthenticationFilter;
+
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
+        return authConfig.getAuthenticationManager();
     }
 
     @Bean
@@ -28,43 +43,60 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain customerSecurityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
-                .csrf(httpSecurityCsrfConfigurer -> httpSecurityCsrfConfigurer.disable())
-                .authorizeHttpRequests(configurer -> configurer
+                .csrf(csrf -> csrf.disable())
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers(
+                                "/",
+                                "/home",
+                                "/about",
+                                "/contact",
+                                "/login",
+                                "/admin/login_tthhn",
+                                "/manager/login_tthhn",
+                                "/sign-up",
+                                "/sign-up/**",
+                                "/static/**",
+                                "/css/**",
+                                "/js/**",
+                                "/images/**",
+                                "/fonts/**",
+                                "/Customer/**",
+                                "/Admin/Login/**",
+                                "/Admin/Dashboard/**",
+                                "/Manager/Login/**",
+                                "/Manager/Dashboard/**",
+                                "/blog/**",
+                                "/products/**",
+                                "/categories/**"
+                        ).permitAll()
+
                         .requestMatchers(
                                 "/cart/**",
-                                "/orderManage/**"
-                        )
-                        .hasRole("Customer")
+                                "/orderManage/**",
+                                "/profile/**",
+                                "/account/**"
+                        ).hasRole("Customer")
+
                         .requestMatchers(
-                                "/admin/**",
-                                "/Admin/**"
-                        ).hasRole(("Admin"))
+                                "/admin/**"
+                        ).hasRole("Admin")
+
                         .requestMatchers(
-                                "/static/Customer/**",
-                                "/templates/Customer/**",
-                                "/",
-                                "/sign-up/**",
-                                "/blog/**",
-                                "/Customer/**"
-                        )
-                        .permitAll()
-                        .anyRequest()
-                        .authenticated()
+                                "/manager/**"
+                        ).hasRole("Manager")
+
+                        .anyRequest().permitAll()
                 )
-                .formLogin(form -> form
-                        .loginPage("/login")
-                        .usernameParameter("username")
-                        .passwordParameter("password")
-                        .defaultSuccessUrl("/", true)
-                        .permitAll()
-                )
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .logout(logout -> logout
                         .logoutUrl("/logout")
                         .logoutSuccessUrl("/")
                         .invalidateHttpSession(true)
-                        .deleteCookies("JSESSIONID")
+                        .deleteCookies("JWT_TOKEN", "JSESSIONID")
                         .permitAll()
                 );
+
         return httpSecurity.build();
     }
 }

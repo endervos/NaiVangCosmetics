@@ -33,7 +33,6 @@
     if (next && next.classList?.contains("nv-error")) next.remove();
   };
 
-  // Validator
   const isEmail = (v) => {
     const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     return emailPattern.test(v);
@@ -43,16 +42,15 @@
     const form = document.querySelector(".login-card form");
     if (!form) {
       console.warn("Không tìm thấy form đăng nhập!");
-      toast("Không tìm thấy form đăng nhập!");
       return;
     }
 
     const email = form.querySelector('input[name="username"]');
     const password = form.querySelector('input[name="password"]');
+    const submitBtn = form.querySelector('button[type="submit"]');
     const captchaIn = form.querySelector(".captcha-input");
     const captchaBx = form.querySelector(".captcha-box");
 
-    // Tạo CAPTCHA
     const genCap = () => {
       const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
       let s = "";
@@ -69,24 +67,34 @@
 
     if (captchaBx) resetCaptcha();
 
-    // Validate khi submit
-    form.addEventListener("submit", (e) => {
+    const setLoading = (loading) => {
+      if (submitBtn) {
+        submitBtn.disabled = loading;
+        submitBtn.textContent = loading ? "Đang xử lý..." : "Đăng nhập";
+      }
+    };
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
       let ok = true;
 
-      const need = (el, msg) => {
-        if (!el || !String(el.value).trim()) {
-          addError(el, msg);
-          ok = false;
-        } else removeError(el);
-      };
-
-      need(email, "Chưa nhập email.");
-      if (email && !isEmail(email.value)) {
+      if (!email || !email.value.trim()) {
+        addError(email, "Chưa nhập email.");
+        ok = false;
+      } else if (!isEmail(email.value.trim())) {
         addError(email, "Định dạng email không đúng.");
         ok = false;
-      } else if (email) removeError(email);
+      } else {
+        removeError(email);
+      }
 
-      need(password, "Chưa nhập mật khẩu.");
+      if (!password || !password.value.trim()) {
+        addError(password, "Chưa nhập mật khẩu.");
+        ok = false;
+      } else {
+        removeError(password);
+      }
 
       if (captchaIn && captchaBx) {
         const exp = captchaBx.textContent.trim();
@@ -97,18 +105,70 @@
           ok = false;
         } else {
           removeError(captchaIn);
-          resetCaptcha(); // reset CAPTCHA cho lần sau
         }
       }
 
       if (!ok) {
-        e.preventDefault(); // chỉ chặn submit khi dữ liệu sai
         toast("Thông tin không hợp lệ. Vui lòng kiểm tra lại!");
         const firstInvalid = form.querySelector(".nv-error");
         if (firstInvalid) {
           firstInvalid.scrollIntoView({ behavior: "smooth", block: "center" });
         }
+        return;
+      }
+
+      setLoading(true);
+
+      try {
+        const loginUrl = form.getAttribute("action") || "/login";
+
+        const response = await fetch(loginUrl, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            username: email.value.trim(),
+            password: password.value,
+          }),
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+          toast("Đăng nhập thành công! Đang chuyển hướng...");
+          if (captchaBx) resetCaptcha();
+          setTimeout(() => {
+            window.location.href = data.redirectUrl || "/";
+          }, 1000);
+        } else {
+          toast(data.message || "Đăng nhập thất bại!");
+
+          if (email && data.message && data.message.includes("email")) {
+            addError(email, data.message);
+          } else if (password) {
+            addError(password, data.message || "Email hoặc mật khẩu không đúng");
+          }
+          if (captchaBx) resetCaptcha();
+
+          setLoading(false);
+        }
+      } catch (error) {
+        console.error("Login error:", error);
+        toast("Có lỗi xảy ra. Vui lòng thử lại!");
+        setLoading(false);
+        if (captchaBx) resetCaptcha();
       }
     });
+
+    if (email) {
+      email.addEventListener("input", () => removeError(email));
+    }
+    if (password) {
+      password.addEventListener("input", () => removeError(password));
+    }
+    if (captchaIn) {
+      captchaIn.addEventListener("input", () => removeError(captchaIn));
+    }
   });
 })();

@@ -25,7 +25,7 @@ public class AccountController {
     public String showAccountPage(Model model,
                                   @AuthenticationPrincipal UserDetails userDetails) {
         if (userDetails == null) {
-            return "redirect:/login"; // Nếu chưa đăng nhập thì chuyển hướng về login
+            return "redirect:/login";
         }
 
         String email = userDetails.getUsername();
@@ -34,6 +34,6 @@ public class AccountController {
 
         model.addAttribute("user", user);
 
-        return "Customer/AccountManage"; // templates/Customer/AccountManage.html
+        return "Customer/AccountManage";
     }
 }
