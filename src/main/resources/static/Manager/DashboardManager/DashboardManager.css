@@ -1,4 +1,3 @@
-/* General Reset */
 * {
   margin: 0;
   padding: 0;
@@ -6,21 +5,19 @@
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* Body Styling */
 .admin-body {
   display: flex;
   min-height: 100vh;
   background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
 }
 
-/* Sidebar Styling */
 .admin-sidebar {
   width: 250px;
   background: #2c3e50;
   color: #fff;
   padding: 20px 0;
   position: fixed;
-  height: 100vh; /* Chiều cao bằng toàn bộ viewport */
+  height: 100vh;
   overflow-y: auto;
   transition: all 0.3s ease;
 }
@@ -50,7 +47,7 @@
 
 .admin-sidebar ul li {
   padding: 25px 20px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05); /* Gạch ngang phân cách */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .admin-sidebar ul li a {
@@ -72,16 +69,14 @@
   padding-left: 10px;
 }
 
-/* Main Content */
 .admin-content {
   margin-left: 250px;
   width: calc(100% - 250px);
   display: flex;
   flex-direction: column;
-  min-height: 100vh; /* Đảm bảo admin-content cao bằng viewport */
+  min-height: 100vh;
 }
 
-/* Top Bar */
 .top-bar {
   background: #fff;
   padding: 15px 20px;
@@ -90,7 +85,7 @@
   justify-content: flex-end;
   align-items: center;
   position: sticky;
-  top: 0; /* Sát mép trên */
+  top: 0;
   z-index: 1000;
   border-radius: 0 0 20px 20px;
 }
@@ -145,20 +140,18 @@
   display: block;
 }
 
-/* Main Area */
 .main-area {
-  flex: 1; /* Chiếm toàn bộ không gian còn lại */
+  flex: 1;
   background: #fff;
   padding: 20px;
   border-radius: 10px;
   margin-top: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  overflow: hidden; /* Ngăn cuộn trong main-area */
-  height: calc(100vh - 60px); /* Chiều cao bằng sidebar, trừ chiều cao top-bar */
-  width: 100%; /* Full chiều rộng của admin-content */
+  overflow: hidden;
+  height: calc(100vh - 60px);
+  width: 100%;
 }
 
-/* Main Area Content */
 .main-area h2 {
   font-size: 24px;
   color: #2c3e50;
@@ -172,7 +165,6 @@
   text-align: center;
 }
 
-/* Responsive Design */
 @media (max-width: 768px) {
   .admin-sidebar {
     width: 200px;
@@ -197,12 +189,12 @@
   }
 
   .top-bar {
-    position: relative; /* Bỏ sticky trên màn hình nhỏ */
+    position: relative;
   }
 
   .main-area {
-    height: auto; /* Trên màn hình nhỏ, để main-area tự điều chỉnh chiều cao */
-    overflow: auto; /* Cho phép cuộn trên màn hình nhỏ nếu cần */
+    height: auto;
+    overflow: auto;
   }
 }
 
@@ -303,12 +295,11 @@
 
 .charts {
   display: grid;
-  grid-template-columns: 2fr 1fr; /* Biểu đồ doanh thu rộng hơn */
+  grid-template-columns: 2fr 1fr;
   gap: 25px;
   margin-bottom: 30px;
 }
 
-/* Hộp chứa mỗi biểu đồ */
 .chart-box {
   background: #fff;
   border-radius: 16px;
@@ -320,31 +311,28 @@
   align-items: center;
 }
 
-/* ----- Legend (chú thích dưới biểu đồ danh mục sản phẩm) ----- */
 .chart-box ul {
   display: grid !important;
-  grid-template-columns: repeat(2, minmax(140px, auto)) !important; /* ✅ 2 mục mỗi hàng */
+  grid-template-columns: repeat(2, minmax(140px, auto)) !important;
   grid-auto-rows: auto;
   justify-content: center !important;
   align-items: center;
-  column-gap: 50px; /* khoảng cách ngang giữa 2 mục */
-  row-gap: 10px;    /* khoảng cách dọc giữa 3 hàng */
+  column-gap: 50px;
+  row-gap: 10px;
   list-style: none;
   margin-top: 15px;
   padding: 0;
 }
 
-/* Mỗi mục trong legend */
 .chart-box li {
   display: flex !important;
   align-items: center;
   gap: 6px;
   font-size: 15px;
   color: #333;
-  white-space: nowrap; /* tránh xuống dòng chữ dài */
+  white-space: nowrap;
 }
 
-/* Ô màu trong legend */
 .chart-box li span {
   width: 16px !important;
   height: 16px !important;
@@ -352,26 +340,23 @@
   display: inline-block;
 }
 
-/* Biểu đồ đường (Doanh thu) */
 .chart-box canvas#revenueChart {
   width: 100% !important;
   height: 320px !important;
   display: block;
 }
 
-/* Biểu đồ doughnut (Tỷ lệ danh mục sản phẩm) */
 .chart-box canvas#categoryChart {
   display: block;
   margin: 0 auto;
   width: 100% !important;
-  max-width: 320px;    /* Giới hạn chiều ngang */
-  aspect-ratio: 1 / 1; /* Giữ hình vuông để biểu đồ tròn đều */
+  max-width: 320px;
+  aspect-ratio: 1 / 1;
 }
 
-/* Responsive cho màn hình nhỏ */
 @media (max-width: 992px) {
   .charts {
-    grid-template-columns: 1fr; /* Xếp chồng khi nhỏ */
+    grid-template-columns: 1fr;
   }
 
   .chart-box canvas#revenueChart,

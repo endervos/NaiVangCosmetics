@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const namePattern = /^[\p{L}\s]{2,50}$/u;
     const phonePattern = /^(0[3|5|7|8|9])[0-9]{8}$/;
     const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    const addressPattern = /^[A-Za-zÀ-ỹà-ỹĐđ0-9\s,./()-]{5,100}$/;
+    const addressPattern = /^[A-Za-zÀ-ỹà-ỹĐđ0-9\s]{5,100}$/;
 
     // 🔹 Hàm hiển thị lỗi
     function showError(element, message) {
@@ -152,19 +152,19 @@ document.addEventListener("DOMContentLoaded", function () {
             })
         })
             .then(response => {
-                if (response.redirected) {
-                    console.log("✅ Server redirect →", response.url);
-                    window.location.href = response.url;
+                if (response.ok) {
+                    alert("Thông tin đã được cập nhật thành công!");
+                    console.log("Cập nhật thành công!");
                 } else {
-                    console.log("✅ Cập nhật thành công!");
-                    alert("✅ Thông tin của bạn đã được cập nhật thành công!");
+                    alert("Có lỗi khi cập nhật thông tin!");
+                    console.error("Lỗi phản hồi:", response.status);
                 }
             })
-
             .catch(err => {
-                console.error("❌ Lỗi khi gửi dữ liệu:", err);
-                alert("Có lỗi xảy ra khi cập nhật!");
+                console.error("Lỗi khi gửi dữ liệu:", err);
+                alert("Có lỗi xảy ra khi gửi dữ liệu!");
             });
+
     });
 
     const addAddressBtn = document.getElementById("addAddressBtn");
@@ -191,10 +191,49 @@ document.addEventListener("DOMContentLoaded", function () {
             <input type="text" name="district[]" placeholder="Quận / Huyện" class="address-input district-input">
             <input type="text" name="street[]" placeholder="Đường / Số nhà" class="address-input street-input">
 
+<<<<<<< HEAD
+                <select name="city[]" class="address-select city-select">
+                    <option value="">-- Tỉnh / Thành phố --</option>
+                    <option value="Hà Nội">Hà Nội</option>
+                    <option value="Hồ Chí Minh">Hồ Chí Minh</option>
+                    <option value="Đà Nẵng">Đà Nẵng</option>
+                    <option value="Hải Phòng">Hải Phòng</option>
+                    <option value="Cần Thơ">Cần Thơ</option>
+                </select>
+
+                <select name="district[]" class="address-select district-select">
+                    <option value="">-- Quận / Huyện --</option>
+                </select>
+
+                <input type="text" name="street[]" placeholder="Nhập đường / số nhà..." class="address-input street-input">
+
+                <button type="button" class="btn-remove">–</button>
+            `;
+
+            const removeBtn = newRow.querySelector(".btn-remove");
+            const citySelect = newRow.querySelector(".city-select");
+            const districtSelect = newRow.querySelector(".district-select");
+            const streetInput = newRow.querySelector(".street-input");
+
+
+            // 🔹 Xóa dòng
+            removeBtn.addEventListener("click", function () {
+                const totalRows = addressContainer.querySelectorAll(".address-row").length;
+                if (totalRows === 1) {
+                    alert("⚠️ Phải có ít nhất một địa chỉ, không thể xóa dòng cuối cùng!");
+                    return;
+                }
+                if (confirm("Bạn có chắc muốn xóa địa chỉ này không?")) {
+                    newRow.remove();
+                    reindexAddresses();
+                }
+            });
+=======
             <button type="button" class="btn-remove">–</button>
             <button type="button" class="btn-default-address" style="display:none;">Địa chỉ mặc định</button>
             <button type="button" class="btn-default">Đặt làm mặc định</button>
         `;
+>>>>>>> b28c350625f907bcc541afb5d18ed85f8ab2e6ec
 
             attachRowEvents(newRow);
             return newRow;
