@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý khuyến mãi</title>
+    <link rel="stylesheet" href="./DealAdmin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="icon" type="image/png" href="./Image/LogoConNai.png">
+</head>
+<body class="admin-body">
+
+<!-- Sidebar -->
+<nav class="admin-sidebar">
+    <div class="sidebar-logo">
+        <img src="./Image/LogoConNai.png" alt="Logo" class="logo-img">
+        <h2 class="logo-text">Admin</h2>
+    </div>
+    <ul>
+        <li><a href="#"><i class="fa-solid fa-gauge"></i> Dashboard</a></li>
+        <li><a href="#"><i class="fa-solid fa-box"></i> Sản phẩm</a></li>
+        <li><a href="#"><i class="fa-solid fa-list"></i> Danh mục</a></li>
+        <li class="active"><a href="#"><i class="fa-solid fa-tags"></i> Khuyến mãi</a></li>
+        <li><a href="#"><i class="fa-solid fa-star"></i> Đánh giá</a></li>
+        <li><a href="#"><i class="fa-solid fa-receipt"></i> Đơn hàng</a></li>
+        <li><a href="#"><i class="fa-solid fa-users"></i> Quản lý tài khoản</a></li>
+        <li><a href="#"><i class="fa-solid fa-user"></i> Hồ sơ</a></li>
+    </ul>
+</nav>
+
+<!-- Main content -->
+<div class="admin-content">
+
+    <!-- Top bar -->
+    <div class="top-bar">
+        <div class="user-menu">
+            <div class="user-info">
+                <i class="fa-solid fa-user-circle"></i>
+                <span>Admin</span>
+                <i class="fa-solid fa-chevron-down"></i>
+            </div>
+
+            <!-- Dropdown -->
+            <ul class="dropdown">
+                <li><a href="#"><i class="fa-solid fa-right-from-bracket"></i> Đăng xuất</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Main area -->
+    <div class="main-area">
+
+        <div class="header-area">
+            <h2>Quản lý khuyến mãi</h2>
+            <button class="add-btn"><i class="fa-solid fa-plus"></i> Thêm khuyến mãi</button>
+        </div>
+
+        <!-- Promotion Table -->
+        <div class="table-container">
+            <table class="deal-table">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Tiêu đề</th>
+                    <th>Giảm giá (%)</th>
+                    <th>Ngày bắt đầu</th>
+                    <th>Ngày kết thúc</th>
+                    <th>Ảnh</th>
+                    <th>Trạng thái</th>
+                    <th>Hành động</th>
+                </tr>
+                </thead>
+
+                <tbody id="deal-list">
+                <!-- Data sẽ được load bằng JS -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Thêm / Sửa -->
+<div class="modal" id="deal-modal">
+    <div class="modal-content">
+        <span class="close-modal">&times;</span>
+        <h2 id="modal-title">Thêm khuyến mãi</h2>
+
+        <form id="deal-form">
+            <label>Tiêu đề:</label>
+            <input type="text" id="title" required>
+
+            <label>Mô tả:</label>
+            <textarea id="description" rows="3"></textarea>
+
+            <label>Giảm giá (%):</label>
+            <input type="number" id="discount" min="0" max="100" required>
+
+            <label>Ngày bắt đầu:</label>
+            <input type="date" id="startDate" required>
+
+            <label>Ngày kết thúc:</label>
+            <input type="date" id="endDate" required>
+
+            <label>Hình ảnh:</label>
+            <input type="file" id="image">
+
+            <button type="submit" class="save-btn">Lưu</button>
+        </form>
+    </div>
+</div>
+
+<script src="./DealAdmin.js"></script>
+
+</body>
+</html>

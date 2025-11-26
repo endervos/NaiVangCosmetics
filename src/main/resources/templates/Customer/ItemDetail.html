@@ -129,7 +129,7 @@
 
         <!-- Tin tức -->
         <div class="dropdown">
-            <a href="/blog">TIN TỨC</a>
+            <a th:href="@{/blog}">TIN TỨC</a>
         </div>
 
         <!-- Tra cứu đơn -->
@@ -259,12 +259,18 @@
         </div>
 
         <!-- Nút hành động -->
-        <div class="action-buttons">
-            <button class="add-cart">Thêm vào giỏ hàng</button>
-            <button class="buy-now">Mua ngay</button>
-        </div>
+        <form th:action="@{/cart/add}" method="post">
+            <input type="hidden" name="itemId" th:value="${item.itemId}" />
+            <div class="quantity-box">
+                <label for="quantity">Số lượng:</label>
+                <input type="number" id="quantity" name="quantity" value="1" min="1">
+            </div>
+            <div class="action-buttons">
+                <button type="submit" class="add-cart">Thêm vào giỏ hàng</button>
+                <button type="button" class="buy-now" onclick="window.location.href='/cart'">Mua ngay</button>
+            </div>
+        </form>
     </div>
-
 
 </div>
 

@@ -6,6 +6,9 @@
     <title>Nai Vang Cosmetic</title>
     <link rel="icon" type="image/png" th:src="@{/Customer/Item/Image/LogoConNai.png}">
     <link rel="stylesheet" th:href="@{/Customer/Profile/Profile.css}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://npmcdn.com/flatpickr/dist/l10n/vn.js"></script>
     <link rel="stylesheet" th:href="@{/Customer/Home/Home.css}">
 
     <!-- Slick CSS -->
@@ -156,7 +159,7 @@
 
     <main class="account-info" th:object="${user}">
         <h2>Thông tin tài khoản</h2>
-        <form th:action="@{/update}" th:object="${user}" method="post">
+        <form th:action="@{/profile/update}" th:object="${user}" method="post">
         <div class="profile-container">
             <label>Tài khoản</label>
             <input type="text" th:field="*{email}" disabled />
@@ -174,37 +177,36 @@
                 </div>
 
                 <div id="addressContainer">
-                    <div class="address-row">
+                    <div class="address-row default">
                         <span class="address-label">Địa chỉ 1</span>
 
-                        <select name="city[]" class="address-select city-select">
-                            <option value="">-- Tỉnh / Thành phố --</option>
-                            <option value="Hà Nội">Hà Nội</option>
-                            <option value="Hồ Chí Minh">Hồ Chí Minh</option>
-                            <option value="Đà Nẵng">Đà Nẵng</option>
-                            <option value="Hải Phòng">Hải Phòng</option>
-                            <option value="Cần Thơ">Cần Thơ</option>
-                        </select>
+                        <input type="text" name="city[]" placeholder="Tỉnh / Thành phố" class="address-input city-input">
+                        <input type="text" name="district[]" placeholder="Quận / Huyện" class="address-input district-input">
+                        <input type="text" name="street[]" placeholder="Đường / Số nhà..." class="address-input street-input">
 
-                        <select name="district[]" class="address-select district-select">
-                            <option value="">-- Quận / Huyện --</option>
-                        </select>
-
-                        <input type="text" name="street[]" placeholder="Nhập đường / số nhà..." class="address-input street-input">
-
-                        <button type="button" id="removeAddressBtn" class="btn-remove">–</button>
+                        <button type="button" class="btn-remove">–</button>
+                        <button type="button" class="btn-default-address" style="display:inline-flex;">Địa chỉ mặc định</button>
+                        <button type="button" class="btn-default" style="display:none;">Đặt làm mặc định</button>
                     </div>
                 </div>
+
+
             </div>
+            <label>Ngày sinh</label>
             <div class="mb-3">
-                <input
-                        type="date"
-                        class="form-control"
-                        style="appearance:none; -webkit-appearance:none;"
-                        onfocus="this.showPicker()"
-                        id="birthday"
-                        name="birthday"
-                        value="2005-08-02">
+                <div class="mb-3">
+                    <div class="mb-3">
+                        <input
+                                type="text"
+                                id="birthday"
+                                name="birthday"
+                                class="form-control"
+                                th:value="${user.birthday != null ? #temporals.format(user.birthday, 'yyyy-MM-dd') : ''}"
+                        >
+                    </div>
+
+                </div>
+
                 <label>Giới tính</label>
             <div class="d-flex gender-container" >
                 <label>
@@ -214,7 +216,7 @@
                     <input type="radio" th:field="*{gender}" value="Nữ" /> Nữ
                 </label>
             </div>
-                <button type="button" class="btn" id="updateBtn">Cập nhật thông tin</button>
+                <button type="submit" class="btn">Cập nhật thông tin</button>
         </div>
         </div>
         </form>
@@ -312,6 +314,22 @@
             <p>© 2025 Nai Vang. All rights reserved.</p>
         </div>
     </footer>
+
+<!-- Thư viện datepicker -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="https://npmcdn.com/flatpickr/dist/l10n/vn.js"></script>
+
+<script>
+    flatpickr("#birthday", {
+        dateFormat: "Y-m-d",       // format thực tế để server hiểu
+        altInput: true,            // hiển thị định dạng khác cho người dùng
+        altFormat: "d/m/Y",        // format hiển thị ra UI
+        locale: "vn",
+        maxDate: "today",
+        defaultDate: document.querySelector("#birthday").value
+    });
+</script>
 
     <script th:src="@{/Customer/Profile/Profile.js}"></script>
 

@@ -20,9 +20,6 @@ public class Category implements Serializable {
     @Column(name = "name", nullable = false, length = 150)
     private String name;
 
-    // -----------------------------
-    // Quan hệ cha – con (self reference)
-    // -----------------------------
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parent_id")
     private Category parent;
@@ -30,9 +27,6 @@ public class Category implements Serializable {
     @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL, orphanRemoval = false, fetch = FetchType.LAZY)
     private List<Category> children = new ArrayList<>();
 
-    // -----------------------------
-    // Các cột khác
-    // -----------------------------
     @Column(name = "slug", nullable = false, length = 150)
     private String slug;
 

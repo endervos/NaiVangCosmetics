@@ -28,8 +28,8 @@ public class User {
     @Column(name = "phone_number", length = 20)
     private String phoneNumber;
 
-    @DateTimeFormat(pattern = "MM/dd/yyyy")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM/dd/yyyy")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate birthday;
 
 
@@ -58,7 +58,7 @@ public class User {
     private Set<Account> accounts;
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Customer customer;
+    private Customer customer; 
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Manager manager;

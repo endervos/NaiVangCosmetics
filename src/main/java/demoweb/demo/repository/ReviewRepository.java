@@ -12,21 +12,36 @@ import java.util.List;
 @Repository
 public interface ReviewRepository extends JpaRepository<Review, Integer>, JpaSpecificationExecutor<Review> {
 
-    // Lấy tất cả đánh giá của một sản phẩm cụ thể
+    /**
+     * Lấy tất cả đánh giá của một sản phẩm cụ thể theo itemId
+     */
     List<Review> findByItem_ItemId(Integer itemId);
 
-    // Lấy tất cả đánh giá của một khách hàng cụ thể
+    /**
+     * Lấy tất cả đánh giá của một khách hàng cụ thể theo customerId
+     */
     List<Review> findByCustomer_CustomerId(Integer customerId);
 
-    // Lấy tất cả đánh giá theo điểm rating
+    /**
+     * Lấy danh sách review theo số điểm rating cụ thể
+     */
     List<Review> findByRating(Integer rating);
 
-    // Lấy các review của 1 sản phẩm, sắp xếp mới nhất trước
+    /**
+     * Lấy tất cả review của 1 sản phẩm, sắp xếp theo thời gian tạo (mới nhất trước)
+     */
     List<Review> findByItem_ItemIdOrderByCreatedAtDesc(Integer itemId);
-    @Query("SELECT r FROM Review r " +
-            "JOIN FETCH r.customer c " +
-            "JOIN FETCH c.user u " +
-            "WHERE r.item.itemId = :itemId")
+
+    /**
+     * Lấy các review của sản phẩm kèm thông tin user (dùng JOIN FETCH để tránh lazy loading)
+     */
+    @Query("""
+        SELECT r FROM Review r
+        LEFT JOIN FETCH r.customer c
+        LEFT JOIN FETCH c.user u
+        WHERE r.item.itemId = :itemId
+        ORDER BY r.createdAt DESC
+        """)
     List<Review> findByItemIdWithUser(@Param("itemId") Integer itemId);
 
 }

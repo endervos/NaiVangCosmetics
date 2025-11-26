@@ -6,8 +6,8 @@
     <title>Chi tiết đơn hàng</title>
     <link rel="icon" type="image/png" th:href="@{/Customer/Home/LogoConNai.png}">
     <link rel="stylesheet" th:href="@{/Customer/Home/Home.css}">
-    <link rel="stylesheet" href="/src/main/resources/static/Customer/DetailOrder/DetailOrder.css">
-    <link rel="stylesheet" href="/src/main/resources/static/Customer/Example/Example.css">
+    <link rel="stylesheet" th:href="@{/Customer/DetailOrder/DetailOrder.css}">
+    <link rel="stylesheet" th:href="@{/Customer/Example/Example.css}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -15,11 +15,13 @@
 </head>
 <body>
 
+<!-- Banner khuyến mãi -->
 <div class="promo-banner">
-    <img th:src="@{/Customer/Home/Home.gif}" alt="Khuyến mãi Lam Thao">
+    <img th:src="@{/Customer/Home/Home.gif}" alt="Khuyến mãi">
 </div>
 
-<div class="header">
+<!-- Header -->
+<header class="header">
     <div class="container header-inner">
         <a th:href="@{/}">
             <img th:src="@{/Customer/Example/Image/Logo7.png}" alt="Logo" width="150" height="100">
@@ -29,254 +31,161 @@
             <div class="search-wrap">
                 <input type="text" placeholder="Bạn cần tìm ....">
                 <span class="search-icon">
-            <svg viewBox="0 0 24 27" aria-hidden="true">
-              <path d="M10,2C4.5,2,0,6.5,0,12s4.5,10,10,10s10-4.5,10-10S15.5,2,10,2z M10,19c-3.9,0-7-3.1-7-7s3.1-7,7-7s7,3.1,7,7S13.9,19,10,19z"></path>
-              <rect x="17" y="17" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -9.2844 19.5856)" width="4" height="8"></rect>
-            </svg>
-          </span>
+                    <svg viewBox="0 0 24 27" aria-hidden="true">
+                        <path d="M10,2C4.5,2,0,6.5,0,12s4.5,10,10,10s10-4.5,10-10S15.5,2,10,2z
+                                 M10,19c-3.9,0-7-3.1-7-7s3.1-7,7-7s7,3.1,7,7S13.9,19,10,19z"></path>
+                        <rect x="17" y="17" transform="rotate(45 19 21)" width="4" height="8"></rect>
+                    </svg>
+                </span>
             </div>
         </div>
 
         <div class="header-icons">
             <div class="user-section">
-                <!-- Nút user -->
                 <button class="user-btn" aria-label="Tài khoản">
-                    <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+                    <svg width="24" height="24" viewBox="0 0 24 24">
                         <path fill="currentColor"
-                              d="M17.75 14c1.24 0 2.25 1.01 2.25 2.25v.92c0 .57-.18 1.13-.52 1.6C18 20.9 15.5 22 12 22s-6-1.1-7.48-3.23c-.34-.47-.52-1.03-.52-1.6v-.92C4 15.01 5.01 14 6.25 14h11.5ZM12 2a5 5 0 1 1 0 10 5 5 0 0 1 0-10Z"/>
+                              d="M17.75 14c1.24 0 2.25 1.01 2.25 2.25v.92c0
+                                 .57-.18 1.13-.52 1.6C18 20.9 15.5 22 12
+                                 22s-6-1.1-7.48-3.23c-.34-.47-.52-1.03-.52-1.6v-.92C4
+                                 15.01 5.01 14 6.25 14h11.5ZM12
+                                 2a5 5 0 1 1 0 10 5 5 0 0 1 0-10Z"/>
                     </svg>
                 </button>
-
                 <div class="user-dropdown">
-                    <a th:href="@{/login}" id="login-btn" sec:authorize="isAnonymous()">Đăng nhập</a>
-                    <a th:href="@{/sign-up}" id="subcribe-btn" sec:authorize="isAnonymous()">Đăng ký</a>
-
-                    <a th:href="@{/profile}" id="account-info" sec:authorize="isAuthenticated()">Thông tin tài khoản</a>
-                    <a th:href="@{/logout}" id="logout-btn" sec:authorize="isAuthenticated()">Đăng xuất</a>
+                    <a th:href="@{/login}" sec:authorize="isAnonymous()">Đăng nhập</a>
+                    <a th:href="@{/sign-up}" sec:authorize="isAnonymous()">Đăng ký</a>
+                    <a th:href="@{/profile}" sec:authorize="isAuthenticated()">Thông tin tài khoản</a>
+                    <a th:href="@{/logout}" sec:authorize="isAuthenticated()">Đăng xuất</a>
                 </div>
-
             </div>
 
-
-            <!-- Cart Section -->
             <div class="cart-section">
-                <a href="#" class="cart-pill" title="Giỏ hàng">
-                    <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
+                <a th:href="@{/cart}" class="cart-pill" title="Giỏ hàng">
+                    <svg width="20" height="20" viewBox="0 0 24 24">
                         <path fill="currentColor"
-                              d="M7 4h-2l-1 2h2l3.6 7.59-1.35 2.44C7.89 16.37 8.29 17 8.94 17h9.56v-2H9.42l1.1-2h7.25c.75 0 1.41-.41 1.75-1.03L22 7H6.42l-.7-1h1.28L7 4Zm-1 16a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm12 0a2 2 0 1 0 .001-3.999A2 2 0 0 0 18 20Z"/>
+                              d="M7 4h-2l-1 2h2l3.6 7.59-1.35 2.44C7.89
+                                 16.37 8.29 17 8.94 17h9.56v-2H9.42l1.1-2h7.25c.75
+                                 0 1.41-.41 1.75-1.03L22 7H6.42l-.7-1h1.28L7 4Zm-1
+                                 16a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm12
+                                 0a2 2 0 1 0 .001-3.999A2 2 0 0 0 18 20Z"/>
                     </svg>
                     <span>Giỏ hàng</span>
                 </a>
             </div>
         </div>
     </div>
-</div>
+</header>
 
-<div class="menu-bar">
+<!-- Menu -->
+<nav class="menu-bar">
     <div class="container menu-inner">
-
-        <!-- Danh Mục Sản Phẩm -->
         <div class="dropdown">
             <a href="#">☰ DANH MỤC SẢN PHẨM</a>
             <ul class="dropdown-content">
-                <li class="has-submenu">
-                    <a href="#">
-                        <img class="menu-icon" th:src="@{/Customer/Home/Skincare.png}" alt="Chăm sóc da mặt" >Chăm sóc da mặt </a>
-                    <ul class="submenu">
-                        <li><a href="#">Tẩy Trang<span class="count">6</span></a></li>
-                        <li><a href="#">Sữa Rửa Mặt<span class="count">15</span></a></li>
-                        <li><a href="#">Tẩy Tế Bào Chết<span class="count">5</span></a></li>
-                        <li><a href="#">Kem dưỡng/Gel dưỡng<span class="count">8</span></a></li>
-                        <li><a href="#">Toner / Lotion<span class="count">10</span></a></li>
-                        <li><a href="#">Serum / Essence<span class="count">9</span></a></li>
-                        <li><a href="#">Son Dưỡng<span class="count">7</span></a></li>
-                        <li><a href="#">Chống Nắng<span class="count">15</span></a></li>
-                        <li><a href="#">Xịt khoáng<span class="count">11</span></a></li>
-                    </ul>
-                </li>
-
-                <!--Trang điểm-->
-                <li class="has-submenu">
-                    <a href="#">
-                        <img class="menu-icon" th:src="@{/Customer/Home/Makeup.png}" alt="Trang điểm" >Trang điểm </a>
-                    <ul class="submenu">
-                        <li><a href="#">Kem Lót<span class="count">5</span></a></li>
-                        <li><a href="#">Che Khuyết Điểm<span class="count">10</span></a></li>
-                        <li><a href="#">Highlight<span class="count">6</span></a></li>
-                        <li><a href="#">Masccara<span class="count">8</span></a></li>
-                        <li><a href="#">Son Môi<span class="count">9</span></a></li>
-                        <li><a href="#">Kem Nền<span class="count">11</span></a></li>
-                        <li><a href="#">Son Dưỡng<span class="count">7</span></a></li>
-                        <li><a href="#">Phấn Phủ<span class="count">8</span></a></li>
-                        <li><a href="#">Xịt Khoá Nền<span class="count">11</span></a></li>
-                    </ul>
-                </li>
-
-                <!--Chăm sóc cơ thể-->
-                <li class="has-submenu">
-                    <a href="#">
-                        <img class="menu-icon" th:src="@{/Customer/Home/Bodycare.png}" alt="Chăm sóc cơ thể" >Chăm sóc cơ thể </a>
-                    <ul class="submenu">
-                        <li><a href="#">Sữa Tắm<span class="count">16</span></a></li>
-                        <li><a href="#">Dưỡng Thể<span class="count">10</span></a></li>
-                        <li><a href="#">Tẩy Tế Bào Chết Body<span class="count">12</span></a></li>
-                        <li><a href="#">Chăm Sóc Răng Miệng<span class="count">13</span></a></li>
-                        <li><a href="#">Xịt Khử Mùi<span class="count">6</span></a></li>
-                        <li><a href="#">Kem Dưỡng Da Tay<span class="count">9</span></a></li>
-                        <li><a href="#">Giảm Mụn Lưng<span class="count">10</span></a></li>
-                    </ul>
-                </li>
-
-                <!--Chăm sóc tóc-->
-                <li class="has-submenu">
-                    <a href="#">
-                        <img class="menu-icon" th:src="@{/Customer/Home/Haircare.png}" alt="Chăm sóc tóc" >Chăm sóc tóc </a>
-                    <ul class="submenu">
-                        <li><a href="#">Dầu Gội<span class="count">16</span></a></li>
-                        <li><a href="#">Dầu Xả<span class="count">10</span></a></li>
-                        <li><a href="#">Ủ Tóc<span class="count">6</span></a></li>
-                        <li><a href="#">Tinh Chất Dưỡng Tóc<span class="count">8</span></a></li>
-                        <li><a href="#">Tẩy Tế Bào Chết Da Đầu<span class="count">5</span></a></li>
-                    </ul>
-                </li>
-                <!--Dược mỹ phẩm -->
-                <li class="has-submenu">
-                    <a href="#">
-                        <img class="menu-icon" th:src="@{/Customer/Home/Cosmeceuticals.png}" alt="Dược mỹ phẩm">Dược mỹ phẩm
-                    </a>
-                    <ul class="submenu">
-                        <li><a href="#">Sản phẩm trị mụn <span class="count">11</span></a></li>
-                        <li><a href="#">Chống lão hóa <span class="count">6</span></a></li>
-                        <li><a href="#">Làm sáng da <span class="count">9</span></a></li>
-                        <li><a href="#">Phục hồi da sau điều trị <span class="count">4</span></a></li>
-                        <li><a href="#">Sản phẩm đặc trị <span class="count">8</span></a></li>
-                        <li><a href="#">Sản phẩm mờ thâm mụn  <span class="count">4</span></a></li>
-                        <li><a href="#">Sữa rửa mặt hỗ trợ trị mụn <span class="count">8</span></a></li>
-                    </ul>
-                </li>
-                <!-- Thực phẩm chức năng -->
-                <li class="has-submenu">
-                    <a href="#">
-                        <img class="menu-icon" th:src="@{/Customer/Home/Health-supplements.png}" alt="Thực phẩm chức năng">
-                        Thực phẩm chức năng
-                    </a>
-                    <ul class="submenu">
-                        <li><a href="#">Vitamin & Khoáng chất <span class="count">18</span></a></li>
-                        <li><a href="#">Thực phẩm bổ sung Collagen <span class="count">9</span></a></li>
-                        <li><a href="#">Tăng cường đề kháng <span class="count">12</span></a></li>
-                        <li><a href="#">Thực phẩm hỗ trợ tiêu hóa <span class="count">7</span></a></li>
-                        <li><a href="#">Hỗ trợ xương khớp <span class="count">10</span></a></li>
-                        <li><a href="#">Giảm cân & Detox <span class="count">8</span></a></li>
-                        <li><a href="#">Sản phẩm cho trẻ em <span class="count">6</span></a></li>
-                        <li><a href="#">Sản phẩm cho người lớn tuổi <span class="count">5</span></a></li>
-                    </ul>
-                </li>
-                <!-- Best Seller -->
-                <li class="has-submenu">
-                    <a href="#">
-                        <img class="menu-icon" th:src="@{/Customer/Home/Best-seller.png}" alt="Best Seller">
-                        BEST SELLER
-                    </a>
-                    <ul class="submenu">
-                        <li><a href="#">Top Skincare bán chạy <span class="count">12</span></a></li>
-                        <li><a href="#">Top Makeup bán chạy <span class="count">9</span></a></li>
-                        <li><a href="#">Top Bodycare bán chạy <span class="count">7</span></a></li>
-                        <li><a href="#">Top Haircare bán chạy <span class="count">5</span></a></li>
-                        <li><a href="#">Top Thực phẩm chức năng <span class="count">6</span></a></li>
-                        <li><a href="#">Top Dược mỹ phẩm <span class="count">4</span></a></li>
-                        <li><a href="#">Top Nước hoa bán chạy <span class="count">8</span></a></li>
-                        <li><a href="#">Top Phụ kiện làm đẹp <span class="count">10</span></a></li>
-                        <li><a href="#">Top Chăm sóc răng miệng <span class="count">3</span></a></li>
-                        <li><a href="#">Top Sản phẩm organic <span class="count">6</span></a></li>
-                    </ul>
-                </li>
+                <li><a href="#">Chăm sóc da mặt</a></li>
+                <li><a href="#">Trang điểm</a></li>
+                <li><a href="#">Chăm sóc cơ thể</a></li>
+                <li><a href="#">Chăm sóc tóc</a></li>
+                <li><a href="#">Dược mỹ phẩm</a></li>
+                <li><a href="#">Thực phẩm chức năng</a></li>
             </ul>
         </div>
-
         <a href="#">SẢN PHẨM MỚI</a>
-
-        <!-- Lam Thảo Beauty -->
         <div class="dropdown">
             <a href="#">NAI VANG BEAUTY</a>
             <ul class="dropdown-content">
                 <li><a href="#">Thương hiệu A</a></li>
                 <li><a href="#">Thương hiệu B</a></li>
-                <li><a href="#">Thương hiệu C</a></li>
             </ul>
         </div>
-
-        <!-- Deal hot -->
         <a href="#">💖 DEAL HOT DƯỚI 100K 💖</a>
-
-        <!-- Tin tức -->
-        <div class="dropdown">
-            <a href="/blog">TIN TỨC</a>
-        </div>
-
-        <!-- Tra cứu đơn -->
-        <a href="#">TRA CỨU ĐƠN HÀNG</a>
+        <a th:href="@{/blog}">TIN TỨC</a>
+        <a th:href="@{/order/track}">TRA CỨU ĐƠN HÀNG</a>
     </div>
-</div>
+</nav>
 
-<div class="order-container" id="order-container">
-    <div class="order-header" id="order-header">
-        <h1 id="order-title"></h1>
-        <p id="order-date"></p>
+<!-- Nội dung chính -->
+<main class="order-container">
+    <div class="order-header">
+        <h1>Chi tiết đơn hàng</h1>
+        <p>Order ID: <span th:text="${order.orderId}"></span></p>
+        <p>Ngày đặt: <span th:text="${#temporals.format(order.placedAt, 'dd/MM/yyyy HH:mm')}"></span></p>
+        <p>Trạng thái: <span th:text="${order.status}"></span></p>
     </div>
-    <div class="order-info" id="order-info">
-        <div class="detail-item" id="delivery-address">
+
+    <div class="order-info">
+        <div class="detail-item">
             <span>Địa chỉ nhận hàng</span>
-            <strong id="delivery-address-value"></strong>
+            <strong th:text="${order.address != null ? order.address.street + ', ' + order.address.district + ', ' + order.address.city : 'Không có'}"></strong>
         </div>
-        <div class="detail-item" id="payment-method">
+        <div class="detail-item">
             <span>Hình thức thanh toán</span>
-            <strong id="payment-method-value"></strong>
+            <strong th:text="${payment != null ? payment.paymentMethod : 'Chưa có'}"></strong>
         </div>
-        <div class="detail-item" id="subtotal">
+        <div class="detail-item">
             <span>Tạm tính</span>
-            <strong id="subtotal-value"></strong>
+            <strong th:text="${#numbers.formatDecimal(tamTinh,0,'COMMA',0,'POINT')} + ' ₫'"></strong>
         </div>
-        <div class="detail-item" id="discount">
+        <div class="detail-item">
             <span>Giảm giá</span>
-            <strong id="discount-value"></strong>
+            <strong th:text="${#numbers.formatDecimal(giamGia,0,'COMMA',0,'POINT')} + ' ₫'"></strong>
         </div>
-        <div class="detail-item" id="shipping-fee">
+        <div class="detail-item">
             <span>Phí vận chuyển</span>
-            <strong id="shipping-fee-value"></strong>
+            <strong th:text="${#numbers.formatDecimal(phiVanChuyen,0,'COMMA',0,'POINT')} + ' ₫'"></strong>
         </div>
-        <div class="detail-item total" id="total">
+        <div class="detail-item total">
             <span>Thành tiền</span>
-            <strong id="total-value"></strong>
+            <strong th:text="${#numbers.formatDecimal(thanhTien,0,'COMMA',0,'POINT')} + ' ₫'"></strong>
         </div>
     </div>
-    <div class="product-section" id="product-section">
-        <div class="product-item" id="product-item">
-            <img id="product-image" class="product-image" alt="Product Image">
-            <div class="product-info" id="product-info">
-                <p class="product-name" id="product-name"></p>
-                <p class="product-quantity" id="product-quantity"></p>
+
+    <!-- Danh sách sản phẩm -->
+    <div class="product-section">
+        <div th:each="orderItem : ${order.orderItems}" class="product-item">
+            <img th:src="@{'/items/' + ${orderItem.item.itemId} + '/image'}"
+                 alt="Ảnh sản phẩm" class="product-image">
+            <p class="product-name" th:text="${orderItem.item.name}"></p>
+            <p class="product-quantity">Số lượng: <span th:text="${orderItem.quantity}"></span></p>
+            <p class="product-pre-price">Giá gốc: <span th:text="${#numbers.formatDecimal(orderItem.preDiscountPrice,0,'COMMA',0,'POINT')} + ' ₫'"></span></p>
+            <p class="product-total-price">Thành tiền: <span th:text="${#numbers.formatDecimal(orderItem.totalPriceCents,0,'COMMA',0,'POINT')} + ' ₫'"></span></p>
+            <!-- Nút đánh giá -->
+            <button class="review-btn"
+                    th:attr="data-item-id=${orderItem.item.itemId}"
+                    onclick="toggleReviewForm(this)">
+                Đánh giá
+            </button>
+            <!-- Form đánh giá (ẩn mặc định) -->
+            <div class="review-form" th:attr="id='review-form-' + ${orderItem.item.itemId}" style="display: none;">
+                <h3>Viết đánh giá cho sản phẩm</h3>
+
+                <label>Chọn số sao:</label>
+                <select class="rating-input">
+                    <option value="5">★★★★★ (5 sao)</option>
+                    <option value="4">★★★★☆ (4 sao)</option>
+                    <option value="3">★★★☆☆ (3 sao)</option>
+                    <option value="2">★★☆☆☆ (2 sao)</option>
+                    <option value="1">★☆☆☆☆ (1 sao)</option>
+                </select>
+
+                <label>Nội dung đánh giá:</label>
+                <textarea class="comment-input" placeholder="Nhập cảm nhận của bạn..."></textarea>
+
+                <div class="form-buttons">
+                    <button onclick="submitReview(this)" class="submit-btn" type="button">Gửi đánh giá</button>
+                    <button onclick="toggleReviewForm(this)" class="cancel-btn" type="button">Hủy</button>
+                </div>
             </div>
-            <span class="price" id="product-price"></span>
         </div>
     </div>
+
+    <!-- Nút thao tác -->
     <div class="action-buttons">
-        <button id="back-button" class="action-btn" onclick="goBack()">Quay lại</button>
-        <button id="review-button" class="action-btn" onclick="openReview()">Đánh giá</button>
+        <button class="action-btn" onclick="goBack()">Quay lại</button>
+<!--        <button class="action-btn" onclick="openReview()">Đánh giá</button>-->
     </div>
-        <!-- Review Modal -->
-    <div id="review-modal" class="review-modal">
-        <div class="review-modal-content">
-            <span class="close-btn" id="close-review">&times;</span>
-            <h2>Đánh giá sản phẩm</h2>
-            <div id="review-products-container">
-                <!-- Các sản phẩm sẽ được thêm vào bằng JS -->
-            </div>
-            <button id="submit-review" class="submit-btn">Gửi đánh giá</button>
-        </div>
-    </div>
-
-</div>
-
+</main>
 <!-- FOOTER -->
 <div class="subscribe-bar">
     <h2>ĐĂNG KÝ NHẬN ƯU ĐÃI</h2>
@@ -289,14 +198,15 @@
         <button type="submit">ĐĂNG KÝ</button>
     </form>
 </div>
-
+</div>
 <footer class="footer">
     <div class="footer-main">
         <!-- Cột 1: Logo + thông tin -->
         <div class="footer-col">
             <img th:src="@{/Customer/Home/Logo7.png}" alt="Nai Vang Logo" class="footer-logo">
             <p><strong>CÔNG TY TNHH MTV THƯƠNG MẠI VÀ ĐẦU TƯ LIÊN Á CHÂU</strong></p>
-            <p>Giấy chứng nhận đăng ký doanh nghiệp số 0310618188, cấp ngày 29.01.2011, nơi cấp Sở Kế Hoạch và Đầu Tư TP. Hồ Chí Minh</p>
+            <p>Giấy chứng nhận đăng ký doanh nghiệp số 0310618188, cấp ngày 29.01.2011, nơi cấp Sở Kế Hoạch và Đầu Tư
+                TP. Hồ Chí Minh</p>
             <p>Trụ sở chính: L2-VP-01, 346 Bến Vân Đồn, Phường Vĩnh Hội, TP. Hồ Chí Minh</p>
             <p>Hotline: <a href="tel:19004449">19004449</a>
                 Điện thoại: <a href="tel:02838328272">02838328272</a></p>
@@ -367,8 +277,68 @@
     </div>
 </footer>
 
-<script src="/src/main/resources/static/Customer/DetailOrder/DetailOrder.js"></script>
-<script src="/src/main/resources/static/Example/Example.js"></script>
+<!-- Scripts -->
+<script th:src="@{/Customer/DetailOrder/DetailOrder.js}"></script>
+<script th:src="@{/Customer/Example/Example.js}"></script>
+<script>
+    function goBack() {
+        window.history.back();
+    }
+
+    // function openReview() {
+    //     alert("Chức năng đánh giá đang phát triển!");
+    // }
+</script>
+<script>
+    // Mở hoặc ẩn form đánh giá
+    function toggleReviewForm(button) {
+        const itemId = button.getAttribute('data-item-id') || button.closest('.review-form').id.split('-')[2];
+        const form = document.getElementById('review-form-' + itemId);
+        if (form.style.display === "none") {
+            form.style.display = "block";
+        } else {
+            form.style.display = "none";
+        }
+    }
+
+    // Gửi đánh giá
+    async function submitReview(button) {
+        const form = button.closest('.review-form');
+        const itemId = form.id.split('-')[2];
+        const rating = form.querySelector('.rating-input').value;
+        const comment = form.querySelector('.comment-input').value;
+
+        if (!comment.trim()) {
+            alert("Vui lòng nhập nội dung đánh giá!");
+            return;
+        }
+
+        try {
+            const response = await fetch('/api/reviews', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    item: { itemId: parseInt(itemId) },
+                    rating: parseInt(rating),
+                    comment: comment
+                })
+            });
+
+            if (response.ok) {
+                alert("Cảm ơn bạn! Đánh giá đã được gửi.");
+                form.style.display = "none";
+                form.querySelector('.comment-input').value = '';
+            } else {
+                const error = await response.text();
+                alert("Gửi thất bại: " + error);
+            }
+        } catch (error) {
+            alert("Lỗi kết nối khi gửi đánh giá!");
+        }
+    }
+</script>
 
 </body>
 </html>

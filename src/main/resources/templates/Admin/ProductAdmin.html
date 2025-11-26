@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="./productad.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="icon" type="image/png" href="/src/main/resources/static/Customer/Example/Image/LogoConNai.png">
+</head>
+<body class="admin-body">
+
+<!-- Sidebar -->
+<nav class="admin-sidebar">
+    <div class="sidebar-logo">
+        <img src="/src/main/resources/static/Customer/Example/Image/LogoConNai.png" alt="Logo" class="logo-img">
+        <h2 class="logo-text">Manager</h2>
+    </div>
+    <ul>
+        <li><a href="/src/main/resources/templates/Manager/Dashboard.html"><i class="fa-solid fa-gauge"></i> Dashboard</a></li>
+        <li><a href="/src/main/resources/templates/Manager/ProductManagement.html"><i class="fa-solid fa-box"></i> Sản phẩm</a></li>
+        <li><a href="/src/main/resources/templates/Manager/CategoryManagement.html"><i class="fa-solid fa-list"></i> Danh mục</a></li>
+        <li><a href="/src/main/resources/templates/Manager/DealManagement.html"><i class="fa-solid fa-tags"></i> Khuyến mãi</a></li>
+        <li><a href="/src/main/resources/templates/Manager/ReviewManagement.html"><i class="fa-solid fa-star"></i> Đánh giá</a></li>
+        <li><a href="/src/main/resources/templates/Manager/OrderManagement.html"><i class="fa-solid fa-receipt"></i> Đơn hàng</a></li>
+        <li><a href="/src/main/resources/templates/Manager/ProfileManager.html"><i class="fa-solid fa-user"></i> Hồ sơ</a></li>
+    </ul>
+</nav>
+
+<!-- Main content -->
+<div class="admin-content">
+    <!-- Top bar -->
+    <div class="top-bar">
+        <div class="user-menu">
+            <div class="user-info">
+                <i class="fa-solid fa-user-circle"></i>
+                <span>Manager</span>
+                <i class="fa-solid fa-chevron-down"></i>
+            </div>
+            <!-- Dropdown -->
+            <ul class="dropdown">
+                <li><a href="/src/main/resources/templates/Customer/Login.html"><i class="fa-solid fa-right-from-bracket"></i> Đăng xuất</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Main area -->
+    <div class="main-area">
+        <header class="page-header">
+            <div>
+                <h1>Quản trị sản phẩm</h1>
+                <p class="sub">Quản lý catalog, giá và tồn kho trên toàn hệ thống</p>
+            </div>
+            <div class="header-actions">
+                <button id="btnAddProduct" class="btn primary"><i class="fa-solid fa-plus"></i> Thêm sản phẩm</button>
+                <button id="btnBulkPublish" class="btn"><i class="fa-solid fa-bullhorn"></i> Publish</button>
+                <button id="btnBulkUnpublish" class="btn"><i class="fa-solid fa-eye-slash"></i> Unpublish</button>
+                <button id="btnBulkDelete" class="btn danger"><i class="fa-solid fa-trash"></i> Xóa</button>
+            </div>
+        </header>
+
+        <!-- Toolbar -->
+        <section class="toolbar">
+            <div class="search-box">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="searchInput" placeholder="Tìm theo tên, SKU…">
+            </div>
+
+            <div class="filters">
+                <select id="filterCategory">
+                    <option value="">Danh mục (tất cả)</option>
+                    <option value="skin-care">Skin Care</option>
+                    <option value="makeup">Makeup</option>
+                    <option value="hair">Hair</option>
+                </select>
+                <select id="filterStatus">
+                    <option value="">Trạng thái</option>
+                    <option value="published">Published</option>
+                    <option value="draft">Draft</option>
+                    <option value="hidden">Hidden</option>
+                </select>
+                <select id="filterStock">
+                    <option value="">Kho</option>
+                    <option value="low">Sắp hết hàng (&lt;= 5)</option>
+                    <option value="oos">Hết hàng (= 0)</option>
+                    <option value="in">Còn hàng (&gt; 0)</option>
+                </select>
+                <button id="btnResetFilters" class="btn ghost"><i class="fa-solid fa-rotate-right"></i> Reset</button>
+            </div>
+        </section>
+
+        <!-- Data grid -->
+        <section class="card">
+            <div class="table-wrap">
+                <table class="table" id="productTable">
+                    <thead>
+                    <tr>
+                        <th style="width:42px;"><input type="checkbox" id="checkAll"></th>
+                        <th>SKU</th>
+                        <th>Sản phẩm</th>
+                        <th style="min-width:120px;">Giá (VND)</th>
+                        <th style="min-width:110px;">Tồn</th>
+                        <th style="min-width:120px;">Trạng thái</th>
+                        <th style="min-width:140px;">Hành động</th>
+                    </tr>
+                    </thead>
+                    <tbody id="productTbody">
+                    <!-- JS render -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination" id="pagination">
+                <!-- JS render -->
+            </div>
+        </section>
+
+        <!-- ===== Modals ===== -->
+
+        <!-- Modal: Giá -->
+        <div class="modal" id="priceModal" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-header">
+                    <h3><i class="fa-solid fa-tag"></i> Cập nhật giá</h3>
+                    <button class="icon-btn" data-close="priceModal"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+                <div class="modal-body">
+                    <form id="priceForm">
+                        <div class="form-row">
+                            <label>SKU</label>
+                            <input type="text" id="priceSku" disabled>
+                        </div>
+                        <div class="form-row">
+                            <label>Giá hiện tại (VND)</label>
+                            <input type="number" id="priceCurrent" disabled>
+                        </div>
+                        <div class="form-row">
+                            <label>Giá mới (VND)</label>
+                            <input type="number" id="priceNew" min="0" required>
+                        </div>
+                        <div class="form-row">
+                            <label>Hiệu lực từ</label>
+                            <input type="date" id="priceEffective" required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn" data-close="priceModal">Hủy</button>
+                    <button class="btn primary" id="btnSavePrice">Lưu</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal: Kho -->
+        <div class="modal" id="stockModal" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-header">
+                    <h3><i class="fa-solid fa-boxes-stacked"></i> Điều chỉnh tồn</h3>
+                    <button class="icon-btn" data-close="stockModal"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+                <div class="modal-body">
+                    <form id="stockForm">
+                        <div class="form-row">
+                            <label>SKU</label>
+                            <input type="text" id="stockSku" disabled>
+                        </div>
+                        <div class="form-row">
+                            <label>Tồn hiện tại</label>
+                            <input type="number" id="stockCurrent" disabled>
+                        </div>
+                        <div class="form-row">
+                            <label>Điều chỉnh (±)</label>
+                            <input type="number" id="stockDelta" required>
+                        </div>
+                        <div class="form-row">
+                            <label>Lý do</label>
+                            <select id="stockReason" required>
+                                <option value="replenish">Nhập hàng</option>
+                                <option value="writeoff">Hao hụt</option>
+                                <option value="transfer">Chuyển kho</option>
+                                <option value="inventory">Kiểm kê</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn" data-close="stockModal">Hủy</button>
+                    <button class="btn primary" id="btnSaveStock">Lưu</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal: Thêm/Sửa sản phẩm -->
+        <div class="modal" id="productModal" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-header">
+                    <h3><i class="fa-solid fa-pen-to-square"></i> Thêm / Sửa sản phẩm</h3>
+                    <button class="icon-btn" data-close="productModal"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+                <div class="modal-body">
+                    <form id="productForm">
+                        <div class="grid-2">
+                            <div class="form-row">
+                                <label>SKU</label>
+                                <input type="text" id="formSku" required>
+                            </div>
+
+                            <div class="form-row">
+                                <label>Tên sản phẩm</label>
+                                <input type="text" id="formName" required>
+                            </div>
+
+                            <div class="form-row">
+                                <label>Danh mục</label>
+                                <select id="formCategory" required>
+                                    <option value="skin-care">Skin Care</option>
+                                    <option value="makeup">Makeup</option>
+                                    <option value="hair">Hair</option>
+                                </select>
+                            </div>
+
+                            <div class="form-row">
+                                <label>Giá (VND)</label>
+                                <input type="number" id="formPrice" min="0" required>
+                            </div>
+
+                            <div class="form-row">
+                                <label>Tồn</label>
+                                <input type="number" id="formStock" min="0" required>
+                            </div>
+
+                            <div class="form-row">
+                                <label>Trạng thái</label>
+                                <select id="formStatus" required>
+                                    <option value="published">Published</option>
+                                    <option value="draft">Draft</option>
+                                    <option value="hidden">Hidden</option>
+                                </select>
+                            </div>
+
+                            <div class="form-row">
+                                <label>Ảnh (URL)</label>
+                                <input type="url" id="formImage" placeholder="https://...">
+                            </div>
+
+                            <!-- thanh tiến trình -->
+                            <div id="uploadProgress" class="upload-progress" style="display:none">
+                                <div class="bar" id="uploadBar" style="width:0%"></div>
+                                <span id="uploadPct">0%</span>
+                            </div>
+
+                            <!-- Thêm KHỐI upload từ máy -->
+                            <div class="form-row">
+                                <label>Tải ảnh từ máy</label>
+                                <input type="file" id="formImageFile" accept="image/*">
+                                <small style="color:#6b7280">Chọn ảnh để tự điền URL (base64). Ưu tiên ảnh &lt; 1MB.</small>
+                                <img id="formImagePreview" alt="preview"
+                                     style="margin-top:8px;max-width:140px;border-radius:8px;display:none;border:1px solid #eee;">
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn" data-close="productModal">Hủy</button>
+                    <button class="btn primary" id="btnSaveProduct">Lưu</button>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Toast -->
+        <div id="toast" class="toast"></div>
+    </div>
+
+    <script src="./productad.js"></script>
+</body>
+</html>

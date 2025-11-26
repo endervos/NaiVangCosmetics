@@ -159,8 +159,8 @@ CREATE TABLE `order` (
   address_id INT,
   voucher_id INT,
   total BIGINT NOT NULL CHECK (total >= 0),
-  status ENUM('Pending','Paid','Processing','Shipped','Completed','Cancelled','Refunded')
-      NOT NULL DEFAULT 'Pending',
+  status ENUM('PENDING','PAID','PROCESSING','SHIPPED','COMPLETED','CANCELLED','REFUNDED')
+      NOT NULL DEFAULT 'PENDING',
   placed_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   CONSTRAINT fk_orders_customers FOREIGN KEY (customer_id) REFERENCES customer(customer_id),

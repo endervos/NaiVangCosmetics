@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="./bgmana.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="icon" type="image/png" href="/src/main/resources/static/Customer/Example/Image/LogoConNai.png">
+</head>
+<body class="admin-body">
+<!-- Sidebar -->
+<nav class="admin-sidebar">
+    <div class="sidebar-logo">
+        <img src="./Image/LogoConNai.png" alt="Logo" class="logo-img">
+        <h2 class="logo-text">Manager</h2>
+    </div>
+    <ul>
+        <li><a href="#"><i class="fa-solid fa-gauge"></i> Dashboard</a></li>
+        <li><a href="#"><i class="fa-solid fa-box"></i> Sản phẩm</a></li>
+        <li><a href="#"><i class="fa-solid fa-list"></i> Danh mục</a></li>
+        <li><a href="#"><i class="fa-solid fa-tags"></i> Khuyến mãi</a></li>
+        <li><a href="#"><i class="fa-solid fa-star"></i> Đánh giá</a></li>
+        <li><a href="#"><i class="fa-solid fa-receipt"></i> Đơn hàng</a></li>
+        <li><a href="#"><i class="fa-solid fa-user"></i> Hồ sơ</a></li>
+    </ul>
+</nav>
+
+<!-- Main content -->
+<div class="admin-content">
+    <!-- Top bar -->
+    <div class="top-bar">
+        <div class="user-menu">
+            <div class="user-info">
+                <i class="fa-solid fa-user-circle"></i>
+                <span>Manager</span>
+                <i class="fa-solid fa-chevron-down"></i>
+            </div>
+            <!-- Dropdown -->
+            <ul class="dropdown">
+                <li><a href="#"><i class="fa-solid fa-right-from-bracket"></i> Đăng xuất</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Main area -->
+    <div class="main-area">
+        <h2 class="page-title">TỔNG QUAN HỆ THỐNG</h2>
+
+        <!-- KPI Cards -->
+        <div class="stats-cards">
+            <div class="card">
+                <div class="card-icon"><i class="fa-solid fa-box"></i></div>
+                <div class="card-info">
+                    <h3>1.245</h3>
+                    <p>Sản phẩm</p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-icon"><i class="fa-solid fa-users"></i></div>
+                <div class="card-info">
+                    <h3>530</h3>
+                    <p>Khách hàng</p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-icon"><i class="fa-solid fa-receipt"></i></div>
+                <div class="card-info">
+                    <h3>268</h3>
+                    <p>Đơn hàng mới</p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-icon"><i class="fa-solid fa-sack-dollar"></i></div>
+                <div class="card-info">
+                    <h3>₫58.200.000</h3>
+                    <p>Doanh thu tháng này</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Chart Section -->
+        <div class="charts">
+            <div class="chart-box">
+                <h3>DOANH THU 6 THÁNG GẦN NHẤT</h3>
+                <canvas id="revenueChart"></canvas>
+            </div>
+            <div class="chart-box">
+                <h3>TỶ LỆ DANH MỤC SẢN PHẨM</h3>
+                <canvas id="categoryChart"></canvas>
+            </div>
+        </div>
+
+        <div class="card p-4 shadow-sm rounded-3">
+            <canvas id="topProductsChart" style="height: 450px;"></canvas>
+        </div>
+
+    </div> <!-- end main-area -->
+</div> <!-- end admin-content -->
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="./bgmana.js"></script>
+</body>
+</html>

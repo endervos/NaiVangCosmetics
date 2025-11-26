@@ -56,7 +56,6 @@
 
             </div>
 
-
             <!-- Cart Section -->
             <div class="cart-section">
                 <a href="#" class="cart-pill" title="Giỏ hàng">
@@ -218,56 +217,57 @@
 </div>
 
 <div class="checkout-container">
-<!-- Modal quản lý địa chỉ -->
-<div class="modal" id="address-modal">
-  <div class="modal-content">
-    <h3>Chọn địa chỉ giao hàng</h3>
+    <!-- Modal quản lý địa chỉ -->
+    <div class="modal" id="address-modal">
+        <div class="modal-content">
+            <h3>Chọn địa chỉ giao hàng</h3>
 
-    <!-- Danh sách địa chỉ -->
-    <div id="address-list">
-      <div class="address-item">
-        <input type="radio" name="address" value="Nguyễn Văn A | 0901234567 | 123 Lê Lợi, TP. HCM, Hồ Chí Minh" checked>
-        <span>Nguyễn Văn A | 0901234567 | 123 Lê Lợi, TP. HCM, Hồ Chí Minh</span>
-      </div>
-      <div class="address-item">
-        <input type="radio" name="address" value="Trần Thị B | 0912345678 | 456 Trần Hưng Đạo, Hà Nội, Hà Nội">
-        <span>Trần Thị B | 0912345678 | 456 Trần Hưng Đạo, Hà Nội, Hà Nội</span>
-      </div>
+            <!-- Danh sách địa chỉ -->
+            <div id="address-list">
+                <div th:each="addr : ${addresses}" class="address-item">
+                    <input type="radio" name="address"
+                           th:data-id="${addr.addressId}"
+                           th:value="${addr.customer.user.fullname + ' | ' + addr.phoneNumber + ' | ' + addr.street + ', ' + addr.district + ', ' + addr.city}"
+                           th:checked="${addr.isDefault}" />
+                    <span th:text="${addr.customer.user.fullname + ' | ' + addr.phoneNumber + ' | ' + addr.street + ', ' + addr.district + ', ' + addr.city}"></span>
+                </div>
+            </div>
+
+            <!-- Form thêm địa chỉ -->
+            <div id="new-address-form" style="display:none; margin-top:15px;">
+                <label>Họ và tên</label>
+                <input type="text" id="fullname" placeholder="Nhập họ và tên">
+
+                <label>Số điện thoại</label>
+                <input type="text" id="phone" placeholder="Nhập số điện thoại">
+
+                <label>Số nhà / Đường</label>
+                <input type="text" id="street" placeholder="Nhập số nhà / đường">
+
+                <label>Quận / Huyện</label>
+                <input type="text" id="city" placeholder="Nhập quận / huyện">
+
+                <label>Tỉnh / Thành phố</label>
+                <input type="text" id="province" placeholder="Nhập tỉnh / thành phố">
+            </div>
+
+            <!-- Nút hành động -->
+            <div class="modal-actions">
+                <button id="add-new-address">Thêm địa chỉ mới</button>
+                <button id="cancel-modal">Hủy</button>
+                <button id="save-modal">Lưu</button>
+            </div>
+        </div>
     </div>
-
-    <!-- Form thêm địa chỉ (ẩn mặc định) -->
-    <div id="new-address-form" style="display:none; margin-top:15px;">
-      <label>Họ và tên</label>
-      <input type="text" id="fullname" placeholder="Nguyễn Văn A">
-
-      <label>Số điện thoại</label>
-      <input type="text" id="phone" placeholder="0901234567">
-
-      <label>Số nhà / Đường</label>
-      <input type="text" id="street" placeholder="123 Lê Lợi">
-
-      <label>Thành phố</label>
-      <input type="text" id="city" placeholder="BMT">
-
-      <label>Tỉnh / Thành</label>
-      <input type="text" id="province" placeholder="TP.Hồ Chí Minh">
-    </div>
-
-    <!-- Nút hành động -->
-    <div class="modal-actions">
-      <button id="add-new-address">Thêm địa chỉ mới</button>
-      <button id="cancel-modal">Hủy</button>
-      <button id="save-modal">Lưu</button>
-    </div>
-  </div>
-</div>
 
 
   <!-- Địa chỉ -->
   <div class="checkout-address">
     <div>
       <h3>Địa chỉ giao hàng</h3>
-      <p id="address-text">Hiền | 0945120375 | 123 Lê Lợi, Quận 1, TP. Hồ Chí Minh</p>
+        <p id="address-text" th:text="${defaultAddress != null ? defaultAddress : 'Chưa có địa chỉ mặc định'}">
+            Chưa có địa chỉ mặc định
+        </p>
     </div>
     <button id="change-address">Thay đổi</button>
   </div>
@@ -276,90 +276,72 @@
   <div class="checkout-main">
     <!-- Bên trái: sản phẩm -->
     <div class="checkout-left">
-      <div class="checkout-products">
-        <h2>Sản phẩm của bạn</h2>
-
-        <div class="product-item">
-        <img src="/src/main/resources/static/Payment/Image/item1.png" alt="Sản phẩm 1">
-        <div class="product-details">
-            <h4>Sản phẩm 1</h4>
-        </div>
-        <div class="product-price">
-            <p>
-            <span class="qty">2</span> × 
-            <span class="unit-price" data-price="100000">100.000</span>đ
-            </p>
-        </div>
-        </div>
-
-        <div class="product-item">
-        <img src="/src/main/resources/static/Payment/Image/item2.png" alt="Sản phẩm 2">
-        <div class="product-details">
-            <h4>Sản phẩm 2</h4>
-        </div>
-        <div class="product-price">
-            <p>
-            <span class="qty">1</span> × 
-            <span class="unit-price" data-price="200000">200.000</span>đ
-            </p>
-        </div>
-        </div>
-
-         <div class="product-item">
-            <img src="/src/main/resources/static/Payment/Image/item3.png" alt="Sản phẩm 1">
-            <div class="product-details">
-                <h4>Sản phẩm 1</h4>
-            </div>
-            <div class="product-price">
-                <p>
-                <span class="qty">2</span> × 
-                <span class="unit-price" data-price="100000">100.000</span>đ
-                </p>
+        <div class="checkout-products">
+            <h2>Sản phẩm của bạn</h2>
+            <div class="product-item" th:each="cartItem : ${cartItems}">
+                <img th:if="${cartItem.item.images != null and !cartItem.item.images.isEmpty()}"
+                     th:src="@{'/api/item-images/blob/' + ${cartItem.item.images[0].itemImageId}}"
+                     th:alt="${cartItem.item.images[0].alt ?: 'Sản phẩm'}" />
+                <span th:if="${cartItem.item.images == null or cartItem.item.images.isEmpty()}">
+                    [Không có hình]
+                </span>
+                <div class="product-details">
+                    <h4 th:text="${cartItem.item.name}">Tên sản phẩm</h4>
+                </div>
+                <div class="product-price">
+                    <p>
+                        <span class="qty" th:text="${cartItem.quantity}">1</span> ×
+                        <span th:text="${#numbers.formatInteger(cartItem.item.price, 0, 'POINT')} + 'đ'">0₫</span>
+                    </p>
+                </div>
             </div>
         </div>
-
-        <div class="product-item">
-            <img src="/src/main/resources/static/Payment/Image/item4.png" alt="Sản phẩm 2">
-            <div class="product-details">
-                <h4>Sản phẩm 2</h4>
-            </div>
-            <div class="product-price">
-                <p>
-                <span class="qty">1</span> × 
-                <span class="unit-price" data-price="200000">200.000</span>đ
-                </p>
-            </div>
-         </div>
-
-      </div>
     </div>
 
     <!-- Bên phải: hóa đơn + discount + payment -->
     <div class="checkout-right">
       <!-- Hóa đơn -->
-      <div class="checkout-summary">
-        <h2>Hóa đơn</h2>
-        <p>Tạm tính: <span id="subtotal">400.000đ</span></p>
-        <p>Phí vận chuyển: <span id="shipping">30.000đ</span></p>
-        <p>Giảm giá: <span id="discount">0đ</span></p>
-        <hr>
-        <p class="total">Tổng cộng: <span id="total">430.000đ</span></p>
-        <button id="pay-btn">Thanh toán</button>
-      </div>
+        <div class="checkout-summary">
+            <h2>Hóa đơn</h2>
+            <p>Tạm tính: <span th:text="|${#numbers.formatInteger(subtotal, 0, 'POINT')}đ|">0đ</span></p>
+            <p>Phí vận chuyển: <span th:text="|${#numbers.formatInteger(shippingCost, 0, 'POINT')}đ|">0đ</span></p>
+            <p>Giảm giá: <span th:text="|-${#numbers.formatInteger(discount, 0, 'POINT')}đ|">0đ</span></p>
+            <p class="total">Tổng cộng:
+                <span th:text="|${#numbers.formatInteger(totalAmount, 0, 'POINT')}đ|">0đ</span>
+            </p>
+            <button id="pay-btn">Thanh toán</button>
+        </div>
 
       <!-- Mã giảm giá -->
-      <div class="checkout-discount">
-        <h3>Mã giảm giá</h3>
-        <input type="text" id="discount-code" placeholder="Nhập mã giảm giá">
-        <button id="apply-discount">Áp dụng</button>
-      </div>
+        <div class="checkout-discount">
+            <h3>Mã giảm giá</h3>
+            <input type="text" id="discount-code" placeholder="Nhập mã giảm giá">
+            <button id="apply-discount">Áp dụng</button>
+            <p id="voucher-message" style="margin-top:5px; font-size:14px;"></p>
+        </div>
 
-      <!-- Phương thức thanh toán -->
-      <div class="checkout-payment">
-        <h3>Phương thức thanh toán</h3>
-        <label><input type="radio" name="payment" value="wallet"> Ví điện tử (Momo, ZaloPay, PayPal)</label><br>
-        <label><input type="radio" name="payment" value="cod"> Thanh toán khi nhận hàng (COD)</label>
-      </div>
+        <!-- Phương thức thanh toán -->
+        <div class="checkout-payment">
+            <h3>Phương thức thanh toán</h3>
+            <label><input type="radio" name="payment" value="wallet"> Chuyển khoản</label><br>
+            <label><input type="radio" name="payment" value="cod" checked> Thanh toán khi nhận hàng</label>
+
+            <!-- Ẩn/hiện phần ví điện tử -->
+            <div id="wallet-options" style="display:none; margin-top:10px;">
+                <h4>Chọn nền tảng thanh toán</h4>
+                <div class="wallet-buttons">
+                    <button class="wallet-btn" data-wallet="momo">MoMo</button>
+                    <button class="wallet-btn" data-wallet="vnpay">VNPay</button>
+                    <button class="wallet-btn" data-wallet="mbbank">MB Bank</button>
+                </div>
+
+                <!-- QR hiển thị sau khi chọn -->
+                <div id="qr-display" style="margin-top:15px; text-align:center; display:none;">
+                    <h5 id="qr-title" style="margin-bottom:8px;"></h5>
+                    <img id="qr-img" src="" alt="QR thanh toán" style="width:200px; height:200px; border-radius:12px; box-shadow:0 2px 8px rgba(0,0,0,0.3);">
+                </div>
+            </div>
+        </div>
     </div>
   </div>
 </div>
@@ -371,7 +353,6 @@
     <form class="subscribe-form" id="subscribeForm">
         <div class="input-wrap">
             <input type="email" id="emailInput" placeholder="Nhập email của bạn">
-            <!-- dòng báo lỗi -->
             <small id="emailError" class="error-msg"></small>
         </div>
         <button type="submit">ĐĂNG KÝ</button>
@@ -455,7 +436,7 @@
     </div>
 </footer>
 
-<script src="/src/main/resources/static/Payment/Payment.js"></script>
-<script src="/src/main/resources/static/Example/Example.js"></script>
+<script th:src="@{/Customer/Payment/Payment.js}"></script>
+<script th:src="@{/Customer/Example/Example.js}"></script>
 </body>
 </html>
