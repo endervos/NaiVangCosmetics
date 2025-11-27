@@ -27,13 +27,10 @@ public class AccountController {
         if (userDetails == null) {
             return "redirect:/login";
         }
-
         String email = userDetails.getUsername();
         User user = userService.getUserByEmail(email)
                 .orElseThrow(() -> new RuntimeException("Người dùng không tồn tại"));
-
         model.addAttribute("user", user);
-
         return "Customer/AccountManage";
     }
 }

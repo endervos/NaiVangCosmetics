@@ -23,4 +23,7 @@ public interface CategoryRepository extends JpaRepository<Category, Integer> {
             "LEFT JOIN FETCH c.children " +
             "WHERE c.parent IS NULL")
     List<Category> findRootCategoriesWithChildren();
+
+    @Query("SELECT c.name, COUNT(i) FROM Category c LEFT JOIN c.items i GROUP BY c.categoryId, c.name HAVING COUNT(i) > 0")
+    List<Object[]> findCategoryItemCounts();
 }

@@ -52,28 +52,28 @@
             <div class="card">
                 <div class="card-icon"><i class="fa-solid fa-box"></i></div>
                 <div class="card-info">
-                    <h3 th:text="${totalProducts != null ? totalProducts : '1.245'}">1.245</h3>
+                    <h3 th:text="${totalProducts != null ? totalProducts : '0'}">0</h3>
                     <p>Sản phẩm</p>
                 </div>
             </div>
             <div class="card">
                 <div class="card-icon"><i class="fa-solid fa-users"></i></div>
                 <div class="card-info">
-                    <h3 th:text="${totalCustomers != null ? totalCustomers : '530'}">530</h3>
+                    <h3 th:text="${totalCustomers != null ? totalCustomers : '0'}">0</h3>
                     <p>Khách hàng</p>
                 </div>
             </div>
             <div class="card">
                 <div class="card-icon"><i class="fa-solid fa-receipt"></i></div>
                 <div class="card-info">
-                    <h3 th:text="${newOrders != null ? newOrders : '268'}">268</h3>
-                    <p>Đơn hàng mới</p>
+                    <h3 th:text="${totalOrders != null ? totalOrders : '0'}">0</h3>
+                    <p>Tổng số đơn hàng</p>
                 </div>
             </div>
             <div class="card">
                 <div class="card-icon"><i class="fa-solid fa-sack-dollar"></i></div>
                 <div class="card-info">
-                    <h3 th:text="${monthlyRevenue != null ? '₫' + #numbers.formatDecimal(monthlyRevenue, 0, 'POINT', 0, 'COMMA') : '₫58.200.000'}">₫58.200.000</h3>
+                    <h3 th:text="${monthlyRevenue != null ? '₫' + #numbers.formatDecimal(monthlyRevenue, 0, 'POINT', 0, 'COMMA') : '₫0'}">₫0</h3>
                     <p>Doanh thu tháng này</p>
                 </div>
             </div>
@@ -91,13 +91,10 @@
             </div>
         </div>
 
-        <div class="card p-4 shadow-sm rounded-3">
-            <canvas id="topProductsChart" style="height: 450px;"></canvas>
-        </div>
-
-    </div> <!-- end main-area -->
-</div> <!-- end admin-content -->
+    </div>
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script th:src="@{/Manager/Dashboard/Dashboard.js}"></script>
 </body>
 </html>

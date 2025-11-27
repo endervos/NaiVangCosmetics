@@ -22,7 +22,6 @@ public class AddressService {
         this.customerRepository = customerRepository;
     }
 
-    /** 🔹 Lấy danh sách địa chỉ theo userId */
     public List<Address> getAddressesByUserId(String userId) {
         System.out.println("🟢 [AddressService] Gọi getAddressesByUserId() userId = " + userId);
 
@@ -43,15 +42,12 @@ public class AddressService {
         return addresses;
     }
 
-
-    /** 🔹 Lấy địa chỉ mặc định (nếu có) */
     public Address getDefaultAddress(String userId) {
         Customer customer = customerRepository.findByUser_UserId(userId)
                 .orElseThrow(() -> new RuntimeException("❌ Không tìm thấy khách hàng"));
-        return addressRepository.findByCustomerAndIsDefaultTrue(customer).orElse(null);
+        return addressRepository.findByCustomerAndIdAddressDefaultTrue(customer).orElse(null);
     }
 
-    /** 🔹 Thêm địa chỉ mới */
     @Transactional
     public void addAddress(String userId, String street, String district, String city,
                            String phoneNumber, boolean isDefault) {
@@ -68,7 +64,7 @@ public class AddressService {
         address.setDistrict(district);
         address.setCity(city);
         address.setPhoneNumber(phoneNumber);
-        address.setIsDefault(isDefault);
+        address.setIdAddressDefault(true);
 
         addressRepository.save(address);
         System.out.println("✅ [AddressService] Đã thêm địa chỉ mới cho customerId = " + customer.getCustomerId());
@@ -94,7 +90,7 @@ public class AddressService {
 
         if (isDefault) {
             removeDefaultFlag(customer);
-            address.setIsDefault(true);
+            address.setIdAddressDefault(true);
         }
 
         address.setStreet(street);
@@ -118,7 +114,7 @@ public class AddressService {
                 .orElseThrow(() -> new RuntimeException("❌ Không tìm thấy địa chỉ"));
 
         if (target.getCustomer().getCustomerId().equals(customer.getCustomerId())) {
-            target.setIsDefault(true);
+            target.setIdAddressDefault(true);
             addressRepository.save(target);
             System.out.println("✅ [AddressService] Đã đặt địa chỉ mặc định cho userId = " + userId);
         } else {
@@ -148,8 +144,8 @@ public class AddressService {
     protected void removeDefaultFlag(Customer customer) {
         List<Address> addresses = addressRepository.findByCustomer(customer);
         for (Address addr : addresses) {
-            if (Boolean.TRUE.equals(addr.getIsDefault())) {
-                addr.setIsDefault(false);
+            if (Boolean.TRUE.equals(addr.getIdAddressDefault())) {
+                addr.getIdAddressDefault();
                 addressRepository.save(addr);
             }
         }

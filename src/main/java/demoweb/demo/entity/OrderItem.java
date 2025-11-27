@@ -13,13 +13,11 @@ public class OrderItem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer orderItemId;
 
-    // === Liên kết tới đơn hàng ===
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id", nullable = false)
-    @JsonIgnore // tránh vòng lặp JSON
+    @JsonIgnore
     private Order order;
 
-    // === Sản phẩm ===
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "item_id")
     @JsonIgnoreProperties({"category", "inventory", "hibernateLazyInitializer", "handler"})

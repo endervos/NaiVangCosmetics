@@ -81,29 +81,55 @@ public class CartController {
         if (userDetails == null) {
             return "redirect:/login";
         }
+
+        System.out.println("🛒 [CartController] Thêm sản phẩm vào giỏ hàng - ItemId: " + itemId + ", Quantity: " + quantity);
+
         String email = userDetails.getUsername();
         String accountId = accountRepository.findByUser_Email(email)
                 .map(Account::getAccountId)
                 .orElseThrow(() -> new RuntimeException("Không tìm thấy account cho email: " + email));
+
+        System.out.println("✅ [CartController] Tìm thấy accountId: " + accountId);
+
+        // Tìm hoặc tạo giỏ hàng
         Cart cart = cartService.findCartByAccountId(accountId).orElseGet(() -> {
+            System.out.println("📦 [CartController] Tạo giỏ hàng mới cho account: " + accountId);
             Cart c = new Cart();
             c.setAccountId(accountId);
             c.setCreatedAt(LocalDateTime.now());
             c.setUpdatedAt(LocalDateTime.now());
             return cartRepository.save(c);
         });
+
+        System.out.println("✅ [CartController] Cart ID: " + cart.getCartId());
+
+        // Tìm sản phẩm
         Item itemEntity = cartService.findItemById(itemId)
                 .orElseThrow(() -> new RuntimeException("Không tìm thấy sản phẩm với ID: " + itemId));
+
+        System.out.println("✅ [CartController] Tìm thấy sản phẩm: " + itemEntity.getName());
+
+        // Thêm hoặc cập nhật cart item
         CartItemId cartItemId = new CartItemId(cart.getCartId(), itemId);
         CartItem cartItem = cartItemRepository.findById(cartItemId).orElse(null);
+
         if (cartItem == null) {
+            System.out.println("➕ [CartController] Tạo CartItem mới");
             cartItem = new CartItem(cart, itemEntity, quantity);
         } else {
+            System.out.println("🔄 [CartController] Cập nhật số lượng CartItem: " + cartItem.getQuantity() + " -> " + (cartItem.getQuantity() + quantity));
             cartItem.setQuantity(cartItem.getQuantity() + quantity);
         }
+
         cartItemRepository.save(cartItem);
+        System.out.println("✅ [CartController] Đã lưu CartItem");
+
+        // Cập nhật thời gian giỏ hàng
         cart.setUpdatedAt(LocalDateTime.now());
         cartRepository.save(cart);
+
+        System.out.println("✅ [CartController] Thêm sản phẩm vào giỏ hàng thành công!");
+
         return "redirect:/item/" + itemId;
     }
 
@@ -146,7 +172,7 @@ public class CartController {
                 .orElseThrow(() -> new RuntimeException("Không tìm thấy customer cho user này"));
         List<Address> addresses = addressRepository.findByCustomer(customer);
         model.addAttribute("addresses", addresses);
-        Optional<Address> defaultAddressOpt = addressRepository.findByCustomerAndIsDefaultTrue(customer);
+        Optional<Address> defaultAddressOpt = addressRepository.findByCustomerAndIdAddressDefaultTrue(customer);
         defaultAddressOpt.ifPresentOrElse(addr -> {
             String fullAddress = String.format(
                     "%s | %s | %s, %s, %s",
@@ -167,20 +193,32 @@ public class CartController {
                                           @RequestBody Address newAddr) {
         if (userDetails == null)
             throw new RuntimeException("Chưa đăng nhập");
+
         String email = userDetails.getUsername();
         var account = accountRepository.findByUser_Email(email)
                 .orElseThrow(() -> new RuntimeException("Không tìm thấy account cho email: " + email));
         var customer = customerRepository.findByUser(account.getUser())
                 .orElseThrow(() -> new RuntimeException("Không tìm thấy customer cho account này"));
+
+        // ✅ Sửa logic: Nếu đây là địa chỉ đầu tiên hoặc được chọn làm mặc định
         List<Address> addresses = addressRepository.findByCustomer(customer);
-        for (Address addr : addresses) {
-            addr.setIsDefault(false);
+
+        // Nếu không có địa chỉ nào, tự động set làm mặc định
+        boolean shouldBeDefault = addresses.isEmpty() || Boolean.TRUE.equals(newAddr.getIdAddressDefault());
+
+        if (shouldBeDefault) {
+            // Bỏ default của các địa chỉ khác
+            for (Address addr : addresses) {
+                addr.setIdAddressDefault(false);
+            }
+            addressRepository.saveAll(addresses);
         }
-        addressRepository.saveAll(addresses);
+
         newAddr.setCustomer(customer);
         newAddr.setCreatedAt(LocalDateTime.now());
-        newAddr.setIsDefault(true);
+        newAddr.setIdAddressDefault(shouldBeDefault);
         Address saved = addressRepository.save(newAddr);
+
         String fullAddress = String.format(
                 "%s | %s | %s, %s, %s",
                 saved.getCustomer().getUser().getFullname(),
@@ -201,20 +239,26 @@ public class CartController {
                                                  @AuthenticationPrincipal UserDetails userDetails) {
         if (userDetails == null)
             throw new RuntimeException("Chưa đăng nhập");
+
         String email = userDetails.getUsername();
         var account = accountRepository.findByUser_Email(email)
                 .orElseThrow(() -> new RuntimeException("Không tìm thấy account cho email: " + email));
         var customer = customerRepository.findByUser(account.getUser())
                 .orElseThrow(() -> new RuntimeException("Không tìm thấy customer cho account này"));
+
+        // ✅ Sửa logic: Bỏ default của tất cả địa chỉ
         List<Address> addresses = addressRepository.findByCustomer(customer);
         for (Address a : addresses) {
-            a.setIsDefault(false);
+            a.setIdAddressDefault(false);
         }
         addressRepository.saveAll(addresses);
+
+        // Set địa chỉ được chọn làm default
         Address selected = addressRepository.findById(addressId)
                 .orElseThrow(() -> new RuntimeException("Không tìm thấy địa chỉ"));
-        selected.setIsDefault(true);
+        selected.setIdAddressDefault(true);
         addressRepository.save(selected);
+
         return Map.of("status", "success");
     }
 
@@ -253,11 +297,13 @@ public class CartController {
             @RequestBody Map<String, Object> payload) {
         if (userDetails == null)
             throw new RuntimeException("Chưa đăng nhập!");
+
         final String email = userDetails.getUsername();
         var account = accountRepository.findByUser_Email(email)
                 .orElseThrow(() -> new RuntimeException("Không tìm thấy account cho email: " + email));
         var customer = customerRepository.findByUser(account.getUser())
                 .orElseThrow(() -> new RuntimeException("Không tìm thấy customer cho account này"));
+
         Integer addressId = null;
         Object addrObj = payload.get("addressId");
         if (addrObj != null) {
@@ -267,30 +313,37 @@ public class CartController {
                 throw new RuntimeException("Địa chỉ không hợp lệ: " + addrObj);
             }
         }
+
         String paymentMethod = Optional.ofNullable(payload.get("paymentMethod"))
                 .map(Object::toString)
                 .filter(s -> !s.isBlank())
                 .orElse("Cash");
+
         String platform = Optional.ofNullable(payload.get("platform"))
                 .map(Object::toString)
                 .orElse("");
+
         double totalAmount = Optional.ofNullable(payload.get("totalAmount"))
                 .map(Object::toString)
                 .filter(s -> !s.isBlank())
                 .map(Double::parseDouble)
                 .orElse(0.0);
+
         String voucherCode = Optional.ofNullable(payload.get("voucherCode"))
                 .map(Object::toString)
                 .orElse("");
+
         var cart = cartService.findCartByAccountId(account.getAccountId())
                 .orElseThrow(() -> new RuntimeException("Không tìm thấy giỏ hàng!"));
         var cartItems = cartService.getCartItems(cart.getCartId());
         if (cartItems.isEmpty())
             throw new RuntimeException("Giỏ hàng trống!");
+
         Voucher voucher = null;
         if (!voucherCode.isBlank()) {
             voucher = voucherRepository.findByCode(voucherCode).orElse(null);
         }
+
         Order order = new Order();
         order.setCustomer(customer);
         if (addressId != null) {
@@ -305,6 +358,7 @@ public class CartController {
         order.setPlacedAt(LocalDateTime.now());
         order.setUpdatedAt(LocalDateTime.now());
         order = orderRepository.save(order);
+
         for (CartItem c : cartItems) {
             OrderItem oi = new OrderItem();
             oi.setOrder(order);
@@ -313,6 +367,7 @@ public class CartController {
             oi.setPreDiscountPrice(c.getItem().getPrice());
             oi.setTotalPriceCents(c.getItem().getPrice() * c.getQuantity());
             orderItemRepository.save(oi);
+
             var inventory = inventoryRepository.findById(c.getItem().getItemId())
                     .orElseThrow(() -> new RuntimeException(
                             "Không tìm thấy inventory cho sản phẩm ID=" + c.getItem().getItemId()));
@@ -320,19 +375,23 @@ public class CartController {
             inventory.setUpdatedAt(LocalDateTime.now());
             inventoryRepository.save(inventory);
         }
+
         Payment payment = new Payment();
         payment.setOrder(order);
         payment.setPaymentMethod(paymentMethod.equalsIgnoreCase("Transfer") ? "Transfer" : "Cash");
         payment.setPlatform(platform);
-        payment.setStatus("INITIATED");
+        payment.setStatus("Initiated");
         payment.setCreatedAt(LocalDateTime.now());
         payment.setUpdatedAt(LocalDateTime.now());
         paymentRepository.save(payment);
+
         cartItemRepository.deleteAll(cartItems);
+
         if (voucher != null) {
             voucher.setUsedCount(voucher.getUsedCount() + 1);
             voucherRepository.save(voucher);
         }
+
         return Map.of(
                 "status", "success",
                 "orderId", order.getOrderId(),

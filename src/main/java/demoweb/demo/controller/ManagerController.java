@@ -5,11 +5,9 @@ import demoweb.demo.dto.LoginResponse;
 import demoweb.demo.entity.Category;
 import demoweb.demo.entity.Item;
 import demoweb.demo.entity.Review;
+import demoweb.demo.entity.Order;
 import demoweb.demo.security.JwtTokenUtil;
-import demoweb.demo.service.AccountService;
-import demoweb.demo.service.CategoryService;
-import demoweb.demo.service.ItemService;
-import demoweb.demo.service.ReviewService;
+import demoweb.demo.service.*;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,6 +48,12 @@ public class ManagerController {
 
     @Autowired
     private ReviewService reviewService;
+
+    @Autowired
+    private OrderService orderService;
+
+    @Autowired
+    private DashboardService dashboardService;
 
     @GetMapping("/login_tthhn")
     public String showManagerLoginPage(Model model) {
@@ -116,8 +120,43 @@ public class ManagerController {
 
     @GetMapping("/dashboard")
     public String showDashboardPage(Model model) {
+        Map<String, Object> stats = dashboardService.getDashboardStats();
+        model.addAttribute("totalProducts", stats.get("totalProducts"));
+        model.addAttribute("totalCustomers", stats.get("totalCustomers"));
+        model.addAttribute("totalOrders", stats.get("totalOrders"));
+        model.addAttribute("monthlyRevenue", stats.get("monthlyRevenue"));
         model.addAttribute("pageTitle", "Manager Dashboard");
         return "Manager/Dashboard";
+    }
+
+    @GetMapping("/api/dashboard/revenue-chart")
+    @ResponseBody
+    public ResponseEntity<?> getRevenueChart() {
+        try {
+            Map<String, Object> chartData = dashboardService.getRevenueChart();
+            return ResponseEntity.ok(chartData);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of(
+                    "success", false,
+                    "message", "Lỗi khi lấy dữ liệu biểu đồ: " + e.getMessage()
+            ));
+        }
+    }
+
+    @GetMapping("/api/dashboard/category-chart")
+    @ResponseBody
+    public ResponseEntity<?> getCategoryChart() {
+        try {
+            Map<String, Object> chartData = dashboardService.getCategoryDistribution();
+            return ResponseEntity.ok(chartData);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of(
+                    "success", false,
+                    "message", "Lỗi khi lấy dữ liệu biểu đồ: " + e.getMessage()
+            ));
+        }
     }
 
     @GetMapping("/product-management")
@@ -217,7 +256,6 @@ public class ManagerController {
         int counter = 1;
         while (categoryService.findBySlug(slug).isPresent()) {
             Category existing = categoryService.findBySlug(slug).get();
-
             if (excludeCategoryId != null && existing.getCategoryId().equals(excludeCategoryId)) {
                 break;
             }
@@ -237,5 +275,60 @@ public class ManagerController {
     @GetMapping("/order-management")
     public String showOrderManagement(Model model) {
         return "Manager/OrderManagement";
+    }
+
+    @GetMapping("/api/orders")
+    @ResponseBody
+    public ResponseEntity<?> getAllOrders() {
+        try {
+            List<Map<String, Object>> orders = orderService.getAllOrders();
+            return ResponseEntity.ok(orders);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of(
+                    "success", false,
+                    "message", "Lỗi khi lấy danh sách đơn hàng: " + e.getMessage()
+            ));
+        }
+    }
+
+    @GetMapping("/api/orders/{orderId}")
+    @ResponseBody
+    public ResponseEntity<?> getOrderDetail(@PathVariable Integer orderId) {
+        try {
+            Map<String, Object> orderDetail = orderService.getOrderDetailForManager(orderId);
+            return ResponseEntity.ok(orderDetail);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of(
+                    "success", false,
+                    "message", "Lỗi khi lấy chi tiết đơn hàng: " + e.getMessage()
+            ));
+        }
+    }
+
+    @PutMapping("/api/orders/{orderId}/status")
+    @ResponseBody
+    public ResponseEntity<?> updateOrderStatus(
+            @PathVariable Integer orderId,
+            @RequestParam("status") String status
+    ) {
+        try {
+            Order order = orderService.updateOrderStatus(orderId, status);
+            Map<String, Object> response = new HashMap<>();
+            response.put("success", true);
+            response.put("message", "Cập nhật trạng thái đơn hàng thành công!");
+            Map<String, Object> orderMap = new HashMap<>();
+            orderMap.put("orderId", order.getOrderId());
+            orderMap.put("status", order.getStatus().name());
+            response.put("order", orderMap);
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            e.printStackTrace();
+            Map<String, Object> response = new HashMap<>();
+            response.put("success", false);
+            response.put("message", "Lỗi: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
     }
 }
