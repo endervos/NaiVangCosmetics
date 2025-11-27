@@ -2,10 +2,7 @@ package demoweb.demo.controller;
 
 import demoweb.demo.dto.LoginRequest;
 import demoweb.demo.dto.LoginResponse;
-import demoweb.demo.entity.Category;
-import demoweb.demo.entity.Item;
-import demoweb.demo.entity.Review;
-import demoweb.demo.entity.Order;
+import demoweb.demo.entity.*;
 import demoweb.demo.security.JwtTokenUtil;
 import demoweb.demo.service.*;
 import jakarta.servlet.http.Cookie;
@@ -22,6 +19,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.HashMap;
 import java.util.List;
@@ -54,6 +52,15 @@ public class ManagerController {
 
     @Autowired
     private DashboardService dashboardService;
+
+    @Autowired
+    private VoucherService voucherService;
+
+    @Autowired
+    private ManagerService managerService;
+
+    @Autowired
+    private UserService userService;
 
     @GetMapping("/login_tthhn")
     public String showManagerLoginPage(Model model) {
@@ -329,6 +336,130 @@ public class ManagerController {
             response.put("success", false);
             response.put("message", "Lỗi: " + e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
+    }
+
+    @GetMapping("/deal-management")
+    public String showDealManagement(Model model) {
+        return "Manager/DealManagement";
+    }
+
+    @GetMapping("/api/vouchers")
+    @ResponseBody
+    public ResponseEntity<?> getAllVouchers() {
+        try {
+            List<Voucher> vouchers = voucherService.getAllVouchers();
+            return ResponseEntity.ok(vouchers);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of(
+                    "success", false,
+                    "message", "Lỗi khi lấy danh sách voucher: " + e.getMessage()
+            ));
+        }
+    }
+
+    @GetMapping("/api/vouchers/{id}")
+    @ResponseBody
+    public ResponseEntity<?> getVoucherById(@PathVariable Integer id) {
+        try {
+            Voucher voucher = voucherService.getVoucherById(id)
+                    .orElseThrow(() -> new RuntimeException("Không tìm thấy voucher"));
+            return ResponseEntity.ok(voucher);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of(
+                    "success", false,
+                    "message", "Lỗi: " + e.getMessage()
+            ));
+        }
+    }
+
+    @PostMapping("/api/vouchers")
+    @ResponseBody
+    public ResponseEntity<?> createVoucher(@RequestBody Voucher voucher) {
+        try {
+            Voucher savedVoucher = voucherService.createVoucher(voucher);
+            Map<String, Object> response = new HashMap<>();
+            response.put("success", true);
+            response.put("message", "Tạo voucher thành công!");
+            response.put("voucher", savedVoucher);
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            e.printStackTrace();
+            Map<String, Object> response = new HashMap<>();
+            response.put("success", false);
+            response.put("message", "Lỗi: " + e.getMessage());
+            return ResponseEntity.badRequest().body(response);
+        }
+    }
+
+    @PutMapping("/api/vouchers/{id}")
+    @ResponseBody
+    public ResponseEntity<?> updateVoucher(@PathVariable Integer id, @RequestBody Voucher voucher) {
+        try {
+            Voucher updatedVoucher = voucherService.updateVoucher(id, voucher);
+            Map<String, Object> response = new HashMap<>();
+            response.put("success", true);
+            response.put("message", "Cập nhật voucher thành công!");
+            response.put("voucher", updatedVoucher);
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            e.printStackTrace();
+            Map<String, Object> response = new HashMap<>();
+            response.put("success", false);
+            response.put("message", "Lỗi: " + e.getMessage());
+            return ResponseEntity.badRequest().body(response);
+        }
+    }
+
+    @DeleteMapping("/api/vouchers/{id}")
+    @ResponseBody
+    public ResponseEntity<?> deleteVoucher(@PathVariable Integer id) {
+        try {
+            voucherService.deleteVoucher(id);
+            Map<String, Object> response = new HashMap<>();
+            response.put("success", true);
+            response.put("message", "Xóa voucher thành công!");
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            e.printStackTrace();
+            Map<String, Object> response = new HashMap<>();
+            response.put("success", false);
+            response.put("message", "Lỗi: " + e.getMessage());
+            return ResponseEntity.badRequest().body(response);
+        }
+    }
+
+    @GetMapping("/profile")
+    public String showProfilePage(Model model, Authentication authentication) {
+        String email = authentication.getName();
+        Manager manager = managerService.getManagerByEmail(email);
+        User user = manager.getUser();
+        model.addAttribute("manager", user);
+        model.addAttribute("managerId", manager.getManagerId());
+        model.addAttribute("managerName", user.getFullname());
+        return "Manager/Profile";
+    }
+
+    @PostMapping("/profile/update")
+    public String updateProfile(@ModelAttribute User updatedUser,
+                                Authentication authentication,
+                                RedirectAttributes redirectAttributes) {
+        try {
+            String email = authentication.getName();
+            Manager manager = managerService.getManagerByEmail(email);
+            User user = manager.getUser();
+            user.setFullname(updatedUser.getFullname());
+            user.setPhoneNumber(updatedUser.getPhoneNumber());
+            user.setBirthday(updatedUser.getBirthday());
+            user.setGender(updatedUser.getGender());
+            userService.updateUser(user);
+            redirectAttributes.addFlashAttribute("successMessage", "Cập nhật thông tin thành công!");
+            return "redirect:/manager/profile";
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Có lỗi xảy ra: " + e.getMessage());
+            return "redirect:/manager/profile";
         }
     }
 }
