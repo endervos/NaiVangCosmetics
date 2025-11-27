@@ -1,4 +1,3 @@
-/* General Reset */
 * {
   margin: 0;
   padding: 0;
@@ -6,21 +5,19 @@
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* Body Styling */
 .admin-body {
   display: flex;
   min-height: 100vh;
   background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
 }
 
-/* Sidebar Styling */
 .admin-sidebar {
   width: 250px;
   background: #2c3e50;
   color: #fff;
   padding: 20px 0;
   position: fixed;
-  height: 100vh; /* Chiều cao bằng toàn bộ viewport */
+  height: 100vh;
   overflow-y: auto;
   transition: all 0.3s ease;
 }
@@ -50,7 +47,7 @@
 
 .admin-sidebar ul li {
   padding: 25px 20px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05); /* Gạch ngang phân cách */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .admin-sidebar ul li a {
@@ -72,16 +69,14 @@
   padding-left: 10px;
 }
 
-/* Main Content */
 .admin-content {
   margin-left: 250px;
   width: calc(100% - 250px);
   display: flex;
   flex-direction: column;
-  min-height: 100vh; /* Đảm bảo admin-content cao bằng viewport */
+  min-height: 100vh;
 }
 
-/* Top Bar */
 .top-bar {
   background: #fff;
   padding: 15px 20px;
@@ -90,7 +85,7 @@
   justify-content: flex-end;
   align-items: center;
   position: sticky;
-  top: 0; /* Sát mép trên */
+  top: 0;
   z-index: 1000;
   border-radius: 0 0 20px 20px;
 }
@@ -145,20 +140,18 @@
   display: block;
 }
 
-/* Main Area */
 .main-area {
-  flex: 1; /* Chiếm toàn bộ không gian còn lại */
+  flex: 1;
   background: #fff;
   padding: 20px;
   border-radius: 10px;
   margin-top: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  overflow: hidden; /* Ngăn cuộn trong main-area */
-  height: calc(100vh - 60px); /* Chiều cao bằng sidebar, trừ chiều cao top-bar */
-  width: 100%; /* Full chiều rộng của admin-content */
+  overflow: hidden;
+  height: calc(100vh - 60px);
+  width: 100%;
 }
 
-/* Main Area Content */
 .main-area h2 {
   font-size: 24px;
   color: #2c3e50;
@@ -172,7 +165,6 @@
   text-align: center;
 }
 
-/* Responsive Design */
 @media (max-width: 768px) {
   .admin-sidebar {
     width: 200px;
@@ -197,12 +189,12 @@
   }
 
   .top-bar {
-    position: relative; /* Bỏ sticky trên màn hình nhỏ */
+    position: relative;
   }
 
   .main-area {
-    height: auto; /* Trên màn hình nhỏ, để main-area tự điều chỉnh chiều cao */
-    overflow: auto; /* Cho phép cuộn trên màn hình nhỏ nếu cần */
+    height: auto;
+    overflow: auto;
   }
 }
 
@@ -256,6 +248,20 @@
   margin: 0;
 }
 
+.charts {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.chart-box {
+  background: white;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
 .recent-orders {
   background: white;
   padding: 20px;
@@ -289,11 +295,11 @@
 
 .charts {
   display: grid;
-  grid-template-columns: 2fr 1fr; /* Biểu đồ doanh thu rộng hơn */
+  grid-template-columns: 2fr 1fr;
   gap: 25px;
+  margin-bottom: 30px;
 }
 
-/* Hộp chứa mỗi biểu đồ */
 .chart-box {
   background: #fff;
   border-radius: 16px;
@@ -303,34 +309,30 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-bottom: 40px;
 }
 
-/* ----- Legend (chú thích dưới biểu đồ danh mục sản phẩm) ----- */
 .chart-box ul {
   display: grid !important;
-  grid-template-columns: repeat(2, minmax(140px, auto)) !important; /* ✅ 2 mục mỗi hàng */
+  grid-template-columns: repeat(2, minmax(140px, auto)) !important;
   grid-auto-rows: auto;
   justify-content: center !important;
   align-items: center;
-  column-gap: 50px; /* khoảng cách ngang giữa 2 mục */
-  row-gap: 10px;    /* khoảng cách dọc giữa 3 hàng */
+  column-gap: 50px;
+  row-gap: 10px;
   list-style: none;
   margin-top: 15px;
   padding: 0;
 }
 
-/* Mỗi mục trong legend */
 .chart-box li {
   display: flex !important;
   align-items: center;
   gap: 6px;
   font-size: 15px;
   color: #333;
-  white-space: nowrap; /* tránh xuống dòng chữ dài */
+  white-space: nowrap;
 }
 
-/* Ô màu trong legend */
 .chart-box li span {
   width: 16px !important;
   height: 16px !important;
@@ -338,182 +340,20 @@
   display: inline-block;
 }
 
-/* Biểu đồ đường (Doanh thu) */
 .chart-box canvas#revenueChart {
   width: 100% !important;
   height: 320px !important;
   display: block;
 }
 
-.chart-box canvas#yearChart {
-  width: 100% !important;
-  height: 320px !important;
-  display: block;
-}
-
-/* Biểu đồ doughnut (Tỷ lệ danh mục sản phẩm) */
 .chart-box canvas#categoryChart {
   display: block;
   margin: 0 auto;
   width: 100% !important;
-  max-width: 320px;    /* Giới hạn chiều ngang */
-  aspect-ratio: 1 / 1; /* Giữ hình vuông để biểu đồ tròn đều */
+  max-width: 320px;
+  aspect-ratio: 1 / 1;
 }
 
-/* ========================== */
-/* Cấu trúc mới cho từng hạng */
-
-.dashboard-row {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr)); /* <= quan trọng */
-  gap: 30px;                            /* Khoảng cách giữa hai khung */
-  align-items: stretch;
-  justify-items: stretch;
-  width: 100%;
-  margin: 50px 0;                       /* ✅ cách trên + dưới */
-  padding: 0 60px;                      /* ✅ chừa khoảng 2 bên cho đẹp */
-  box-sizing: border-box;
-  overflow: visible; /* tránh bị cắt nội dung con */
-}
-
-
-.leaderboard, .topYear {
-  background: #ffffff;
-  border-radius: 20px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  padding: 40px 50px;
-  text-align: center;
-  min-height: 400px;
-  height: 100%;
-}
-
-.leaderboard h2,
-.topYear h2 {
-  font-size: 15px;
-  color: #4b3d8f;
-  font-weight: 700;
-  margin-bottom: 30px;
-}
-
-
-/* ========================== */
-.rank-container {
-  display: flex;
-  flex-direction: row;     /* ✅ Xếp các hạng theo hàng ngang */
-  justify-content: center; /* ✅ Căn giữa theo chiều ngang */
-  align-items: flex-end;   /* ✅ Canh đáy cho 3 ảnh cân nhau */
-  gap: 60px;               /* ✅ Khoảng cách giữa 3 cột */
-  flex-wrap: nowrap;       /* ✅ Không cho xuống hàng */
-  overflow: visible;       /* ✅ Tránh bị cắt hiệu ứng glow */
-}
-
-.rank {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  position: relative;
-}
-
-/*ICON HUY CHƯƠNG (🥇🥈🥉)
-========================== */
-.rank .medal-icon {
-  width: 90px;             /* kích thước nhỏ gọn */
-  height: 90px;
-  object-fit: contain;
-  margin-bottom: -10px; /* 🔼 đẩy icon lên cao hơn */
-  z-index: 2;
-  transition: transform 0.3s ease, filter 0.3s ease;
-}
-
-.rank .medal-icon:hover {
-  transform: scale(1.1);
-  filter: brightness(1.2);
-}
-
-/* Top 1 hơi to hơn */
-.rank.gold .medal-icon {
-  width: 110px;
-  height: 110px;
-  animation: glow 2s infinite alternate;
-}
-
-
-/* Ảnh tròn */
-.rank .avatar {
-  position: relative;
-  border-radius: 50%;
-  overflow: hidden;
-  transition: transform 0.3s ease;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-}
-
-.rank .avatar:hover {
-  transform: scale(1.07);
-}
-
-/* Ảnh đầy khung, tròn */
-.rank .avatar img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 50%;
-}
-
-/* Kích thước cho từng thứ hạng */
-.rank.gold .avatar { width: 150px; height: 150px; border: 6px solid #ffb703; }
-.rank.silver .avatar { width: 130px; height: 130px; border: 6px solid #a0a0a0; }
-.rank.bronze .avatar { width: 120px; height: 120px; border: 6px solid #d1913c; }
-
-/* Vị trí 1st / 2nd / 3rd */
-.rank span {
-  margin-bottom: 8px;
-  font-weight: 700;
-  font-size: 18px;
-  color: #4b3d8f;
-}
-
-/* Tên khách hàng */
-.rank p {
-  margin-top: 12px;
-  background: transparent;
-  box-shadow: none;
-  font-size: 15px;
-  font-weight: 600;
-  color: #333;
-  position: static;
-}
-
-/* Số tiền chi tiêu */
-.rank .amount {
-  margin-top: 5px;
-  color: #4b3d8f;
-  font-size: 13px;
-  font-weight: 600;
-  background: #ede6ff;
-  padding: 4px 12px;
-  border-radius: 10px;
-  position: static;
-}
-
-/* Hiệu ứng ánh sáng cho top 1 */
-.rank.gold .avatar::after {
-  content: "";
-  position: absolute;
-  inset: -15px;
-  border-radius: 50%;
-  background: radial-gradient(circle at center, rgba(255, 230, 120, 0.5), transparent 70%);
-  z-index: -1;
-  animation: glow 2s infinite alternate;
-}
-
-@keyframes glow {
-  from { transform: scale(1); opacity: 1; }
-  to { transform: scale(1.1); opacity: 0.6; }
-}
-
-
-/* Responsive cho màn hình nhỏ */
 @media (max-width: 992px) {
   .charts {
     grid-template-columns: 1fr;
@@ -525,6 +365,3 @@
     height: auto !important;
   }
 }
-
-
-

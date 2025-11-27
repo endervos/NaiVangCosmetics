@@ -1,7 +1,7 @@
 async function loadRevenueChart() {
   console.log('🔄 Đang tải biểu đồ doanh thu...');
   try {
-    const response = await fetch('/manager/api/dashboard/revenue-chart');
+    const response = await fetch('/admin/api/dashboard/revenue-chart');
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
@@ -107,11 +107,10 @@ async function loadRevenueChart() {
   }
 }
 
-// ===== BIỂU ĐỒ DANH MỤC SẢN PHẨM =====
 async function loadCategoryChart() {
   console.log('🔄 Đang tải biểu đồ danh mục...');
   try {
-    const response = await fetch('/manager/api/dashboard/category-chart');
+    const response = await fetch('/admin/api/dashboard/category-chart');
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
@@ -202,7 +201,6 @@ async function loadCategoryChart() {
   }
 }
 
-// ===== KHỞI TẠO KHI TRANG LOAD =====
 document.addEventListener('DOMContentLoaded', () => {
   console.log('🚀 Trang Dashboard đã load xong');
   loadRevenueChart();

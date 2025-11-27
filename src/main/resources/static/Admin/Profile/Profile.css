@@ -1,4 +1,3 @@
-
 .admin-manager-info h2 {
   font-size: 24px;
   color: #2c3e50;
@@ -6,13 +5,13 @@
   text-align: center;
 }
 
-/* Manager Info Form */
+/* Admin Info Form */
 .manager-info-container {
   max-width: 600px;
   margin: 0 auto;
 }
 
-#manager-info-form {
+#admin-info-form {
   display: flex;
   flex-direction: column;
   gap: 20px;

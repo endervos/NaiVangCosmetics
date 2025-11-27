@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quản lý Thông tin Cá nhân</title>
+  <link rel="stylesheet" th:href="@{/Admin/Background/Background.css}">
+  <link rel="stylesheet" th:href="@{/Admin/Profile/Profile.css}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="icon" type="image/png" th:href="@{/Customer/Example/Image/LogoConNai.png}">
+</head>
+<body class="admin-body">
+<nav class="admin-sidebar">
+  <div class="sidebar-logo">
+    <img th:src="@{/Customer/Example/Image/LogoConNai.png}" alt="Logo" class="logo-img">
+    <h2 class="logo-text">Admin</h2>
+  </div>
+  <ul>
+    <li><a th:href="@{/admin/dashboard}"><i class="fa-solid fa-gauge"></i> Dashboard</a></li>
+    <li><a href="#"><i class="fa-solid fa-box"></i> Sản phẩm</a></li>
+    <li><a th:href="@{/admin/account-management}"><i class="fa-solid fa-users"></i> Quản lý tài khoản</a></li>
+    <li><a href="#"><i class="fa-solid fa-list"></i> Danh mục</a></li>
+    <li><a href="#"><i class="fa-solid fa-tags"></i> Khuyến mãi</a></li>
+    <li><a href="#"><i class="fa-solid fa-star"></i> Đánh giá</a></li>
+    <li><a href="#"><i class="fa-solid fa-receipt"></i> Đơn hàng</a></li>
+    <li><a href="#"><i class="fa-solid fa-users"></i> Quản lý tài khoản</a></li>
+    <li><a th:href="@{/admin/profile}"><i class="fa-solid fa-user"></i> Hồ sơ</a></li>
+  </ul>
+</nav>
+
+<!-- Main content -->
+<div class="admin-content">
+  <!-- Top bar -->
+  <div class="top-bar">
+    <div class="user-menu">
+      <div class="user-info">
+        <i class="fa-solid fa-user-circle"></i>
+        <span th:text="${adminName != null ? adminName : 'Admin'}">Admin</span>
+        <i class="fa-solid fa-chevron-down"></i>
+      </div>
+      <!-- Dropdown -->
+      <ul class="dropdown">
+        <li><a th:href="@{/logout}"><i class="fa-solid fa-right-from-bracket"></i> Đăng xuất</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Main area -->
+  <div class="main-area">
+    <div class="admin-manager-info">
+      <h2>Quản lý Thông tin Cá nhân</h2>
+
+      <div class="manager-info-container">
+        <form id="admin-info-form" th:action="@{/admin/profile/update}" th:object="${admin}" method="post">
+          <div class="info-item">
+            <label for="id">ID Admin</label>
+            <input type="text" id="id" th:value="${adminId}" readonly>
+          </div>
+
+          <div class="info-item">
+            <label for="name">Họ và tên</label>
+            <input type="text" id="name" th:field="*{fullname}" required>
+          </div>
+
+          <div class="info-item">
+            <label for="email">Email</label>
+            <input type="email" id="email" th:field="*{email}" readonly>
+          </div>
+
+          <div class="info-item">
+            <label for="dateOfBirth">Ngày tháng năm sinh</label>
+            <input type="date" id="dateOfBirth" th:field="*{birthday}" required>
+          </div>
+
+          <div class="info-item">
+            <label>Giới tính</label>
+            <div class="gender-options">
+              <label class="gender-label">
+                <input type="radio" id="gender-male" th:field="*{gender}" value="MALE">
+                <span class="gender-text">Nam</span>
+              </label>
+              <label class="gender-label">
+                <input type="radio" id="gender-female" th:field="*{gender}" value="FEMALE">
+                <span class="gender-text">Nữ</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="info-item">
+            <label for="phone">Số điện thoại</label>
+            <input type="tel" id="phone" th:field="*{phoneNumber}" required>
+          </div>
+
+          <div class="button-container">
+            <button type="submit" class="save-btn">Lưu thông tin</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script th:src="@{/Admin/Background/Background.js}"></script>
+<script th:src="@{/Admin/Profile/Profile.js}"></script>
+</body>
+</html>

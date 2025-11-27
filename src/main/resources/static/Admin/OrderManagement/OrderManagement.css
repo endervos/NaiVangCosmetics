@@ -1,6 +1,3 @@
-
-
-/* Main Area */
 .main-area {
   flex: 1;
   background: #fff;
@@ -98,13 +95,12 @@
 }
 
 .update-status-btn {
-  background: #07ef7b;
-  color:rgb(0, 0, 0);
+  background: #fb8834;
+  color: #fff;
 }
 
 .update-status-btn:hover {
-  background:  rgb(1, 214, 97);
-
+  background: #ff8c00;
 }
 
 /* Modal Styling */

@@ -1,22 +1,7 @@
-// Sample account data (replace with API call in production)
-const accounts = [
-  { id: "TK001", name: "Nguyễn Văn A", email: "nguyenvana@email.com", dob: "1990-05-15", gender: "Nam", role: "customer" },
-  { id: "TK002", name: "Trần Thị B", email: "tranthib@email.com", dob: "1985-12-20", gender: "Nữ", role: "manager" },
-  { id: "TK003", name: "Lê Văn C", email: "levanc@email.com", dob: "1995-03-10", gender: "Nam", role: "admin" },
-  { id: "TK004", name: "Phạm Thị D", email: "phamthid@email.com", dob: "1992-07-25", gender: "Nữ", role: "customer" },
-  { id: "TK005", name: "Hoàng Văn E", email: "hoangvane@email.com", dob: "1988-11-05", gender: "Nam", role: "customer" },
-  { id: "TK006", name: "Vũ Thị F", email: "vuthif@email.com", dob: "1993-09-18", gender: "Nữ", role: "manager" },
-  { id: "TK007", name: "Đặng Văn G", email: "dangvang@email.com", dob: "1991-04-12", gender: "Nam", role: "customer" },
-  { id: "TK008", name: "Bùi Thị H", email: "buithih@email.com", dob: "1987-08-30", gender: "Nữ", role: "manager" },
-  { id: "TK009", name: "Ngô Văn I", email: "ngovan@email.com", dob: "1994-02-17", gender: "Nam", role: "admin" },
-  { id: "TK010", name: "Lý Thị K", email: "lythik@email.com", dob: "1996-06-22", gender: "Nữ", role: "customer" },
-  { id: "TK011", name: "Trần Văn L", email: "tranvanl@email.com", dob: "1990-01-01", gender: "Nam", role: "customer" }
-];
-
-// Pagination variables
 let currentPage = 1;
 const accountsPerPage = 10;
-let filteredAccounts = [...accounts]; // Store filtered accounts for pagination
+let allAccounts = [];
+let filteredAccounts = [];
 
 // DOM elements
 const tbody = document.querySelector("#account-table tbody");
@@ -29,16 +14,15 @@ const prevPageBtn = document.querySelector("#prev-page");
 const nextPageBtn = document.querySelector("#next-page");
 const pageInfo = document.querySelector("#page-info");
 const editAccountModal = document.querySelector("#edit-account-modal");
-const changePasswordModal = document.querySelector("#change-password-modal");
 const deleteConfirmModal = document.querySelector("#delete-confirm-modal");
 const closeButtons = document.querySelectorAll(".close-btn");
 const editAccountForm = document.querySelector("#edit-account-form");
-const changePasswordForm = document.querySelector("#change-password-form");
 const confirmDeleteBtn = document.querySelector("#confirm-delete-btn");
 const cancelDeleteBtn = document.querySelector("#cancel-delete-btn");
 
 // Format date
 function formatDate(dateString) {
+  if (!dateString) return '';
   const date = new Date(dateString);
   return date.toLocaleDateString('vi-VN');
 }
@@ -60,6 +44,21 @@ function showToast(message, type = 'success') {
   }, 3000);
 }
 
+// Load accounts from API
+async function loadAccounts() {
+  try {
+    const response = await fetch('/admin/api/accounts');
+    if (!response.ok) throw new Error('Lỗi khi tải dữ liệu');
+
+    allAccounts = await response.json();
+    filteredAccounts = [...allAccounts];
+    displayAccounts();
+  } catch (error) {
+    console.error('Error loading accounts:', error);
+    showToast('Không thể tải danh sách tài khoản: ' + error.message, 'error');
+  }
+}
+
 // Display accounts in table
 function displayAccounts() {
   tbody.innerHTML = "";
@@ -67,46 +66,54 @@ function displayAccounts() {
   const end = start + accountsPerPage;
   const paginatedAccounts = filteredAccounts.slice(start, end);
 
+  if (paginatedAccounts.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="7" style="text-align: center;">Không có dữ liệu</td></tr>';
+    pageInfo.textContent = 'Trang 0 / 0';
+    prevPageBtn.disabled = true;
+    nextPageBtn.disabled = true;
+    return;
+  }
+
   paginatedAccounts.forEach(account => {
     const row = document.createElement("tr");
     row.innerHTML = `
-      <td>${account.id}</td>
-      <td>${account.name}</td>
+      <td>${account.accountId}</td>
+      <td>${account.fullname || ''}</td>
       <td>${account.email}</td>
-      <td>${formatDate(account.dob)}</td>
-      <td>${account.gender}</td>
-      <td>${account.role.charAt(0).toUpperCase() + account.role.slice(1)}</td>
+      <td>${formatDate(account.birthday)}</td>
+      <td>${account.gender || ''}</td>
+      <td>${account.role ? account.role.charAt(0).toUpperCase() + account.role.slice(1) : ''}</td>
       <td class="action-buttons">
-        <button class="edit-btn" onclick="editAccount('${account.id}')">Sửa</button>
-        <button class="change-password-btn" onclick="changePassword('${account.id}')">Đổi mật khẩu</button>
-        <button class="delete-btn" onclick="deleteAccount('${account.id}')">Xóa</button>
+        <button class="edit-btn" onclick="editAccount('${account.accountId}')">Sửa</button>
+        <button class="delete-btn" onclick="deleteAccount('${account.accountId}')">Xóa</button>
       </td>
     `;
     tbody.appendChild(row);
   });
 
   // Update pagination info
-  pageInfo.textContent = `Trang ${currentPage} / ${Math.ceil(filteredAccounts.length / accountsPerPage)}`;
+  const totalPages = Math.ceil(filteredAccounts.length / accountsPerPage);
+  pageInfo.textContent = `Trang ${currentPage} / ${totalPages}`;
   prevPageBtn.disabled = currentPage === 1;
-  nextPageBtn.disabled = currentPage >= Math.ceil(filteredAccounts.length / accountsPerPage);
+  nextPageBtn.disabled = currentPage >= totalPages;
 }
 
 // Filter accounts
 function filterAccounts() {
-  filteredAccounts = [...accounts];
-  
+  filteredAccounts = [...allAccounts];
+
   // Filter by name
   const nameTerm = nameSearch.value.trim().toLowerCase();
   if (nameTerm) {
-    filteredAccounts = filteredAccounts.filter(account => 
-      account.name.toLowerCase().includes(nameTerm)
+    filteredAccounts = filteredAccounts.filter(account =>
+      account.fullname && account.fullname.toLowerCase().includes(nameTerm)
     );
   }
 
   // Filter by email
   const emailTerm = emailSearch.value.trim().toLowerCase();
   if (emailTerm) {
-    filteredAccounts = filteredAccounts.filter(account => 
+    filteredAccounts = filteredAccounts.filter(account =>
       account.email.toLowerCase().includes(emailTerm)
     );
   }
@@ -114,8 +121,8 @@ function filterAccounts() {
   // Filter by role
   const roleValue = roleFilter.value;
   if (roleValue) {
-    filteredAccounts = filteredAccounts.filter(account => 
-      account.role === roleValue
+    filteredAccounts = filteredAccounts.filter(account =>
+      account.role && account.role.toLowerCase() === roleValue.toLowerCase()
     );
   }
 
@@ -125,180 +132,105 @@ function filterAccounts() {
 
 // Edit account modal
 function editAccount(accountId) {
-  const account = accounts.find(a => a.id === accountId);
+  const account = allAccounts.find(a => a.accountId === accountId);
   if (!account) return;
 
   // Populate modal
-  document.querySelector("#edit-account-id").value = account.id;
-  document.querySelector("#edit-name").value = account.name;
+  document.querySelector("#edit-account-id").value = account.accountId;
+  document.querySelector("#edit-name").value = account.fullname || '';
   document.querySelector("#edit-email").value = account.email;
-  document.querySelector("#edit-dob").value = account.dob;
-  document.querySelector(`#edit-gender option[value="${account.gender}"]`).selected = true;
-  document.querySelector(`#edit-role option[value="${account.role}"]`).selected = true;
+  document.querySelector("#edit-phone").value = account.phoneNumber || '';
+  document.querySelector("#edit-dob").value = account.birthday || '';
+
+  // Set gender
+  const genderSelect = document.querySelector("#edit-gender");
+  if (account.gender) {
+    Array.from(genderSelect.options).forEach(option => {
+      option.selected = option.value === account.gender;
+    });
+  }
+
+  // Set role
+  const roleSelect = document.querySelector("#edit-role");
+  if (account.role) {
+    Array.from(roleSelect.options).forEach(option => {
+      option.selected = option.value.toLowerCase() === account.role.toLowerCase();
+    });
+  }
 
   editAccountModal.style.display = "flex";
 
   // Handle form submit
-  editAccountForm.onsubmit = function(event) {
+  editAccountForm.onsubmit = async function(event) {
     event.preventDefault();
 
-    // Get updated values, exclude email
-    const updatedAccount = {
-      id: document.querySelector("#edit-account-id").value,
-      name: document.querySelector("#edit-name").value.trim(),
-      email: account.email, // Keep original email
-      dob: document.querySelector("#edit-dob").value,
-      gender: document.querySelector("#edit-gender").value,
-      role: document.querySelector("#edit-role").value
-    };
+    const formData = new FormData();
+    formData.append('fullname', document.querySelector("#edit-name").value.trim());
+    formData.append('birthday', document.querySelector("#edit-dob").value);
+    formData.append('gender', document.querySelector("#edit-gender").value);
+    formData.append('phoneNumber', document.querySelector("#edit-phone").value.trim());
+    formData.append('role', document.querySelector("#edit-role").value);
 
-    // Validate
-    if (!updatedAccount.name || !updatedAccount.dob || !updatedAccount.gender || !updatedAccount.role) {
-      showToast('Vui lòng điền đầy đủ thông tin!', 'error');
-      return;
-    }
+    try {
+      const response = await fetch(`/admin/api/accounts/${accountId}`, {
+        method: 'PUT',
+        body: formData
+      });
 
-    // Update account in array
-    const index = accounts.findIndex(a => a.id === accountId);
-    if (index !== -1) {
-      accounts[index] = updatedAccount;
-    }
+      const data = await response.json();
 
-    // Close modal and refresh table
-    editAccountModal.style.display = "none";
-    filterAccounts();
-    showToast('Cập nhật thông tin tài khoản thành công!', 'success');
-
-    // Optional: API call
-    /*
-    fetch(`/api/accounts/${accountId}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-CSRF-TOKEN': document.querySelector('meta[name="_csrf"]').content
-      },
-      body: JSON.stringify(updatedAccount)
-    })
-    .then(response => {
-      if (!response.ok) throw new Error('Lỗi cập nhật');
-      return response.json();
-    })
-    .then(data => {
-      showToast('Cập nhật thông tin tài khoản thành công!', 'success');
-    })
-    .catch(error => {
+      if (response.ok && data.success) {
+        editAccountModal.style.display = "none";
+        await loadAccounts(); // Reload data
+        showToast('Cập nhật thông tin tài khoản thành công!', 'success');
+      } else {
+        showToast(data.message || 'Có lỗi xảy ra', 'error');
+      }
+    } catch (error) {
+      console.error('Error:', error);
       showToast('Có lỗi xảy ra: ' + error.message, 'error');
-    });
-    */
-  };
-}
-
-// Change password modal
-function changePassword(accountId) {
-  const account = accounts.find(a => a.id === accountId);
-  if (!account) return;
-
-  // Populate modal
-  document.querySelector("#change-password-id").value = account.id;
-  document.querySelector("#new-password").value = "";
-  document.querySelector("#confirm-password").value = "";
-
-  changePasswordModal.style.display = "flex";
-
-  // Handle form submit
-  changePasswordForm.onsubmit = function(event) {
-    event.preventDefault();
-
-    // Get new password and confirmation
-    const newPassword = document.querySelector("#new-password").value.trim();
-    const confirmPassword = document.querySelector("#confirm-password").value.trim();
-
-    // Validate
-    if (!newPassword || newPassword.length < 6) {
-      showToast('Mật khẩu mới phải có ít nhất 6 ký tự!', 'error');
-      return;
     }
-    if (newPassword !== confirmPassword) {
-      showToast('Mật khẩu xác nhận không khớp!', 'error');
-      return;
-    }
-
-    // Simulate password update (store in array or send to API)
-    console.log(`Cập nhật mật khẩu cho tài khoản ${accountId}: ${newPassword}`);
-
-    // Close modal
-    changePasswordModal.style.display = "none";
-    showToast(`Đổi mật khẩu cho tài khoản ${accountId} thành công!`, 'success');
-
-    // Optional: API call
-    /*
-    fetch(`/api/accounts/${accountId}/change-password`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-CSRF-TOKEN': document.querySelector('meta[name="_csrf"]').content
-      },
-      body: JSON.stringify({ password: newPassword })
-    })
-    .then(response => {
-      if (!response.ok) throw new Error('Lỗi đổi mật khẩu');
-      return response.json();
-    })
-    .then(data => {
-      showToast(`Đổi mật khẩu cho tài khoản ${accountId} thành công!`, 'success');
-    })
-    .catch(error => {
-      showToast('Có lỗi xảy ra: ' + error.message, 'error');
-    });
-    */
   };
 }
 
 // Delete account
 function deleteAccount(accountId) {
-  const account = accounts.find(a => a.id === accountId);
+  const account = allAccounts.find(a => a.accountId === accountId);
   if (!account) return;
 
-  // Populate modal
-  document.querySelector("#delete-confirm-message").textContent = 
-    `Bạn có chắc muốn xóa tài khoản ${account.name} (${account.id})?`;
+  document.querySelector("#delete-confirm-message").textContent =
+    `Bạn có chắc muốn xóa tài khoản ${account.fullname || account.email} (${account.accountId})?`;
   deleteConfirmModal.style.display = "flex";
 
-  // Handle confirm delete
-  confirmDeleteBtn.onclick = () => {
-    const index = accounts.findIndex(a => a.id === accountId);
-    if (index !== -1) {
-      accounts.splice(index, 1);
-    }
-    filterAccounts();
-    const maxPage = Math.ceil(filteredAccounts.length / accountsPerPage);
-    if (currentPage > maxPage && maxPage > 0) {
-      currentPage = maxPage;
-    }
-    displayAccounts();
-    showToast(`Xóa tài khoản ${accountId} thành công!`, 'success');
-    deleteConfirmModal.style.display = "none";
+  confirmDeleteBtn.onclick = async () => {
+    try {
+      const response = await fetch(`/admin/api/accounts/${accountId}`, {
+        method: 'DELETE'
+      });
 
-    // Optional: API call
-    /*
-    fetch(`/api/accounts/${accountId}`, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-CSRF-TOKEN': document.querySelector('meta[name="_csrf"]').content
+      const data = await response.json();
+
+      if (response.ok && data.success) {
+        deleteConfirmModal.style.display = "none";
+        await loadAccounts(); // Reload data
+
+        // Adjust current page if needed
+        const maxPage = Math.ceil(filteredAccounts.length / accountsPerPage);
+        if (currentPage > maxPage && maxPage > 0) {
+          currentPage = maxPage;
+        }
+
+        displayAccounts();
+        showToast('Xóa tài khoản thành công!', 'success');
+      } else {
+        showToast(data.message || 'Có lỗi xảy ra', 'error');
       }
-    })
-    .then(response => {
-      if (!response.ok) throw new Error('Lỗi xóa tài khoản');
-      showToast(`Xóa tài khoản ${accountId} thành công!`, 'success');
-    })
-    .catch(error => {
+    } catch (error) {
+      console.error('Error:', error);
       showToast('Có lỗi xảy ra: ' + error.message, 'error');
-    });
-    */
+    }
   };
 
-  // Handle cancel
   cancelDeleteBtn.onclick = () => {
     deleteConfirmModal.style.display = "none";
   };
@@ -311,7 +243,7 @@ showAllBtn.addEventListener("click", () => {
   emailSearch.value = "";
   roleFilter.value = "";
   currentPage = 1;
-  filteredAccounts = [...accounts];
+  filteredAccounts = [...allAccounts];
   displayAccounts();
 });
 prevPageBtn.addEventListener("click", () => {
@@ -343,7 +275,6 @@ window.addEventListener("click", (event) => {
 // Initialize
 document.addEventListener("DOMContentLoaded", () => {
   editAccountModal.style.display = "none";
-  changePasswordModal.style.display = "none";
   deleteConfirmModal.style.display = "none";
-  displayAccounts();
+  loadAccounts();
 });

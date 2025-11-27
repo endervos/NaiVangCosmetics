@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="vi" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
+    <title>Dashboard - Admin</title>
     <link rel="stylesheet" th:href="@{/Admin/Dashboard/Dashboard.css}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="icon" type="image/png" th:href="@{/Customer/Example/Image/LogoConNai.png}">
@@ -12,18 +12,18 @@
 <!-- Sidebar -->
 <nav class="admin-sidebar">
     <div class="sidebar-logo">
-        <img th:src="@{/Customer/Example/Image/LogoConNai.png}" alt="Logo" class="logo-img">
+        <img th:src="@{/Admin/Dashboard/Image/LogoConNai.png}" alt="Logo" class="logo-img">
         <h2 class="logo-text">Admin</h2>
     </div>
     <ul>
-        <li><a href="/src/main/resources/templates/Admin/Dashboard.html"><i class="fa-solid fa-gauge"></i> Dashboard</a></li>
-        <li><a href="/src/main/resources/templates/Admin/ProductAdmin.html"><i class="fa-solid fa-box"></i> Sản phẩm</a></li>
-        <li><a href="/src/main/resources/templates/Admin/CategoryAdmin.html"><i class="fa-solid fa-list"></i> Danh mục</a></li>
-        <li><a href="/src/main/resources/templates/Admin/DealAdmin.html"><i class="fa-solid fa-tags"></i> Khuyến mãi</a></li>
-        <li><a href="/src/main/resources/templates/Admin/ReviewAdmin.html"><i class="fa-solid fa-star"></i> Đánh giá</a></li>
-        <li><a href="/src/main/resources/templates/Admin/OrderAdmin.html"><i class="fa-solid fa-receipt"></i> Đơn hàng</a></li>
-        <li><a href="/src/main/resources/templates/Admin/AccountManagement.html"><i class="fa-solid fa-users"></i> Quản lý tài khoản</a></li>
-        <li><a href="/src/main/resources/templates/Admin/ProfileAdmin.html"><i class="fa-solid fa-user"></i> Hồ sơ</a></li>
+        <li><a th:href="@{/admin/dashboard}"><i class="fa-solid fa-gauge"></i> Dashboard</a></li>
+        <li><a th:href="@{/admin/account-management}"><i class="fa-solid fa-users"></i> Quản lý tài khoản</a></li>
+        <li><a th:href="@{/admin/product-management}"><i class="fa-solid fa-box"></i> Sản phẩm</a></li>
+        <li><a th:href="@{/admin/category-management}"><i class="fa-solid fa-list"></i> Danh mục</a></li>
+        <li><a th:href="@{/admin/deal-management}"><i class="fa-solid fa-tags"></i> Khuyến mãi</a></li>
+        <li><a th:href="@{/admin/review-management}"><i class="fa-solid fa-star"></i> Đánh giá</a></li>
+        <li><a th:href="@{/admin/order-management}"><i class="fa-solid fa-receipt"></i> Đơn hàng</a></li>
+        <li><a th:href="@{/admin/profile}"><i class="fa-solid fa-user"></i> Hồ sơ</a></li>
     </ul>
 </nav>
 
@@ -34,12 +34,12 @@
         <div class="user-menu">
             <div class="user-info">
                 <i class="fa-solid fa-user-circle"></i>
-                <span>Admin</span>
+                <span th:text="${username != null ? username : 'Admin'}">Admin</span>
                 <i class="fa-solid fa-chevron-down"></i>
             </div>
             <!-- Dropdown -->
             <ul class="dropdown">
-                <li><a href="#"><i class="fa-solid fa-right-from-bracket"></i> Đăng xuất</a></li>
+                <li><a th:href="@{/logout}"><i class="fa-solid fa-right-from-bracket"></i> Đăng xuất</a></li>
             </ul>
         </div>
     </div>
@@ -53,103 +53,46 @@
             <div class="card">
                 <div class="card-icon"><i class="fa-solid fa-box"></i></div>
                 <div class="card-info">
-                    <h3>1.245</h3>
+                    <h3 th:text="${totalProducts != null ? totalProducts : '0'}">0</h3>
                     <p>Sản phẩm</p>
                 </div>
             </div>
             <div class="card">
                 <div class="card-icon"><i class="fa-solid fa-users"></i></div>
                 <div class="card-info">
-                    <h3>530</h3>
+                    <h3 th:text="${totalCustomers != null ? totalCustomers : '0'}">0</h3>
                     <p>Khách hàng</p>
                 </div>
             </div>
             <div class="card">
                 <div class="card-icon"><i class="fa-solid fa-receipt"></i></div>
                 <div class="card-info">
-                    <h3>268</h3>
-                    <p>Đơn hàng mới</p>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-icon"><i class="fa-solid fa-money-bill-wave"></i></div>
-                <div class="card-info">
-                    <h3>₫5.200.000</h3>
-                    <p>Doanh thu hôm nay</p>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-icon"><i class="fa-solid fa-user-shield"></i></div>
-                <div class="card-info">
-                    <h3>10</h3>
-                    <p>Quản trị viên</p>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-icon"><i class="fa-solid fa-user-tie"></i></div>
-                <div class="card-info">
-                    <h3>20</h3>
-                    <p>Manager</p>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-icon"><i class="fa-solid fa-box-open"></i></div>
-                <div class="card-info">
-                    <h3>556</h3>
-                    <p>Đơn hàng thành công</p>
+                    <h3 th:text="${totalOrders != null ? totalOrders : '0'}">0</h3>
+                    <p>Tổng số đơn hàng</p>
                 </div>
             </div>
             <div class="card">
                 <div class="card-icon"><i class="fa-solid fa-sack-dollar"></i></div>
                 <div class="card-info">
-                    <h3>₫58.200.000</h3>
+                    <h3 th:text="${monthlyRevenue != null ? '₫' + #numbers.formatDecimal(monthlyRevenue, 0, 'POINT', 0, 'COMMA') : '₫0'}">₫0</h3>
                     <p>Doanh thu tháng này</p>
                 </div>
             </div>
         </div>
 
-        <!-- Chart Section -->
         <div class="charts">
             <div class="chart-box">
-                <h3>SẢN PHẨM SẮP HẾT HÀNG</h3>
-                <canvas id="mainChart"></canvas>
+                <h3>DOANH THU 6 THÁNG GẦN NHẤT</h3>
+                <canvas id="revenueChart"></canvas>
             </div>
-
             <div class="chart-box">
                 <h3>TỶ LỆ DANH MỤC SẢN PHẨM</h3>
                 <canvas id="categoryChart"></canvas>
             </div>
         </div>
 
-        <div class="chart-box">
-            <h3>DOANH THU 12 THÁNG</h3>
-            <canvas id="yearChart";></canvas>
-        </div>
-
-        <div class="card p-4 shadow-sm rounded-3">
-            <canvas id="topProductsChart" style="height: 450px;"></canvas>
-        </div>
-
-        <div class="dashboard-row">
-            <div class="leaderboard">
-                <h2>🏆 TOP 3 KHÁCH HÀNG CHI TIÊU CAO NHẤT THÁNG 10/2025</h2>
-
-                <!-- Chỉ giữ phần xếp hạng -->
-                <div class="rank-container" id="leaderboard"></div>
-            </div>
-
-            <div class="topYear">
-                <h2>🏆 TOP 3 KHÁCH HÀNG CHI TIÊU CAO NHẤT NĂM</h2>
-
-                <!-- Chỉ giữ phần xếp hạng -->
-                <div class="rank-container" id="topYear"></div>
-            </div>
-
-        </div>
-
-    </div> <!-- end main-area -->
-</div> <!-- end admin-content -->
-
+    </div>
+</div>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script th:src="@{/Admin/Dashboard/Dashboard.js}"></script>
 </body>
