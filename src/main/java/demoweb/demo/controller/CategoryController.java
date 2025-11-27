@@ -16,28 +16,24 @@ import java.util.List;
 public class CategoryController {
 
     private final CategoryService categoryService;
-    private final ItemService itemService; // ✅ Thêm ItemService vào
+    private final ItemService itemService;
 
     @Autowired
     public CategoryController(CategoryService categoryService, ItemService itemService) {
         this.categoryService = categoryService;
-        this.itemService = itemService; // ✅ Gán vào constructor
+        this.itemService = itemService;
     }
 
     @GetMapping("/category/{id}/item")
     public String showCategoryItems(@PathVariable("id") Integer id, Model model) {
         Category category = categoryService.findByCategoryId(id)
                 .orElseThrow(() -> new RuntimeException("Danh mục không tồn tại"));
-
-        // ✅ Gọi qua instance, không gọi tĩnh
         List<Item> items = itemService.getItemsByCategoryIdWithFullData(category.getCategoryId());
-
         model.addAttribute("category", category);
         model.addAttribute("currentCategory", category);
         model.addAttribute("categoryId", category.getCategoryId());
         model.addAttribute("items", items);
         model.addAttribute("rootCategories", categoryService.getRootCategoriesWithChildren());
-
         return "Customer/Item";
     }
 }

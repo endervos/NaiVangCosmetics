@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quản lý danh mục</title>
-
-    <link rel="stylesheet" href="./CategoryManagement.css">
+    <link rel="stylesheet" th:href="@{/Manager/CategoryManagement/CategoryManagement.css}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="icon" type="image/png" th:href="@{/Customer/Example/Image/LogoConNai.png}">
 </head>
 
 <body class="admin-body">
@@ -14,75 +14,72 @@
 <!-- Sidebar -->
 <nav class="admin-sidebar">
     <div class="sidebar-logo">
-        <img src="./Image/LogoConNai.png" alt="Logo" class="logo-img">
+        <img th:src="@{/Manager/CategoryManagement/Image/LogoConNai.png}" alt="Logo" class="logo-img">
         <h2 class="logo-text">Manager</h2>
     </div>
-
     <ul>
-        <li><a href="/src/main/resources/templates/Manager/Dashboard.html"><i class="fa-solid fa-gauge"></i> Dashboard</a></li>
-        <li><a href="/src/main/resources/templates/Manager/ProductManagement.html"><i class="fa-solid fa-box"></i> Sản phẩm</a></li>
-        <li><a href="/src/main/resources/templates/Manager/CategoryManagement.html"><i class="fa-solid fa-list"></i> Danh mục</a></li>
-        <li><a href="/src/main/resources/templates/Manager/DealManagement.html"><i class="fa-solid fa-tags"></i> Khuyến mãi</a></li>
-        <li><a href="/src/main/resources/templates/Manager/ReviewManagement.html"><i class="fa-solid fa-star"></i> Đánh giá</a></li>
-        <li><a href="/src/main/resources/templates/Manager/OrderManagement.html"><i class="fa-solid fa-receipt"></i> Đơn hàng</a></li>
-        <li><a href="/src/main/resources/templates/Manager/ProfileManager.html"><i class="fa-solid fa-user"></i> Hồ sơ</a></li>
+        <li><a th:href="@{/manager/dashboard}"><i class="fa-solid fa-gauge"></i> Dashboard</a></li>
+        <li><a th:href="@{/manager/product-management}"><i class="fa-solid fa-box"></i> Sản phẩm</a></li>
+        <li><a th:href="@{/manager/category-management}"><i class="fa-solid fa-list"></i> Danh mục</a></li>
+        <li><a th:href="@{/manager/promotion-management}"><i class="fa-solid fa-tags"></i> Khuyến mãi</a></li>
+        <li><a th:href="@{/manager/review-management}"><i class="fa-solid fa-star"></i> Đánh giá</a></li>
+        <li><a th:href="@{/manager/order-management}"><i class="fa-solid fa-receipt"></i> Đơn hàng</a></li>
+        <li><a th:href="@{/manager/profile}"><i class="fa-solid fa-user"></i> Hồ sơ</a></li>
     </ul>
 </nav>
 
 <!-- Main Content -->
 <div class="admin-content">
-
-    <!-- Top bar -->
     <div class="top-bar">
         <div class="user-menu">
-
             <div class="user-info">
                 <i class="fa-solid fa-user-circle"></i>
-                <span>Manager</span>
+                <span th:text="${username != null ? username : 'Manager'}">Manager</span>
                 <i class="fa-solid fa-chevron-down"></i>
             </div>
-
             <ul class="dropdown">
-                <li><a href="#" class="logout-btn"><i class="fa-solid fa-right-from-bracket"></i> Đăng xuất</a></li>
+                <li><a th:href="@{/logout}" class="logout-btn"><i class="fa-solid fa-right-from-bracket"></i> Đăng xuất</a></li>
             </ul>
-
         </div>
     </div>
 
-    <!-- MAIN AREA -->
     <div class="main-area">
-
         <h2 class="page-title">QUẢN LÝ DANH MỤC</h2>
-
-        <!-- Thanh điều khiển -->
         <div class="actions-bar">
-            <input type="text" placeholder="Tìm kiếm danh mục..." class="search-input">
+            <input type="text" placeholder="Tìm kiếm danh mục..." class="search-input" id="searchInput">
             <button class="add-btn" id="openAddPopup">
                 <i class="fa-solid fa-plus"></i> Thêm danh mục
             </button>
         </div>
 
-        <!-- Bảng danh mục -->
         <div class="table-wrapper">
             <table class="category-table">
                 <thead>
                 <tr>
                     <th>ID</th>
                     <th>Tên danh mục</th>
-                    <th>Trạng thái</th>
+                    <th>Danh mục cha</th>
                     <th>Số sản phẩm</th>
                     <th>Thao tác</th>
                 </tr>
                 </thead>
-                <tbody id="categoryBody"></tbody>
+                <tbody id="categoryBody">
+                <tr th:each="cat : ${categories}">
+                    <td th:text="${cat.categoryId}">1</td>
+                    <td th:text="${cat.name}">Tên danh mục</td>
+                    <td th:text="${cat.parent != null ? cat.parent.name : '-'}">-</td>
+                    <td class="count-col" th:text="${cat.items != null ? cat.items.size() : 0}">0</td>
+                    <td>
+                        <button class="edit-btn" th:onclick="'openEditPopup(' + ${cat.categoryId} + ')'">
+                            <i class="fa-solid fa-pen"></i>
+                        </button>
+                    </td>
+                </tr>
+                </tbody>
             </table>
-            <div class="pagination" id="pagination"></div>
-
         </div>
-
-    </div><!-- END MAIN AREA -->
-
-</div><!-- END admin-content -->
+    </div>
+</div>
 
 <!-- POPUPS -->
 <div class="popup-overlay" id="popupOverlay">
@@ -90,7 +87,6 @@
     <!-- Popup Thêm -->
     <div class="popup-card" id="addPopup">
         <h3>Thêm Danh Mục</h3>
-
         <label>Tên danh mục</label>
         <input
                 type="text"
@@ -98,41 +94,38 @@
                 placeholder="Nhập tên danh mục..."
         >
         <small class="hint">Tên danh mục phải từ 3–30 ký tự</small>
-
-        <label>Trạng thái</label>
-        <select id="addCategoryStatus">
-            <option value="active">Hoạt động</option>
-            <option value="inactive">Tạm ẩn</option>
+        <label>Danh mục cha (tùy chọn)</label>
+        <select id="addParentCategory">
+            <option value="">-- Không có (Danh mục gốc) --</option>
+            <option th:each="cat : ${categories}"
+                    th:value="${cat.categoryId}"
+                    th:text="${cat.name}">Category</option>
         </select>
-
         <div class="popup-actions">
             <button class="cancel-btn" onclick="closePopup()">Hủy</button>
             <button class="save-btn" onclick="saveNewCategory()">Lưu</button>
         </div>
     </div>
 
-
-    <!-- Popup Sửa -->
     <div class="popup-card" id="editPopup">
         <h3>Sửa Danh Mục</h3>
-
+        <input type="hidden" id="editCategoryId">
         <label>Tên danh mục</label>
         <input type="text" id="editCategoryName">
-
-        <label>Trạng thái</label>
-        <select id="editCategoryStatus">
-            <option value="active">Hoạt động</option>
-            <option value="inactive">Tạm ẩn</option>
+        <label>Danh mục cha</label>
+        <select id="editParentCategory">
+            <option value="">-- Không có (Danh mục gốc) --</option>
+            <option th:each="cat : ${categories}"
+                    th:value="${cat.categoryId}"
+                    th:text="${cat.name}">Category</option>
         </select>
-
         <div class="popup-actions">
             <button class="cancel-btn" onclick="closePopup()">Hủy</button>
             <button class="save-btn" onclick="updateCategory()">Cập nhật</button>
         </div>
     </div>
-
 </div>
 
-<script src="./CategoryManagement.js"></script>
+<script th:src="@{/Manager/CategoryManagement/CategoryManagement.js}"></script>
 </body>
 </html>

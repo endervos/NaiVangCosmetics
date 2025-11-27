@@ -44,7 +44,6 @@ public class ReviewController {
         this.customerRepository = customerRepository;
     }
 
-    /** Thêm review cho sản phẩm (dùng khi khách đã login) */
     @PostMapping
     public ResponseEntity<?> createReview(@Valid @RequestBody Review review, Principal principal) {
         try {
@@ -64,8 +63,6 @@ public class ReviewController {
         }
     }
 
-
-    /** Cập nhật review */
     @PutMapping("/{id}")
     public ResponseEntity<?> updateReview(@PathVariable("id") Integer id,
                                           @Valid @RequestBody Review updatedReview) {
@@ -79,7 +76,6 @@ public class ReviewController {
         }
     }
 
-    /** Xóa review */
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteReview(@PathVariable("id") Integer id) {
         try {
@@ -92,7 +88,6 @@ public class ReviewController {
         }
     }
 
-    /** Lấy review theo id */
     @GetMapping("/{id}")
     public ResponseEntity<?> getReviewById(@PathVariable("id") Integer id) {
         Review review = reviewService.getById(id);
@@ -103,7 +98,6 @@ public class ReviewController {
         }
     }
 
-    /** Lấy tất cả review */
     @GetMapping
     public ResponseEntity<List<ReviewDTO>> getAllReviews() {
         List<ReviewDTO> dtos = reviewService.getAll()
@@ -113,7 +107,6 @@ public class ReviewController {
         return ResponseEntity.ok(dtos);
     }
 
-    /** Lấy review theo sản phẩm */
     @GetMapping("/item/{itemId}")
     public ResponseEntity<?> getReviewsByItem(@PathVariable("itemId") Integer itemId) {
         List<Review> reviews = reviewService.getByItemId(itemId);
@@ -126,7 +119,6 @@ public class ReviewController {
         return ResponseEntity.ok(dtos);
     }
 
-    /** Lấy review theo khách hàng */
     @GetMapping("/customer/{customerId}")
     public ResponseEntity<?> getReviewsByCustomer(@PathVariable("customerId") Integer customerId) {
         List<Review> reviews = reviewService.getByCustomerId(customerId);

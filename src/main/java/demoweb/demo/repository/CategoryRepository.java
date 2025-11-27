@@ -19,8 +19,6 @@ public interface CategoryRepository extends JpaRepository<Category, Integer> {
 
     List<Category> findByNameContainingIgnoreCase(String keyword);
 
-    Optional<Category> findCategoryByCategoryId(Integer id);
-
     @Query("SELECT DISTINCT c FROM Category c " +
             "LEFT JOIN FETCH c.children " +
             "WHERE c.parent IS NULL")

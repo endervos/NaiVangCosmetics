@@ -15,16 +15,8 @@ public interface ItemRepository extends JpaRepository<Item, Integer>, JpaSpecifi
 
     List<Item> findByCategory_CategoryId(Integer categoryId);
 
-    List<Item> findByNameContainingIgnoreCase(String name);
-
-    @Query("SELECT DISTINCT i FROM Item i LEFT JOIN FETCH i.images WHERE i.category.categoryId = :categoryId")
-    List<Item> findByCategoryIdWithImages(@Param("categoryId") Integer categoryId);
-
     @Query("SELECT DISTINCT i FROM Item i LEFT JOIN FETCH i.images WHERE i.itemId = :id")
     Optional<Item> findByIdWithImages(@Param("id") Integer id);
-
-    @Query("SELECT DISTINCT i FROM Item i LEFT JOIN FETCH i.reviews WHERE i.itemId = :id")
-    Optional<Item> findByIdWithReviews(@Param("id") Integer id);
 
     @Query("SELECT DISTINCT i FROM Item i " +
             "LEFT JOIN FETCH i.images " +

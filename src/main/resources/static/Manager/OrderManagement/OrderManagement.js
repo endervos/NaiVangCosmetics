@@ -1,5 +1,3 @@
-
-// Sample order data (replace with API call in production)
 const orders = [
   {
     id: "DH001",
@@ -170,8 +168,7 @@ function updateOrderStatus(orderId) {
     const newStatus = document.querySelector("#new-status").value;
     order.status = newStatus;
     updateStatusModal.style.display = "none";
-    filterAndSortOrders(); // Refresh table
-    // alert(`Cập nhật trạng thái đơn hàng #${order.id} thành "${newStatus}"`);
+    filterAndSortOrders();
   };
 }
 

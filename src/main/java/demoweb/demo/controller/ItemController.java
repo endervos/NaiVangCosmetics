@@ -52,7 +52,6 @@ public class ItemController {
         return itemService.getItemById(id)
                 .map(item -> {
                     List<Review> reviews = reviewService.getByItemId(id);
-
                     for (Review review : reviews) {
                         if (review.getCustomer() == null) {
                             Customer c = new Customer();
@@ -66,15 +65,11 @@ public class ItemController {
                             review.getCustomer().setUser(u);
                         }
                     }
-
                     Double averageRating = reviewService.getAverageRating(id);
                     Integer reviewCount = reviewService.getReviewCount(id);
                     String ratingStars = reviewService.getRatingStars(averageRating);
-
-
                     ItemImage primaryImage = itemImageService.getPrimaryImage(id);
                     List<ItemImage> subImages = itemImageService.getImagesByItemId(id);
-
                     model.addAttribute("item", item);
                     model.addAttribute("reviews", reviews);
                     model.addAttribute("averageRating", averageRating);
@@ -83,7 +78,6 @@ public class ItemController {
                     model.addAttribute("rootCategories", categoryService.getRootCategoriesWithChildren());
                     model.addAttribute("primaryImage", primaryImage);
                     model.addAttribute("subImages", subImages);
-
                     return "Customer/ItemDetail";
                 })
                 .orElse("error/404");
@@ -92,18 +86,15 @@ public class ItemController {
     @GetMapping("/filter")
     public String filterItems(@RequestParam("categoryId") Integer categoryId,
                               @RequestParam("range") String range, Model model) {
-
         Integer min = null, max = null;
         switch (range) {
             case "0-500" -> { min = 0; max = 500_000; }
             case "500-1000" -> { min = 500_000; max = 1_000_000; }
             case "1000+" -> min = 1_000_000;
         }
-
         List<Item> items = itemService.filterByPrice(categoryId, min, max);
         Category category = categoryService.findByCategoryId(categoryId)
                 .orElseThrow(() -> new RuntimeException("Danh mục không tồn tại"));
-
         model.addAttribute("items", items);
         model.addAttribute("category", category);
         model.addAttribute("selectedRange", range);
@@ -116,9 +107,7 @@ public class ItemController {
     public String showCategoryItems(@PathVariable("id") Integer id, Model model) {
         Category category = categoryService.findByCategoryId(id)
                 .orElseThrow(() -> new RuntimeException("Danh mục không tồn tại"));
-
         List<Item> items = itemService.getItemsByCategoryIdWithFullData(id);
-
         model.addAttribute("category", category);
         model.addAttribute("items", items);
         model.addAttribute("rootCategories", categoryService.getRootCategoriesWithChildren());
@@ -146,18 +135,15 @@ public class ItemController {
     ) {
         try {
             Item item = itemService.createItem(name, description, color, ingredient, price, categoryId, image);
-
             Map<String, Object> response = new HashMap<>();
             response.put("success", true);
             response.put("message", "Thêm sản phẩm thành công!");
             response.put("item", item);
-
             return ResponseEntity.ok(response);
         } catch (Exception e) {
             Map<String, Object> response = new HashMap<>();
             response.put("success", false);
             response.put("message", "Lỗi: " + e.getMessage());
-
             return ResponseEntity.badRequest().body(response);
         }
     }
@@ -176,18 +162,15 @@ public class ItemController {
     ) {
         try {
             Item item = itemService.updateItem(id, name, description, color, ingredient, price, categoryId, image);
-
             Map<String, Object> response = new HashMap<>();
             response.put("success", true);
             response.put("message", "Cập nhật sản phẩm thành công!");
             response.put("item", item);
-
             return ResponseEntity.ok(response);
         } catch (Exception e) {
             Map<String, Object> response = new HashMap<>();
             response.put("success", false);
             response.put("message", "Lỗi: " + e.getMessage());
-
             return ResponseEntity.badRequest().body(response);
         }
     }
