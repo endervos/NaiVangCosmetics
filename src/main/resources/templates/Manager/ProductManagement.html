@@ -1,54 +1,46 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Product Management</title>
-    <link rel="stylesheet" href="./ProductManagement.css">
+    <link rel="stylesheet" th:href="@{/Manager/ProductManagement/ProductManagement.css}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link rel="icon" type="image/png" href="/src/main/resources/static/Customer/Example/Image/LogoConNai.png">
+    <link rel="icon" type="image/png" th:href="@{/Customer/Example/Image/LogoConNai.png}">
 </head>
 <body class="admin-body">
-<!-- Sidebar -->
 <nav class="admin-sidebar">
     <div class="sidebar-logo">
-        <img src="./Image/LogoConNai.png" alt="Logo" class="logo-img">
+        <img th:src="@{/Manager/ProductManagement/Image/LogoConNai.png}" alt="Logo" class="logo-img">
         <h2 class="logo-text">Manager</h2>
     </div>
     <ul>
-        <li><a href="#"><i class="fa-solid fa-gauge"></i> Dashboard</a></li>
-        <li><a href="#"><i class="fa-solid fa-box"></i> Sản phẩm</a></li>
-        <li><a href="#"><i class="fa-solid fa-list"></i> Danh mục</a></li>
-        <li><a href="#"><i class="fa-solid fa-tags"></i> Khuyến mãi</a></li>
-        <li><a href="#"><i class="fa-solid fa-star"></i> Đánh giá</a></li>
-        <li><a href="#"><i class="fa-solid fa-receipt"></i> Đơn hàng</a></li>
-        <li><a href="#"><i class="fa-solid fa-user"></i> Hồ sơ</a></li>
+        <li><a th:href="@{/manager/dashboard}"><i class="fa-solid fa-gauge"></i> Dashboard</a></li>
+        <li><a th:href="@{/manager/product-management}"><i class="fa-solid fa-box"></i> Sản phẩm</a></li>
+        <li><a th:href="@{/manager/category-management}"><i class="fa-solid fa-list"></i> Danh mục</a></li>
+        <li><a th:href="@{/manager/promotion-management}"><i class="fa-solid fa-tags"></i> Khuyến mãi</a></li>
+        <li><a th:href="@{/manager/review-management}"><i class="fa-solid fa-star"></i> Đánh giá</a></li>
+        <li><a th:href="@{/manager/order-management}"><i class="fa-solid fa-receipt"></i> Đơn hàng</a></li>
+        <li><a th:href="@{/manager/profile}"><i class="fa-solid fa-user"></i> Hồ sơ</a></li>
     </ul>
 </nav>
 
-<!-- Main content -->
 <div class="admin-content">
-    <!-- Top bar -->
     <div class="top-bar">
         <div class="user-menu">
             <div class="user-info">
                 <i class="fa-solid fa-user-circle"></i>
-                <span>Manager</span>
+                <span th:text="${username != null ? username : 'Manager'}">Manager</span>
                 <i class="fa-solid fa-chevron-down"></i>
             </div>
-            <!-- Dropdown -->
             <ul class="dropdown">
-                <li><a href="#"><i class="fa-solid fa-right-from-bracket"></i> Đăng xuất</a></li>
+                <li><a th:href="@{/logout}"><i class="fa-solid fa-right-from-bracket"></i> Đăng xuất</a></li>
             </ul>
         </div>
     </div>
 
-    <!-- Main area -->
     <div class="main-area">
         <h2 class="page-title">QUẢN LÝ SẢN PHẨM</h2>
-        <!-- ================================
-        Bổ sung giao diện quản lý sản phẩm
-    ================================ -->
 
         <div class="product-header">
             <button class="add-product-btn">
@@ -64,32 +56,60 @@
                     <th>Ảnh</th>
                     <th>Tên sản phẩm</th>
                     <th>Giá</th>
-                    <th>Số lượng</th>
                     <th>Danh mục</th>
-                    <th>Trạng thái</th>
-                    <th>Sửa</th>
+                    <th>Ngày tạo</th>
+                    <th>Hành động</th>
                 </tr>
                 </thead>
                 <tbody id="product-list">
-                <!-- JS Render -->
+                <tr th:each="item : ${items}">
+                    <td th:text="${item.itemId}">1</td>
+                    <td>
+                        <img th:if="${item.images != null and !item.images.isEmpty()}"
+                             th:src="@{/api/item-images/blob/{id}(id=${item.images[0].itemImageId})}"
+                             class="product-img"
+                             alt="Product Image">
+                        <img th:unless="${item.images != null and !item.images.isEmpty()}"
+                             th:src="@{/Manager/ProductManagement/Image/default.png}"
+                             class="product-img"
+                             alt="No Image">
+                    </td>
+                    <td style="text-align:left" th:text="${item.name}">Tên sản phẩm</td>
+                    <td th:text="${#numbers.formatDecimal(item.price, 0, 'POINT', 0, 'COMMA')} + ' đ'">129.000 đ</td>
+                    <td th:text="${item.category != null ? item.category.name : 'N/A'}">Category</td>
+                    <td th:text="${#temporals.format(item.createdAt, 'dd/MM/yyyy')}">01/01/2024</td>
+                    <td class="action-buttons">
+                        <button class="view-btn" th:onclick="'viewProduct(' + ${item.itemId} + ')'" title="Xem chi tiết">
+                            <i class="fa-solid fa-eye"></i>
+                        </button>
+                        <button class="edit-btn" th:onclick="'editProduct(' + ${item.itemId} + ')'" title="Chỉnh sửa">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                        </button>
+                    </td>
+                </tr>
                 </tbody>
             </table>
         </div>
-
-
-        <!-- ================================
-                MODAL THÊM / SỬA SẢN PHẨM
-        ================================ -->
 
         <div class="modal" id="product-modal">
             <div class="modal-content">
                 <span class="close-modal">&times;</span>
                 <h2 id="modal-title">Thêm sản phẩm</h2>
 
-                <form id="product-form">
+                <form id="product-form" enctype="multipart/form-data">
+                    <input type="hidden" id="product-id">
 
                     <label>Tên sản phẩm:</label>
                     <input type="text" id="product-name" required>
+
+                    <label>Mô tả:</label>
+                    <textarea id="product-description" rows="3" required></textarea>
+
+                    <label>Màu sắc:</label>
+                    <input type="text" id="product-color" required>
+
+                    <label>Thành phần:</label>
+                    <input type="text" id="product-ingredient" required>
 
                     <label>Giá (VNĐ):</label>
                     <input type="number" id="product-price" required>
@@ -97,35 +117,79 @@
                     <label>Danh mục:</label>
                     <select id="product-category" required>
                         <option value="">-- Chọn danh mục --</option>
-                        <option value="Skincare">Skincare</option>
-                        <option value="Makeup">Makeup</option>
-                        <option value="Haircare">Haircare</option>
-                        <option value="Bodycare">Bodycare</option>
+                        <option th:each="cat : ${categories}"
+                                th:value="${cat.categoryId}"
+                                th:text="${cat.name}">Category</option>
                     </select>
-                    <label>Số lượng:</label>
-                    <input type="number" id="product-quantity" min="0" required>
 
                     <label>Ảnh sản phẩm:</label>
-                    <input type="file" id="product-image">
-
-                    <label>Trạng thái:</label>
-                    <select id="product-status" required>
-                        <option value="Còn hàng">Còn hàng</option>
-                        <option value="Hết hàng">Hết hàng</option>
-                    </select>
+                    <input type="file" id="product-image" accept="image/*">
+                    <div id="current-image-preview" style="display:none; margin-top: 10px;">
+                        <img id="preview-img" src="" alt="Current Image" style="max-width: 200px; border-radius: 8px;">
+                    </div>
 
                     <button type="submit" class="save-product-btn">Lưu</button>
-
                 </form>
             </div>
         </div>
 
-        <!-- ===== Kết thúc bổ sung ===== -->
+        <div class="modal" id="view-modal">
+            <div class="modal-content modal-view">
+                <span class="close-modal" id="close-view-modal">&times;</span>
+                <h2 id="view-modal-title">Chi tiết sản phẩm</h2>
 
-    </div> <!-- end main-area -->
-</div> <!-- end admin-content -->
+                <div class="product-detail">
+                    <div class="detail-row">
+                        <div class="detail-images">
+                            <img id="view-product-image" src="" alt="Product Image" class="detail-main-image">
+                        </div>
+                        <div class="detail-info">
+                            <div class="info-group">
+                                <label>ID:</label>
+                                <span id="view-product-id">-</span>
+                            </div>
+                            <div class="info-group">
+                                <label>Tên sản phẩm:</label>
+                                <span id="view-product-name">-</span>
+                            </div>
+                            <div class="info-group">
+                                <label>Giá:</label>
+                                <span id="view-product-price">-</span>
+                            </div>
+                            <div class="info-group">
+                                <label>Danh mục:</label>
+                                <span id="view-product-category">-</span>
+                            </div>
+                            <div class="info-group">
+                                <label>Màu sắc:</label>
+                                <span id="view-product-color">-</span>
+                            </div>
+                            <div class="info-group">
+                                <label>Thành phần:</label>
+                                <span id="view-product-ingredient">-</span>
+                            </div>
+                            <div class="info-group">
+                                <label>Mô tả:</label>
+                                <p id="view-product-description">-</p>
+                            </div>
+                            <div class="info-group">
+                                <label>Ngày tạo:</label>
+                                <span id="view-product-created">-</span>
+                            </div>
+                            <div class="info-group">
+                                <label>Cập nhật lần cuối:</label>
+                                <span id="view-product-updated">-</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="./ProductManagement.js"></script>
+<script th:src="@{/Manager/ProductManagement/ProductManagement.js}"></script>
 </body>
 </html>

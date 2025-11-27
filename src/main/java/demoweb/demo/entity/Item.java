@@ -2,6 +2,7 @@ package demoweb.demo.entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -17,13 +18,12 @@ public class Item {
     @Column(name = "item_id", nullable = false)
     private Integer itemId;
 
-    /** Danh sách hình ảnh của sản phẩm */
     @OneToMany(mappedBy = "item", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @JsonManagedReference(value = "item-images")
     private List<ItemImage> images = new ArrayList<>();
 
-    /** Danh sách đánh giá của sản phẩm */
     @OneToMany(mappedBy = "item", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    @JsonManagedReference(value = "item-reviews") // khớp với @JsonBackReference trong Review
+    @JsonIgnore
     private List<Review> reviews = new ArrayList<>();
 
     @Column(name = "name", nullable = false, unique = true, length = 100)
@@ -41,20 +41,17 @@ public class Item {
     @Column(name = "price", nullable = false)
     private Integer price;
 
-    /** Sản phẩm thuộc một danh mục */
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id", nullable = false)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "items", "parent", "children"})
     private Category category;
 
-    /** Thời gian tạo sản phẩm */
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
-    /** Thời gian cập nhật sản phẩm */
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
 
-    /** Các trường tạm không lưu trong DB */
     @Transient
     private Double averageRating;
 

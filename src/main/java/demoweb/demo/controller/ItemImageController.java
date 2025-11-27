@@ -21,19 +21,16 @@ public class ItemImageController {
         this.itemImageService = itemImageService;
     }
 
-    // 1. Lấy tất cả ảnh theo itemId (trả JSON, không chứa blob vì đã @JsonIgnore)
     @GetMapping("/by-item/{itemId}")
     public ResponseEntity<List<ItemImage>> getImagesByItem(@PathVariable Integer itemId) {
         return ResponseEntity.ok(itemImageService.getImagesByItemId(itemId));
     }
 
-    // 2. Lấy ảnh chính
     @GetMapping("/by-item/{itemId}/primary")
     public ResponseEntity<ItemImage> getPrimaryImage(@PathVariable Integer itemId) {
         return ResponseEntity.ok(itemImageService.getPrimaryImage(itemId));
     }
 
-    // 3. Trả blob ảnh để hiển thị trong <img src="...">
     @GetMapping("/blob/{imageId}")
     public ResponseEntity<byte[]> getImage(@PathVariable Integer imageId) {
         ItemImage itemImage = itemImageService.findById(imageId)
@@ -52,7 +49,6 @@ public class ItemImageController {
                 .body(itemImage.getImageBlob());
     }
 
-    // 4. Upload ảnh
     @PostMapping(value = "/upload/{itemId}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<ItemImage> uploadImage(
             @PathVariable Integer itemId,
@@ -66,7 +62,6 @@ public class ItemImageController {
         itemImage.setIsPrimary(isPrimary != null ? isPrimary : false);
         itemImage.setAlt(alt != null ? alt : file.getOriginalFilename());
 
-        // đảm bảo chỉ có 1 ảnh chính
         if (Boolean.TRUE.equals(itemImage.getIsPrimary())) {
             List<ItemImage> oldImages = itemImageService.getImagesByItemId(itemId);
             oldImages.forEach(img -> {

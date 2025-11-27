@@ -105,6 +105,6 @@ public class AdminController {
     @GetMapping("/dashboard")
     public String showDashboardPage(Model model) {
         model.addAttribute("pageTitle", "Admin Dashboard");
-        return "Admin/DashboardAdmin";
+        return "Admin/Dashboard";
     }
 }

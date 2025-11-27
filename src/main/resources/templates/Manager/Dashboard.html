@@ -1,28 +1,28 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
-    <link rel="stylesheet" href="./bgmana.css">
+    <link rel="stylesheet" th:href="@{/Manager/Dashboard/Dashboard.css}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link rel="icon" type="image/png" href="/src/main/resources/static/Customer/Example/Image/LogoConNai.png">
+    <link rel="icon" type="image/png" th:href="@{/Customer/Example/Image/LogoConNai.png}">
 </head>
 <body class="admin-body">
 <!-- Sidebar -->
 <nav class="admin-sidebar">
     <div class="sidebar-logo">
-        <img src="./Image/LogoConNai.png" alt="Logo" class="logo-img">
+        <img th:src="@{/Manager/Dashboard/Image/LogoConNai.png}" alt="Logo" class="logo-img">
         <h2 class="logo-text">Manager</h2>
     </div>
     <ul>
-        <li><a href="#"><i class="fa-solid fa-gauge"></i> Dashboard</a></li>
-        <li><a href="#"><i class="fa-solid fa-box"></i> Sản phẩm</a></li>
-        <li><a href="#"><i class="fa-solid fa-list"></i> Danh mục</a></li>
-        <li><a href="#"><i class="fa-solid fa-tags"></i> Khuyến mãi</a></li>
-        <li><a href="#"><i class="fa-solid fa-star"></i> Đánh giá</a></li>
-        <li><a href="#"><i class="fa-solid fa-receipt"></i> Đơn hàng</a></li>
-        <li><a href="#"><i class="fa-solid fa-user"></i> Hồ sơ</a></li>
+        <li><a th:href="@{/manager/dashboard}"><i class="fa-solid fa-gauge"></i> Dashboard</a></li>
+        <li><a th:href="@{/manager/product-management}"><i class="fa-solid fa-box"></i> Sản phẩm</a></li>
+        <li><a th:href="@{/manager/category-management}"><i class="fa-solid fa-list"></i> Danh mục</a></li>
+        <li><a th:href="@{/manager/promotion-management}"><i class="fa-solid fa-tags"></i> Khuyến mãi</a></li>
+        <li><a th:href="@{/manager/review-management}"><i class="fa-solid fa-star"></i> Đánh giá</a></li>
+        <li><a th:href="@{/manager/order-management}"><i class="fa-solid fa-receipt"></i> Đơn hàng</a></li>
+        <li><a th:href="@{/manager/profile}"><i class="fa-solid fa-user"></i> Hồ sơ</a></li>
     </ul>
 </nav>
 
@@ -33,12 +33,12 @@
         <div class="user-menu">
             <div class="user-info">
                 <i class="fa-solid fa-user-circle"></i>
-                <span>Manager</span>
+                <span th:text="${username != null ? username : 'Manager'}">Manager</span>
                 <i class="fa-solid fa-chevron-down"></i>
             </div>
             <!-- Dropdown -->
             <ul class="dropdown">
-                <li><a href="#"><i class="fa-solid fa-right-from-bracket"></i> Đăng xuất</a></li>
+                <li><a th:href="@{/logout}"><i class="fa-solid fa-right-from-bracket"></i> Đăng xuất</a></li>
             </ul>
         </div>
     </div>
@@ -52,28 +52,28 @@
             <div class="card">
                 <div class="card-icon"><i class="fa-solid fa-box"></i></div>
                 <div class="card-info">
-                    <h3>1.245</h3>
+                    <h3 th:text="${totalProducts != null ? totalProducts : '1.245'}">1.245</h3>
                     <p>Sản phẩm</p>
                 </div>
             </div>
             <div class="card">
                 <div class="card-icon"><i class="fa-solid fa-users"></i></div>
                 <div class="card-info">
-                    <h3>530</h3>
+                    <h3 th:text="${totalCustomers != null ? totalCustomers : '530'}">530</h3>
                     <p>Khách hàng</p>
                 </div>
             </div>
             <div class="card">
                 <div class="card-icon"><i class="fa-solid fa-receipt"></i></div>
                 <div class="card-info">
-                    <h3>268</h3>
+                    <h3 th:text="${newOrders != null ? newOrders : '268'}">268</h3>
                     <p>Đơn hàng mới</p>
                 </div>
             </div>
             <div class="card">
                 <div class="card-icon"><i class="fa-solid fa-sack-dollar"></i></div>
                 <div class="card-info">
-                    <h3>₫58.200.000</h3>
+                    <h3 th:text="${monthlyRevenue != null ? '₫' + #numbers.formatDecimal(monthlyRevenue, 0, 'POINT', 0, 'COMMA') : '₫58.200.000'}">₫58.200.000</h3>
                     <p>Doanh thu tháng này</p>
                 </div>
             </div>
@@ -99,6 +99,5 @@
 </div> <!-- end admin-content -->
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="./bgmana.js"></script>
 </body>
 </html>

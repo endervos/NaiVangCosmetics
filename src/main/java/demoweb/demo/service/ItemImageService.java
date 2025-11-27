@@ -36,10 +36,9 @@ public class ItemImageService {
     public ItemImage getPrimaryImage(Integer itemId) {
         return itemImageRepository.findByItem_ItemIdAndIsPrimaryTrue(itemId)
                 .orElseGet(() -> {
-                    // ✅ Tạo ảnh mặc định giả (nếu không có ảnh trong DB)
                     ItemImage placeholder = new ItemImage();
                     placeholder.setAlt("default image");
-                    placeholder.setImageBlob(null); // không có ảnh thực, bạn có thể xử lý ở view
+                    placeholder.setImageBlob(null);
                     return placeholder;
                 });
     }
@@ -50,7 +49,6 @@ public class ItemImageService {
         itemImage.setItem(item);
         return itemImageRepository.save(itemImage);
     }
-
 
     public void delete(Integer imageId) {
         itemImageRepository.deleteById(imageId);

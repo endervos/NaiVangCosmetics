@@ -1,6 +1,6 @@
 package demoweb.demo.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
@@ -15,12 +15,12 @@ public class ItemImage {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "item_id", nullable = false)
-    @JsonIgnore
+    @JsonBackReference(value = "item-images")
     private Item item;
 
     @Lob
     @Column(name = "image_blob", columnDefinition = "BLOB")
-    @JsonIgnore
+    @com.fasterxml.jackson.annotation.JsonIgnore
     private byte[] imageBlob;
 
     @Column(name = "alt", length = 255)
@@ -80,5 +80,4 @@ public class ItemImage {
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
-
 }

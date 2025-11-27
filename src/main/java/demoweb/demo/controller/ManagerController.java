@@ -2,8 +2,12 @@ package demoweb.demo.controller;
 
 import demoweb.demo.dto.LoginRequest;
 import demoweb.demo.dto.LoginResponse;
+import demoweb.demo.entity.Category;
+import demoweb.demo.entity.Item;
 import demoweb.demo.security.JwtTokenUtil;
 import demoweb.demo.service.AccountService;
+import demoweb.demo.service.CategoryService;
+import demoweb.demo.service.ItemService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +23,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/manager")
 public class ManagerController {
@@ -31,6 +37,12 @@ public class ManagerController {
 
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
+
+    @Autowired
+    private ItemService itemService;
+
+    @Autowired
+    private CategoryService categoryService;
 
     @GetMapping("/login_tthhn")
     public String showManagerLoginPage(Model model) {
@@ -104,11 +116,15 @@ public class ManagerController {
     @GetMapping("/dashboard")
     public String showDashboardPage(Model model) {
         model.addAttribute("pageTitle", "Manager Dashboard");
-        return "Manager/DashboardManager";
+        return "Manager/Dashboard";
     }
 
     @GetMapping("/product-management")
     public String showProductManagement(Model model) {
-        return "Manager/ProductManagent";
+        List<Item> items = itemService.getAllItems();
+        List<Category> categories = categoryService.getAllCategories();
+        model.addAttribute("items", items);
+        model.addAttribute("categories", categories);
+        return "Manager/ProductManagement";
     }
 }

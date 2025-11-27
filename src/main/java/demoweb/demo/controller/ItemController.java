@@ -11,8 +11,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/item")
@@ -123,8 +127,68 @@ public class ItemController {
     }
 
     @GetMapping("/api/{id}")
+    @ResponseBody
     public ResponseEntity<Item> getItemDetail(@PathVariable Integer id) {
         Item item = itemService.getItemDetail(id);
         return ResponseEntity.ok(item);
+    }
+
+    @PostMapping("/api")
+    @ResponseBody
+    public ResponseEntity<?> createItem(
+            @RequestParam("name") String name,
+            @RequestParam("description") String description,
+            @RequestParam("color") String color,
+            @RequestParam("ingredient") String ingredient,
+            @RequestParam("price") Integer price,
+            @RequestParam("categoryId") Integer categoryId,
+            @RequestParam(value = "image", required = false) MultipartFile image
+    ) {
+        try {
+            Item item = itemService.createItem(name, description, color, ingredient, price, categoryId, image);
+
+            Map<String, Object> response = new HashMap<>();
+            response.put("success", true);
+            response.put("message", "Thêm sản phẩm thành công!");
+            response.put("item", item);
+
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            Map<String, Object> response = new HashMap<>();
+            response.put("success", false);
+            response.put("message", "Lỗi: " + e.getMessage());
+
+            return ResponseEntity.badRequest().body(response);
+        }
+    }
+
+    @PutMapping("/api/{id}")
+    @ResponseBody
+    public ResponseEntity<?> updateItem(
+            @PathVariable Integer id,
+            @RequestParam("name") String name,
+            @RequestParam("description") String description,
+            @RequestParam("color") String color,
+            @RequestParam("ingredient") String ingredient,
+            @RequestParam("price") Integer price,
+            @RequestParam("categoryId") Integer categoryId,
+            @RequestParam(value = "image", required = false) MultipartFile image
+    ) {
+        try {
+            Item item = itemService.updateItem(id, name, description, color, ingredient, price, categoryId, image);
+
+            Map<String, Object> response = new HashMap<>();
+            response.put("success", true);
+            response.put("message", "Cập nhật sản phẩm thành công!");
+            response.put("item", item);
+
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            Map<String, Object> response = new HashMap<>();
+            response.put("success", false);
+            response.put("message", "Lỗi: " + e.getMessage());
+
+            return ResponseEntity.badRequest().body(response);
+        }
     }
 }

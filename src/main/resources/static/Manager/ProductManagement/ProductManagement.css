@@ -20,7 +20,7 @@
   color: #fff;
   padding: 20px 0;
   position: fixed;
-  height: 100vh; /* Chiều cao bằng toàn bộ viewport */
+  height: 100vh;
   overflow-y: auto;
   transition: all 0.3s ease;
 }
@@ -50,7 +50,7 @@
 
 .admin-sidebar ul li {
   padding: 25px 20px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05); /* Gạch ngang phân cách */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .admin-sidebar ul li a {
@@ -78,7 +78,7 @@
   width: calc(100% - 250px);
   display: flex;
   flex-direction: column;
-  min-height: 100vh; /* Đảm bảo admin-content cao bằng viewport */
+  min-height: 100vh;
 }
 
 /* Top Bar */
@@ -90,7 +90,7 @@
   justify-content: flex-end;
   align-items: center;
   position: sticky;
-  top: 0; /* Sát mép trên */
+  top: 0;
   z-index: 1000;
   border-radius: 0 0 20px 20px;
 }
@@ -147,15 +147,15 @@
 
 /* Main Area */
 .main-area {
-  flex: 1; /* Chiếm toàn bộ không gian còn lại */
+  flex: 1;
   background: #fff;
   padding: 20px;
   border-radius: 10px;
   margin-top: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  overflow: hidden; /* Ngăn cuộn trong main-area */
-  height: calc(100vh - 60px); /* Chiều cao bằng sidebar, trừ chiều cao top-bar */
-  width: 100%; /* Full chiều rộng của admin-content */
+  overflow: hidden;
+  height: calc(100vh - 60px);
+  width: 100%;
 }
 
 /* Main Area Content */
@@ -197,12 +197,12 @@
   }
 
   .top-bar {
-    position: relative; /* Bỏ sticky trên màn hình nhỏ */
+    position: relative;
   }
 
   .main-area {
-    height: auto; /* Trên màn hình nhỏ, để main-area tự điều chỉnh chiều cao */
-    overflow: auto; /* Cho phép cuộn trên màn hình nhỏ nếu cần */
+    height: auto;
+    overflow: auto;
   }
 }
 
@@ -211,10 +211,6 @@
   background: #f6f8fb;
   min-height: 100vh;
 }
-
-/* =========================
-   Product Management – Bổ sung
-========================= */
 
 /* Header */
 .product-header {
@@ -289,18 +285,47 @@
   font-size: 13px;
 }
 
-/* Edit button */
+/* Action Buttons */
+.action-buttons {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  align-items: center;
+}
+
+.view-btn,
+.edit-btn {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.view-btn {
+  background: #17a2b8;
+  color: white;
+}
+
+.view-btn:hover {
+  background: #138496;
+  transform: translateY(-2px);
+  box-shadow: 0 2px 5px rgba(23, 162, 184, 0.3);
+}
+
 .edit-btn {
   background: #f1c40f;
-  color: white;
-  border: none;
-  padding: 8px 14px;
-  border-radius: 6px;
-  cursor: pointer;
+  color: #333;
 }
 
 .edit-btn:hover {
   background: #d4ac0d;
+  transform: translateY(-2px);
+  box-shadow: 0 2px 5px rgba(241, 196, 15, 0.3);
 }
 
 /* Modal */
@@ -312,6 +337,8 @@
   justify-content: center;
   align-items: center;
   z-index: 2000;
+  overflow-y: auto;
+  padding: 20px 0;
 }
 
 .modal.show {
@@ -321,102 +348,247 @@
 .modal-content {
   background: white;
   width: 90%;
-  max-width: 500px;
+  max-width: 600px;
+  max-height: 85vh;
   padding: 25px;
   border-radius: 12px;
   position: relative;
+  overflow-y: auto;
+  margin: auto;
+}
+
+/* Custom Scrollbar for Modal */
+.modal-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.modal-content::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+.modal-content::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 10px;
+}
+
+.modal-content::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* Modal View Styles */
+.modal-view {
+  max-width: 900px;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.product-detail {
+  margin-top: 20px;
+}
+
+.detail-row {
+  display: flex;
+  gap: 30px;
+}
+
+.detail-images {
+  flex: 0 0 300px;
+}
+
+.detail-main-image {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+.detail-info {
+  flex: 1;
+}
+
+.info-group {
+  margin-bottom: 15px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #eee;
+}
+
+.info-group:last-child {
+  border-bottom: none;
+}
+
+.info-group label {
+  display: block;
+  font-weight: 600;
+  color: #555;
+  margin-bottom: 5px;
+  font-size: 14px;
+}
+
+.info-group span,
+.info-group p {
+  display: block;
+  color: #333;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.info-group p {
+  margin: 0;
 }
 
 .close-modal {
-  position: absolute;
-  top: 12px;
-  right: 18px;
-  font-size: 22px;
+  position: sticky;
+  top: 0;
+  right: 0;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  color: #aaa;
   cursor: pointer;
+  z-index: 10;
+  background: white;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  line-height: 1;
+}
+
+.close-modal:hover {
+  color: #000;
+  background: #f0f0f0;
 }
 
 .save-product-btn {
   background: #3498db;
-  padding: 12px;
+  padding: 12px 24px;
   color: white;
   border: none;
   border-radius: 6px;
   margin-top: 10px;
+  cursor: pointer;
+  font-size: 15px;
+  transition: all 0.3s ease;
 }
 
-/* Ghi đè căn trái cho tiêu đề Quản lý khuyến mãi */
+.save-product-btn:hover {
+  background: #2980b9;
+  transform: translateY(-2px);
+  box-shadow: 0 2px 5px rgba(52, 152, 219, 0.3);
+}
+
 .page-title {
   text-align: left !important;
   padding-left: 10px;
 }
 
-/* ==============================================
-   FIX BỐ CỤC FORM MODAL SẢN PHẨM — BỔ SUNG
-============================================== */
-
 #product-form {
   display: grid !important;
   grid-template-columns: 1fr 1fr;
   gap: 15px 25px;
-  margin-top: 20px !important;
+  margin-top: 30px !important;
+  clear: both;
 }
 
-/* Label nằm trên input, không kéo dài 2 cột */
 #product-form label {
   font-weight: 600;
-  grid-column: span 2; /* mỗi label chiếm 2 cột để xuống dòng */
+  grid-column: span 2;
+  margin-top: 5px;
+  margin-bottom: 0;
 }
 
-/* Input chiếm trọn 2 cột */
 #product-form input,
-#product-form select {
+#product-form select,
+#product-form textarea {
   width: 100%;
   padding: 10px;
   border-radius: 6px;
   border: 1px solid #ccc;
   grid-column: span 2;
+  font-size: 14px;
 }
 
-/* Chỉ những ô cần 2 cột mới span */
+#product-form textarea {
+  resize: vertical;
+  font-family: inherit;
+  min-height: 80px;
+}
+
 #product-name,
 #product-price,
-#product-image {
+#product-image,
+#product-description,
+#product-color,
+#product-ingredient,
+#product-category {
   grid-column: span 2;
 }
 
-/* Nút Lưu nằm bên trái, không full 2 cột */
 .save-product-btn {
-  grid-column: 1 / 2;
-  width: 120px;
-  padding: 10px;
-  justify-self: start;
+  grid-column: span 2;
+  width: 150px;
+  padding: 12px;
+  justify-self: center;
 }
 
-/* ======================================================
-   FIX CĂN CHỈNH CỘT TÊN SẢN PHẨM + THÊM CỘT SỐ LƯỢNG
-====================================================== */
-
-/* Tên sản phẩm căn trái đẹp */
 .product-table td:nth-child(3),
 .product-table th:nth-child(3) {
   text-align: left !important;
   padding-left: 10px;
 }
 
-/* Cột số lượng */
 .product-table td:nth-child(5),
 .product-table th:nth-child(5) {
   text-align: center;
   width: 120px;
 }
 
-/* Giữ layout bảng gọn đẹp */
 .product-table th,
 .product-table td {
   vertical-align: middle;
 }
 
-/* Form modal: thêm ô Số lượng */
-#product-quantity {
-  grid-column: span 2 !important;
+#current-image-preview {
+  grid-column: span 2;
+  text-align: center;
+  padding: 10px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  margin-top: 5px;
+}
+
+#preview-img {
+  max-width: 200px;
+  max-height: 200px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* Responsive for Modal View */
+@media (max-width: 768px) {
+  .detail-row {
+    flex-direction: column;
+  }
+
+  .detail-images {
+    flex: 0 0 auto;
+  }
+
+  .modal-content {
+    width: 95%;
+    padding: 20px;
+    max-height: 90vh;
+  }
+
+  .modal-view {
+    max-width: 95%;
+  }
+
+  #product-form {
+    gap: 10px 15px;
+  }
 }

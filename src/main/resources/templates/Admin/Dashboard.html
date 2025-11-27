@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
-    <link rel="stylesheet" th:href="@{/Admin/DashboardAdmin/DashboardAdmin.css}">
+    <link rel="stylesheet" th:href="@{/Admin/Dashboard/Dashboard.css}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="icon" type="image/png" th:href="@{/Customer/Example/Image/LogoConNai.png}">
 </head>
@@ -13,7 +13,7 @@
 <nav class="admin-sidebar">
     <div class="sidebar-logo">
         <img th:src="@{/Customer/Example/Image/LogoConNai.png}" alt="Logo" class="logo-img">
-        <h2 class="logo-text">Manager</h2>
+        <h2 class="logo-text">Admin</h2>
     </div>
     <ul>
         <li><a href="/src/main/resources/templates/Admin/Dashboard.html"><i class="fa-solid fa-gauge"></i> Dashboard</a></li>
@@ -34,7 +34,7 @@
         <div class="user-menu">
             <div class="user-info">
                 <i class="fa-solid fa-user-circle"></i>
-                <span>Manager</span>
+                <span>Admin</span>
                 <i class="fa-solid fa-chevron-down"></i>
             </div>
             <!-- Dropdown -->
@@ -151,6 +151,6 @@
 </div> <!-- end admin-content -->
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script th:src="@{/Admin/DashboardAdmin/DashboardAdmin.js}"></script>
+<script th:src="@{/Admin/Dashboard/Dashboard.js}"></script>
 </body>
 </html>

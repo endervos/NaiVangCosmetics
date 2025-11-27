@@ -1,7 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
-  console.log("Admin page loaded!");
+  console.log("Product Management loaded!");
 
-  // Toggle dropdown menu
   const userInfo = document.querySelector(".user-info");
   const dropdown = document.querySelector(".dropdown");
 
@@ -10,7 +9,6 @@ document.addEventListener("DOMContentLoaded", () => {
       dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
     });
 
-    // Đóng dropdown khi click ra ngoài
     document.addEventListener("click", (e) => {
       if (!userInfo.contains(e.target) && !dropdown.contains(e.target)) {
         dropdown.style.display = "none";
@@ -18,247 +16,182 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Logout icon ngoài (chỉ dùng nếu bạn giữ icon riêng ngoài top-bar)
-  const logoutBtn = document.querySelector(".logout-icon");
-  if (logoutBtn) {
-    logoutBtn.addEventListener("click", () => {
-      if (confirm("Bạn có chắc chắn muốn đăng xuất không?")) {
-        window.location.href = "/src/main/resources/templates/Customer/Login.html";
-      }
-    });
-  }
+  const modal = document.getElementById("product-modal");
+  const viewModal = document.getElementById("view-modal");
+  const closeModal = document.querySelector(".close-modal");
+  const closeViewModal = document.getElementById("close-view-modal");
+  const addBtn = document.querySelector(".add-product-btn");
+  const form = document.getElementById("product-form");
+  const modalTitle = document.getElementById("modal-title");
 
-    /* ============================================================
-    JS BỔ SUNG – PRODUCT MANAGER (KHÔNG SỬA CODE CŨ)
-    ============================================================ */
+  let editingId = null;
 
-    console.log("Product Management loaded!");
-
-    // Danh sách sản phẩm mẫu (sau này thay API)
-    let products = [
-    {
-        id: 1,
-        name: "Sữa rửa mặt dịu nhẹ",
-        price: 129000,
-        category: "Skincare",
-        status: "Còn hàng",
-        quantity: 50,
-        image: "./Image/suaruamat.jpg"
-    },
-    {
-        id: 2,
-        name: "Dầu gội phục hồi",
-        price: 89000,
-        category: "Haircare",
-        status: "Hết hàng",
-        quantity: 0,
-        image: "./Image/suaruamat.jpg"
-    },
-    {
-        id: 3,
-        name: "Sữa rửa mặt dịu nhẹ",
-        price: 129000,
-        category: "Skincare",
-        status: "Còn hàng",
-        quantity: 50,
-        image: "./Image/suaruamat.jpg"
-    },
-    {
-        id: 4,
-        name: "Dầu gội phục hồi",
-        price: 89000,
-        category: "Haircare",
-        status: "Hết hàng",
-        quantity: 0,
-        image: "./Image/suaruamat.jpg"
-    },
-    {
-        id: 5,
-        name: "Sữa rửa mặt dịu nhẹ",
-        price: 129000,
-        category: "Skincare",
-        status: "Còn hàng",
-        quantity: 10,
-        image: "./Image/suaruamat.jpg"
-    },
-    {
-        id: 6,
-        name: "Dầu gội phục hồi",
-        price: 89000,
-        category: "Haircare",
-        status: "Hết hàng",
-        quantity: 0,
-        image: "./Image/suaruamat.jpg"
-    },
-    {
-        id: 7,
-        name: "Sữa rửa mặt dịu nhẹ",
-        price: 129000,
-        category: "Skincare",
-        status: "Còn hàng",
-        quantity: 10,
-        image: "./Image/suaruamat.jpg"
-    },
-    {
-        id: 8,
-        name: "Dầu gội phục hồi",
-        price: 89000,
-        category: "Haircare",
-        status: "Hết hàng",
-        quantity: 0,
-        image: "./Image/suaruamat.jpg"
-    },
-    {
-        id: 9,
-        name: "Sữa rửa mặt dịu nhẹ",
-        price: 129000,
-        category: "Skincare",
-        status: "Còn hàng",
-        quantity: 10,
-        image: "./Image/suaruamat.jpg"
-    },
-    {
-        id: 10,
-        name: "Dầu gội phục hồi",
-        price: 89000,
-        category: "Haircare",
-        status: "Hết hàng",
-        quantity: 0,
-        image: "./Image/suaruamat.jpg"
-    }
-    ];
-
-    // DOM
-    const productList = document.getElementById("product-list");
-    const modal = document.getElementById("product-modal");
-    const closeModal = document.querySelector(".close-modal");
-    const addBtn = document.querySelector(".add-product-btn");
-    const form = document.getElementById("product-form");
-    const modalTitle = document.getElementById("modal-title");
-
-    let editingId = null;
-
-    /* ============================================================
-    RENDER BẢNG SẢN PHẨM
-    ============================================================ */
-    function renderProducts() {
-    productList.innerHTML = "";
-
-    products.forEach(p => {
-        const row = document.createElement("tr");
-
-        row.innerHTML = `
-        <td>${p.id}</td>
-        <td><img src="${p.image}" class="product-img"></td>
-        <td style="text-align:left">${p.name}</td>
-        <td>${p.price.toLocaleString("vi-VN")} đ</td>
-        <td>${p.quantity}</td>
-        <td>${p.category}</td>
-        <td>
-            ${
-            p.status === "Còn hàng"
-                ? '<span class="status-instock">Còn hàng</span>'
-                : '<span class="status-outstock">Hết hàng</span>'
-            }
-        </td>
-        <td>
-            <button class="edit-btn" onclick="editProduct(${p.id})">Sửa</button>
-        </td>
-        `;
-
-        productList.appendChild(row);
-    });
-    }
-
-    renderProducts();
-
-    /* ============================================================
-    MỞ MODAL – THÊM MỚI
-    ============================================================ */
-    addBtn?.addEventListener("click", () => {
+  addBtn?.addEventListener("click", () => {
     editingId = null;
     modalTitle.textContent = "Thêm sản phẩm";
     form.reset();
+    document.getElementById("current-image-preview").style.display = "none";
     modal.classList.add("show");
-    });
+  });
 
-    /* ĐÓNG MODAL */
-    closeModal?.addEventListener("click", () => {
+  closeModal?.addEventListener("click", () => {
     modal.classList.remove("show");
-    });
+  });
 
-    window.addEventListener("click", (e) => {
+  closeViewModal?.addEventListener("click", () => {
+    viewModal.classList.remove("show");
+  });
+
+  window.addEventListener("click", (e) => {
     if (e.target === modal) modal.classList.remove("show");
-    });
+    if (e.target === viewModal) viewModal.classList.remove("show");
+  });
 
-    /* ============================================================
-    CHẾ ĐỘ EDIT – ĐƯA DỮ LIỆU LÊN FORM
-    ============================================================ */
-    window.editProduct = (id) => {
-    const p = products.find(x => x.id === id);
-    if (!p) return;
+  window.viewProduct = async (id) => {
+    try {
+      console.log("Fetching product with ID:", id);
 
-    editingId = id;
+      const response = await fetch(`/item/api/${id}`);
 
-    modalTitle.textContent = "Chỉnh sửa sản phẩm";
+      console.log("Response status:", response.status);
 
-    document.getElementById("product-name").value = p.name;
-    document.getElementById("product-price").value = p.price;
-    document.getElementById("product-category").value = p.category;
-    document.getElementById("product-status").value = p.status;
-    document.getElementById("product-quantity").value = p.quantity;
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error("Error response:", errorText);
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
 
-    modal.classList.add("show");
-    };
+      const item = await response.json();
+      console.log("Received item:", item);
 
-    /* ============================================================
-    SUBMIT FORM – THÊM hoặc SỬA
-    ============================================================ */
-    form?.addEventListener("submit", (e) => {
+      document.getElementById("view-product-id").textContent = item.itemId || "-";
+      document.getElementById("view-product-name").textContent = item.name || "-";
+      document.getElementById("view-product-price").textContent =
+        item.price ? new Intl.NumberFormat('vi-VN').format(item.price) + " đ" : "-";
+      document.getElementById("view-product-category").textContent = item.category?.name || "-";
+      document.getElementById("view-product-color").textContent = item.color || "-";
+      document.getElementById("view-product-ingredient").textContent = item.ingredient || "-";
+      document.getElementById("view-product-description").textContent = item.description || "-";
+
+      if (item.createdAt) {
+        const createdDate = new Date(item.createdAt);
+        document.getElementById("view-product-created").textContent =
+          createdDate.toLocaleDateString('vi-VN');
+      } else {
+        document.getElementById("view-product-created").textContent = "-";
+      }
+
+      if (item.updatedAt) {
+        const updatedDate = new Date(item.updatedAt);
+        document.getElementById("view-product-updated").textContent =
+          updatedDate.toLocaleDateString('vi-VN');
+      } else {
+        document.getElementById("view-product-updated").textContent = "-";
+      }
+
+      if (item.images && item.images.length > 0) {
+        document.getElementById("view-product-image").src =
+          `/api/item-images/blob/${item.images[0].itemImageId}`;
+      } else {
+        document.getElementById("view-product-image").src =
+          "/Manager/ProductManagement/Image/default.png";
+      }
+
+      viewModal.classList.add("show");
+    } catch (error) {
+      console.error("Detailed error:", error);
+      alert("Không thể tải thông tin sản phẩm! Chi tiết: " + error.message);
+    }
+  };
+
+  window.editProduct = async (id) => {
+    try {
+      const response = await fetch(`/item/api/${id}`);
+      const item = await response.json();
+
+      editingId = id;
+      modalTitle.textContent = "Chỉnh sửa sản phẩm";
+
+      document.getElementById("product-id").value = item.itemId;
+      document.getElementById("product-name").value = item.name || "";
+      document.getElementById("product-description").value = item.description || "";
+      document.getElementById("product-color").value = item.color || "";
+      document.getElementById("product-ingredient").value = item.ingredient || "";
+      document.getElementById("product-price").value = item.price || "";
+      document.getElementById("product-category").value = item.category?.categoryId || "";
+
+      if (item.images && item.images.length > 0) {
+        document.getElementById("preview-img").src = `/api/item-images/blob/${item.images[0].itemImageId}`;
+        document.getElementById("current-image-preview").style.display = "block";
+      } else {
+        document.getElementById("current-image-preview").style.display = "none";
+      }
+
+      modal.classList.add("show");
+    } catch (error) {
+      console.error("Error fetching item:", error);
+      alert("Không thể tải thông tin sản phẩm!");
+    }
+  };
+
+  form?.addEventListener("submit", async (e) => {
     e.preventDefault();
 
+    const itemId = document.getElementById("product-id").value;
     const name = document.getElementById("product-name").value.trim();
+    const description = document.getElementById("product-description").value.trim();
+    const color = document.getElementById("product-color").value.trim();
+    const ingredient = document.getElementById("product-ingredient").value.trim();
     const price = Number(document.getElementById("product-price").value);
-    const category = document.getElementById("product-category").value;
-    const status = document.getElementById("product-status").value;
-    const quantity = Number(document.getElementById("product-quantity").value);
+    const categoryId = document.getElementById("product-category").value;
+    const imageFile = document.getElementById("product-image").files[0];
 
-    let imgPreview = "./Image/default.png";
-    const file = document.getElementById("product-image").files[0];
-
-    if (file) {
-        imgPreview = URL.createObjectURL(file);
+    if (!name || !description || !color || !ingredient || !price || !categoryId) {
+      alert("Vui lòng điền đầy đủ thông tin!");
+      return;
     }
 
-    // ===== THÊM MỚI =====
-    if (editingId === null) {
-        products.push({
-        id: Date.now(),
-        name,
-        price,
-        category,
-        status,
-        quantity,
-        image: imgPreview
+    const formData = new FormData();
+    formData.append("name", name);
+    formData.append("description", description);
+    formData.append("color", color);
+    formData.append("ingredient", ingredient);
+    formData.append("price", price);
+    formData.append("categoryId", categoryId);
+
+    if (imageFile) {
+      formData.append("image", imageFile);
+    }
+
+    try {
+      let response;
+
+      if (editingId !== null && itemId) {
+        response = await fetch(`/item/api/${itemId}`, {
+          method: "PUT",
+          body: formData
         });
+      }
+      else {
+        response = await fetch(`/item/api`, {
+          method: "POST",
+          body: formData
+        });
+      }
+
+      const result = await response.json();
+
+      if (result.success) {
+        alert(result.message);
+        modal.classList.remove("show");
+        location.reload();
+      } else {
+        alert(result.message);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      alert("Có lỗi xảy ra khi lưu sản phẩm!");
     }
-    // ===== CẬP NHẬT =====
-    else {
-        const index = products.findIndex(p => p.id === editingId);
-
-        products[index].name = name;
-        products[index].price = price;
-        products[index].category = category;
-        products[index].status = status;
-        products[index].quantity = quantity;
-
-        if (file) products[index].image = imgPreview;
-    }
-
-    modal.classList.remove("show");
-    renderProducts();
-    });
-
-
+  });
 
 });

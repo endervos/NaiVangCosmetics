@@ -118,7 +118,7 @@ CREATE TABLE item (
 CREATE TABLE item_image (
   item_image_id INT AUTO_INCREMENT PRIMARY KEY,
   item_id INT NOT NULL,
-  image_blob BLOB,
+  image_blob MEDIUMBLOB,
   alt VARCHAR(255),
   is_primary BOOLEAN DEFAULT FALSE,
   created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
