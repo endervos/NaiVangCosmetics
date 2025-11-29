@@ -31,7 +31,7 @@ public class CustomerService {
 
     @Autowired
     private EmailService emailService;
-    /// address
+
     public Customer getCustomerByUser(User user) {
         return customerRepository.findByUser(user)
                 .orElseThrow(() -> new RuntimeException("Không tìm thấy customer cho user này"));
@@ -90,6 +90,4 @@ public class CustomerService {
         }
         return false;
     }
-
-
 }

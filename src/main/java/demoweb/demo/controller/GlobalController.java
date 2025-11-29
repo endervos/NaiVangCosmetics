@@ -23,6 +23,4 @@ public class GlobalController {
         return categoryService.getRootCategoriesWithChildren();
 
     }
-
-
 }

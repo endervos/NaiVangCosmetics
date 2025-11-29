@@ -43,7 +43,6 @@ public class ItemController {
         this.reviewService = reviewService;
     }
 
-
     @GetMapping
     public String showItemPage(Model model) {
         List<Item> items = itemService.getAllItems();
@@ -56,13 +55,10 @@ public class ItemController {
     public String getItemById(@PathVariable("id") Integer id, Model model) {
         return itemService.getItemById(id)
                 .map(item -> {
-                    // Lấy số lượng tồn kho từ bảng Inventory
                     Integer stock = inventoryRepository.findById(id)
                             .map(Inventory::getQuantity)
                             .orElse(0);
                     model.addAttribute("stock", stock);
-
-
                     List<Review> reviews = reviewService.getByItemId(id);
                     for (Review review : reviews) {
                         if (review.getCustomer() == null) {

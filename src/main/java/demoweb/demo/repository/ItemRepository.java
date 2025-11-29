@@ -23,4 +23,7 @@ public interface ItemRepository extends JpaRepository<Item, Integer>, JpaSpecifi
             "LEFT JOIN FETCH i.category " +
             "WHERE i.itemId = :id")
     Optional<Item> findByIdWithFullData(@Param("id") Integer id);
+
+    @Query("SELECT i FROM Item i ORDER BY i.createdAt DESC")
+    List<Item> findTop5ByOrderByCreatedAtDesc();
 }

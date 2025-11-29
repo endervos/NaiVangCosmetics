@@ -33,7 +33,6 @@ public class InventoryService {
 
         if (inv.getReserved() < quantity)
             throw new RuntimeException("Không đủ hàng reserved để xác nhận đơn!");
-
         inv.setReserved(inv.getReserved() - quantity);
         inv.setQuantity(inv.getQuantity() - quantity);
         inv.setUpdatedAt(LocalDateTime.now());

@@ -35,12 +35,9 @@ public class ItemService {
 
     private void attachRating(Item item) {
         if (item.getItemId() == null) return;
-
         Double avg = reviewService.getAverageRating(item.getItemId());
         int count = reviewService.getReviewCount(item.getItemId());
-
         if (avg == null) avg = 0.0;
-
         item.setAverageRating(avg);
         item.setReviewCount(count);
         item.setRatingStars(reviewService.getRatingStars(avg));
@@ -78,7 +75,6 @@ public class ItemService {
             }
             return cb.and(predicates.toArray(new Predicate[0]));
         });
-
         items.forEach(this::attachRating);
         return items;
     }
@@ -99,7 +95,6 @@ public class ItemService {
         if (item.getCategory() != null) {
             item.getCategory().getName();
         }
-
         attachRating(item);
         return item;
     }
@@ -108,20 +103,16 @@ public class ItemService {
     public Item createItem(String name, String description, String color,
                            String ingredient, Integer price, Integer categoryId,
                            MultipartFile imageFile) throws IOException {
-
         Item item = new Item();
         item.setName(name);
         item.setDescription(description);
         item.setColor(color);
         item.setIngredient(ingredient);
         item.setPrice(price);
-
         Category category = categoryService.findByCategoryId(categoryId)
                 .orElseThrow(() -> new RuntimeException("Không tìm thấy danh mục với ID: " + categoryId));
         item.setCategory(category);
-
         Item savedItem = itemRepository.save(item);
-
         if (imageFile != null && !imageFile.isEmpty()) {
             ItemImage newImage = new ItemImage();
             newImage.setImageBlob(imageFile.getBytes());
@@ -129,7 +120,6 @@ public class ItemService {
             newImage.setAlt(imageFile.getOriginalFilename());
             itemImageService.saveForItem(savedItem.getItemId(), newImage);
         }
-
         return itemRepository.findByIdWithFullData(savedItem.getItemId())
                 .orElse(savedItem);
     }
@@ -138,20 +128,16 @@ public class ItemService {
     public Item updateItem(Integer id, String name, String description, String color,
                            String ingredient, Integer price, Integer categoryId,
                            MultipartFile imageFile) throws IOException {
-
         Item item = itemRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Không tìm thấy sản phẩm với ID: " + id));
-
         item.setName(name);
         item.setDescription(description);
         item.setColor(color);
         item.setIngredient(ingredient);
         item.setPrice(price);
-
         Category category = categoryService.findByCategoryId(categoryId)
                 .orElseThrow(() -> new RuntimeException("Không tìm thấy danh mục với ID: " + categoryId));
         item.setCategory(category);
-
         if (imageFile != null && !imageFile.isEmpty()) {
             List<ItemImage> oldImages = itemImageService.getImagesByItemId(id);
             oldImages.forEach(img -> {
@@ -159,17 +145,22 @@ public class ItemService {
                     itemImageService.delete(img.getItemImageId());
                 }
             });
-
             ItemImage newImage = new ItemImage();
             newImage.setImageBlob(imageFile.getBytes());
             newImage.setIsPrimary(true);
             newImage.setAlt(imageFile.getOriginalFilename());
             itemImageService.saveForItem(id, newImage);
         }
-
         Item savedItem = itemRepository.save(item);
-
         return itemRepository.findByIdWithFullData(id)
                 .orElse(savedItem);
+    }
+
+    @Transactional(readOnly = true)
+    public List<Item> getTop5LatestItems() {
+        List<Item> items = itemRepository.findTop5ByOrderByCreatedAtDesc();
+        items = items.size() > 5 ? items.subList(0, 5) : items;
+        items.forEach(this::attachRating);
+        return items;
     }
 }
