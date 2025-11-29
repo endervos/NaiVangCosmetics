@@ -1,6 +1,7 @@
 package demoweb.demo.entity;
 
 import java.io.Serializable;
+import java.util.Objects;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 
@@ -17,6 +18,8 @@ public class CartItemId implements Serializable {
     }
 
     public CartItemId(Integer cartId, Integer itemId) {
+        this.cartId = cartId;
+        this.itemId = itemId;
     }
 
     public Integer getCartId() {
@@ -40,11 +43,11 @@ public class CartItemId implements Serializable {
         if (this == o) return true;
         if (!(o instanceof CartItemId)) return false;
         CartItemId that = (CartItemId) o;
-        return cartId.equals(that.cartId) && itemId.equals(that.itemId);
+        return Objects.equals(cartId, that.cartId) && Objects.equals(itemId, that.itemId);
     }
 
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(cartId, itemId);
+        return Objects.hash(cartId, itemId);
     }
 }

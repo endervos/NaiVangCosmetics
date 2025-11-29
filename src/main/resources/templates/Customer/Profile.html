@@ -10,35 +10,24 @@
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script src="https://npmcdn.com/flatpickr/dist/l10n/vn.js"></script>
     <link rel="stylesheet" th:href="@{/Customer/Home/Home.css}">
-
-
-    <!-- Slick CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-    <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <!-- Slick JS -->
     <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-
 </head>
 <body>
 
-<!-- Banner GIF full màn hình -->
 <div class="promo-banner">
     <img th:src="@{/Customer/Item/Image/Example.gif}" alt="Promotion Nai Vang">
 </div>
 
-<!-- Header -->
 <div class="header">
     <div class="container header-inner">
         <a th:href="@{/}">
             <img th:src="@{/Customer/Item/Image/Logo7.png}" alt="Logo" width="150" height="100">
         </a>
 
-
-        <!-- Search -->
         <div class="search-bar">
             <div class="search-wrap">
                 <input type="text" placeholder="Bạn cần tìm ....">
@@ -51,11 +40,8 @@
             </div>
         </div>
 
-        <!-- Icons (User + Cart) -->
         <div class="header-icons">
-            <!-- User Section -->
             <div class="user-section">
-                <!-- Nút user -->
                 <button class="user-btn" aria-label="Tài khoản">
                     <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
                         <path fill="currentColor"
@@ -63,18 +49,14 @@
                     </svg>
                 </button>
 
-                <!-- Dropdown (ẩn mặc định, hiện khi hover hoặc click) -->
                 <div class="user-dropdown">
                     <a th:href="@{/login}" id="login-btn" sec:authorize="isAnonymous()">Đăng nhập</a>
                     <a th:href="@{/sign-up}" id="subcribe-btn" sec:authorize="isAnonymous()">Đăng ký</a>
-
                     <a th:href="@{/profile}" id="account-info" sec:authorize="isAuthenticated()">Thông tin tài khoản</a>
                     <a th:href="@{/logout}" id="logout-btn" sec:authorize="isAuthenticated()">Đăng xuất</a>
                 </div>
             </div>
 
-
-            <!-- Cart Section -->
             <div class="cart-section">
                 <a href="#" class="cart-pill" title="Giỏ hàng">
                     <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
@@ -84,16 +66,13 @@
                     <span>Giỏ hàng</span>
                 </a>
             </div>
-
         </div>
-
     </div>
 </div>
 
 <!-- Menu -->
 <div class="menu-bar">
     <div class="container menu-inner">
-
         <div class="dropdown">
             <a href="#">☰ DANH MỤC SẢN PHẨM</a>
             <ul class="dropdown-content">
@@ -116,30 +95,19 @@
             </ul>
         </div>
 
-<!--        &lt;!&ndash; Sản Phẩm Mới &ndash;&gt;-->
-<!--        <a href="#">SẢN PHẨM MỚI</a>-->
-
         <div class="dropdown">
             <a href="#"> NAI VANG BEAUTY</a>
         </div>
 
-        <!-- Deal hot -->
-<!--        <a href="#">💖 DEAL HOT DƯỚI 100K 💖</a>-->
-
-        <!-- Tin tức -->
         <div class="dropdown">
             <a href="/blog">TIN TỨC</a>
         </div>
 
-        <!-- Tra cứu đơn -->
         <a href="#">TRA CỨU ĐƠN HÀNG</a>
     </div>
 </div>
 
-
-
 <div class="main-container">
-    <!-- Sidebar -->
     <aside class="menu-sidebar">
         <h3>Chào <span th:text="${user.fullname}">User</span></h3>
         <ul>
@@ -154,221 +122,184 @@
     <main class="account-info" th:object="${user}">
         <h2>Thông tin tài khoản</h2>
         <form th:action="@{/profile/update}" th:object="${user}" method="post">
-        <div class="profile-container">
-            <label>Tài khoản</label>
-            <input type="text" th:field="*{email}" disabled />
+            <div class="profile-container">
+                <label>Tài khoản</label>
+                <input type="text" th:field="*{email}" disabled />
 
-            <label>Họ và tên</label>
-            <input type="text" th:field="*{fullname}"  />
+                <label>Họ và tên</label>
+                <input type="text" th:field="*{fullname}"  />
 
-            <label>Số điện thoại</label>
-            <input type="text" th:field="*{phoneNumber}"  />
+                <label>Số điện thoại</label>
+                <input type="text" th:field="*{phoneNumber}"  />
 
-            <div class="form-group">
-                <div class="address-header">
-                    <label>Địa chỉ</label>
-                    <button type="button" id="addAddressBtn" class="btn-add">Thêm địa chỉ</button>
-                </div>
-
-                <div id="addressContainer">
-
-                    <!-- Lặp qua danh sách địa chỉ từ DB -->
-                    <div class="address-row"
-                         th:each="addr, iter : ${addresses}"
-                         th:classappend="${addr.idAddressDefault} ? ' default' : ''">
-
-                        <span class="address-label">Địa chỉ [[${iter.index + 1}]]</span>
-
-                        <!-- City -->
-                        <input type="text"
-                               name="city[]"
-                               class="address-input city-input"
-                               th:value="${addr.city}"
-                               placeholder="Tỉnh / Thành phố">
-
-                        <!-- District -->
-                        <input type="text"
-                               name="district[]"
-                               class="address-input district-input"
-                               th:value="${addr.district}"
-                               placeholder="Quận / Huyện">
-
-                        <!-- Street -->
-                        <input type="text"
-                               name="street[]"
-                               class="address-input street-input"
-                               th:value="${addr.street}"
-                               placeholder="Đường / Số nhà...">
-
-                        <!-- Hidden inputs -->
-                        <input type="hidden" name="addressId[]" th:value="${addr.addressId}">
-                        <input type="hidden" name="isDefault[]" th:value="${addr.idAddressDefault ? 1 : 0}">
-                        <input type="hidden" name="isDeleted[]" th:value="${addr.isDeleted != null ? addr.isDeleted : 0}">
-
-                        <!-- Nút xóa -->
-                        <button type="button" class="btn-remove">–</button>
-
-                        <!-- Nhãn mặc định -->
-                        <button type="button"
-                                class="btn-default-address"
-                                th:style="${addr.idAddressDefault} ? 'display:inline-flex;' : 'display:none;'">
-                            Địa chỉ mặc định
-                        </button>
-
-                        <!-- Nút đặt mặc định -->
-                        <button type="button"
-                                class="btn-default"
-                                th:style="${addr.idAddressDefault} ? 'display:none;' : 'display:inline-flex;'">
-                            Đặt làm mặc định
-                        </button>
+                <div class="form-group">
+                    <div class="address-header">
+                        <label>Địa chỉ</label>
+                        <button type="button" id="addAddressBtn" class="btn-add">Thêm địa chỉ</button>
                     </div>
 
+                    <!-- THÊM PHẦN NÀY VÀO -->
+                    <div id="addressContainer">
+                        <div class="address-row"
+                             th:each="addr, iter : ${addresses}"
+                             th:classappend="${addr.idAddressDefault} ? ' default' : ''">
 
+                            <span class="address-label">Địa chỉ [[${iter.index + 1}]]</span>
+                            <input type="text"
+                                   name="city[]"
+                                   class="address-input city-input"
+                                   th:value="${addr.city}"
+                                   placeholder="Tỉnh / Thành phố">
+                            <input type="text"
+                                   name="district[]"
+                                   class="address-input district-input"
+                                   th:value="${addr.district}"
+                                   placeholder="Quận / Huyện">
+                            <input type="text"
+                                   name="street[]"
+                                   class="address-input street-input"
+                                   th:value="${addr.street}"
+                                   placeholder="Đường / Số nhà...">
+                            <input type="hidden" name="addressId[]" th:value="${addr.addressId}">
+                            <input type="hidden" name="isDefault[]" th:value="${addr.idAddressDefault ? 1 : 0}">
+
+                            <button type="button" class="btn-remove">–</button>
+
+                            <button type="button"
+                                    class="btn-default-address"
+                                    th:style="${addr.idAddressDefault} ? 'display:inline-flex;' : 'display:none;'">
+                                Địa chỉ mặc định
+                            </button>
+
+                            <button type="button"
+                                    class="btn-default"
+                                    th:style="${addr.idAddressDefault} ? 'display:none;' : 'display:inline-flex;'">
+                                Đặt làm mặc định
+                            </button>
+                        </div>
+                    </div>
+                    <!-- HẾT PHẦN THÊM -->
                 </div>
 
-
-
-            </div>
-            <label>Ngày sinh</label>
-            <div class="mb-3">
+                <label>Ngày sinh</label>
                 <div class="mb-3">
-                    <div class="mb-3">
-                        <input
-                                type="text"
-                                id="birthday"
-                                name="birthday"
-                                class="form-control"
-                                th:value="${user.birthday != null ? #temporals.format(user.birthday, 'yyyy-MM-dd') : ''}"
-                        >
-                    </div>
-
+                    <input
+                            type="text"
+                            id="birthday"
+                            name="birthday"
+                            class="form-control"
+                            th:value="${user.birthday != null ? #temporals.format(user.birthday, 'yyyy-MM-dd') : ''}"
+                    >
                 </div>
 
                 <label>Giới tính</label>
-            <div class="d-flex gender-container" >
-                <label>
-                    <input type="radio" th:field="*{gender}" value="Nam" /> Nam
-                </label>
-                <label>
-                    <input type="radio" th:field="*{gender}" value="Nữ" /> Nữ
-                </label>
-            </div>
+                <div class="d-flex gender-container" >
+                    <label>
+                        <input type="radio" th:field="*{gender}" value="Nam" /> Nam
+                    </label>
+                    <label>
+                        <input type="radio" th:field="*{gender}" value="Nữ" /> Nữ
+                    </label>
+                </div>
                 <button type="submit" class="btn">Cập nhật thông tin</button>
-        </div>
-        </div>
+            </div>
         </form>
     </main>
-
 </div>
-<!-- End Main Content -->
 
-    <!-- FOOTER -->
-    <div class="subscribe-bar">
-        <h2>ĐĂNG KÝ NHẬN ƯU ĐÃI</h2>
-        <form class="subscribe-form" id="subscribeForm">
-            <div class="input-wrap">
-                <input type="email" id="emailInput" placeholder="Nhập email của bạn">
-                <!-- dòng báo lỗi -->
-                <small id="emailError" class="error-msg"></small>
+<div class="subscribe-bar">
+    <h2>ĐĂNG KÝ NHẬN ƯU ĐÃI</h2>
+    <form class="subscribe-form" id="subscribeForm">
+        <div class="input-wrap">
+            <input type="email" id="emailInput" placeholder="Nhập email của bạn">
+            <small id="emailError" class="error-msg"></small>
+        </div>
+        <button type="submit">ĐĂNG KÝ</button>
+    </form>
+</div>
+
+<footer class="footer">
+    <div class="footer-main">
+        <div class="footer-col">
+            <img th:src="@{/Home/Logo7.png}" alt="Nai Vang Logo" class="footer-logo">
+            <p><strong>CÔNG TY TNHH MTV THƯƠNG MẠI VÀ ĐẦU TƯ LIÊN Á CHÂU</strong></p>
+            <p>Giấy chứng nhận đăng ký doanh nghiệp số 0310618188, cấp ngày 29.01.2011, nơi cấp Sở Kế Hoạch và Đầu Tư TP. Hồ Chí Minh</p>
+            <p>Trụ sở chính: L2-VP-01, 346 Bến Vân Đồn, Phường Vĩnh Hội, TP. Hồ Chí Minh</p>
+            <p>Hotline: <a href="tel:19004449">19004449</a>
+                Điện thoại: <a href="tel:02838328272">02838328272</a></p>
+            <img th:src="@{/Home/Bocongthuong_1_1.webp}" alt="Đã thông báo Bộ Công Thương" class="boct-logo">
+        </div>
+
+        <div class="footer-col">
+            <h4>Theo dõi chúng tôi</h4>
+            <div class="social-links">
+                <a href="#"><img th:src="@{/Home/Facebook.webp}" alt="Facebook"></a>
+                <a href="#"><img th:src="@{/Home/Instagram.webp}" alt="Instagram"></a>
+                <a href="#"><img th:src="@{/Home/Youtube.webp}" alt="YouTube"></a>
+                <a href="#"><img th:src="@{/Home/Tiktok.webp}" alt="TikTok"></a>
             </div>
-            <button type="submit">ĐĂNG KÝ</button>
-        </form>
+
+            <h4>Tải App Ngay</h4>
+            <div class="app-links">
+                <img th:src="@{/Home/Maqr.png}" alt="QR Code" class="qr-code">
+                <div>
+                    <a href="#"><img th:src="@{/Home/Googleplay.webp}" alt="Google Play"></a>
+                    <a href="#"><img th:src="@{/Home/Appstore.webp}" alt="App Store"></a>
+                </div>
+            </div>
+
+            <h4>Chấp nhận Phương thức thanh toán</h4>
+            <div class="pay-methods">
+                <img th:src="@{/Home/Vnpay.png}" alt="VNPay">
+                <img th:src="@{/Home/Momo.webp}" alt="MoMo" class="momo-logo">
+                <img th:src="@{/Home/Visa.png}" alt="Visa">
+            </div>
+        </div>
+
+        <div class="footer-col">
+            <h4>Về chúng tôi</h4>
+            <ul>
+                <li><a href="#">Giới thiệu</a></li>
+                <li><a href="#">Tin Tức</a></li>
+                <li><a href="#">Cẩm nang Làm đẹp</a></li>
+                <li><a href="#">Tuyển dụng</a></li>
+                <li><a href="#">Đổi điểm Hội Cam</a></li>
+                <li><a href="#">Liên hệ</a></li>
+                <li><a href="#">Địa chỉ cửa hàng</a></li>
+                <li><a href="#">Cho thuê mặt bằng</a></li>
+                <li><a href="#">Hợp tác cùng Guardian</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-col">
+            <h4>Chính sách</h4>
+            <ul>
+                <li><a href="#">Chính sách và quy định chung</a></li>
+                <li><a href="#">Quy định và hình thức thanh toán</a></li>
+                <li><a href="#">Chính sách vận chuyển</a></li>
+                <li><a href="#">Chính sách đổi/trả hàng và hoàn tiền</a></li>
+                <li><a href="#">Chính sách bảo mật thông tin cá nhân</a></li>
+                <li><a href="#">Hướng dẫn mua hàng</a></li>
+                <li><a href="#">Quy trình xuất hóa đơn Điện Tử</a></li>
+                <li><a href="#">Chính sách Thông tin Hội Cam</a></li>
+            </ul>
+        </div>
     </div>
-
-    <footer class="footer">
-        <div class="footer-main">
-            <!-- Cột 1: Logo + thông tin -->
-            <div class="footer-col">
-                <img th:src="@{/Home/Logo7.png}" alt="Nai Vang Logo" class="footer-logo">
-                <p><strong>CÔNG TY TNHH MTV THƯƠNG MẠI VÀ ĐẦU TƯ LIÊN Á CHÂU</strong></p>
-                <p>Giấy chứng nhận đăng ký doanh nghiệp số 0310618188, cấp ngày 29.01.2011, nơi cấp Sở Kế Hoạch và Đầu Tư TP. Hồ Chí Minh</p>
-                <p>Trụ sở chính: L2-VP-01, 346 Bến Vân Đồn, Phường Vĩnh Hội, TP. Hồ Chí Minh</p>
-                <p>Hotline: <a href="tel:19004449">19004449</a>
-                    Điện thoại: <a href="tel:02838328272">02838328272</a></p>
-                <img th:src="@{/Home/Bocongthuong_1_1.webp}" alt="Đã thông báo Bộ Công Thương" class="boct-logo">
-            </div>
-
-            <!-- Cột 2: Theo dõi + App + Thanh toán -->
-            <div class="footer-col">
-                <h4>Theo dõi chúng tôi</h4>
-                <div class="social-links">
-                    <a href="#"><img th:src="@{/Home/Facebook.webp}" alt="Facebook"></a>
-                    <a href="#"><img th:src="@{/Home/Instagram.webp}" alt="Instagram"></a>
-                    <a href="#"><img th:src="@{/Home/Youtube.webp}" alt="YouTube"></a>
-                    <a href="#"><img th:src="@{/Home/Tiktok.webp}" alt="TikTok"></a>
-                </div>
-
-                <h4>Tải App Ngay</h4>
-                <div class="app-links">
-                    <img th:src="@{/Home/Maqr.png}" alt="QR Code" class="qr-code">
-                    <div>
-                        <a href="#"><img th:src="@{/Home/Googleplay.webp}" alt="Google Play"></a>
-                        <a href="#"><img th:src="@{/Home/Appstore.webp}" alt="App Store"></a>
-                    </div>
-                </div>
-
-                <h4>Chấp nhận Phương thức thanh toán</h4>
-                <div class="pay-methods">
-                    <img th:src="@{/Home/Vnpay.png}" alt="VNPay">
-                    <img th:src="@{/Home/Momo.webp}" alt="MoMo" class="momo-logo">
-                    <img th:src="@{/Home/Visa.png}" alt="Visa">
-                </div>
-            </div>
-
-            <!-- Cột 3: Về chúng tôi -->
-            <div class="footer-col">
-                <h4>Về chúng tôi</h4>
-                <ul>
-                    <li><a href="#">Giới thiệu</a></li>
-                    <li><a href="#">Tin Tức</a></li>
-                    <li><a href="#">Cẩm nang Làm đẹp</a></li>
-                    <li><a href="#">Tuyển dụng</a></li>
-                    <li><a href="#">Đổi điểm Hội Cam</a></li>
-                    <li><a href="#">Liên hệ</a></li>
-                    <li><a href="#">Địa chỉ cửa hàng</a></li>
-                    <li><a href="#">Cho thuê mặt bằng</a></li>
-                    <li><a href="#">Hợp tác cùng Guardian</a></li>
-                </ul>
-            </div>
-
-            <!-- Cột 4: Chính sách -->
-            <div class="footer-col">
-                <h4>Chính sách</h4>
-                <ul>
-                    <li><a href="#">Chính sách và quy định chung</a></li>
-                    <li><a href="#">Quy định và hình thức thanh toán</a></li>
-                    <li><a href="#">Chính sách vận chuyển</a></li>
-                    <li><a href="#">Chính sách đổi/trả hàng và hoàn tiền</a></li>
-                    <li><a href="#">Chính sách bảo mật thông tin cá nhân</a></li>
-                    <li><a href="#">Hướng dẫn mua hàng</a></li>
-                    <li><a href="#">Quy trình xuất hóa đơn Điện Tử</a></li>
-                    <li><a href="#">Chính sách Thông tin Hội Cam</a></li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="footer-bottom">
-            <p>© 2025 Nai Vang. All rights reserved.</p>
-        </div>
-    </footer>
-
-<!-- Thư viện datepicker -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-<script src="https://npmcdn.com/flatpickr/dist/l10n/vn.js"></script>
+    <div class="footer-bottom">
+        <p>© 2025 Nai Vang. All rights reserved.</p>
+    </div>
+</footer>
 
 <script>
     flatpickr("#birthday", {
-        dateFormat: "Y-m-d",       // format thực tế để server hiểu
-        altInput: true,            // hiển thị định dạng khác cho người dùng
-        altFormat: "d/m/Y",        // format hiển thị ra UI
+        dateFormat: "Y-m-d",
+        altInput: true,
+        altFormat: "d/m/Y",
         locale: "vn",
         maxDate: "today",
         defaultDate: document.querySelector("#birthday").value
     });
 </script>
-
-    <script th:src="@{/Customer/Profile/Profile.js}"></script>
-
+<script th:src="@{/Customer/Profile/Profile.js}"></script>
 </body>
 </html>

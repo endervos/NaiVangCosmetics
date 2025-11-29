@@ -18,30 +18,24 @@ public class Customer {
     @Column(name = "customer_id")
     private Integer customerId;
 
-    /** Liên kết 1-1 với User */
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false, unique = true)
     private User user;
 
-    /** Loại khách hàng */
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_type_id")
     private CustomerType customerType;
 
-    /** Thời điểm cập nhật gần nhất */
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
 
-    /** Một khách hàng có nhiều địa chỉ */
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Address> addresses = new ArrayList<>();
 
-    /** Một khách hàng có nhiều đơn hàng */
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonManagedReference(value = "customer-orders")
     private List<Order> orders = new ArrayList<>();
 
-    /** Một khách hàng có nhiều đánh giá (review) */
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonManagedReference(value = "customer-reviews")
     private List<Review> reviews = new ArrayList<>();
@@ -106,7 +100,6 @@ public class Customer {
         this.reviews = reviews;
     }
 
-    // ===== Lifecycle Hooks =====
     @PrePersist
     protected void onCreate() {
         this.updatedAt = LocalDateTime.now();

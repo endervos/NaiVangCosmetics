@@ -1,13 +1,10 @@
 package demoweb.demo.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "address")
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Address {
 
     @Id
@@ -17,7 +14,6 @@ public class Address {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_id", nullable = false)
-    @JsonIgnore
     private Customer customer;
 
     @Column(name = "city", length = 100)
@@ -38,25 +34,20 @@ public class Address {
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
-    //them cot de xoa mem
-    @Column(name = "is_deleted")
-    private Integer isDeleted = 0;
-
-    public Integer getIsDeleted() {
-        return isDeleted;
+    public Address() {
     }
 
-    public void setIsDeleted(Integer isDeleted) {
-        this.isDeleted = isDeleted;
-    }
-
-    // ===== Lifecycle Hooks =====
     @PrePersist
     protected void onCreate() {
-        this.createdAt = LocalDateTime.now();
+        if (this.createdAt == null) {
+            this.createdAt = LocalDateTime.now();
+        }
+        if (this.idAddressDefault == null) {
+            this.idAddressDefault = false;
+        }
     }
 
-    // ===== Getters & Setters =====
+    // Getters and Setters
     public Integer getAddressId() {
         return addressId;
     }
@@ -113,11 +104,28 @@ public class Address {
         this.idAddressDefault = idAddressDefault;
     }
 
+    public Boolean getIsDefault() {
+        return this.idAddressDefault;
+    }
+
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
+    }
+
+    @Override
+    public String toString() {
+        return "Address{" +
+                "addressId=" + addressId +
+                ", city='" + city + '\'' +
+                ", district='" + district + '\'' +
+                ", street='" + street + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", idAddressDefault=" + idAddressDefault +
+                ", createdAt=" + createdAt +
+                '}';
     }
 }

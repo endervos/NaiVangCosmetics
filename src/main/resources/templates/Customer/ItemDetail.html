@@ -6,33 +6,24 @@
     <title>Nai Vang Cosmetic</title>
     <link rel="icon" type="image/png" th:src="@{/Customer/Item/Image/LogoConNai.png}">
     <link rel="stylesheet" th:href="@{/Customer/ItemDetail/ItemDetail.css}">
-    <!-- Slick CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-    <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <!-- Slick JS -->
     <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-
 </head>
 <body>
 
-<!-- Banner GIF full màn hình -->
 <div class="promo-banner">
     <img th:src="@{/Customer/Item/Image/Example.gif}" alt="Promotion Nai Vang">
 </div>
 
-<!-- Header -->
 <div class="header">
     <div class="container header-inner">
         <a th:href="@{/}">
             <img th:src="@{/Customer/Item/Image/Logo7.png}" alt="Logo" width="150" height="100">
         </a>
 
-
-        <!-- Search -->
         <div class="search-bar">
             <div class="search-wrap">
                 <input type="text" placeholder="Bạn cần tìm ....">
@@ -45,11 +36,8 @@
             </div>
         </div>
 
-        <!-- Icons (User + Cart) -->
         <div class="header-icons">
-            <!-- User Section -->
             <div class="user-section">
-                <!-- Nút user -->
                 <button class="user-btn" aria-label="Tài khoản">
                     <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
                         <path fill="currentColor"
@@ -57,7 +45,6 @@
                     </svg>
                 </button>
 
-                <!-- Dropdown (ẩn mặc định, hiện khi hover hoặc click) -->
                 <div class="user-dropdown">
                     <a th:href="@{/login}" id="login-btn" sec:authorize="isAnonymous()">Đăng nhập</a>
                     <a th:href="@{/sign-up}" id="subcribe-btn" sec:authorize="isAnonymous()">Đăng ký</a>
@@ -67,10 +54,8 @@
                 </div>
             </div>
 
-
-            <!-- Cart Section -->
             <div class="cart-section">
-                <a href="#" class="cart-pill" title="Giỏ hàng">
+                <a th:href="@{/cart}" class="cart-pill" title="Giỏ hàng">
                     <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
                         <path fill="currentColor"
                               d="M7 4h-2l-1 2h2l3.6 7.59-1.35 2.44C7.89 16.37 8.29 17 8.94 17h9.56v-2H9.42l1.1-2h7.25c.75 0 1.41-.41 1.75-1.03L22 7H6.42l-.7-1h1.28L7 4Zm-1 16a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm12 0a2 2 0 1 0 .001-3.999A2 2 0 0 0 18 20Z"/>
@@ -78,9 +63,7 @@
                     <span>Giỏ hàng</span>
                 </a>
             </div>
-
         </div>
-
     </div>
 </div>
 
@@ -109,31 +92,16 @@
                 </li>
             </ul>
         </div>
-
-        <!--        &lt;!&ndash; Sản Phẩm Mới &ndash;&gt;-->
-        <!--        <a href="#">SẢN PHẨM MỚI</a>-->
-
-
         <div class="dropdown">
             <a href="#"> NAI VANG BEAUTY</a>
         </div>
-
-        <!-- Deal hot -->
-        <!--        <a href="#">💖 DEAL HOT DƯỚI 100K 💖</a>-->
-
-        <!-- Tin tức -->
         <div class="dropdown">
             <a href="/blog">TIN TỨC</a>
         </div>
-
-        <!-- Tra cứu đơn -->
         <a href="#">TRA CỨU ĐƠN HÀNG</a>
     </div>
 </div>
 
-
-
-<!-- Breadcrumb -->
 <nav class="breadcrumb">
     <a th:href="@{/}">
         <img th:src="@{/Customer/ItemDetail/Image/Home_icon.png}" alt="Home" class="breadcrumb-icon">
@@ -141,13 +109,8 @@
     </a>
 </nav>
 
-
-<!-- Mục sản phẩm -->
 <div class="product-detail-container">
-    <!-- Cột trái: Ảnh sản phẩm -->
     <div class="product-images">
-
-        <!-- Ảnh chính -->
         <div class="main-image">
             <img id="currentImage"
                  class="main-photo"
@@ -157,17 +120,13 @@
                  alt="Primary image" />
         </div>
 
-        <!-- Thumbnails -->
         <div class="thumbnail-images">
-
-            <!-- Ảnh chính (hiển thị đầu tiên, có class active) -->
             <img class="thumbnail active"
                  th:if="${primaryImage != null && primaryImage.itemImageId != null}"
                  th:src="@{'/api/item-images/blob/' + ${primaryImage.itemImageId}}"
                  th:alt="${primaryImage.alt != null ? primaryImage.alt : 'Primary image'}"
                  alt="Primary image" />
 
-            <!-- Các ảnh phụ -->
             <img th:each="img : ${subImages}"
                  th:if="${!img.isPrimary}"
                  class="thumbnail"
@@ -177,23 +136,13 @@
         </div>
     </div>
 
-    <!-- Cột phải: Thông tin sản phẩm -->
     <div class="product-info">
-        <!-- Tên sản phẩm -->
         <h1 class="product-title" th:text="${item.name}">Tên sản phẩm</h1>
-
-        <!-- Meta: loại sản phẩm -->
         <div class="product-meta">
         <span class="category">
             Loại sản phẩm:
             <strong th:text="${item.category != null ? item.category.name : 'Chưa có'}">Tên category</strong>
         </span>
-            <!--
-            | <span class="sold">
-                Đã bán: <strong th:text="${item.sold != null ? item.sold : 0}"></strong>
-            </span>
-            👆 Field 'sold' chưa có trong entity Item, cần thêm cột sold (int) nếu muốn.
-            -->
         </div>
 
         <div class="product-rating">
@@ -202,31 +151,19 @@
                     + ${item.reviewCount} + ' lượt đánh giá)'"></span>
         </div>
 
-        <!-- Wishlist icon -->
         <div class="wishlist">
             <i id="wishlistIcon" class="fa-regular fa-heart"></i>
         </div>
 
-        <!-- Giá -->
         <div class="price-box">
         <span class="current-price"
               th:text="${#numbers.formatInteger(item.price, 0, 'POINT')} + ' đ'">0đ</span>
-
-            <!--
-            <span class="old-price" th:if="${item.oldPrice != null}"
-                  th:text="${#numbers.formatInteger(item.oldPrice, 0, 'POINT')} + ' đ'">0đ</span>
-            <span class="discount" th:if="${item.discount != null}"
-                  th:text="'-' + ${item.discount} + '%'">-0%</span>
-            👆 Field 'oldPrice' và 'discount' chưa có trong entity Item.
-            -->
         </div>
 
-        <!-- Mô tả -->
         <p class="product-description" th:text="${item.description}">
             Mô tả sản phẩm…
         </p>
 
-        <!-- Thông tin phụ (fix cứng, sau có thể bind DB) -->
         <div class="extra-info">
             <div class="info-item">🚚 <span>Miễn phí vận chuyển cho đơn từ 199K</span></div>
             <div class="info-item">⚡ <span>Giao hàng nhanh trong 2h nội thành Hồ Chí Minh</span></div>
@@ -234,10 +171,8 @@
             <div class="info-item">🔄 <span>Đổi trả trong 15 ngày nếu sản phẩm lỗi</span></div>
             <div class="info-item">🎁 <span>Giảm 10% tối đa 30K cho khách hàng lần đầu mua hàng</span></div>
         </div>
-        <!-- Nút hành động -->
         <form th:action="@{/cart/add}" method="post">
             <input type="hidden" name="itemId" th:value="${item.itemId}" />
-            <!-- Số lượng -->
             <div class="quantity-box">
                 <label for="quantity">Số lượng:</label>
 
@@ -251,14 +186,11 @@
 
                     <button type="button" id="qtyPlus" class="qty-btn">+</button>
                 </div>
-                <!-- Hiển thị tồn kho -->
                 <span class="stock-status"
                       th:attr="data-stock=${stock != null ? stock : 0}"
                       th:text="${stock != null && stock > 0 ? 'Còn ' + stock + ' sản phẩm' : 'Hết hàng'}">
 </span>
-
             </div>
-
             <div class="action-buttons">
                 <button type="submit" class="add-cart">Thêm vào giỏ hàng</button>
                 <button type="button" class="buy-now" onclick="window.location.href='/cart'">Mua ngay</button>
@@ -273,12 +205,10 @@
     <div class="review-section">
         <h3>Đánh giá sản phẩm (<span th:text="${reviewCount}">0</span>)</h3>
 
-        <!-- Nếu chưa có review -->
         <div th:if="${#lists.isEmpty(reviews)}" class="no-review">
             <p>Chưa có đánh giá nào cho sản phẩm này.</p>
         </div>
 
-        <!-- Nếu có review -->
         <div th:each="review : ${reviews}" class="review-card">
             <div class="review-header">
                 <img th:src="@{/Customer/ItemDetail/Image/UserImage.jpg}" alt="user avatar" class="review-avatar">
@@ -301,33 +231,21 @@
             </div>
         </div>
     </div>
-
-
-
 </div>
 
-
-
-
-
-<!-- FOOTER -->
 <div class="subscribe-bar">
     <h2>ĐĂNG KÝ NHẬN ƯU ĐÃI</h2>
     <form class="subscribe-form" id="subscribeForm">
         <div class="input-wrap">
             <input type="email" id="emailInput" placeholder="Nhập email của bạn">
-            <!-- dòng báo lỗi -->
             <small id="emailError" class="error-msg"></small>
         </div>
         <button type="submit">ĐĂNG KÝ</button>
     </form>
 </div>
 
-
-
 <footer class="footer">
     <div class="footer-main">
-        <!-- Cột 1: Logo + thông tin -->
         <div class="footer-col">
             <img th:src="@{/Customer/ItemDetail/Image/logo7.png}" alt="Nai Vang Logo" class="footer-logo">
             <p><strong>CÔNG TY TNHH MTV THƯƠNG MẠI VÀ ĐẦU TƯ LIÊN Á CHÂU</strong></p>
@@ -337,8 +255,6 @@
                 Điện thoại: <a href="tel:02838328272">02838328272</a></p>
             <img th:src="@{/Customer/ItemDetail/Image/bocongthuong_1_1.webp}" alt="Đã thông báo Bộ Công Thương" class="boct-logo">
         </div>
-
-        <!-- Cột 2: Theo dõi + App + Thanh toán -->
         <div class="footer-col">
             <h4>Theo dõi chúng tôi</h4>
             <div class="social-links">
@@ -365,7 +281,6 @@
             </div>
         </div>
 
-        <!-- Cột 3: Về chúng tôi -->
         <div class="footer-col">
             <h4>Về chúng tôi</h4>
             <ul>
@@ -381,7 +296,6 @@
             </ul>
         </div>
 
-        <!-- Cột 4: Chính sách -->
         <div class="footer-col">
             <h4>Chính sách</h4>
             <ul>
@@ -401,8 +315,6 @@
         <p>© 2025 Nai Vang. All rights reserved.</p>
     </div>
 </footer>
-
 <script th:src="@{/Customer/ItemDetail/ItemDetail.js}"></script>
-
 </body>
 </html>

@@ -49,7 +49,6 @@ public class AccountService implements UserDetailsService {
         Account account = accountRepository.findById(accountId)
                 .orElseThrow(() -> new RuntimeException("Không tìm thấy tài khoản"));
         demoweb.demo.entity.User user = account.getUser();
-
         if (fullname != null && !fullname.trim().isEmpty()) {
             user.setFullname(fullname.trim());
         }
@@ -67,7 +66,6 @@ public class AccountService implements UserDetailsService {
                     .orElseThrow(() -> new RuntimeException("Không tìm thấy vai trò: " + roleName));
             account.setRole(newRole);
         }
-
         return accountRepository.save(account);
     }
 
