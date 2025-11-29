@@ -31,6 +31,11 @@ public class CustomerService {
 
     @Autowired
     private EmailService emailService;
+    /// address
+    public Customer getCustomerByUser(User user) {
+        return customerRepository.findByUser(user)
+                .orElseThrow(() -> new RuntimeException("Không tìm thấy customer cho user này"));
+    }
 
     private final Map<String, String> verificationCodes = new HashMap<>();
 
@@ -85,4 +90,6 @@ public class CustomerService {
         }
         return false;
     }
+
+
 }

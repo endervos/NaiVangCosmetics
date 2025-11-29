@@ -38,6 +38,18 @@ public class Address {
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
+    //them cot de xoa mem
+    @Column(name = "is_deleted")
+    private Integer isDeleted = 0;
+
+    public Integer getIsDeleted() {
+        return isDeleted;
+    }
+
+    public void setIsDeleted(Integer isDeleted) {
+        this.isDeleted = isDeleted;
+    }
+
     // ===== Lifecycle Hooks =====
     @PrePersist
     protected void onCreate() {

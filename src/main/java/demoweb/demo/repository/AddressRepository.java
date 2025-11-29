@@ -13,5 +13,7 @@ public interface AddressRepository extends JpaRepository<Address, Integer> {
 
     List<Address> findByCustomer(Customer customer);
 
+    List<Address> findByCustomerAndIsDeleted(Customer customer, Integer isDeleted);
+
     Optional<Address> findByCustomerAndIdAddressDefaultTrue(Customer customer);
 }

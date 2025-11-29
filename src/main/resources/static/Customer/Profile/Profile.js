@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const namePattern = /^[\p{L}\s]{2,50}$/u;
     const phonePattern = /^(0[3|5|7|8|9])[0-9]{8}$/;
     const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    const addressPattern = /^[A-Za-zÀ-ỹà-ỹĐđ0-9\s]{5,100}$/;
+    const addressPattern = /^[A-Za-zÀ-ỹà-ỹĐđ0-9\s,./()-]{5,100}$/;
 
     // 🔹 Hàm hiển thị lỗi
     function showError(element, message) {
@@ -95,15 +95,16 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     updateBtn.addEventListener("click", function (e) {
-        e.preventDefault();
         clearErrors();
         let isValid = true;
 
         if (!validateFullname()) isValid = false;
+
         if (!phoneInput.value.trim() || !phonePattern.test(phoneInput.value.trim())) {
             showError(phoneInput, "Số điện thoại không hợp lệ");
             isValid = false;
         }
+
         if (!emailPattern.test(emailInput.value.trim())) {
             showError(emailInput, "Email không hợp lệ");
             isValid = false;
@@ -115,57 +116,22 @@ document.addEventListener("DOMContentLoaded", function () {
             isValid = false;
         }
 
-        const gender = document.querySelector('input[name="gender"]:checked')?.value || "";
-        const genderDiv = container.querySelector(".gender-container");
+        const gender = document.querySelector('input[name="gender"]:checked');
         if (!gender) {
-            showError(genderDiv, "Vui lòng chọn giới tính");
+            showError(container.querySelector(".gender-container"), "Vui lòng chọn giới tính");
             isValid = false;
-        } else showError(genderDiv, "");
+        }
 
-        if (!isValid) return;
-
-        // ✅ Định dạng tên
-        const name = fullnameInput.value.trim().toLowerCase();
-        fullnameInput.value = name.replace(/(^|\s)\S/g, l => l.toUpperCase());
-
-        console.log("✅ Họ tên sau khi format:", fullnameInput.value);
-
-        // ✅ Hiện xác nhận và gửi fetch
-        if (!confirm("Bạn có chắc muốn cập nhật thông tin không?")) {
+        // ❗ Nếu validation fail → chặn submit
+        if (!isValid) {
+            e.preventDefault();
             return;
         }
 
-        console.log("🔹 Nút 'Cập nhật thông tin' đã được nhấn!");
-
-        const phone = phoneInput.value.trim();
-
-        fetch("/profile/update", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/x-www-form-urlencoded"
-            },
-            body: new URLSearchParams({
-                fullname: fullnameInput.value.trim(),
-                phoneNumber: phone,
-                birthday: birthday,
-                gender: gender
-            })
-        })
-            .then(response => {
-                if (response.ok) {
-                    alert("Thông tin đã được cập nhật thành công!");
-                    console.log("Cập nhật thành công!");
-                } else {
-                    alert("Có lỗi khi cập nhật thông tin!");
-                    console.error("Lỗi phản hồi:", response.status);
-                }
-            })
-            .catch(err => {
-                console.error("Lỗi khi gửi dữ liệu:", err);
-                alert("Có lỗi xảy ra khi gửi dữ liệu!");
-            });
-
+        // ❗ Nếu hợp lệ → form submit bình thường
+        // Không preventDefault() nữa
     });
+
 
     const addAddressBtn = document.getElementById("addAddressBtn");
     const addressContainer = document.getElementById("addressContainer");
@@ -191,49 +157,14 @@ document.addEventListener("DOMContentLoaded", function () {
             <input type="text" name="district[]" placeholder="Quận / Huyện" class="address-input district-input">
             <input type="text" name="street[]" placeholder="Đường / Số nhà" class="address-input street-input">
 
-<<<<<<< HEAD
-                <select name="city[]" class="address-select city-select">
-                    <option value="">-- Tỉnh / Thành phố --</option>
-                    <option value="Hà Nội">Hà Nội</option>
-                    <option value="Hồ Chí Minh">Hồ Chí Minh</option>
-                    <option value="Đà Nẵng">Đà Nẵng</option>
-                    <option value="Hải Phòng">Hải Phòng</option>
-                    <option value="Cần Thơ">Cần Thơ</option>
-                </select>
+            <input type="hidden" name="addressId[]" value="0">
+            <input type="hidden" name="isDefault[]" value="0">
+            <input type="hidden" name="isDeleted[]" value="0">
 
-                <select name="district[]" class="address-select district-select">
-                    <option value="">-- Quận / Huyện --</option>
-                </select>
-
-                <input type="text" name="street[]" placeholder="Nhập đường / số nhà..." class="address-input street-input">
-
-                <button type="button" class="btn-remove">–</button>
-            `;
-
-            const removeBtn = newRow.querySelector(".btn-remove");
-            const citySelect = newRow.querySelector(".city-select");
-            const districtSelect = newRow.querySelector(".district-select");
-            const streetInput = newRow.querySelector(".street-input");
-
-
-            // 🔹 Xóa dòng
-            removeBtn.addEventListener("click", function () {
-                const totalRows = addressContainer.querySelectorAll(".address-row").length;
-                if (totalRows === 1) {
-                    alert("⚠️ Phải có ít nhất một địa chỉ, không thể xóa dòng cuối cùng!");
-                    return;
-                }
-                if (confirm("Bạn có chắc muốn xóa địa chỉ này không?")) {
-                    newRow.remove();
-                    reindexAddresses();
-                }
-            });
-=======
             <button type="button" class="btn-remove">–</button>
             <button type="button" class="btn-default-address" style="display:none;">Địa chỉ mặc định</button>
             <button type="button" class="btn-default">Đặt làm mặc định</button>
         `;
->>>>>>> b28c350625f907bcc541afb5d18ed85f8ab2e6ec
 
             attachRowEvents(newRow);
             return newRow;
@@ -248,30 +179,55 @@ document.addEventListener("DOMContentLoaded", function () {
             // ❌ Xóa dòng địa chỉ
             removeBtn.addEventListener("click", function () {
                 const totalRows = addressContainer.querySelectorAll(".address-row").length;
+
+                // Không cho xóa nếu chỉ còn 1
                 if (totalRows === 1) {
                     alert("⚠️ Phải có ít nhất một địa chỉ, không thể xóa dòng cuối cùng!");
                     return;
                 }
+
+                // Không cho xóa nếu là địa chỉ mặc định hiện tại
+                const isDefault = row.querySelector('input[name="isDefault[]"]').value;
+                if (isDefault === "1") {
+                    alert("⚠️ Không thể xóa địa chỉ mặc định! Hãy đặt địa chỉ khác làm mặc định trước.");
+                    return;
+                }
+
+                // Xác nhận xóa
                 if (confirm("Bạn có chắc muốn xóa địa chỉ này không?")) {
-                    row.remove();
+
+                    // Xóa mềm
+                    row.querySelector('input[name="isDeleted[]"]').value = "1";
+
+                    // Ẩn khỏi FE
+                    row.style.display = "none";
+
+                    // Cập nhật số thứ tự
                     reindexAddresses();
                 }
             });
 
+
+
             // ⭐ Đặt làm mặc định
             defaultBtn.addEventListener("click", function () {
-                // Reset tất cả dòng khác
+                // Reset tất cả
                 addressContainer.querySelectorAll(".address-row").forEach(r => {
-                    r.classList.remove("default"); // bỏ highlight
+                    r.classList.remove("default");
                     r.querySelector(".btn-default-address").style.display = "none";
                     r.querySelector(".btn-default").style.display = "inline-flex";
+                    r.querySelector('input[name="isDefault[]"]').value = "0"; // reset
                 });
 
-                // Đặt dòng hiện tại làm mặc định
+                // Set default cho dòng hiện tại
                 row.classList.add("default");
                 defaultBtn.style.display = "none";
                 defaultLabel.style.display = "inline-flex";
+
+                // Set isDefault = 1 cho dòng này
+                row.querySelector('input[name="isDefault[]"]').value = "1";
             });
+
         }
 
         // 🔹 Nút thêm địa chỉ
@@ -292,26 +248,5 @@ document.addEventListener("DOMContentLoaded", function () {
         // 🔹 Gắn event cho các dòng có sẵn (nếu có)
         addressContainer.querySelectorAll(".address-row").forEach(row => attachRowEvents(row));
     }
-
-    fetch('/profile')
-        .then(res => {
-            if (!res.ok) throw new Error("API Profile lỗi hoặc không kết nối được!");
-            return res.json();
-        })
-        .then(data => {
-            if (!data || !data.addresses) {
-                throw new Error("Profile không chứa thông tin địa chỉ!");
-            }
-
-            if (!Array.isArray(data.addresses)) {
-                throw new Error("Dữ liệu address trong profile không phải danh sách!");
-            }
-
-            loadAddressFromDB(data.addresses);
-        })
-        .catch(err => {
-            alert("Lỗi khi tải dữ liệu: " + err.message);
-            console.error(err);
-        });
 
 });

@@ -177,18 +177,61 @@
                 </div>
 
                 <div id="addressContainer">
-                    <div class="address-row default">
-                        <span class="address-label">Địa chỉ 1</span>
 
-                        <input type="text" name="city[]" placeholder="Tỉnh / Thành phố" class="address-input city-input">
-                        <input type="text" name="district[]" placeholder="Quận / Huyện" class="address-input district-input">
-                        <input type="text" name="street[]" placeholder="Đường / Số nhà..." class="address-input street-input">
+                    <!-- Lặp qua danh sách địa chỉ từ DB -->
+                    <div class="address-row"
+                         th:each="addr, iter : ${addresses}"
+                         th:classappend="${addr.idAddressDefault} ? ' default' : ''">
 
+                        <span class="address-label">Địa chỉ [[${iter.index + 1}]]</span>
+
+                        <!-- City -->
+                        <input type="text"
+                               name="city[]"
+                               class="address-input city-input"
+                               th:value="${addr.city}"
+                               placeholder="Tỉnh / Thành phố">
+
+                        <!-- District -->
+                        <input type="text"
+                               name="district[]"
+                               class="address-input district-input"
+                               th:value="${addr.district}"
+                               placeholder="Quận / Huyện">
+
+                        <!-- Street -->
+                        <input type="text"
+                               name="street[]"
+                               class="address-input street-input"
+                               th:value="${addr.street}"
+                               placeholder="Đường / Số nhà...">
+
+                        <!-- Hidden inputs -->
+                        <input type="hidden" name="addressId[]" th:value="${addr.addressId}">
+                        <input type="hidden" name="isDefault[]" th:value="${addr.idAddressDefault ? 1 : 0}">
+                        <input type="hidden" name="isDeleted[]" th:value="${addr.isDeleted != null ? addr.isDeleted : 0}">
+
+                        <!-- Nút xóa -->
                         <button type="button" class="btn-remove">–</button>
-                        <button type="button" class="btn-default-address" style="display:inline-flex;">Địa chỉ mặc định</button>
-                        <button type="button" class="btn-default" style="display:none;">Đặt làm mặc định</button>
+
+                        <!-- Nhãn mặc định -->
+                        <button type="button"
+                                class="btn-default-address"
+                                th:style="${addr.idAddressDefault} ? 'display:inline-flex;' : 'display:none;'">
+                            Địa chỉ mặc định
+                        </button>
+
+                        <!-- Nút đặt mặc định -->
+                        <button type="button"
+                                class="btn-default"
+                                th:style="${addr.idAddressDefault} ? 'display:none;' : 'display:inline-flex;'">
+                            Đặt làm mặc định
+                        </button>
                     </div>
+
+
                 </div>
+
 
 
             </div>
