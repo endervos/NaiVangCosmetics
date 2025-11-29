@@ -244,27 +244,31 @@
             <div class="info-item">🔄 <span>Đổi trả trong 15 ngày nếu sản phẩm lỗi</span></div>
             <div class="info-item">🎁 <span>Giảm 10% tối đa 30K cho khách hàng lần đầu mua hàng</span></div>
         </div>
-
-        <!-- Số lượng -->
-        <div class="quantity-box">
-            <label for="quantity">Số lượng:</label>
-            <input type="number" id="quantity" name="quantity" value="1" min="1">
-
-            <!--
-            <span class="stock-status"
-                  th:text="${item.stock > 0 ? 'Còn hàng' : 'Hết hàng'}">Còn hàng</span>
-            👆 Field 'stock' chưa có trong entity Item.
-            -->
-            <span class="stock-status">Còn hàng</span> <!-- tạm fix cứng -->
-        </div>
-
         <!-- Nút hành động -->
         <form th:action="@{/cart/add}" method="post">
             <input type="hidden" name="itemId" th:value="${item.itemId}" />
+            <!-- Số lượng -->
             <div class="quantity-box">
                 <label for="quantity">Số lượng:</label>
-                <input type="number" id="quantity" name="quantity" value="1" min="1">
+
+                <div class="qty-control">
+                    <button type="button" id="qtyMinus" class="qty-btn">−</button>
+
+                    <input type="number"
+                           id="quantity"
+                           name="quantity"
+                           value="1">
+
+                    <button type="button" id="qtyPlus" class="qty-btn">+</button>
+                </div>
+                <!-- Hiển thị tồn kho -->
+                <span class="stock-status"
+                      th:attr="data-stock=${stock != null ? stock : 0}"
+                      th:text="${stock != null && stock > 0 ? 'Còn ' + stock + ' sản phẩm' : 'Hết hàng'}">
+</span>
+
             </div>
+
             <div class="action-buttons">
                 <button type="submit" class="add-cart">Thêm vào giỏ hàng</button>
                 <button type="button" class="buy-now" onclick="window.location.href='/cart'">Mua ngay</button>
@@ -408,7 +412,7 @@
     </div>
 </footer>
 
-<script th:src="@{/Customer/ItemDetail/Item.js}"></script>
+<script th:src="@{/Customer/ItemDetail/ItemDetail.js}"></script>
+
 </body>
 </html>
-

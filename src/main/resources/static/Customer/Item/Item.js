@@ -1,5 +1,7 @@
 
 //Nút đăng nhập
+console.log(">>> JS LOADED <<<");
+
 document.addEventListener("DOMContentLoaded", () => {
   const loginBtn = document.getElementById("loginBtn");
   if (loginBtn) {

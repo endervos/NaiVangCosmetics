@@ -114,6 +114,8 @@ public class ProfileController {
             addr.setStreet(streets[i]);
             addr.setIdAddressDefault("1".equals(isDefault[i]));
             addr.setIsDeleted("1".equals(isDeleted[i]) ? 1 : 0);
+            addr.setPhoneNumber(customer.getUser().getPhoneNumber());
+
 
             addressRepository.save(addr);
         }

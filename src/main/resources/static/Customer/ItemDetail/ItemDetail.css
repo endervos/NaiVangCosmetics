@@ -1001,3 +1001,74 @@
   color: #777;
   border-top: 1px solid #eee;
 }
+
+/* Tắt nút tăng/giảm mặc định của input number */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type=number] {
+    -moz-appearance: textfield; /* Firefox */
+}
+
+/* ====== QUANTITY BUTTONS (FIXED) ====== */
+.qty-control {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    height: 38px;
+    overflow: visible; /* tránh cắt khi nút active */
+}
+
+/* Nút + / - */
+.qty-btn {
+    width: 36px;
+    height: 100%;
+    border: none;
+    background: #f7f7f7;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s ease; /* bỏ transform để không lỗi hitbox */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.qty-btn:hover {
+    background: #ffe9d9;
+}
+
+.qty-btn:active {
+    background: #ffcead;
+}
+
+/* Input số lượng */
+#quantity {
+    width: 55px;
+    text-align: center;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+/* Khi disable */
+.qty-btn:disabled,
+#quantity:disabled {
+    background: #f1f1f1;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+/* Class khóa hoàn toàn */
+.qty-disabled {
+    pointer-events: none !important;
+    opacity: 0.6 !important;
+    background: #f5f5f5 !important;
+    color: #999 !important;
+}

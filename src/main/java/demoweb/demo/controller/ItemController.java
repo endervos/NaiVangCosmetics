@@ -1,6 +1,7 @@
 package demoweb.demo.controller;
 
 import demoweb.demo.entity.*;
+import demoweb.demo.repository.InventoryRepository;
 import demoweb.demo.repository.ItemRepository;
 import demoweb.demo.service.CategoryService;
 import demoweb.demo.service.ItemImageService;
@@ -33,11 +34,15 @@ public class ItemController {
     private ItemImageService itemImageService;
 
     @Autowired
+    private InventoryRepository inventoryRepository;
+
+    @Autowired
     public ItemController(ItemService itemService, CategoryService categoryService, ReviewService reviewService) {
         this.itemService = itemService;
         this.categoryService = categoryService;
         this.reviewService = reviewService;
     }
+
 
     @GetMapping
     public String showItemPage(Model model) {
@@ -51,6 +56,13 @@ public class ItemController {
     public String getItemById(@PathVariable("id") Integer id, Model model) {
         return itemService.getItemById(id)
                 .map(item -> {
+                    // Lấy số lượng tồn kho từ bảng Inventory
+                    Integer stock = inventoryRepository.findById(id)
+                            .map(Inventory::getQuantity)
+                            .orElse(0);
+                    model.addAttribute("stock", stock);
+
+
                     List<Review> reviews = reviewService.getByItemId(id);
                     for (Review review : reviews) {
                         if (review.getCustomer() == null) {

@@ -132,5 +132,63 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
+document.addEventListener("DOMContentLoaded", () => {
+    const stockEl   = document.querySelector(".stock-status");
+    const qtyInput  = document.getElementById("quantity");
+    const minusBtn  = document.getElementById("qtyMinus");
+    const plusBtn   = document.getElementById("qtyPlus");
+    const addBtn    = document.querySelector(".add-cart");
+    const buyBtn    = document.querySelector(".buy-now");
 
+    if (!stockEl || !qtyInput) return;
 
+    const stock = Number.parseInt(stockEl.dataset.stock, 10);
+
+    if (Number.isNaN(stock)) {
+        console.warn("data-stock không hợp lệ!", stockEl.dataset.stock);
+        return;
+    }
+
+    if (stock <= 0) {
+        stockEl.textContent = "Hết hàng";
+
+        qtyInput.value = 0;
+        qtyInput.disabled = true;
+
+        minusBtn.disabled = true;
+        plusBtn.disabled  = true;
+
+        addBtn.disabled  = true;
+        buyBtn.disabled  = true;
+        return;
+    }
+
+    stockEl.textContent = `Còn ${stock} sản phẩm`;
+
+    qtyInput.disabled = false;
+    qtyInput.value = 1;
+    qtyInput.min = 1;
+    qtyInput.max = stock;
+
+    minusBtn.disabled = false;
+    plusBtn.disabled = false;
+
+    minusBtn.addEventListener("click", () => {
+        let val = Number(qtyInput.value);
+        if (val > 1) qtyInput.value = val - 1;
+    });
+
+    plusBtn.addEventListener("click", () => {
+        let val = Number(qtyInput.value);
+        if (val < stock) qtyInput.value = val + 1;
+    });
+
+    qtyInput.addEventListener("input", () => {
+        let val = Number(qtyInput.value);
+
+        if (Number.isNaN(val) || val < 1) val = 1;
+        if (val > stock) val = stock;
+
+        qtyInput.value = val;
+    });
+});
