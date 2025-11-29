@@ -70,141 +70,42 @@
     </div>
 </div>
 
+<!-- Menu -->
 <div class="menu-bar">
     <div class="container menu-inner">
 
-        <!-- Danh Mục Sản Phẩm -->
         <div class="dropdown">
             <a href="#">☰ DANH MỤC SẢN PHẨM</a>
             <ul class="dropdown-content">
-                <li class="has-submenu">
-                    <a href="#">
-                        <img class="menu-icon" th:src="@{/Customer/Home/Skincare.png}" alt="Chăm sóc da mặt" >Chăm sóc da mặt </a>
-                    <ul class="submenu">
-                        <li><a href="#">Tẩy Trang<span class="count">6</span></a></li>
-                        <li><a href="#">Sữa Rửa Mặt<span class="count">15</span></a></li>
-                        <li><a href="#">Tẩy Tế Bào Chết<span class="count">5</span></a></li>
-                        <li><a href="#">Kem dưỡng/Gel dưỡng<span class="count">8</span></a></li>
-                        <li><a href="#">Toner / Lotion<span class="count">10</span></a></li>
-                        <li><a href="#">Serum / Essence<span class="count">9</span></a></li>
-                        <li><a href="#">Son Dưỡng<span class="count">7</span></a></li>
-                        <li><a href="#">Chống Nắng<span class="count">15</span></a></li>
-                        <li><a href="#">Xịt khoáng<span class="count">11</span></a></li>
-                    </ul>
-                </li>
-
-                <!--Trang điểm-->
-                <li class="has-submenu">
-                    <a href="#">
-                        <img class="menu-icon" th:src="@{/Customer/Home/Makeup.png}" alt="Trang điểm" >Trang điểm </a>
-                    <ul class="submenu">
-                        <li><a href="#">Kem Lót<span class="count">5</span></a></li>
-                        <li><a href="#">Che Khuyết Điểm<span class="count">10</span></a></li>
-                        <li><a href="#">Highlight<span class="count">6</span></a></li>
-                        <li><a href="#">Masccara<span class="count">8</span></a></li>
-                        <li><a href="#">Son Môi<span class="count">9</span></a></li>
-                        <li><a href="#">Kem Nền<span class="count">11</span></a></li>
-                        <li><a href="#">Son Dưỡng<span class="count">7</span></a></li>
-                        <li><a href="#">Phấn Phủ<span class="count">8</span></a></li>
-                        <li><a href="#">Xịt Khoá Nền<span class="count">11</span></a></li>
-                    </ul>
-                </li>
-
-                <!--Chăm sóc cơ thể-->
-                <li class="has-submenu">
-                    <a href="#">
-                        <img class="menu-icon" th:src="@{/Customer/Home/Bodycare.png}" alt="Chăm sóc cơ thể" >Chăm sóc cơ thể </a>
-                    <ul class="submenu">
-                        <li><a href="#">Sữa Tắm<span class="count">16</span></a></li>
-                        <li><a href="#">Dưỡng Thể<span class="count">10</span></a></li>
-                        <li><a href="#">Tẩy Tế Bào Chết Body<span class="count">12</span></a></li>
-                        <li><a href="#">Chăm Sóc Răng Miệng<span class="count">13</span></a></li>
-                        <li><a href="#">Xịt Khử Mùi<span class="count">6</span></a></li>
-                        <li><a href="#">Kem Dưỡng Da Tay<span class="count">9</span></a></li>
-                        <li><a href="#">Giảm Mụn Lưng<span class="count">10</span></a></li>
-                    </ul>
-                </li>
-
-                <!--Chăm sóc tóc-->
-                <li class="has-submenu">
-                    <a href="#">
-                        <img class="menu-icon" th:src="@{/Customer/Home/Haircare.png}" alt="Chăm sóc tóc" >Chăm sóc tóc </a>
-                    <ul class="submenu">
-                        <li><a href="#">Dầu Gội<span class="count">16</span></a></li>
-                        <li><a href="#">Dầu Xả<span class="count">10</span></a></li>
-                        <li><a href="#">Ủ Tóc<span class="count">6</span></a></li>
-                        <li><a href="#">Tinh Chất Dưỡng Tóc<span class="count">8</span></a></li>
-                        <li><a href="#">Tẩy Tế Bào Chết Da Đầu<span class="count">5</span></a></li>
-                    </ul>
-                </li>
-                <!--Dược mỹ phẩm -->
-                <li class="has-submenu">
-                    <a href="#">
-                        <img class="menu-icon" th:src="@{/Customer/Home/Cosmeceuticals.png}" alt="Dược mỹ phẩm">Dược mỹ phẩm
+                <li class="has-submenu" th:each="cat : ${rootCategories}">
+                    <a th:href="@{/category/{id}/item(id=${cat.categoryId})}">
+                        <img class="menu-icon"
+                             th:src="@{/Customer/Home/{icon}(icon=${cat.slug + '.png'})}"
+                             th:alt="${cat.name}" />
+                        <span th:text="${cat.name}"></span>
                     </a>
-                    <ul class="submenu">
-                        <li><a href="#">Sản phẩm trị mụn <span class="count">11</span></a></li>
-                        <li><a href="#">Chống lão hóa <span class="count">6</span></a></li>
-                        <li><a href="#">Làm sáng da <span class="count">9</span></a></li>
-                        <li><a href="#">Phục hồi da sau điều trị <span class="count">4</span></a></li>
-                        <li><a href="#">Sản phẩm đặc trị <span class="count">8</span></a></li>
-                        <li><a href="#">Sản phẩm mờ thâm mụn  <span class="count">4</span></a></li>
-                        <li><a href="#">Sữa rửa mặt hỗ trợ trị mụn <span class="count">8</span></a></li>
-                    </ul>
-                </li>
-                <!-- Thực phẩm chức năng -->
-                <li class="has-submenu">
-                    <a href="#">
-                        <img class="menu-icon" th:src="@{/Customer/Home/Health-supplements.png}" alt="Thực phẩm chức năng">
-                        Thực phẩm chức năng
-                    </a>
-                    <ul class="submenu">
-                        <li><a href="#">Vitamin & Khoáng chất <span class="count">18</span></a></li>
-                        <li><a href="#">Thực phẩm bổ sung Collagen <span class="count">9</span></a></li>
-                        <li><a href="#">Tăng cường đề kháng <span class="count">12</span></a></li>
-                        <li><a href="#">Thực phẩm hỗ trợ tiêu hóa <span class="count">7</span></a></li>
-                        <li><a href="#">Hỗ trợ xương khớp <span class="count">10</span></a></li>
-                        <li><a href="#">Giảm cân & Detox <span class="count">8</span></a></li>
-                        <li><a href="#">Sản phẩm cho trẻ em <span class="count">6</span></a></li>
-                        <li><a href="#">Sản phẩm cho người lớn tuổi <span class="count">5</span></a></li>
-                    </ul>
-                </li>
-                <!-- Best Seller -->
-                <li class="has-submenu">
-                    <a href="#">
-                        <img class="menu-icon" th:src="@{/Customer/Home/Best-seller.png}" alt="Best Seller">
-                        BEST SELLER
-                    </a>
-                    <ul class="submenu">
-                        <li><a href="#">Top Skincare bán chạy <span class="count">12</span></a></li>
-                        <li><a href="#">Top Makeup bán chạy <span class="count">9</span></a></li>
-                        <li><a href="#">Top Bodycare bán chạy <span class="count">7</span></a></li>
-                        <li><a href="#">Top Haircare bán chạy <span class="count">5</span></a></li>
-                        <li><a href="#">Top Thực phẩm chức năng <span class="count">6</span></a></li>
-                        <li><a href="#">Top Dược mỹ phẩm <span class="count">4</span></a></li>
-                        <li><a href="#">Top Nước hoa bán chạy <span class="count">8</span></a></li>
-                        <li><a href="#">Top Phụ kiện làm đẹp <span class="count">10</span></a></li>
-                        <li><a href="#">Top Chăm sóc răng miệng <span class="count">3</span></a></li>
-                        <li><a href="#">Top Sản phẩm organic <span class="count">6</span></a></li>
+                    <ul class="submenu" th:if="${#lists.size(cat.children) > 0}">
+                        <li th:each="sub : ${cat.children}">
+                            <a th:href="@{/category/{id}/item(id=${sub.categoryId})}">
+                                <span th:text="${sub.name}"></span>
+                                <span class="count" th:text="${#lists.size(sub.items)}"></span>
+                            </a>
+                        </li>
                     </ul>
                 </li>
             </ul>
         </div>
 
-        <a href="#">SẢN PHẨM MỚI</a>
+        <!--        &lt;!&ndash; Sản Phẩm Mới &ndash;&gt;-->
+        <!--        <a href="#">SẢN PHẨM MỚI</a>-->
 
-        <!-- Lam Thảo Beauty -->
+
         <div class="dropdown">
-            <a href="#">NAI VANG BEAUTY</a>
-            <ul class="dropdown-content">
-                <li><a href="#">Thương hiệu A</a></li>
-                <li><a href="#">Thương hiệu B</a></li>
-                <li><a href="#">Thương hiệu C</a></li>
-            </ul>
+            <a href="#"> NAI VANG BEAUTY</a>
         </div>
 
         <!-- Deal hot -->
-        <a href="#">💖 DEAL HOT DƯỚI 100K 💖</a>
+        <!--        <a href="#">💖 DEAL HOT DƯỚI 100K 💖</a>-->
 
         <!-- Tin tức -->
         <div class="dropdown">
@@ -215,7 +116,6 @@
         <a href="#">TRA CỨU ĐƠN HÀNG</a>
     </div>
 </div>
-
 <div class="checkout-container">
     <!-- Modal quản lý địa chỉ -->
     <div class="modal" id="address-modal">

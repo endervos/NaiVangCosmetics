@@ -78,32 +78,51 @@
 </header>
 
 <!-- Menu -->
-<nav class="menu-bar">
+<div class="menu-bar">
     <div class="container menu-inner">
+
         <div class="dropdown">
             <a href="#">☰ DANH MỤC SẢN PHẨM</a>
             <ul class="dropdown-content">
-                <li><a href="#">Chăm sóc da mặt</a></li>
-                <li><a href="#">Trang điểm</a></li>
-                <li><a href="#">Chăm sóc cơ thể</a></li>
-                <li><a href="#">Chăm sóc tóc</a></li>
-                <li><a href="#">Dược mỹ phẩm</a></li>
-                <li><a href="#">Thực phẩm chức năng</a></li>
+                <li class="has-submenu" th:each="cat : ${rootCategories}">
+                    <a th:href="@{/category/{id}/item(id=${cat.categoryId})}">
+                        <img class="menu-icon"
+                             th:src="@{/Customer/Home/{icon}(icon=${cat.slug + '.png'})}"
+                             th:alt="${cat.name}" />
+                        <span th:text="${cat.name}"></span>
+                    </a>
+                    <ul class="submenu" th:if="${#lists.size(cat.children) > 0}">
+                        <li th:each="sub : ${cat.children}">
+                            <a th:href="@{/category/{id}/item(id=${sub.categoryId})}">
+                                <span th:text="${sub.name}"></span>
+                                <span class="count" th:text="${#lists.size(sub.items)}"></span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
             </ul>
         </div>
-        <a href="#">SẢN PHẨM MỚI</a>
+
+        <!--        &lt;!&ndash; Sản Phẩm Mới &ndash;&gt;-->
+        <!--        <a href="#">SẢN PHẨM MỚI</a>-->
+
+
         <div class="dropdown">
-            <a href="#">NAI VANG BEAUTY</a>
-            <ul class="dropdown-content">
-                <li><a href="#">Thương hiệu A</a></li>
-                <li><a href="#">Thương hiệu B</a></li>
-            </ul>
+            <a href="#"> NAI VANG BEAUTY</a>
         </div>
-        <a href="#">💖 DEAL HOT DƯỚI 100K 💖</a>
-        <a th:href="@{/blog}">TIN TỨC</a>
-        <a th:href="@{/order/track}">TRA CỨU ĐƠN HÀNG</a>
+
+        <!-- Deal hot -->
+        <!--        <a href="#">💖 DEAL HOT DƯỚI 100K 💖</a>-->
+
+        <!-- Tin tức -->
+        <div class="dropdown">
+            <a href="/blog">TIN TỨC</a>
+        </div>
+
+        <!-- Tra cứu đơn -->
+        <a href="#">TRA CỨU ĐƠN HÀNG</a>
     </div>
-</nav>
+</div>
 
 <!-- Nội dung chính -->
 <main class="order-container">

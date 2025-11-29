@@ -77,11 +77,12 @@
         </div>
 
 <!-- Menu -->
-    <div class="menu-bar">
-        <div class="container menu-inner">
-            <div class="dropdown">
-                <a href="#">☰ DANH MỤC SẢN PHẨM</a>
-                <ul class="dropdown-content">
+<div class="menu-bar">
+    <div class="container menu-inner">
+
+        <div class="dropdown">
+            <a href="#">☰ DANH MỤC SẢN PHẨM</a>
+            <ul class="dropdown-content">
                 <li class="has-submenu" th:each="cat : ${rootCategories}">
                     <a th:href="@{/category/{id}/item(id=${cat.categoryId})}">
                         <img class="menu-icon"
@@ -96,27 +97,31 @@
                                 <span class="count" th:text="${#lists.size(sub.items)}"></span>
                             </a>
                         </li>
-                      </ul>
-                    </li>
-                 </ul>
-            </div>
-
-        <a href="#">SẢN PHẨM MỚI</a>
-        <div class="dropdown">
-            <a href="#">NAI VANG BEAUTY</a>
-            <ul class="dropdown-content">
-                <li><a href="#">Thương hiệu A</a></li>
-                <li><a href="#">Thương hiệu B</a></li>
-                <li><a href="#">Thương hiệu C</a></li>
+                    </ul>
+                </li>
             </ul>
         </div>
-        <a href="#">💖 DEAL HOT DƯỚI 100K 💖</a>
+
+        <!--        &lt;!&ndash; Sản Phẩm Mới &ndash;&gt;-->
+        <!--        <a href="#">SẢN PHẨM MỚI</a>-->
+
+
+        <div class="dropdown">
+            <a href="#"> NAI VANG BEAUTY</a>
+        </div>
+
+        <!-- Deal hot -->
+        <!--        <a href="#">💖 DEAL HOT DƯỚI 100K 💖</a>-->
+
+        <!-- Tin tức -->
         <div class="dropdown">
             <a href="/blog">TIN TỨC</a>
         </div>
+
+        <!-- Tra cứu đơn -->
         <a href="#">TRA CỨU ĐƠN HÀNG</a>
     </div>
-    </div>
+</div>
 
 <!-- Breadcrumb -->
 <nav class="breadcrumb">
