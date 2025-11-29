@@ -129,10 +129,7 @@
         <img th:src="@{/Customer/Item/Image/Home_icon.png}" alt="Home" class="breadcrumb-icon">
         Trang chủ
     </a>
-    <span>&gt;</span>
-    <a th:href="@{/danh-muc}">Danh mục</a>
-    <span>&gt;</span>
-    <span class="current" th:text="${category.name}"></span>
+
 
     <!-- Nếu đang lọc theo khoảng giá thì hiển thị thêm -->
     <span th:if="${selectedRange != null}">
