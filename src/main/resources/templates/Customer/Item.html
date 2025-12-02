@@ -6,24 +6,19 @@
     <title>Nai Vang Cosmetic</title>
     <link rel="icon" type="image/png" th:src="@{/Customer/Item/Image/LogoConNai.png}">
     <link rel="stylesheet" th:href="@{/Customer/Item/Item.css}">
-    <!-- Slick CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-    <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <!-- Slick JS -->
     <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 </head>
 <body>
-<!-- Banner GIF full màn hình -->
     <div class="promo-banner">
         <img th:src="@{/Customer/Item/Image/Example.gif}" alt="Promotion Nai Vang">
     </div>
 
-    <!-- Header -->
     <div class="header">
         <div class="container header-inner">
         <a th:href="@{/}">
@@ -43,7 +38,6 @@
             </div>
         </div>
 
-        <!-- Icons (User + Cart) -->
         <div class="header-icons">
             <!-- User Section -->
             <div class="user-section">
@@ -102,28 +96,18 @@
             </ul>
         </div>
 
-        <!--        &lt;!&ndash; Sản Phẩm Mới &ndash;&gt;-->
-        <!--        <a href="#">SẢN PHẨM MỚI</a>-->
-
 
         <div class="dropdown">
             <a href="#"> NAI VANG BEAUTY</a>
         </div>
-
-        <!-- Deal hot -->
-        <!--        <a href="#">💖 DEAL HOT DƯỚI 100K 💖</a>-->
-
-        <!-- Tin tức -->
         <div class="dropdown">
             <a href="/blog">TIN TỨC</a>
         </div>
 
-        <!-- Tra cứu đơn -->
-        <a href="#">TRA CỨU ĐƠN HÀNG</a>
+       <a href="#">TRA CỨU ĐƠN HÀNG</a>
     </div>
 </div>
 
-<!-- Breadcrumb -->
 <nav class="breadcrumb">
     <a th:href="@{/}">
         <img th:src="@{/Customer/Item/Image/Home_icon.png}" alt="Home" class="breadcrumb-icon">
@@ -131,7 +115,6 @@
     </a>
 
 
-    <!-- Nếu đang lọc theo khoảng giá thì hiển thị thêm -->
     <span th:if="${selectedRange != null}">
         <span>&gt;</span>
         <span class="current" th:switch="${selectedRange}">
@@ -143,7 +126,6 @@
 </nav>
 
 
-<!-- Banner -->
 <div class="banner">
     <a href="#">
         <img th:src="@{/Customer/Item/Image/Collection_banner.jpg}" alt="Web Sale Banner">
@@ -192,7 +174,6 @@
         </span>
             </a>
 
-            <!-- Submenu khoảng giá -->
             <ul>
                 <li th:classappend="${selectedRange == '0-500'} ? 'active-sub'">
                     <a th:href="@{|/item/filter?categoryId=${category.categoryId}&range=0-500|}">
