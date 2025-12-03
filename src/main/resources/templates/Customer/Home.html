@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    <script th:src="@{/Customer/Home/session.js}"></script>
 </head>
 <body>
 
@@ -326,7 +327,11 @@
         <p>© 2025 Nai Vang. All rights reserved.</p>
     </div>
 </footer>
-
 <script th:src="@{/Customer/Home/Home.js}"></script>
+<script sec:authorize="isAuthenticated()">
+    if (window.sessionManager) {
+        console.log('User authenticated - session monitoring active');
+    }
+</script>
 </body>
 </html>

@@ -16,7 +16,6 @@ public class LoginResponse {
         this.redirectUrl = redirectUrl;
     }
 
-    // Getter và Setter
     public boolean isSuccess() {
         return success;
     }

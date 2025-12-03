@@ -21,6 +21,9 @@ public class JwtTokenUtil {
     @Value("${jwt.expiration:86400000}")
     private Long expiration;
 
+    @Value("${jwt.inactivity.timeout:600000}")
+    private Long inactivityTimeout;
+
     private Key getSigningKey() {
         return Keys.hmacShaKeyFor(secret.getBytes());
     }
@@ -28,6 +31,7 @@ public class JwtTokenUtil {
     public String generateToken(UserDetails userDetails, String role) {
         Map<String, Object> claims = new HashMap<>();
         claims.put("role", role);
+        claims.put("lastActivity", System.currentTimeMillis());
         return createToken(claims, userDetails.getUsername());
     }
 
@@ -44,12 +48,26 @@ public class JwtTokenUtil {
                 .compact();
     }
 
+    public String refreshToken(String token) {
+        Claims claims = extractAllClaims(token);
+        claims.put("lastActivity", System.currentTimeMillis());
+        return createToken(new HashMap<>(claims), claims.getSubject());
+    }
+
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
     }
 
     public String extractRole(String token) {
         return extractAllClaims(token).get("role", String.class);
+    }
+
+    public Long extractLastActivity(String token) {
+        Object lastActivity = extractAllClaims(token).get("lastActivity");
+        if (lastActivity instanceof Integer) {
+            return ((Integer) lastActivity).longValue();
+        }
+        return (Long) lastActivity;
     }
 
     public Date extractExpiration(String token) {
@@ -73,8 +91,16 @@ public class JwtTokenUtil {
         return extractExpiration(token).before(new Date());
     }
 
+    public Boolean isInactive(String token) {
+        Long lastActivity = extractLastActivity(token);
+        long currentTime = System.currentTimeMillis();
+        return (currentTime - lastActivity) > inactivityTimeout;
+    }
+
     public Boolean validateToken(String token, UserDetails userDetails) {
         final String username = extractUsername(token);
-        return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
+        return (username.equals(userDetails.getUsername())
+                && !isTokenExpired(token)
+                && !isInactive(token));
     }
 }

@@ -28,17 +28,22 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
-
         String token = extractTokenFromCookie(request);
-
+        boolean sessionExpired = false;
         if (token != null) {
             try {
                 String username = jwtTokenUtil.extractUsername(token);
-
                 if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
                     UserDetails userDetails = accountService.loadUserByUsername(username);
-
-                    if (jwtTokenUtil.validateToken(token, userDetails)) {
+                    if (jwtTokenUtil.isInactive(token)) {
+                        logger.warn("Token inactive for user: " + username);
+                        clearAuthCookies(response);
+                        sessionExpired = true;
+                        response.setHeader("X-Session-Expired", "true");
+                        response.setHeader("X-Session-Reason", "inactivity");
+                    } else if (jwtTokenUtil.validateToken(token, userDetails)) {
+                        String newToken = jwtTokenUtil.refreshToken(token);
+                        updateAuthCookies(response, newToken);
                         UsernamePasswordAuthenticationToken authentication =
                                 new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                         authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
@@ -47,9 +52,16 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 }
             } catch (Exception e) {
                 logger.error("Cannot set user authentication: " + e.getMessage());
+                clearAuthCookies(response);
+                sessionExpired = true;
+                response.setHeader("X-Session-Expired", "true");
+                response.setHeader("X-Session-Reason", "error");
             }
         }
-
+        if (sessionExpired && "HEAD".equalsIgnoreCase(request.getMethod())) {
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            return;
+        }
         filterChain.doFilter(request, response);
     }
 
@@ -62,5 +74,33 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             }
         }
         return null;
+    }
+
+    private void updateAuthCookies(HttpServletResponse response, String token) {
+        Cookie jwtCookie = new Cookie("JWT_TOKEN", token);
+        jwtCookie.setHttpOnly(true);
+        jwtCookie.setSecure(false);
+        jwtCookie.setPath("/");
+        jwtCookie.setMaxAge(24 * 60 * 60);
+        response.addCookie(jwtCookie);
+        Cookie sessionCookie = new Cookie("SESSION_ACTIVE", "true");
+        sessionCookie.setHttpOnly(false);
+        sessionCookie.setSecure(false);
+        sessionCookie.setPath("/");
+        sessionCookie.setMaxAge(24 * 60 * 60);
+        response.addCookie(sessionCookie);
+    }
+
+    private void clearAuthCookies(HttpServletResponse response) {
+        Cookie jwtCookie = new Cookie("JWT_TOKEN", null);
+        jwtCookie.setHttpOnly(true);
+        jwtCookie.setPath("/");
+        jwtCookie.setMaxAge(0);
+        response.addCookie(jwtCookie);
+        Cookie sessionCookie = new Cookie("SESSION_ACTIVE", null);
+        sessionCookie.setHttpOnly(false);
+        sessionCookie.setPath("/");
+        sessionCookie.setMaxAge(0);
+        response.addCookie(sessionCookie);
     }
 }
