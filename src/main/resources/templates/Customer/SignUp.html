@@ -11,19 +11,17 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    <script th:src="@{/session.js}"></script>
 </head>
 <body>
-
 <div class="promo-banner">
     <img th:src="@{/Customer/Home/Home.gif}" alt="Khuyến mãi Lam Thao">
 </div>
-
 <div class="header">
     <div class="container header-inner">
         <a th:href="@{/}">
             <img th:src="@{/Customer/Example/Image/Logo7.png}" alt="Logo" width="150" height="100">
         </a>
-
         <div class="search-bar">
             <div class="search-wrap">
                 <input type="text" placeholder="Bạn cần tìm ....">
@@ -35,29 +33,21 @@
           </span>
             </div>
         </div>
-
         <div class="header-icons">
             <div class="user-section">
-                <!-- Nút user -->
                 <button class="user-btn" aria-label="Tài khoản">
                     <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
                         <path fill="currentColor"
                               d="M17.75 14c1.24 0 2.25 1.01 2.25 2.25v.92c0 .57-.18 1.13-.52 1.6C18 20.9 15.5 22 12 22s-6-1.1-7.48-3.23c-.34-.47-.52-1.03-.52-1.6v-.92C4 15.01 5.01 14 6.25 14h11.5ZM12 2a5 5 0 1 1 0 10 5 5 0 0 1 0-10Z"/>
                     </svg>
                 </button>
-
                 <div class="user-dropdown">
                     <a th:href="@{/login}" id="login-btn" sec:authorize="isAnonymous()">Đăng nhập</a>
                     <a th:href="@{/sign-up}" id="subcribe-btn" sec:authorize="isAnonymous()">Đăng ký</a>
-
                     <a th:href="@{/profile}" id="account-info" sec:authorize="isAuthenticated()">Thông tin tài khoản</a>
                     <a th:href="@{/logout}" id="logout-btn" sec:authorize="isAuthenticated()">Đăng xuất</a>
                 </div>
-
             </div>
-
-
-            <!-- Cart Section -->
             <div class="cart-section">
                 <a href="#" class="cart-pill" title="Giỏ hàng">
                     <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
@@ -70,11 +60,8 @@
         </div>
     </div>
 </div>
-
-<!-- Menu -->
 <div class="menu-bar">
     <div class="container menu-inner">
-
         <div class="dropdown">
             <a href="#">☰ DANH MỤC SẢN PHẨM</a>
             <ul class="dropdown-content">
@@ -96,28 +83,15 @@
                 </li>
             </ul>
         </div>
-
-        <!--        &lt;!&ndash; Sản Phẩm Mới &ndash;&gt;-->
-        <!--        <a href="#">SẢN PHẨM MỚI</a>-->
-
-
         <div class="dropdown">
             <a href="#"> NAI VANG BEAUTY</a>
         </div>
-
-        <!-- Deal hot -->
-        <!--        <a href="#">💖 DEAL HOT DƯỚI 100K 💖</a>-->
-
-        <!-- Tin tức -->
         <div class="dropdown">
             <a href="/blog">TIN TỨC</a>
         </div>
-
-        <!-- Tra cứu đơn -->
         <a href="#">TRA CỨU ĐƠN HÀNG</a>
     </div>
 </div>
-
 <div class="form-card">
     <h2 class="text-center mb-4">Đăng ký</h2>
     <form id="signUpForm" method="post">
@@ -125,17 +99,14 @@
             <input type="text" id="fullname" name="fullname" class="form-control" placeholder="Họ và tên"/>
             <div id="fullnameError" class="error"></div>
         </div>
-
         <div class="mb-3">
             <input type="text" id="phoneNumber" name="phoneNumber" class="form-control" placeholder="Số điện thoại"/>
             <div id="phoneNumberError" class="error"></div>
         </div>
-
         <div class="mb-3">
             <input type="email" id="email" name="email" class="form-control" placeholder="Email"/>
             <div id="emailError" class="error"></div>
         </div>
-
         <div class="mb-3">
             <label class="form-label">Giới tính</label>
             <div class="d-flex gender-container">
@@ -144,34 +115,26 @@
             </div>
             <div id="genderError" class="error"></div>
         </div>
-
         <div class="mb-3">
             <input type="date" id="birthday" name="birthday" class="form-control"/>
             <div id="birthdayError" class="error"></div>
         </div>
-
         <div class="mb-3">
             <input type="password" id="password" name="password" class="form-control" placeholder="Nhập mật khẩu"/>
             <div id="passwordError" class="error"></div>
         </div>
-
         <div class="mb-3">
             <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" placeholder="Nhập lại mật khẩu"/>
             <div id="confirmPasswordError" class="error"></div>
         </div>
-
         <div class="mb-3 form-check">
     <input type="checkbox" id="termsCheck" class="form-check-input">
     <label for="termsCheck" class="form-check-label">Tôi đồng ý với Điều khoản & Chính sách</label>
-    <div id="termsError" class="error"></div> <!-- Div để hiển thị lỗi -->
+    <div id="termsError" class="error"></div>
 </div>
-
-
         <button type="submit" class="btn-signup">Đăng ký</button>
     </form>
 </div>
-
-<!-- FOOTER -->
 <div class="subscribe-bar">
     <h2>ĐĂNG KÝ NHẬN ƯU ĐÃI</h2>
     <form class="subscribe-form" id="subscribeForm">
@@ -182,7 +145,6 @@
         <button type="submit">ĐĂNG KÝ</button>
     </form>
 </div>
-
 <footer class="footer">
     <div class="footer-main">
         <div class="footer-col">
@@ -194,7 +156,6 @@
                 Điện thoại: <a href="tel:02838328272">02838328272</a></p>
             <img th:src="@{/Customer/Example/Image/Bocongthuong_1_1.webp}" alt="Đã thông báo Bộ Công Thương" class="boct-logo">
         </div>
-
         <div class="footer-col">
             <h4>Theo dõi chúng tôi</h4>
             <div class="social-links">
@@ -203,7 +164,6 @@
                 <a href="#"><img th:src="@{/Customer/Example/Image/Youtube.webp}" alt="YouTube"></a>
                 <a href="#"><img th:src="@{/Customer/Example/Image/Tiktok.webp}" alt="TikTok"></a>
             </div>
-
             <h4>Tải App Ngay</h4>
             <div class="app-links">
                 <img th:src="@{/Customer/Example/Image/Maqr.png}" alt="QR Code" class="qr-code">
@@ -212,7 +172,6 @@
                     <a href="#"><img th:src="@{/Customer/Example/Image/Appstore.webp}" alt="App Store"></a>
                 </div>
             </div>
-
             <h4>Chấp nhận Phương thức thanh toán</h4>
             <div class="pay-methods">
                 <img th:src="@{/Customer/Example/Image/Vnpay.png}" alt="VNPay">
@@ -220,7 +179,6 @@
                 <img th:src="@{/Customer/Example/Image/Visa.png}" alt="Visa">
             </div>
         </div>
-
         <div class="footer-col">
             <h4>Về chúng tôi</h4>
             <ul>
@@ -235,7 +193,6 @@
                 <li><a href="#">Hợp tác cùng Guardian</a></li>
             </ul>
         </div>
-
         <div class="footer-col">
             <h4>Chính sách</h4>
             <ul>
@@ -250,12 +207,10 @@
             </ul>
         </div>
     </div>
-
     <div class="footer-bottom">
         <p>© 2025 Nai Vang. All rights reserved.</p>
     </div>
 </footer>
-
 <script th:src="@{/Customer/SignUp/SignUp.js}"></script>
 </body>
 </html>

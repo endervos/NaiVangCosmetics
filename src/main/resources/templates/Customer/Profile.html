@@ -15,19 +15,17 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    <script th:src="@{/session.js}"></script>
 </head>
 <body>
-
 <div class="promo-banner">
     <img th:src="@{/Customer/Item/Image/Example.gif}" alt="Promotion Nai Vang">
 </div>
-
 <div class="header">
     <div class="container header-inner">
         <a th:href="@{/}">
             <img th:src="@{/Customer/Item/Image/Logo7.png}" alt="Logo" width="150" height="100">
         </a>
-
         <div class="search-bar">
             <div class="search-wrap">
                 <input type="text" placeholder="Bạn cần tìm ....">
@@ -39,7 +37,6 @@
           </span>
             </div>
         </div>
-
         <div class="header-icons">
             <div class="user-section">
                 <button class="user-btn" aria-label="Tài khoản">
@@ -48,7 +45,6 @@
                               d="M17.75 14c1.24 0 2.25 1.01 2.25 2.25v.92c0 .57-.18 1.13-.52 1.6C18 20.9 15.5 22 12 22s-6-1.1-7.48-3.23c-.34-.47-.52-1.03-.52-1.6v-.92C4 15.01 5.01 14 6.25 14h11.5ZM12 2a5 5 0 1 1 0 10 5 5 0 0 1 0-10Z"/>
                     </svg>
                 </button>
-
                 <div class="user-dropdown">
                     <a th:href="@{/login}" id="login-btn" sec:authorize="isAnonymous()">Đăng nhập</a>
                     <a th:href="@{/sign-up}" id="subcribe-btn" sec:authorize="isAnonymous()">Đăng ký</a>
@@ -56,7 +52,6 @@
                     <a th:href="@{/logout}" id="logout-btn" sec:authorize="isAuthenticated()">Đăng xuất</a>
                 </div>
             </div>
-
             <div class="cart-section">
                 <a href="#" class="cart-pill" title="Giỏ hàng">
                     <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
@@ -69,8 +64,6 @@
         </div>
     </div>
 </div>
-
-<!-- Menu -->
 <div class="menu-bar">
     <div class="container menu-inner">
         <div class="dropdown">
@@ -94,19 +87,15 @@
                 </li>
             </ul>
         </div>
-
         <div class="dropdown">
             <a href="#"> NAI VANG BEAUTY</a>
         </div>
-
         <div class="dropdown">
-            <a href="/blog">TIN TỨC</a>
+            <a th:href="@{/blog}">TIN TỨC</a>
         </div>
-
         <a href="#">TRA CỨU ĐƠN HÀNG</a>
     </div>
 </div>
-
 <div class="main-container">
     <aside class="menu-sidebar">
         <h3>Chào <span th:text="${user.fullname}">User</span></h3>
@@ -118,32 +107,25 @@
             <li class="menu-item"><a th:href="@{/orderManage}">Quản lý đơn hàng</a></li>
         </ul>
     </aside>
-
     <main class="account-info" th:object="${user}">
         <h2>Thông tin tài khoản</h2>
         <form th:action="@{/profile/update}" th:object="${user}" method="post">
             <div class="profile-container">
                 <label>Tài khoản</label>
                 <input type="text" th:field="*{email}" disabled />
-
                 <label>Họ và tên</label>
                 <input type="text" th:field="*{fullname}"  />
-
                 <label>Số điện thoại</label>
                 <input type="text" th:field="*{phoneNumber}"  />
-
                 <div class="form-group">
                     <div class="address-header">
                         <label>Địa chỉ</label>
                         <button type="button" id="addAddressBtn" class="btn-add">Thêm địa chỉ</button>
                     </div>
-
-                    <!-- THÊM PHẦN NÀY VÀO -->
                     <div id="addressContainer">
                         <div class="address-row"
                              th:each="addr, iter : ${addresses}"
                              th:classappend="${addr.idAddressDefault} ? ' default' : ''">
-
                             <span class="address-label">Địa chỉ [[${iter.index + 1}]]</span>
                             <input type="text"
                                    name="city[]"
@@ -162,15 +144,12 @@
                                    placeholder="Đường / Số nhà...">
                             <input type="hidden" name="addressId[]" th:value="${addr.addressId}">
                             <input type="hidden" name="isDefault[]" th:value="${addr.idAddressDefault ? 1 : 0}">
-
                             <button type="button" class="btn-remove">–</button>
-
                             <button type="button"
                                     class="btn-default-address"
                                     th:style="${addr.idAddressDefault} ? 'display:inline-flex;' : 'display:none;'">
                                 Địa chỉ mặc định
                             </button>
-
                             <button type="button"
                                     class="btn-default"
                                     th:style="${addr.idAddressDefault} ? 'display:none;' : 'display:inline-flex;'">
@@ -178,9 +157,7 @@
                             </button>
                         </div>
                     </div>
-                    <!-- HẾT PHẦN THÊM -->
                 </div>
-
                 <label>Ngày sinh</label>
                 <div class="mb-3">
                     <input
@@ -191,7 +168,6 @@
                             th:value="${user.birthday != null ? #temporals.format(user.birthday, 'yyyy-MM-dd') : ''}"
                     >
                 </div>
-
                 <label>Giới tính</label>
                 <div class="d-flex gender-container" >
                     <label>
@@ -206,7 +182,6 @@
         </form>
     </main>
 </div>
-
 <div class="subscribe-bar">
     <h2>ĐĂNG KÝ NHẬN ƯU ĐÃI</h2>
     <form class="subscribe-form" id="subscribeForm">
@@ -217,7 +192,6 @@
         <button type="submit">ĐĂNG KÝ</button>
     </form>
 </div>
-
 <footer class="footer">
     <div class="footer-main">
         <div class="footer-col">
@@ -229,7 +203,6 @@
                 Điện thoại: <a href="tel:02838328272">02838328272</a></p>
             <img th:src="@{/Home/Bocongthuong_1_1.webp}" alt="Đã thông báo Bộ Công Thương" class="boct-logo">
         </div>
-
         <div class="footer-col">
             <h4>Theo dõi chúng tôi</h4>
             <div class="social-links">
@@ -238,7 +211,6 @@
                 <a href="#"><img th:src="@{/Home/Youtube.webp}" alt="YouTube"></a>
                 <a href="#"><img th:src="@{/Home/Tiktok.webp}" alt="TikTok"></a>
             </div>
-
             <h4>Tải App Ngay</h4>
             <div class="app-links">
                 <img th:src="@{/Home/Maqr.png}" alt="QR Code" class="qr-code">
@@ -247,7 +219,6 @@
                     <a href="#"><img th:src="@{/Home/Appstore.webp}" alt="App Store"></a>
                 </div>
             </div>
-
             <h4>Chấp nhận Phương thức thanh toán</h4>
             <div class="pay-methods">
                 <img th:src="@{/Home/Vnpay.png}" alt="VNPay">
@@ -255,7 +226,6 @@
                 <img th:src="@{/Home/Visa.png}" alt="Visa">
             </div>
         </div>
-
         <div class="footer-col">
             <h4>Về chúng tôi</h4>
             <ul>
@@ -270,7 +240,6 @@
                 <li><a href="#">Hợp tác cùng Guardian</a></li>
             </ul>
         </div>
-
         <div class="footer-col">
             <h4>Chính sách</h4>
             <ul>
@@ -289,7 +258,6 @@
         <p>© 2025 Nai Vang. All rights reserved.</p>
     </div>
 </footer>
-
 <script>
     flatpickr("#birthday", {
         dateFormat: "Y-m-d",

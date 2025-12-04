@@ -7,6 +7,7 @@
     <link rel="stylesheet" th:href="@{/Manager/ProductManagement/ProductManagement.css}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="icon" type="image/png" th:href="@{/Customer/Example/Image/LogoConNai.png}">
+    <script th:src="@{/session.js}"></script>
 </head>
 <body class="admin-body">
 <nav class="admin-sidebar">
@@ -24,7 +25,6 @@
         <li><a th:href="@{/manager/profile}"><i class="fa-solid fa-user"></i> Hồ sơ</a></li>
     </ul>
 </nav>
-
 <div class="admin-content">
     <div class="top-bar">
         <div class="user-menu">
@@ -38,16 +38,13 @@
             </ul>
         </div>
     </div>
-
     <div class="main-area">
         <h2 class="page-title">QUẢN LÝ SẢN PHẨM</h2>
-
         <div class="product-header">
             <button class="add-product-btn">
                 <i class="fa-solid fa-plus"></i> Thêm sản phẩm mới
             </button>
         </div>
-
         <div class="product-table-container">
             <table class="product-table">
                 <thead>
@@ -90,30 +87,22 @@
                 </tbody>
             </table>
         </div>
-
         <div class="modal" id="product-modal">
             <div class="modal-content">
                 <span class="close-modal">&times;</span>
                 <h2 id="modal-title">Thêm sản phẩm</h2>
-
                 <form id="product-form" enctype="multipart/form-data">
                     <input type="hidden" id="product-id">
-
                     <label>Tên sản phẩm:</label>
                     <input type="text" id="product-name" required>
-
                     <label>Mô tả:</label>
                     <textarea id="product-description" rows="3" required></textarea>
-
                     <label>Màu sắc:</label>
                     <input type="text" id="product-color" required>
-
                     <label>Thành phần:</label>
                     <input type="text" id="product-ingredient" required>
-
                     <label>Giá (VNĐ):</label>
                     <input type="number" id="product-price" required>
-
                     <label>Danh mục:</label>
                     <select id="product-category" required>
                         <option value="">-- Chọn danh mục --</option>
@@ -121,23 +110,19 @@
                                 th:value="${cat.categoryId}"
                                 th:text="${cat.name}">Category</option>
                     </select>
-
                     <label>Ảnh sản phẩm:</label>
                     <input type="file" id="product-image" accept="image/*">
                     <div id="current-image-preview" style="display:none; margin-top: 10px;">
                         <img id="preview-img" src="" alt="Current Image" style="max-width: 200px; border-radius: 8px;">
                     </div>
-
                     <button type="submit" class="save-product-btn">Lưu</button>
                 </form>
             </div>
         </div>
-
         <div class="modal" id="view-modal">
             <div class="modal-content modal-view">
                 <span class="close-modal" id="close-view-modal">&times;</span>
                 <h2 id="view-modal-title">Chi tiết sản phẩm</h2>
-
                 <div class="product-detail">
                     <div class="detail-row">
                         <div class="detail-images">
@@ -185,10 +170,8 @@
                 </div>
             </div>
         </div>
-
     </div>
 </div>
-
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script th:src="@{/Manager/ProductManagement/ProductManagement.js}"></script>
 </body>

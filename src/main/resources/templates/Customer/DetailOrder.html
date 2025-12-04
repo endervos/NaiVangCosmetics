@@ -12,21 +12,17 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    <script th:src="@{/session.js}"></script>
 </head>
 <body>
-
-<!-- Banner khuyến mãi -->
 <div class="promo-banner">
     <img th:src="@{/Customer/Home/Home.gif}" alt="Khuyến mãi">
 </div>
-
-<!-- Header -->
 <header class="header">
     <div class="container header-inner">
         <a th:href="@{/}">
             <img th:src="@{/Customer/Example/Image/Logo7.png}" alt="Logo" width="150" height="100">
         </a>
-
         <div class="search-bar">
             <div class="search-wrap">
                 <input type="text" placeholder="Bạn cần tìm ....">
@@ -39,7 +35,6 @@
                 </span>
             </div>
         </div>
-
         <div class="header-icons">
             <div class="user-section">
                 <button class="user-btn" aria-label="Tài khoản">
@@ -59,7 +54,6 @@
                     <a th:href="@{/logout}" sec:authorize="isAuthenticated()">Đăng xuất</a>
                 </div>
             </div>
-
             <div class="cart-section">
                 <a th:href="@{/cart}" class="cart-pill" title="Giỏ hàng">
                     <svg width="20" height="20" viewBox="0 0 24 24">
@@ -76,11 +70,8 @@
         </div>
     </div>
 </header>
-
-<!-- Menu -->
 <div class="menu-bar">
     <div class="container menu-inner">
-
         <div class="dropdown">
             <a href="#">☰ DANH MỤC SẢN PHẨM</a>
             <ul class="dropdown-content">
@@ -102,29 +93,15 @@
                 </li>
             </ul>
         </div>
-
-        <!--        &lt;!&ndash; Sản Phẩm Mới &ndash;&gt;-->
-        <!--        <a href="#">SẢN PHẨM MỚI</a>-->
-
-
         <div class="dropdown">
             <a href="#"> NAI VANG BEAUTY</a>
         </div>
-
-        <!-- Deal hot -->
-        <!--        <a href="#">💖 DEAL HOT DƯỚI 100K 💖</a>-->
-
-        <!-- Tin tức -->
         <div class="dropdown">
             <a href="/blog">TIN TỨC</a>
         </div>
-
-        <!-- Tra cứu đơn -->
         <a href="#">TRA CỨU ĐƠN HÀNG</a>
     </div>
 </div>
-
-<!-- Nội dung chính -->
 <main class="order-container">
     <div class="order-header">
         <h1>Chi tiết đơn hàng</h1>
@@ -132,7 +109,6 @@
         <p>Ngày đặt: <span th:text="${#temporals.format(order.placedAt, 'dd/MM/yyyy HH:mm')}"></span></p>
         <p>Trạng thái: <span th:text="${order.status}"></span></p>
     </div>
-
     <div class="order-info">
         <div class="detail-item">
             <span>Địa chỉ nhận hàng</span>
@@ -159,8 +135,6 @@
             <strong th:text="${#numbers.formatDecimal(thanhTien,0,'COMMA',0,'POINT')} + ' ₫'"></strong>
         </div>
     </div>
-
-    <!-- Danh sách sản phẩm -->
     <div class="product-section">
         <div th:each="orderItem : ${order.orderItems}" class="product-item">
             <img th:src="@{'/items/' + ${orderItem.item.itemId} + '/image'}"
@@ -169,16 +143,13 @@
             <p class="product-quantity">Số lượng: <span th:text="${orderItem.quantity}"></span></p>
             <p class="product-pre-price">Giá gốc: <span th:text="${#numbers.formatDecimal(orderItem.preDiscountPrice,0,'COMMA',0,'POINT')} + ' ₫'"></span></p>
             <p class="product-total-price">Thành tiền: <span th:text="${#numbers.formatDecimal(orderItem.totalPriceCents,0,'COMMA',0,'POINT')} + ' ₫'"></span></p>
-            <!-- Nút đánh giá -->
             <button class="review-btn"
                     th:attr="data-item-id=${orderItem.item.itemId}"
                     onclick="toggleReviewForm(this)">
                 Đánh giá
             </button>
-            <!-- Form đánh giá (ẩn mặc định) -->
             <div class="review-form" th:attr="id='review-form-' + ${orderItem.item.itemId}" style="display: none;">
                 <h3>Viết đánh giá cho sản phẩm</h3>
-
                 <label>Chọn số sao:</label>
                 <select class="rating-input">
                     <option value="5">★★★★★ (5 sao)</option>
@@ -187,10 +158,8 @@
                     <option value="2">★★☆☆☆ (2 sao)</option>
                     <option value="1">★☆☆☆☆ (1 sao)</option>
                 </select>
-
                 <label>Nội dung đánh giá:</label>
                 <textarea class="comment-input" placeholder="Nhập cảm nhận của bạn..."></textarea>
-
                 <div class="form-buttons">
                     <button onclick="submitReview(this)" class="submit-btn" type="button">Gửi đánh giá</button>
                     <button onclick="toggleReviewForm(this)" class="cancel-btn" type="button">Hủy</button>
@@ -198,20 +167,15 @@
             </div>
         </div>
     </div>
-
-    <!-- Nút thao tác -->
     <div class="action-buttons">
         <button class="action-btn" onclick="goBack()">Quay lại</button>
-<!--        <button class="action-btn" onclick="openReview()">Đánh giá</button>-->
     </div>
 </main>
-<!-- FOOTER -->
 <div class="subscribe-bar">
     <h2>ĐĂNG KÝ NHẬN ƯU ĐÃI</h2>
     <form class="subscribe-form" id="subscribeForm">
         <div class="input-wrap">
             <input type="email" id="emailInput" placeholder="Nhập email của bạn">
-            <!-- dòng báo lỗi -->
             <small id="emailError" class="error-msg"></small>
         </div>
         <button type="submit">ĐĂNG KÝ</button>
@@ -220,7 +184,6 @@
 </div>
 <footer class="footer">
     <div class="footer-main">
-        <!-- Cột 1: Logo + thông tin -->
         <div class="footer-col">
             <img th:src="@{/Customer/Home/Logo7.png}" alt="Nai Vang Logo" class="footer-logo">
             <p><strong>CÔNG TY TNHH MTV THƯƠNG MẠI VÀ ĐẦU TƯ LIÊN Á CHÂU</strong></p>
@@ -231,8 +194,6 @@
                 Điện thoại: <a href="tel:02838328272">02838328272</a></p>
             <img th:src="@{/Customer/Home/Bocongthuong_1_1.webp}" alt="Đã thông báo Bộ Công Thương" class="boct-logo">
         </div>
-
-        <!-- Cột 2: Theo dõi + App + Thanh toán -->
         <div class="footer-col">
             <h4>Theo dõi chúng tôi</h4>
             <div class="social-links">
@@ -241,7 +202,6 @@
                 <a href="#"><img th:src="@{/Customer/Home/Youtube.webp}" alt="YouTube"></a>
                 <a href="#"><img th:src="@{/Customer/Home/Tiktok.webp}" alt="TikTok"></a>
             </div>
-
             <h4>Tải App Ngay</h4>
             <div class="app-links">
                 <img th:src="@{/Customer/Home/Maqr.png}" alt="QR Code" class="qr-code">
@@ -250,7 +210,6 @@
                     <a href="#"><img th:src="@{/Customer/Home/Appstore.webp}" alt="App Store"></a>
                 </div>
             </div>
-
             <h4>Chấp nhận Phương thức thanh toán</h4>
             <div class="pay-methods">
                 <img th:src="@{/Customer/Home/Vnpay.png}" alt="VNPay">
@@ -258,8 +217,6 @@
                 <img th:src="@{/Customer/Home/Visa.png}" alt="Visa">
             </div>
         </div>
-
-        <!-- Cột 3: Về chúng tôi -->
         <div class="footer-col">
             <h4>Về chúng tôi</h4>
             <ul>
@@ -274,8 +231,6 @@
                 <li><a href="#">Hợp tác cùng Guardian</a></li>
             </ul>
         </div>
-
-        <!-- Cột 4: Chính sách -->
         <div class="footer-col">
             <h4>Chính sách</h4>
             <ul>
@@ -290,26 +245,18 @@
             </ul>
         </div>
     </div>
-
     <div class="footer-bottom">
         <p>© 2025 Nai Vang. All rights reserved.</p>
     </div>
 </footer>
-
-<!-- Scripts -->
 <script th:src="@{/Customer/DetailOrder/DetailOrder.js}"></script>
 <script th:src="@{/Customer/Example/Example.js}"></script>
 <script>
     function goBack() {
         window.history.back();
     }
-
-    // function openReview() {
-    //     alert("Chức năng đánh giá đang phát triển!");
-    // }
 </script>
 <script>
-    // Mở hoặc ẩn form đánh giá
     function toggleReviewForm(button) {
         const itemId = button.getAttribute('data-item-id') || button.closest('.review-form').id.split('-')[2];
         const form = document.getElementById('review-form-' + itemId);
@@ -320,18 +267,15 @@
         }
     }
 
-    // Gửi đánh giá
     async function submitReview(button) {
         const form = button.closest('.review-form');
         const itemId = form.id.split('-')[2];
         const rating = form.querySelector('.rating-input').value;
         const comment = form.querySelector('.comment-input').value;
-
         if (!comment.trim()) {
             alert("Vui lòng nhập nội dung đánh giá!");
             return;
         }
-
         try {
             const response = await fetch('/api/reviews', {
                 method: 'POST',
@@ -344,7 +288,6 @@
                     comment: comment
                 })
             });
-
             if (response.ok) {
                 alert("Cảm ơn bạn! Đánh giá đã được gửi.");
                 form.style.display = "none";
@@ -358,6 +301,5 @@
         }
     }
 </script>
-
 </body>
 </html>

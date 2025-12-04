@@ -11,19 +11,17 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    <script th:src="@{/session.js}"></script>
 </head>
 <body>
-
 <div class="promo-banner">
     <img th:src="@{/Customer/Home/Home.gif}" alt="Khuyến mãi Lam Thao">
 </div>
-
 <div class="header">
     <div class="container header-inner">
         <a th:href="@{/}">
             <img th:src="@{/Customer/Example/Image/Logo7.png}" alt="Logo" width="150" height="100">
         </a>
-
         <div class="search-bar">
             <div class="search-wrap">
                 <input type="text" placeholder="Bạn cần tìm ....">
@@ -35,17 +33,14 @@
           </span>
             </div>
         </div>
-
         <div class="header-icons">
             <div class="user-section">
-                <!-- Nút user -->
                 <button class="user-btn" aria-label="Tài khoản">
                     <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
                         <path fill="currentColor"
                               d="M17.75 14c1.24 0 2.25 1.01 2.25 2.25v.92c0 .57-.18 1.13-.52 1.6C18 20.9 15.5 22 12 22s-6-1.1-7.48-3.23c-.34-.47-.52-1.03-.52-1.6v-.92C4 15.01 5.01 14 6.25 14h11.5ZM12 2a5 5 0 1 1 0 10 5 5 0 0 1 0-10Z"/>
                     </svg>
                 </button>
-
                 <div class="user-dropdown">
                     <a th:href="@{/login}" id="login-btn" sec:authorize="isAnonymous()">Đăng nhập</a>
                     <a th:href="@{/sign-up}" id="subcribe-btn" sec:authorize="isAnonymous()">Đăng ký</a>
@@ -53,10 +48,7 @@
                     <a th:href="@{/profile}" id="account-info" sec:authorize="isAuthenticated()">Thông tin tài khoản</a>
                     <a th:href="@{/logout}" id="logout-btn" sec:authorize="isAuthenticated()">Đăng xuất</a>
                 </div>
-
             </div>
-
-            <!-- Cart Section -->
             <div class="cart-section">
                 <a href="#" class="cart-pill" title="Giỏ hàng">
                     <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
@@ -69,11 +61,8 @@
         </div>
     </div>
 </div>
-
-<!-- Menu -->
 <div class="menu-bar">
     <div class="container menu-inner">
-
         <div class="dropdown">
             <a href="#">☰ DANH MỤC SẢN PHẨM</a>
             <ul class="dropdown-content">
@@ -95,34 +84,19 @@
                 </li>
             </ul>
         </div>
-
-        <!--        &lt;!&ndash; Sản Phẩm Mới &ndash;&gt;-->
-        <!--        <a href="#">SẢN PHẨM MỚI</a>-->
-
-
         <div class="dropdown">
             <a href="#"> NAI VANG BEAUTY</a>
         </div>
-
-        <!-- Deal hot -->
-        <!--        <a href="#">💖 DEAL HOT DƯỚI 100K 💖</a>-->
-
-        <!-- Tin tức -->
         <div class="dropdown">
             <a href="/blog">TIN TỨC</a>
         </div>
-
-        <!-- Tra cứu đơn -->
         <a href="#">TRA CỨU ĐƠN HÀNG</a>
     </div>
 </div>
 <div class="checkout-container">
-    <!-- Modal quản lý địa chỉ -->
     <div class="modal" id="address-modal">
         <div class="modal-content">
             <h3>Chọn địa chỉ giao hàng</h3>
-
-            <!-- Danh sách địa chỉ -->
             <div id="address-list">
                 <div th:each="addr : ${addresses}" class="address-item">
                     <input type="radio" name="address"
@@ -132,26 +106,18 @@
                     <span th:text="${addr.customer.user.fullname + ' | ' + addr.phoneNumber + ' | ' + addr.street + ', ' + addr.district + ', ' + addr.city}"></span>
                 </div>
             </div>
-
-            <!-- Form thêm địa chỉ -->
             <div id="new-address-form" style="display:none; margin-top:15px;">
                 <label>Họ và tên</label>
                 <input type="text" id="fullname" placeholder="Nhập họ và tên">
-
                 <label>Số điện thoại</label>
                 <input type="text" id="phone" placeholder="Nhập số điện thoại">
-
                 <label>Số nhà / Đường</label>
                 <input type="text" id="street" placeholder="Nhập số nhà / đường">
-
                 <label>Quận / Huyện</label>
                 <input type="text" id="city" placeholder="Nhập quận / huyện">
-
                 <label>Tỉnh / Thành phố</label>
                 <input type="text" id="province" placeholder="Nhập tỉnh / thành phố">
             </div>
-
-            <!-- Nút hành động -->
             <div class="modal-actions">
                 <button id="add-new-address">Thêm địa chỉ mới</button>
                 <button id="cancel-modal">Hủy</button>
@@ -159,9 +125,6 @@
             </div>
         </div>
     </div>
-
-
-  <!-- Địa chỉ -->
   <div class="checkout-address">
     <div>
       <h3>Địa chỉ giao hàng</h3>
@@ -171,10 +134,7 @@
     </div>
     <button id="change-address">Thay đổi</button>
   </div>
-
-  <!-- Main: Trái & Phải -->
   <div class="checkout-main">
-    <!-- Bên trái: sản phẩm -->
     <div class="checkout-left">
         <div class="checkout-products">
             <h2>Sản phẩm của bạn</h2>
@@ -197,10 +157,7 @@
             </div>
         </div>
     </div>
-
-    <!-- Bên phải: hóa đơn + discount + payment -->
     <div class="checkout-right">
-      <!-- Hóa đơn -->
         <div class="checkout-summary">
             <h2>Hóa đơn</h2>
             <p>Tạm tính: <span th:text="|${#numbers.formatInteger(subtotal, 0, 'POINT')}đ|">0đ</span></p>
@@ -211,22 +168,16 @@
             </p>
             <button id="pay-btn">Thanh toán</button>
         </div>
-
-      <!-- Mã giảm giá -->
         <div class="checkout-discount">
             <h3>Mã giảm giá</h3>
             <input type="text" id="discount-code" placeholder="Nhập mã giảm giá">
             <button id="apply-discount">Áp dụng</button>
             <p id="voucher-message" style="margin-top:5px; font-size:14px;"></p>
         </div>
-
-        <!-- Phương thức thanh toán -->
         <div class="checkout-payment">
             <h3>Phương thức thanh toán</h3>
             <label><input type="radio" name="payment" value="wallet"> Chuyển khoản</label><br>
             <label><input type="radio" name="payment" value="cod" checked> Thanh toán khi nhận hàng</label>
-
-            <!-- Ẩn/hiện phần ví điện tử -->
             <div id="wallet-options" style="display:none; margin-top:10px;">
                 <h4>Chọn nền tảng thanh toán</h4>
                 <div class="wallet-buttons">
@@ -234,8 +185,6 @@
                     <button class="wallet-btn" data-wallet="vnpay">VNPay</button>
                     <button class="wallet-btn" data-wallet="mbbank">MB Bank</button>
                 </div>
-
-                <!-- QR hiển thị sau khi chọn -->
                 <div id="qr-display" style="margin-top:15px; text-align:center; display:none;">
                     <h5 id="qr-title" style="margin-bottom:8px;"></h5>
                     <img id="qr-img" src="" alt="QR thanh toán" style="width:200px; height:200px; border-radius:12px; box-shadow:0 2px 8px rgba(0,0,0,0.3);">
@@ -246,8 +195,6 @@
   </div>
 </div>
 <div id="toast"></div>
-
-<!-- FOOTER -->
 <div class="subscribe-bar">
     <h2>ĐĂNG KÝ NHẬN ƯU ĐÃI</h2>
     <form class="subscribe-form" id="subscribeForm">
@@ -258,10 +205,8 @@
         <button type="submit">ĐĂNG KÝ</button>
     </form>
 </div>
-
 <footer class="footer">
     <div class="footer-main">
-        <!-- Cột 1: Logo + thông tin -->
         <div class="footer-col">
             <img th:src="@{/Customer/Home/Logo7.png}" alt="Nai Vang Logo" class="footer-logo">
             <p><strong>CÔNG TY TNHH MTV THƯƠNG MẠI VÀ ĐẦU TƯ LIÊN Á CHÂU</strong></p>
@@ -271,8 +216,6 @@
                 Điện thoại: <a href="tel:02838328272">02838328272</a></p>
             <img th:src="@{/Customer/Home/Bocongthuong_1_1.webp}" alt="Đã thông báo Bộ Công Thương" class="boct-logo">
         </div>
-
-        <!-- Cột 2: Theo dõi + App + Thanh toán -->
         <div class="footer-col">
             <h4>Theo dõi chúng tôi</h4>
             <div class="social-links">
@@ -281,7 +224,6 @@
                 <a href="#"><img th:src="@{/Customer/Home/Youtube.webp}" alt="YouTube"></a>
                 <a href="#"><img th:src="@{/Customer/Home/Tiktok.webp}" alt="TikTok"></a>
             </div>
-
             <h4>Tải App Ngay</h4>
             <div class="app-links">
                 <img th:src="@{/Customer/Home/Maqr.png}" alt="QR Code" class="qr-code">
@@ -290,7 +232,6 @@
                     <a href="#"><img th:src="@{/Customer/Home/Appstore.webp}" alt="App Store"></a>
                 </div>
             </div>
-
             <h4>Chấp nhận Phương thức thanh toán</h4>
             <div class="pay-methods">
                 <img th:src="@{/Customer/Home/Vnpay.png}" alt="VNPay">
@@ -298,8 +239,6 @@
                 <img th:src="@{/Customer/Home/Visa.png}" alt="Visa">
             </div>
         </div>
-
-        <!-- Cột 3: Về chúng tôi -->
         <div class="footer-col">
             <h4>Về chúng tôi</h4>
             <ul>
@@ -314,8 +253,6 @@
                 <li><a href="#">Hợp tác cùng Guardian</a></li>
             </ul>
         </div>
-
-        <!-- Cột 4: Chính sách -->
         <div class="footer-col">
             <h4>Chính sách</h4>
             <ul>
@@ -330,12 +267,10 @@
             </ul>
         </div>
     </div>
-
     <div class="footer-bottom">
         <p>© 2025 Nai Vang. All rights reserved.</p>
     </div>
 </footer>
-
 <script th:src="@{/Customer/Payment/Payment.js}"></script>
 <script th:src="@{/Customer/Example/Example.js}"></script>
 </body>

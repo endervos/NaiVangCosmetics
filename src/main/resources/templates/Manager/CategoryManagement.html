@@ -7,11 +7,9 @@
     <link rel="stylesheet" th:href="@{/Manager/CategoryManagement/CategoryManagement.css}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="icon" type="image/png" th:href="@{/Customer/Example/Image/LogoConNai.png}">
+    <script th:src="@{/session.js}"></script>
 </head>
-
 <body class="admin-body">
-
-<!-- Sidebar -->
 <nav class="admin-sidebar">
     <div class="sidebar-logo">
         <img th:src="@{/Manager/CategoryManagement/Image/LogoConNai.png}" alt="Logo" class="logo-img">
@@ -27,8 +25,6 @@
         <li><a th:href="@{/manager/profile}"><i class="fa-solid fa-user"></i> Hồ sơ</a></li>
     </ul>
 </nav>
-
-<!-- Main Content -->
 <div class="admin-content">
     <div class="top-bar">
         <div class="user-menu">
@@ -42,7 +38,6 @@
             </ul>
         </div>
     </div>
-
     <div class="main-area">
         <h2 class="page-title">QUẢN LÝ DANH MỤC</h2>
         <div class="actions-bar">
@@ -51,7 +46,6 @@
                 <i class="fa-solid fa-plus"></i> Thêm danh mục
             </button>
         </div>
-
         <div class="table-wrapper">
             <table class="category-table">
                 <thead>
@@ -80,11 +74,7 @@
         </div>
     </div>
 </div>
-
-<!-- POPUPS -->
 <div class="popup-overlay" id="popupOverlay">
-
-    <!-- Popup Thêm -->
     <div class="popup-card" id="addPopup">
         <h3>Thêm Danh Mục</h3>
         <label>Tên danh mục</label>
@@ -106,7 +96,6 @@
             <button class="save-btn" onclick="saveNewCategory()">Lưu</button>
         </div>
     </div>
-
     <div class="popup-card" id="editPopup">
         <h3>Sửa Danh Mục</h3>
         <input type="hidden" id="editCategoryId">
@@ -125,7 +114,6 @@
         </div>
     </div>
 </div>
-
 <script th:src="@{/Manager/CategoryManagement/CategoryManagement.js}"></script>
 </body>
 </html>

@@ -7,29 +7,21 @@
     <title>Nai Vang Cosmetic</title>
     <link rel="icon" type="image/png" th:src="@{/Customer/Example/Image/LogoConNai.png}">
     <link rel="stylesheet" th:href="@{/Example/Example.css}">
-    <!-- Slick CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css">
-    <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <!-- Slick JS -->
     <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-
+    <script th:src="@{/session.js}"></script>
 </head>
 <body>
-
-<!-- Banner GIF full màn hình -->
 <div class="promo-banner">
     <img th:src="@{/Example/Image/Example.gif}" alt="Promotion Nai Vang">
 </div>
-
-<!-- Header -->
 <div class="header">
     <div class="container header-inner">
         <a th:href="@{/}">
             <img th:src="@{/Customer/Example/Image/Logo7.png}" alt="Logo" width="150" height="100">
         </a>
-
         <div class="search-bar">
             <div class="search-wrap">
                 <input type="text" placeholder="Bạn cần tìm ....">
@@ -41,18 +33,14 @@
           </span>
             </div>
         </div>
-
         <div class="header-icons">
             <div class="user-section">
-                <!-- Nút user -->
                 <button class="user-btn" aria-label="Tài khoản">
                     <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
                         <path fill="currentColor"
                               d="M17.75 14c1.24 0 2.25 1.01 2.25 2.25v.92c0 .57-.18 1.13-.52 1.6C18 20.9 15.5 22 12 22s-6-1.1-7.48-3.23c-.34-.47-.52-1.03-.52-1.6v-.92C4 15.01 5.01 14 6.25 14h11.5ZM12 2a5 5 0 1 1 0 10 5 5 0 0 1 0-10Z"/>
                     </svg>
                 </button>
-
-                <!-- Dropdown (ẩn mặc định, hiện khi hover hoặc click) -->
                 <div class="user-dropdown">
                     <a th:href="@{/login}" id="login-btn">Đăng nhập</a>
                     <a th:href="@{/sign-up}" id="subcribe-btn">Đăng ký</a>
@@ -60,9 +48,6 @@
                     <a href="#" id="logout-btn">Đăng xuất</a>
                 </div>
             </div>
-
-
-            <!-- Cart Section -->
             <div class="cart-section">
                 <a href="#" class="cart-pill" title="Giỏ hàng">
                     <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
@@ -72,16 +57,11 @@
                     <span>Giỏ hàng</span>
                 </a>
             </div>
-
         </div>
-
     </div>
 </div>
-
-<!-- Menu -->
 <div class="menu-bar">
     <div class="container menu-inner">
-
         <div class="dropdown">
             <a href="#">☰ DANH MỤC SẢN PHẨM</a>
             <ul class="dropdown-content">
@@ -103,31 +83,17 @@
                 </li>
             </ul>
         </div>
-
-        <!--        &lt;!&ndash; Sản Phẩm Mới &ndash;&gt;-->
-        <!--        <a href="#">SẢN PHẨM MỚI</a>-->
-
-
         <div class="dropdown">
             <a href="#"> NAI VANG BEAUTY</a>
         </div>
-
-        <!-- Deal hot -->
-        <!--        <a href="#">💖 DEAL HOT DƯỚI 100K 💖</a>-->
-
-        <!-- Tin tức -->
         <div class="dropdown">
             <a href="/blog">TIN TỨC</a>
         </div>
-
-        <!-- Tra cứu đơn -->
         <a href="#">TRA CỨU ĐƠN HÀNG</a>
     </div>
 </div>
-
 <main class="wrapperMain_content">
     <div class="inslideron">
-        <!-- viewport chỉ chứa slider -->
         <div class="slider-viewport">
             <div class="slider">
                 <div class="slide"><img th:src="@{/Example/Image/Banner1.png}" alt="Banner 1"></div>
@@ -135,31 +101,22 @@
                 <div class="slide"><img th:src="@{/Example/Image/Banner3.png}" alt="Banner 3"></div>
             </div>
         </div>
-
-        <!-- Nút điều hướng tách riêng -->
         <button class="nav prev" aria-label="Previous">&#10094;</button>
         <button class="nav next" aria-label="Next">&#10095;</button>
     </div>
 </main>
-
-<!-- FOOTER -->
 <div class="subscribe-bar">
     <h2>ĐĂNG KÝ NHẬN ƯU ĐÃI</h2>
     <form class="subscribe-form" id="subscribeForm">
         <div class="input-wrap">
             <input type="email" id="emailInput" placeholder="Nhập email của bạn">
-            <!-- dòng báo lỗi -->
             <small id="emailError" class="error-msg"></small>
         </div>
         <button type="submit">ĐĂNG KÝ</button>
     </form>
 </div>
-
-
-
 <footer class="footer">
     <div class="footer-main">
-        <!-- Cột 1: Logo + thông tin -->
         <div class="footer-col">
             <img th:src="@{/Example/ImagTHƯe/Logo7.png}" alt="Nai Vang Logo" class="footer-logo">
             <p><strong>CÔNG TY TNHH MTV ƠNG MẠI VÀ ĐẦU TƯ LIÊN Á CHÂU</strong></p>
@@ -169,8 +126,6 @@
                 Điện thoại: <a href="tel:02838328272">02838328272</a></p>
             <img th:src="@{/Example/Image/Bocongthuong_1_1.webp}" alt="Đã thông báo Bộ Công Thương" class="boct-logo">
         </div>
-
-        <!-- Cột 2: Theo dõi + App + Thanh toán -->
         <div class="footer-col">
             <h4>Theo dõi chúng tôi</h4>
             <div class="social-links">
@@ -179,7 +134,6 @@
                 <a href="#"><img th:src="@{/Example/Image/Youtube.webp}" alt="YouTube"></a>
                 <a href="#"><img th:src="@{/Example/Image/Tiktok.webp}" alt="TikTok"></a>
             </div>
-
             <h4>Tải App Ngay</h4>
             <div class="app-links">
                 <img th:src="@{/Example/Image/Maqr.png}" alt="QR Code" class="qr-code">
@@ -188,7 +142,6 @@
                     <a href="#"><img th:src="@{/Example/Image/Appstore.webp}" alt="App Store"></a>
                 </div>
             </div>
-
             <h4>Chấp nhận Phương thức thanh toán</h4>
             <div class="pay-methods">
                 <img th:src="@{/Example/Image/Vnpay.webp}" alt="VNPay">
@@ -196,8 +149,6 @@
                 <img th:src="@{/Example/Image/Visa.webp}" alt="Visa">
             </div>
         </div>
-
-        <!-- Cột 3: Về chúng tôi -->
         <div class="footer-col">
             <h4>Về chúng tôi</h4>
             <ul>
@@ -212,8 +163,6 @@
                 <li><a href="#">Hợp tác cùng Guardian</a></li>
             </ul>
         </div>
-
-        <!-- Cột 4: Chính sách -->
         <div class="footer-col">
             <h4>Chính sách</h4>
             <ul>
@@ -228,12 +177,10 @@
             </ul>
         </div>
     </div>
-
     <div class="footer-bottom">
         <p>© 2025 Nai Vang. All rights reserved.</p>
     </div>
 </footer>
-<script src="Example.js"></script>
+<script th:src="@{/Customer/Example/Example.js}"></script>
 </body>
 </html>
-

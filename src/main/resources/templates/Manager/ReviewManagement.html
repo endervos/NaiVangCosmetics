@@ -8,10 +8,9 @@
     <link rel="stylesheet" th:href="@{/Manager/Background/Background.css}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="icon" type="image/png" th:href="@{/Customer/Example/Image/LogoConNai.png}">
+    <script th:src="@{/session.js}"></script>
 </head>
 <body class="admin-body">
-
-<!-- Sidebar -->
 <nav class="admin-sidebar">
     <div class="sidebar-logo">
         <img th:src="@{/Manager/ReviewManagement/Image/LogoConNai.png}" alt="Logo" class="logo-img">
@@ -27,10 +26,7 @@
         <li><a th:href="@{/manager/profile}"><i class="fa-solid fa-user"></i> Hồ sơ</a></li>
     </ul>
 </nav>
-
-<!-- Main content -->
 <div class="admin-content">
-    <!-- Top bar -->
     <div class="top-bar">
         <div class="user-menu">
             <div class="user-info">
@@ -38,33 +34,25 @@
                 <span th:text="${username != null ? username : 'Manager'}">Manager</span>
                 <i class="fa-solid fa-chevron-down"></i>
             </div>
-            <!-- Dropdown -->
             <ul class="dropdown">
                 <li><a th:href="@{/logout}"><i class="fa-solid fa-right-from-bracket"></i> Đăng xuất</a></li>
             </ul>
         </div>
     </div>
-
     <div class="main-area">
         <div class="admin-review-container">
             <h2>Quản lý đánh giá</h2>
-
-            <!-- Filter & search -->
             <div class="review-controls">
                 <label for="product-search">Tìm theo tên sản phẩm:</label>
                 <input type="text" id="product-search" placeholder="Nhập ....">
-
                 <label for="sort-filter">Sắp xếp:</label>
                 <select id="sort-filter">
                     <option value="latest">Mới nhất</option>
                     <option value="oldest">Cũ nhất</option>
                 </select>
-
                 <button id="apply-filter">Áp dụng</button>
                 <button id="show-all">Hiện tất cả</button>
             </div>
-
-            <!-- Table đánh giá -->
             <table id="review-table">
                 <thead>
                 <tr>
@@ -89,7 +77,6 @@
                 </tr>
                 </tbody>
             </table>
-
             <div class="pagination-controls" style="display: none;">
                 <button id="prev-page">Trang trước</button>
                 <span id="page-info"></span>
@@ -98,7 +85,6 @@
         </div>
     </div>
 </div>
-
 <script th:src="@{/Manager/ReviewManagement/ReviewManagement.js}"></script>
 <script th:src="@{/Manager/Background/Background.js}"></script>
 </body>

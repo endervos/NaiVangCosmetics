@@ -11,19 +11,17 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    <script th:src="@{/session.js}"></script>
 </head>
 <body>
-
 <div class="promo-banner">
     <img th:src="@{/Customer/Home/Home.gif}" alt="Khuyến mãi Lam Thao">
 </div>
-
 <div class="header">
     <div class="container header-inner">
         <a th:href="@{/}">
             <img th:src="@{/Customer/Example/Image/Logo7.png}" alt="Logo" width="150" height="100">
         </a>
-
         <div class="search-bar">
             <div class="search-wrap">
                 <input type="text" placeholder="Bạn cần tìm ....">
@@ -35,7 +33,6 @@
                 </span>
             </div>
         </div>
-
         <div class="header-icons">
             <div class="user-section">
                 <button class="user-btn" aria-label="Tài khoản">
@@ -44,16 +41,13 @@
                               d="M17.75 14c1.24 0 2.25 1.01 2.25 2.25v.92c0 .57-.18 1.13-.52 1.6C18 20.9 15.5 22 12 22s-6-1.1-7.48-3.23c-.34-.47-.52-1.03-.52-1.6v-.92C4 15.01 5.01 14 6.25 14h11.5ZM12 2a5 5 0 1 1 0 10 5 5 0 0 1 0-10Z"/>
                     </svg>
                 </button>
-
                 <div class="user-dropdown">
                     <a th:href="@{/login}" id="login-btn" sec:authorize="isAnonymous()">Đăng nhập</a>
                     <a th:href="@{/sign-up}" id="subcribe-btn" sec:authorize="isAnonymous()">Đăng ký</a>
-
                     <a th:href="@{/profile}" id="account-info" sec:authorize="isAuthenticated()">Thông tin tài khoản</a>
                     <a th:href="@{/logout}" id="logout-btn" sec:authorize="isAuthenticated()">Đăng xuất</a>
                 </div>
             </div>
-
             <div class="cart-section">
                 <a th:href="@{/cart}" class="cart-pill" title="Giỏ hàng">
                     <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
@@ -66,8 +60,6 @@
         </div>
     </div>
 </div>
-
-<!-- ===================== MAIN ===================== -->
 <main class="cart-container">
     <section class="cart-items">
         <h2>
@@ -83,8 +75,6 @@
                 <th></th>
             </tr>
             </thead>
-
-            <!-- Nếu có sản phẩm -->
             <tbody id="cart-body" th:if="${#lists.isEmpty(cartItems) == false}">
             <tr th:each="item : ${cartItems}">
                 <td class="product-info">
@@ -113,8 +103,6 @@
                 </td>
             </tr>
             </tbody>
-
-            <!-- Nếu giỏ hàng trống -->
             <tbody th:if="${#lists.isEmpty(cartItems)}">
             <tr>
                 <td colspan="5" style="text-align:center; padding:20px;">
@@ -125,8 +113,6 @@
         </table>
         <a th:href="@{/}" class="back-shopping">← Tiếp tục mua hàng</a>
     </section>
-
-    <!-- ========== Hóa đơn ========== -->
     <aside class="cart-summary">
         <h2>Hóa đơn của bạn</h2>
         <p>Tạm tính:
@@ -148,8 +134,6 @@
         </form>
     </aside>
 </main>
-
-<!-- ========== FOOTER ========== -->
 <div class="subscribe-bar">
     <h2>ĐĂNG KÝ NHẬN ƯU ĐÃI</h2>
     <form class="subscribe-form" id="subscribeForm">
@@ -160,7 +144,6 @@
         <button type="submit">ĐĂNG KÝ</button>
     </form>
 </div>
-
 <footer class="footer">
     <div class="footer-main">
         <div class="footer-col">
@@ -171,7 +154,6 @@
             <p>Hotline: <a href="tel:19004449">19004449</a></p>
             <img th:src="@{/Customer/Home/Bocongthuong_1_1.webp}" alt="Đã thông báo Bộ Công Thương" class="boct-logo">
         </div>
-
         <div class="footer-col">
             <h4>Theo dõi chúng tôi</h4>
             <div class="social-links">
@@ -192,7 +174,6 @@
         <p>© 2025 Nai Vang. All rights reserved.</p>
     </div>
 </footer>
-
 <script th:src="@{/Customer/Home/Home.js}"></script>
 <script th:src="@{/Customer/Cart/Cart.js}"></script>
 </body>

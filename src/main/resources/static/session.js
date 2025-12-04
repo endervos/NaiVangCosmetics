@@ -178,7 +178,7 @@
 
         const message = document.getElementById('session-warning-message');
         if (message) {
-            message.textContent = `Bạn chưa có hoạt động trong 9.5 phút. Phiên làm việc sẽ tự động đăng xuất sau ${remainingSeconds} giây nếu không có hoạt động.`;
+            message.textContent = `Bạn chưa có hoạt động trong 9 phút. Phiên làm việc sẽ tự động đăng xuất sau ${remainingSeconds} giây nếu không có hoạt động.`;
         }
     }
 
@@ -292,7 +292,7 @@
             const remainingSeconds = Math.ceil(remainingTime / 1000);
             const message = document.getElementById('session-warning-message');
             if (message) {
-                message.textContent = `Bạn chưa có hoạt động trong 9.5 phút. Phiên làm việc sẽ tự động đăng xuất sau ${remainingSeconds} giây nếu không có hoạt động.`;
+                message.textContent = `Bạn chưa có hoạt động trong 9 phút. Phiên làm việc sẽ tự động đăng xuất sau ${remainingSeconds} giây nếu không có hoạt động.`;
             }
         }
     }

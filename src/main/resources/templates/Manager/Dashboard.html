@@ -7,9 +7,9 @@
     <link rel="stylesheet" th:href="@{/Manager/Dashboard/Dashboard.css}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="icon" type="image/png" th:href="@{/Customer/Example/Image/LogoConNai.png}">
+    <script th:src="@{/session.js}"></script>
 </head>
 <body class="admin-body">
-<!-- Sidebar -->
 <nav class="admin-sidebar">
     <div class="sidebar-logo">
         <img th:src="@{/Manager/Dashboard/Image/LogoConNai.png}" alt="Logo" class="logo-img">
@@ -25,10 +25,7 @@
         <li><a th:href="@{/manager/profile}"><i class="fa-solid fa-user"></i> Hồ sơ</a></li>
     </ul>
 </nav>
-
-<!-- Main content -->
 <div class="admin-content">
-    <!-- Top bar -->
     <div class="top-bar">
         <div class="user-menu">
             <div class="user-info">
@@ -36,18 +33,13 @@
                 <span th:text="${username != null ? username : 'Manager'}">Manager</span>
                 <i class="fa-solid fa-chevron-down"></i>
             </div>
-            <!-- Dropdown -->
             <ul class="dropdown">
                 <li><a th:href="@{/logout}"><i class="fa-solid fa-right-from-bracket"></i> Đăng xuất</a></li>
             </ul>
         </div>
     </div>
-
-    <!-- Main area -->
     <div class="main-area">
         <h2 class="page-title">TỔNG QUAN HỆ THỐNG</h2>
-
-        <!-- KPI Cards -->
         <div class="stats-cards">
             <div class="card">
                 <div class="card-icon"><i class="fa-solid fa-box"></i></div>
@@ -78,8 +70,6 @@
                 </div>
             </div>
         </div>
-
-        <!-- Chart Section -->
         <div class="charts">
             <div class="chart-box">
                 <h3>DOANH THU 6 THÁNG GẦN NHẤT</h3>
@@ -90,10 +80,8 @@
                 <canvas id="categoryChart"></canvas>
             </div>
         </div>
-
     </div>
 </div>
-
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script th:src="@{/Manager/Dashboard/Dashboard.js}"></script>
 </body>

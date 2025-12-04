@@ -8,6 +8,7 @@
   <link rel="stylesheet" th:href="@{/Admin/Profile/Profile.css}">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="icon" type="image/png" th:href="@{/Customer/Example/Image/LogoConNai.png}">
+  <script th:src="@{/session.js}"></script>
 </head>
 <body class="admin-body">
 <nav class="admin-sidebar">
@@ -27,10 +28,7 @@
     <li><a th:href="@{/admin/profile}"><i class="fa-solid fa-user"></i> Hồ sơ</a></li>
   </ul>
 </nav>
-
-<!-- Main content -->
 <div class="admin-content">
-  <!-- Top bar -->
   <div class="top-bar">
     <div class="user-menu">
       <div class="user-info">
@@ -38,40 +36,32 @@
         <span th:text="${adminName != null ? adminName : 'Admin'}">Admin</span>
         <i class="fa-solid fa-chevron-down"></i>
       </div>
-      <!-- Dropdown -->
       <ul class="dropdown">
         <li><a th:href="@{/logout}"><i class="fa-solid fa-right-from-bracket"></i> Đăng xuất</a></li>
       </ul>
     </div>
   </div>
-
-  <!-- Main area -->
   <div class="main-area">
     <div class="admin-manager-info">
       <h2>Quản lý Thông tin Cá nhân</h2>
-
       <div class="manager-info-container">
         <form id="admin-info-form" th:action="@{/admin/profile/update}" th:object="${admin}" method="post">
           <div class="info-item">
             <label for="id">ID Admin</label>
             <input type="text" id="id" th:value="${adminId}" readonly>
           </div>
-
           <div class="info-item">
             <label for="name">Họ và tên</label>
             <input type="text" id="name" th:field="*{fullname}" required>
           </div>
-
           <div class="info-item">
             <label for="email">Email</label>
             <input type="email" id="email" th:field="*{email}" readonly>
           </div>
-
           <div class="info-item">
             <label for="dateOfBirth">Ngày tháng năm sinh</label>
             <input type="date" id="dateOfBirth" th:field="*{birthday}" required>
           </div>
-
           <div class="info-item">
             <label>Giới tính</label>
             <div class="gender-options">
@@ -85,12 +75,10 @@
               </label>
             </div>
           </div>
-
           <div class="info-item">
             <label for="phone">Số điện thoại</label>
             <input type="tel" id="phone" th:field="*{phoneNumber}" required>
           </div>
-
           <div class="button-container">
             <button type="submit" class="save-btn">Lưu thông tin</button>
           </div>
@@ -99,7 +87,6 @@
     </div>
   </div>
 </div>
-
 <script th:src="@{/Admin/Background/Background.js}"></script>
 <script th:src="@{/Admin/Profile/Profile.js}"></script>
 </body>

@@ -11,20 +11,17 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-    <script th:src="@{/Customer/Home/session.js}"></script>
+    <script th:src="@{/session.js}"></script>
 </head>
 <body>
-
 <div class="promo-banner">
     <img th:src="@{/Customer/Home/Home.gif}" alt="Khuyến mãi Lam Thao">
 </div>
-
 <div class="header">
     <div class="container header-inner">
         <a th:href="@{/}">
             <img th:src="@{/Customer/Example/Image/Logo7.png}" alt="Logo" width="150" height="100">
         </a>
-
         <div class="search-bar">
             <div class="search-wrap">
                 <input type="text" placeholder="Bạn cần tìm ....">
@@ -36,7 +33,6 @@
           </span>
             </div>
         </div>
-
         <div class="header-icons">
             <div class="user-section">
                 <button class="user-btn" aria-label="Tài khoản">
@@ -45,7 +41,6 @@
                               d="M17.75 14c1.24 0 2.25 1.01 2.25 2.25v.92c0 .57-.18 1.13-.52 1.6C18 20.9 15.5 22 12 22s-6-1.1-7.48-3.23c-.34-.47-.52-1.03-.52-1.6v-.92C4 15.01 5.01 14 6.25 14h11.5ZM12 2a5 5 0 1 1 0 10 5 5 0 0 1 0-10Z"/>
                     </svg>
                 </button>
-
                 <div class="user-dropdown">
                     <a th:href="@{/login}" id="login-btn" sec:authorize="isAnonymous()">Đăng nhập</a>
                     <a th:href="@{/sign-up}" id="subcribe-btn" sec:authorize="isAnonymous()">Đăng ký</a>
@@ -53,7 +48,6 @@
                     <a th:href="@{/logout}" id="logout-btn" sec:authorize="isAuthenticated()">Đăng xuất</a>
                 </div>
             </div>
-
             <div class="cart-section">
                 <a th:href="@{/cart}" class="cart-pill" title="Giỏ hàng">
                     <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
@@ -66,8 +60,6 @@
         </div>
     </div>
 </div>
-
-<!-- Menu -->
 <div class="menu-bar">
     <div class="container menu-inner">
         <div class="dropdown">
@@ -91,19 +83,15 @@
                 </li>
             </ul>
         </div>
-
         <div class="dropdown">
             <a href="#"> NAI VANG BEAUTY</a>
         </div>
-
         <div class="dropdown">
             <a href="/blog">TIN TỨC</a>
         </div>
-
         <a href="#">TRA CỨU ĐƠN HÀNG</a>
     </div>
 </div>
-
 <main class="wrapperMain_content">
     <div class="inslideron">
         <div class="slider-viewport">
@@ -117,7 +105,6 @@
         <button class="nav next" aria-label="Next">&#10095;</button>
     </div>
 </main>
-
 <section class="flash-sale">
     <div class="fs-header">
         <h2>Flash <span><img th:src="@{/Customer/Home/Flashsale.png}" alt="flashsale"></span> Sale</h2>
@@ -125,7 +112,6 @@
             <a class="fs-viewall" href="#">Xem tất cả »</a>
         </div>
     </div>
-
     <div class="fs-viewport">
         <div class="fs-track" id="fsTrack">
             <article class="fs-card" th:each="item : ${flashSaleItems}">
@@ -134,9 +120,9 @@
                     <h3 class="fs-brand" th:text="${item.name}">Product Name</h3>
                     <p class="fs-name" th:text="${item.color}">Màu sắc</p>
                     <div class="fs-price">
-                        <span class="new" th:text="${item.finalPrice} + ' đ'">23,000 đ</span>
-                        <span class="old" th:text="${item.price} + ' đ'">35,000 đ</span>
-                        <span class="discount" th:text="'-' + ${item.discountPercent} + '%'">-34%</span>
+                        <span class="new" th:text="${item.finalPrice} + ' đ'">0 đ</span>
+                        <span class="old" th:text="${item.price} + ' đ'">0 đ</span>
+                        <span class="discount" th:text="'-' + ${item.discountPercent} + '%'">-0%</span>
                     </div>
                     <div class="fs-meta">
                         <span class="stars">
@@ -144,7 +130,7 @@
                                th:class="${i <= item.averageRating} ? 'fa fa-star' : 'fa fa-star-o'"></i>
                         </span>
                         <span th:text="${item.averageRating}">5.0</span>
-                        <span th:text="'Đã bán ' + ${item.reviewCount}">Đã bán 21,783</span>
+                        <span th:text="'Đã bán ' + ${item.reviewCount}">Đã bán 0</span>
                     </div>
                     <div class="fs-progress"><span style="width:70%"></span></div>
                 </a>
@@ -152,7 +138,6 @@
         </div>
     </div>
 </section>
-
 <div class="product-section">
     <div class="section-header">
         <h2><span>SẢN PHẨM MỚI</span></h2>
@@ -160,29 +145,27 @@
             <a class="viewall" href="#">Xem tất cả »</a>
         </div>
     </div>
-
     <div class="product-scroll">
         <div class="product-card" th:each="item : ${latestItems}">
             <a th:href="@{/item/{id}(id=${item.itemId})}" style="text-decoration: none; color: inherit; display: block;">
                 <img th:src="@{/item/image/{id}(id=${item.itemId})}" th:alt="${item.name}">
                 <h3 th:text="${item.name}">Product name</h3>
                 <div class="price">
-                    <span class="now" th:text="${#numbers.formatInteger(item.price, 0, 'COMMA')} + ' đ'">320,000 đ</span>
+                    <span class="now" th:text="${#numbers.formatInteger(item.price, 0, 'COMMA')} + ' đ'">0 đ</span>
                 </div>
                 <div class="rating">
                     <span class="stars">
                         <i th:each="i : ${#numbers.sequence(1, 5)}"
                            th:class="${i <= item.averageRating} ? 'fa fa-star' : 'fa fa-star-o'"></i>
                     </span>
-                    <span th:text="${item.averageRating}">5.0</span>
-                    <span th:text="'Đã bán ' + ${item.reviewCount}">Đã bán 440</span>
+                    <span th:text="${item.averageRating}">0</span>
+                    <span th:text="'Đã bán ' + ${item.reviewCount}">Đã bán 0</span>
                 </div>
                 <div class="fs-progress"><span style="width:70%"></span></div>
             </a>
         </div>
     </div>
 </div>
-
 <div class="container">
     <h2 class="section-title">TOP SẢN PHẨM BÁN CHẠY</h2>
     <ul class="tab-menu">
@@ -192,7 +175,6 @@
             th:text="${cat.name}">Category</li>
     </ul>
 </div>
-
 <div class="bestseller-section">
     <div class="container">
         <div th:each="cat, iterStat : ${rootCategories}"
@@ -211,15 +193,15 @@
                             <img th:src="@{/item/image/{id}(id=${item.itemId})}" th:alt="${item.name}">
                             <h3 th:text="${item.name}">Product name</h3>
                             <div class="price">
-                                <span class="new" th:text="${item.price} + ' đ'">23,000 đ</span>
+                                <span class="new" th:text="${item.price} + ' đ'">0 đ</span>
                             </div>
                             <div class="rating">
                                 <span class="stars">
                                     <i th:each="i : ${#numbers.sequence(1, 5)}"
                                        th:class="${i <= item.averageRating} ? 'fa fa-star' : 'fa fa-star-o'"></i>
                                 </span>
-                                <span th:text="${item.averageRating}">5.0</span>
-                                <span th:text="'Đã bán ' + ${item.totalSold}">Đã bán 21,783</span>
+                                <span th:text="${item.averageRating}">0</span>
+                                <span th:text="'Đã bán ' + ${item.totalSold}">Đã bán 0</span>
                             </div>
                         </a>
                     </div>
@@ -228,8 +210,6 @@
         </div>
     </div>
 </div>
-
-<!-- Phần thương hiệu -->
 <div class="brand-section">
     <h2 class="brand-title">TOP THƯƠNG HIỆU NỔI BẬT</h2>
     <div class="brand-carousel">
@@ -242,8 +222,6 @@
         <div class="brand-card"><img th:src="@{/Customer/Home/Banner17.png}" alt="Colorkey"></div>
     </div>
 </div>
-
-<!-- FOOTER -->
 <div class="subscribe-bar">
     <h2>ĐĂNG KÝ NHẬN ƯU ĐÃI</h2>
     <form class="subscribe-form" id="subscribeForm">
@@ -254,7 +232,6 @@
         <button type="submit">ĐĂNG KÝ</button>
     </form>
 </div>
-
 <footer class="footer">
     <div class="footer-main">
         <div class="footer-col">
@@ -266,7 +243,6 @@
                 Điện thoại: <a href="tel:02838328272">02838328272</a></p>
             <img th:src="@{/Customer/Home/Bocongthuong_1_1.webp}" alt="Đã thông báo Bộ Công Thương" class="boct-logo">
         </div>
-
         <div class="footer-col">
             <h4>Theo dõi chúng tôi</h4>
             <div class="social-links">
@@ -275,7 +251,6 @@
                 <a href="#"><img th:src="@{/Customer/Home/Youtube.webp}" alt="YouTube"></a>
                 <a href="#"><img th:src="@{/Customer/Home/Tiktok.webp}" alt="TikTok"></a>
             </div>
-
             <h4>Tải App Ngay</h4>
             <div class="app-links">
                 <img th:src="@{/Customer/Home/Maqr.png}" alt="QR Code" class="qr-code">
@@ -284,7 +259,6 @@
                     <a href="#"><img th:src="@{/Customer/Home/Appstore.webp}" alt="App Store"></a>
                 </div>
             </div>
-
             <h4>Chấp nhận Phương thức thanh toán</h4>
             <div class="pay-methods">
                 <img th:src="@{/Customer/Home/Vnpay.png}" alt="VNPay">
@@ -292,7 +266,6 @@
                 <img th:src="@{/Customer/Home/Visa.png}" alt="Visa">
             </div>
         </div>
-
         <div class="footer-col">
             <h4>Về chúng tôi</h4>
             <ul>
@@ -307,7 +280,6 @@
                 <li><a href="#">Hợp tác cùng Guardian</a></li>
             </ul>
         </div>
-
         <div class="footer-col">
             <h4>Chính sách</h4>
             <ul>
@@ -322,16 +294,10 @@
             </ul>
         </div>
     </div>
-
     <div class="footer-bottom">
         <p>© 2025 Nai Vang. All rights reserved.</p>
     </div>
 </footer>
 <script th:src="@{/Customer/Home/Home.js}"></script>
-<script sec:authorize="isAuthenticated()">
-    if (window.sessionManager) {
-        console.log('User authenticated - session monitoring active');
-    }
-</script>
 </body>
 </html>

@@ -8,10 +8,9 @@
   <link rel="stylesheet" th:href="@{/Admin/Background/Background.css}">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="icon" type="image/png" th:href="@{/Customer/Example/Image/LogoConNai.png}">
+  <script th:src="@{/session.js}"></script>
 </head>
 <body class="admin-body">
-
-<!-- Sidebar -->
 <nav class="admin-sidebar">
   <div class="sidebar-logo">
     <img th:src="@{/Customer/Example/Image/LogoConNai.png}" alt="Logo" class="logo-img">
@@ -28,10 +27,7 @@
     <li><a th:href="@{/admin/profile}"><i class="fa-solid fa-user"></i> Hồ sơ</a></li>
   </ul>
 </nav>
-
-<!-- Main content -->
 <div class="admin-content">
-  <!-- Top bar -->
   <div class="top-bar">
     <div class="user-menu">
       <div class="user-info">
@@ -39,15 +35,12 @@
         <span>Admin</span>
         <i class="fa-solid fa-chevron-down"></i>
       </div>
-      <!-- Dropdown -->
       <ul class="dropdown">
         <li><a th:href="@{/admin/profile}"><i class="fa-solid fa-user"></i> Hồ sơ</a></li>
         <li><a th:href="@{/customer/login}"><i class="fa-solid fa-right-from-bracket"></i> Đăng xuất</a></li>
       </ul>
     </div>
   </div>
-
-  <!-- Main area -->
   <div class="main-area">
     <h2>Quản lý Đơn hàng</h2>
     <div class="filter-container">
@@ -77,8 +70,6 @@
       <span id="page-info"></span>
       <button id="next-page">Trang sau</button>
     </div>
-
-    <!-- Modal cho xem chi tiết -->
     <div id="order-detail-modal" class="modal">
       <div class="modal-content order-container" id="order-container">
         <span class="close-btn">&times;</span>
@@ -124,7 +115,6 @@
         </div>
       </div>
     </div>
-
     <div id="update-status-modal" class="modal">
       <div class="modal-content">
         <span class="close-btn">&times;</span>
@@ -135,7 +125,6 @@
     </div>
   </div>
 </div>
-
 <script th:src="@{/Admin/OrderManagement/OrderManagement.js}"></script>
 </body>
 </html>
