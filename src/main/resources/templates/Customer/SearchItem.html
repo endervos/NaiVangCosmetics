@@ -3,19 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nai Vang Cosmetic</title>
+    <title>Kết quả tìm kiếm - Nai Vang Cosmetic</title>
     <link rel="icon" type="image/png" th:href="@{/Customer/Home/LogoConNai.png}">
-    <link rel="stylesheet" th:href="@{/Customer/Home/Home.css}">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css">
+    <link rel="stylesheet" th:href="@{/Customer/Item/Item.css}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
     <script th:src="@{/session.js}"></script>
 </head>
 <body>
 <div class="promo-banner">
-    <img th:src="@{/Customer/Home/Home.gif}" alt="Khuyến mãi Lam Thao">
+    <img th:src="@{/Customer/Home/Home.gif}" alt="Khuyến mãi Nai Vang">
 </div>
 <div class="header">
     <div class="container header-inner">
@@ -27,7 +24,8 @@
                 <div class="search-wrap">
                     <input type="text"
                            name="q"
-                           placeholder="Bạn cần tìm ...."
+                           th:value="${searchQuery}"
+                           placeholder="Tìm tên sản phẩm"
                            pattern="^[a-zA-Z0-9\sàáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđÀÁẠẢÃÂẦẤẬẨẪĂẰẮẶẲẴÈÉẸẺẼÊỀẾỆỂỄÌÍỊỈĨÒÓỌỎÕÔỒỐỘỔỖƠỜỚỢỞỠÙÚỤỦŨƯỪỨỰỬỮỲÝỴỶỸĐ]+$"
                            title="Chỉ được nhập chữ cái và số">
                     <button type="submit" class="search-icon" style="border: none; background: none; cursor: pointer;">
@@ -98,136 +96,58 @@
         <a href="#">TRA CỨU ĐƠN HÀNG</a>
     </div>
 </div>
-<main class="wrapperMain_content">
-    <div class="inslideron">
-        <div class="slider-viewport">
-            <div class="slider">
-                <div class="slide"><img th:src="@{/Customer/Home/Banner1.jpeg}" alt="Banner 1"></div>
-                <div class="slide"><img th:src="@{/Customer/Home/Banner2.jpeg}" alt="Banner 2"></div>
-                <div class="slide"><img th:src="@{/Customer/Home/Banner3.png}" alt="Banner 3"></div>
+<nav class="breadcrumb">
+    <a th:href="@{/}">
+        <img th:src="@{/Customer/Item/Image/Home_icon.png}" alt="Home" class="breadcrumb-icon">
+        Trang chủ
+    </a>
+    <span>&gt;</span>
+    <span class="current" th:text="'Tìm kiếm: ' + ${searchQuery}">Kết quả tìm kiếm</span>
+</nav>
+<div class="banner">
+    <a href="#">
+        <img th:src="@{/Customer/Item/Image/Collection_banner.jpg}" alt="Web Sale Banner">
+    </a>
+</div>
+<section class="page-layout">
+    <div class="content-area" style="width: 100%; max-width: 1200px; margin: 0 auto;">
+        <main class="product-page">
+            <div th:if="${error}" class="error-message" style="background: #fee; padding: 15px; margin-bottom: 20px; border-radius: 8px; color: #c33;">
+                <p th:text="${error}"></p>
             </div>
-        </div>
-        <button class="nav prev" aria-label="Previous">&#10094;</button>
-        <button class="nav next" aria-label="Next">&#10095;</button>
-    </div>
-</main>
-<section class="flash-sale">
-    <div class="fs-header">
-        <h2>Flash <span><img th:src="@{/Customer/Home/Flashsale.png}" alt="flashsale"></span> Sale</h2>
-        <div class="fs-right">
-            <a class="fs-viewall" href="#">Xem tất cả »</a>
-        </div>
-    </div>
-    <div class="fs-viewport">
-        <div class="fs-track" id="fsTrack">
-            <article class="fs-card" th:each="item : ${flashSaleItems}">
-                <a th:href="@{/item/{id}(id=${@encryptionUtil.encrypt(item.itemId.toString())})}" style="text-decoration: none; color: inherit; display: block;">
-                    <img th:src="@{/item/image/{id}(id=${item.itemId})}" th:alt="${item.name}">
-                    <h3 class="fs-brand" th:text="${item.name}">Product Name</h3>
-                    <p class="fs-name" th:text="${item.color}">Màu sắc</p>
-                    <div class="fs-price">
-                        <span class="new" th:text="${item.finalPrice} + ' đ'">0 đ</span>
-                        <span class="old" th:text="${item.price} + ' đ'">0 đ</span>
-                        <span class="discount" th:text="'-' + ${item.discountPercent} + '%'">-0%</span>
+            <div th:if="${searchQuery != null && !searchQuery.isEmpty()}" style="margin-bottom: 20px;">
+                <h2 style="font-size: 24px; color: #333;">
+                    Kết quả tìm kiếm cho: "<span th:text="${searchQuery}" style="color: #e91e63;"></span>"
+                </h2>
+                <p style="color: #666;" th:text="${#lists.size(items)} + ' sản phẩm được tìm thấy'"></p>
+            </div>
+            <section class="product-list">
+                <div th:if="${#lists.isEmpty(items)}" style="text-align: center; padding: 60px 20px;">
+                    <i class="fa fa-search" style="font-size: 64px; color: #ddd; margin-bottom: 20px;"></i>
+                    <h3 style="color: #666; font-size: 20px;">Không tìm thấy sản phẩm nào</h3>
+                    <p style="color: #999;">Vui lòng thử lại với từ khóa khác</p>
+                </div>
+                <div class="grid" th:unless="${#lists.isEmpty(items)}">
+                    <div class="product-card" th:each="item : ${items}">
+                        <a th:href="@{/item/{id}(id=${@encryptionUtil.encrypt(item.itemId.toString())})}" class="product-link">
+                            <img th:src="@{'/api/item-images/by-item/' + ${item.itemId} + '/primary'}"
+                                 th:alt="${item.name}" width="200" height="200"/>
+                            <div class="brand"></div>
+                            <h4 class="title" th:text="${item.name}"></h4>
+                        </a>
+                        <div class="price">
+                            <span class="new" th:text="${#numbers.formatInteger(item.price, 0, 'COMMA')} + ' đ'"></span>
+                        </div>
+                        <div class="rating">
+                            <span th:utext="${item.ratingStars}"></span>
+                            <span th:text="'(' + ${#numbers.formatDecimal(item.averageRating, 1, 1)} + '/5 - ' + ${item.reviewCount} + ' lượt đánh giá)'"></span>
+                        </div>
                     </div>
-                    <div class="fs-meta">
-                        <span class="stars">
-                            <i th:each="i : ${#numbers.sequence(1, 5)}"
-                               th:class="${i <= item.averageRating} ? 'fa fa-star' : 'fa fa-star-o'"></i>
-                        </span>
-                        <span th:text="${item.averageRating}">5.0</span>
-                        <span th:text="'Đã bán ' + ${item.reviewCount}">Đã bán 0</span>
-                    </div>
-                    <div class="fs-progress"><span style="width:70%"></span></div>
-                </a>
-            </article>
-        </div>
+                </div>
+            </section>
+        </main>
     </div>
 </section>
-<div class="product-section">
-    <div class="section-header">
-        <h2><span>SẢN PHẨM MỚI</span></h2>
-        <div class="pv-right">
-            <a class="viewall" href="#">Xem tất cả »</a>
-        </div>
-    </div>
-    <div class="product-scroll">
-        <div class="product-card" th:each="item : ${latestItems}">
-            <a th:href="@{/item/{id}(id=${@encryptionUtil.encrypt(item.itemId.toString())})}" style="text-decoration: none; color: inherit; display: block;">
-                <img th:src="@{/item/image/{id}(id=${item.itemId})}" th:alt="${item.name}">
-                <h3 th:text="${item.name}">Product name</h3>
-                <div class="price">
-                    <span class="now" th:text="${#numbers.formatInteger(item.price, 0, 'COMMA')} + ' đ'">0 đ</span>
-                </div>
-                <div class="rating">
-                    <span class="stars">
-                        <i th:each="i : ${#numbers.sequence(1, 5)}"
-                           th:class="${i <= item.averageRating} ? 'fa fa-star' : 'fa fa-star-o'"></i>
-                    </span>
-                    <span th:text="${item.averageRating}">0</span>
-                    <span th:text="'Đã bán ' + ${item.reviewCount}">Đã bán 0</span>
-                </div>
-                <div class="fs-progress"><span style="width:70%"></span></div>
-            </a>
-        </div>
-    </div>
-</div>
-<div class="container">
-    <h2 class="section-title">TOP SẢN PHẨM BÁN CHẠY</h2>
-    <ul class="tab-menu">
-        <li th:each="cat, iterStat : ${rootCategories}"
-            th:classappend="${iterStat.index == 0} ? 'active' : ''"
-            th:attr="data-tab=${cat.slug}"
-            th:text="${cat.name}">Category</li>
-    </ul>
-</div>
-<div class="bestseller-section">
-    <div class="container">
-        <div th:each="cat, iterStat : ${rootCategories}"
-             class="tab-content"
-             th:classappend="${iterStat.index == 0} ? 'active' : ''"
-             th:id="${cat.slug}">
-            <div class="bestseller-content">
-                <div class="banner-left">
-                    <img th:src="@{/Customer/Home/{banner}(banner=${cat.slug + 'Banner.png'})}"
-                         th:alt="${cat.name}">
-                </div>
-                <div class="product-grid">
-                    <div class="product-card"
-                         th:each="item : ${__${#strings.concat('bestsellers_', cat.slug)}__}">
-                        <a th:href="@{/item/{id}(id=${@encryptionUtil.encrypt(item.itemId.toString())})}" style="text-decoration: none; color: inherit; display: block;">
-                            <img th:src="@{/item/image/{id}(id=${item.itemId})}" th:alt="${item.name}">
-                            <h3 th:text="${item.name}">Product name</h3>
-                            <div class="price">
-                                <span class="new" th:text="${item.price} + ' đ'">0 đ</span>
-                            </div>
-                            <div class="rating">
-                                <span class="stars">
-                                    <i th:each="i : ${#numbers.sequence(1, 5)}"
-                                       th:class="${i <= item.averageRating} ? 'fa fa-star' : 'fa fa-star-o'"></i>
-                                </span>
-                                <span th:text="${item.averageRating}">0</span>
-                                <span th:text="'Đã bán ' + ${item.totalSold}">Đã bán 0</span>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="brand-section">
-    <h2 class="brand-title">TOP THƯƠNG HIỆU NỔI BẬT</h2>
-    <div class="brand-carousel">
-        <div class="brand-card"><img th:src="@{/Customer/Home/Banner5.png}" alt="Caryophy"></div>
-        <div class="brand-card"><img th:src="@{/Customer/Home/Banner6.png}" alt="Glorie"></div>
-        <div class="brand-card"><img th:src="@{/Customer/Home/Banner8.png}" alt="Dasique"></div>
-        <div class="brand-card"><img th:src="@{/Customer/Home/Banner13.png}" alt="Colorkey"></div>
-        <div class="brand-card"><img th:src="@{/Customer/Home/Banner15.png}" alt="Innisfree"></div>
-        <div class="brand-card"><img th:src="@{/Customer/Home/Banner16.png}" alt="Dasique"></div>
-        <div class="brand-card"><img th:src="@{/Customer/Home/Banner17.png}" alt="Colorkey"></div>
-    </div>
-</div>
 <div class="subscribe-bar">
     <h2>ĐĂNG KÝ NHẬN ƯU ĐÃI</h2>
     <form class="subscribe-form" id="subscribeForm">
@@ -245,8 +165,7 @@
             <p><strong>CÔNG TY TNHH MTV THƯƠNG MẠI VÀ ĐẦU TƯ LIÊN Á CHÂU</strong></p>
             <p>Giấy chứng nhận đăng ký doanh nghiệp số 0310618188, cấp ngày 29.01.2011, nơi cấp Sở Kế Hoạch và Đầu Tư TP. Hồ Chí Minh</p>
             <p>Trụ sở chính: L2-VP-01, 346 Bến Vân Đồn, Phường Vĩnh Hội, TP. Hồ Chí Minh</p>
-            <p>Hotline: <a href="tel:19004449">19004449</a>
-                Điện thoại: <a href="tel:02838328272">02838328272</a></p>
+            <p>Hotline: <a href="tel:19004449">19004449</a> Điện thoại: <a href="tel:02838328272">02838328272</a></p>
             <img th:src="@{/Customer/Home/Bocongthuong_1_1.webp}" alt="Đã thông báo Bộ Công Thương" class="boct-logo">
         </div>
         <div class="footer-col">
@@ -279,11 +198,7 @@
                 <li><a href="#">Tin Tức</a></li>
                 <li><a href="#">Cẩm nang Làm đẹp</a></li>
                 <li><a href="#">Tuyển dụng</a></li>
-                <li><a href="#">Đổi điểm Hội Cam</a></li>
                 <li><a href="#">Liên hệ</a></li>
-                <li><a href="#">Địa chỉ cửa hàng</a></li>
-                <li><a href="#">Cho thuê mặt bằng</a></li>
-                <li><a href="#">Hợp tác cùng Guardian</a></li>
             </ul>
         </div>
         <div class="footer-col">
@@ -293,10 +208,6 @@
                 <li><a href="#">Quy định và hình thức thanh toán</a></li>
                 <li><a href="#">Chính sách vận chuyển</a></li>
                 <li><a href="#">Chính sách đổi/trả hàng và hoàn tiền</a></li>
-                <li><a href="#">Chính sách bảo mật thông tin cá nhân</a></li>
-                <li><a href="#">Hướng dẫn mua hàng</a></li>
-                <li><a href="#">Quy trình xuất hóa đơn Điện Tử</a></li>
-                <li><a href="#">Chính sách Thông tin Hội Cam</a></li>
             </ul>
         </div>
     </div>
@@ -304,6 +215,6 @@
         <p>© 2025 Nai Vang. All rights reserved.</p>
     </div>
 </footer>
-<script th:src="@{/Customer/Home/Home.js}"></script>
+<script th:src="@{/Customer/Item/Item.js}"></script>
 </body>
 </html>

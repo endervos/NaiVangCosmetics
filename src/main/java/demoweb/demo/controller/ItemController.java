@@ -105,6 +105,26 @@ public class ItemController {
         }
     }
 
+    @GetMapping("/search")
+    public String searchItems(@RequestParam(value = "q", required = false) String query, Model model) {
+        List<Item> items;
+        if (query == null || query.trim().isEmpty()) {
+            items = itemService.getAllItems();
+        } else {
+            if (!query.matches("^[a-zA-Z0-9\\sàáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđÀÁẠẢÃÂẦẤẬẨẪĂẰẮẶẲẴÈÉẸẺẼÊỀẾỆỂỄÌÍỊỈĨÒÓỌỎÕÔỒỐỘỔỖƠỜỚỢỞỠÙÚỤỦŨƯỪỨỰỬỮỲÝỴỶỸĐ]+$")) {
+                model.addAttribute("error", "Từ khóa tìm kiếm không hợp lệ. Vui lòng chỉ sử dụng chữ cái và số.");
+                items = List.of();
+            } else {
+                items = itemService.searchByName(query.trim());
+            }
+        }
+        model.addAttribute("items", items);
+        model.addAttribute("searchQuery", query != null ? query.trim() : "");
+        model.addAttribute("rootCategories", categoryService.getRootCategoriesWithChildren());
+        model.addAttribute("encryptionUtil", encryptionUtil);
+        return "Customer/SearchItem";
+    }
+
     @GetMapping("/filter")
     public String filterItems(@RequestParam("categoryId") String encryptedCategoryId,
                               @RequestParam("range") String range, Model model) {

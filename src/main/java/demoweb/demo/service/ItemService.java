@@ -61,6 +61,13 @@ public class ItemService {
         return items;
     }
 
+    @Transactional(readOnly = true)
+    public List<Item> searchByName(String keyword) {
+        List<Item> items = itemRepository.findByNameContainingIgnoreCase(keyword);
+        items.forEach(this::attachRating);
+        return items;
+    }
+
     public List<Item> filterByPrice(Integer categoryId, Integer min, Integer max) {
         List<Item> items = itemRepository.findAll((root, query, cb) -> {
             List<Predicate> predicates = new ArrayList<>();

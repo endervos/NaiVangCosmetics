@@ -24,6 +24,8 @@ public interface ItemRepository extends JpaRepository<Item, Integer>, JpaSpecifi
             "WHERE i.itemId = :id")
     Optional<Item> findByIdWithFullData(@Param("id") Integer id);
 
+    List<Item> findByNameContainingIgnoreCase(String name);
+
     @Query("SELECT i FROM Item i ORDER BY i.createdAt DESC")
     List<Item> findTop5ByOrderByCreatedAtDesc();
 }
