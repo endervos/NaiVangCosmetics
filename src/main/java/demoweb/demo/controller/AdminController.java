@@ -217,17 +217,14 @@ public class AdminController {
             Account updatedAccount = accountService.updateAccount(
                     accountId, fullname, birthday, gender, phoneNumber, role
             );
-
             Map<String, Object> response = new HashMap<>();
             response.put("success", true);
             response.put("message", "Cập nhật tài khoản thành công!");
-
             Map<String, Object> accountData = new HashMap<>();
             accountData.put("accountId", updatedAccount.getAccountId());
             accountData.put("fullname", updatedAccount.getUser().getFullname());
             accountData.put("email", updatedAccount.getUser().getEmail());
             accountData.put("role", updatedAccount.getRole().getName());
-
             response.put("account", accountData);
             return ResponseEntity.ok(response);
         } catch (Exception e) {

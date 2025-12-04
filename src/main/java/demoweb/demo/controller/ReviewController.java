@@ -54,10 +54,8 @@ public class ReviewController {
                         .orElseThrow(() -> new RuntimeException("Không tìm thấy Customer"));
                 review.setCustomer(customer);
             }
-
             Review savedReview = reviewService.save(review);
             return ResponseEntity.ok(new ReviewDTO(savedReview));
-
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Không thể tạo review: " + e.getMessage());
         }

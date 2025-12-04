@@ -17,14 +17,10 @@ public class FavouriteListController {
     @Autowired
     private UserService userService;
 
-    // GET /favourite
     @GetMapping
     public String favourite(Model model, Principal principal) {
-        // lấy user từ email đăng nhập
         User user = userService.findByEmail(principal.getName());
         model.addAttribute("user", user);
-
-        // trả về đúng file template (ví dụ Customer/FavouriteList.html)
         return "Customer/FavouriteList";
     }
 }

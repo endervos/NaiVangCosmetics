@@ -3,6 +3,7 @@ package demoweb.demo.controller;
 import demoweb.demo.entity.*;
 import demoweb.demo.repository.*;
 import demoweb.demo.service.CartService;
+import demoweb.demo.security.EncryptionUtil;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -28,6 +29,7 @@ public class CartController {
     private final OrderItemRepository orderItemRepository;
     private final PaymentRepository paymentRepository;
     private final InventoryRepository inventoryRepository;
+    private final EncryptionUtil encryptionUtil;
 
     public CartController(
             CartRepository cartRepository,
@@ -40,7 +42,8 @@ public class CartController {
             OrderRepository orderRepository,
             OrderItemRepository orderItemRepository,
             PaymentRepository paymentRepository,
-            InventoryRepository inventoryRepository
+            InventoryRepository inventoryRepository,
+            EncryptionUtil encryptionUtil
     ) {
         this.cartRepository = cartRepository;
         this.cartItemRepository = cartItemRepository;
@@ -53,6 +56,7 @@ public class CartController {
         this.orderItemRepository = orderItemRepository;
         this.paymentRepository = paymentRepository;
         this.inventoryRepository = inventoryRepository;
+        this.encryptionUtil = encryptionUtil;
     }
 
     @GetMapping
@@ -85,7 +89,6 @@ public class CartController {
                 .map(Account::getAccountId)
                 .orElseThrow(() -> new RuntimeException("Không tìm thấy account cho email: " + email));
         Cart cart = cartService.findCartByAccountId(accountId).orElseGet(() -> {
-            System.out.println("📦 [CartController] Tạo giỏ hàng mới cho account: " + accountId);
             Cart c = new Cart();
             c.setAccountId(accountId);
             c.setCreatedAt(LocalDateTime.now());
@@ -104,7 +107,8 @@ public class CartController {
         cartItemRepository.save(cartItem);
         cart.setUpdatedAt(LocalDateTime.now());
         cartRepository.save(cart);
-        return "redirect:/item/" + itemId;
+        String encryptedId = encryptionUtil.encrypt(itemId.toString());
+        return "redirect:/item/" + encryptedId;
     }
 
     @GetMapping("/payment")

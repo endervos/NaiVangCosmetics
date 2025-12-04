@@ -7,6 +7,7 @@ import demoweb.demo.service.CategoryService;
 import demoweb.demo.service.ItemImageService;
 import demoweb.demo.service.ItemService;
 import demoweb.demo.service.ReviewService;
+import demoweb.demo.security.EncryptionUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -26,6 +27,7 @@ public class ItemController {
     private final ItemService itemService;
     private final CategoryService categoryService;
     private final ReviewService reviewService;
+    private final EncryptionUtil encryptionUtil;
 
     @Autowired
     private ItemRepository itemRepository;
@@ -37,10 +39,14 @@ public class ItemController {
     private InventoryRepository inventoryRepository;
 
     @Autowired
-    public ItemController(ItemService itemService, CategoryService categoryService, ReviewService reviewService) {
+    public ItemController(ItemService itemService,
+                          CategoryService categoryService,
+                          ReviewService reviewService,
+                          EncryptionUtil encryptionUtil) {
         this.itemService = itemService;
         this.categoryService = categoryService;
         this.reviewService = reviewService;
+        this.encryptionUtil = encryptionUtil;
     }
 
     @GetMapping
@@ -48,79 +54,82 @@ public class ItemController {
         List<Item> items = itemService.getAllItems();
         model.addAttribute("items", items);
         model.addAttribute("rootCategories", categoryService.getRootCategoriesWithChildren());
+        model.addAttribute("encryptionUtil", encryptionUtil);
         return "Customer/Item";
     }
 
-    @GetMapping("/{id:\\d+}")
-    public String getItemById(@PathVariable("id") Integer id, Model model) {
-        return itemService.getItemById(id)
-                .map(item -> {
-                    Integer stock = inventoryRepository.findById(id)
-                            .map(Inventory::getQuantity)
-                            .orElse(0);
-                    model.addAttribute("stock", stock);
-                    List<Review> reviews = reviewService.getByItemId(id);
-                    for (Review review : reviews) {
-                        if (review.getCustomer() == null) {
-                            Customer c = new Customer();
-                            User u = new User();
-                            u.setFullname("Ẩn danh");
-                            c.setUser(u);
-                            review.setCustomer(c);
-                        } else if (review.getCustomer().getUser() == null) {
-                            User u = new User();
-                            u.setFullname("Ẩn danh");
-                            review.getCustomer().setUser(u);
+    @GetMapping("/{encryptedId}")
+    public String getItemById(@PathVariable("encryptedId") String encryptedId, Model model) {
+        try {
+            String decryptedId = encryptionUtil.decrypt(encryptedId);
+            Integer id = Integer.parseInt(decryptedId);
+            return itemService.getItemById(id)
+                    .map(item -> {
+                        Integer stock = inventoryRepository.findById(id)
+                                .map(Inventory::getQuantity)
+                                .orElse(0);
+                        model.addAttribute("stock", stock);
+                        List<Review> reviews = reviewService.getByItemId(id);
+                        for (Review review : reviews) {
+                            if (review.getCustomer() == null) {
+                                Customer c = new Customer();
+                                User u = new User();
+                                u.setFullname("Ẩn danh");
+                                c.setUser(u);
+                                review.setCustomer(c);
+                            } else if (review.getCustomer().getUser() == null) {
+                                User u = new User();
+                                u.setFullname("Ẩn danh");
+                                review.getCustomer().setUser(u);
+                            }
                         }
-                    }
-                    Double averageRating = reviewService.getAverageRating(id);
-                    Integer reviewCount = reviewService.getReviewCount(id);
-                    String ratingStars = reviewService.getRatingStars(averageRating);
-                    ItemImage primaryImage = itemImageService.getPrimaryImage(id);
-                    List<ItemImage> subImages = itemImageService.getImagesByItemId(id);
-                    model.addAttribute("item", item);
-                    model.addAttribute("reviews", reviews);
-                    model.addAttribute("averageRating", averageRating);
-                    model.addAttribute("reviewCount", reviewCount);
-                    model.addAttribute("ratingStars", ratingStars);
-                    model.addAttribute("rootCategories", categoryService.getRootCategoriesWithChildren());
-                    model.addAttribute("primaryImage", primaryImage);
-                    model.addAttribute("subImages", subImages);
-                    return "Customer/ItemDetail";
-                })
-                .orElse("error/404");
+                        Double averageRating = reviewService.getAverageRating(id);
+                        Integer reviewCount = reviewService.getReviewCount(id);
+                        String ratingStars = reviewService.getRatingStars(averageRating);
+                        ItemImage primaryImage = itemImageService.getPrimaryImage(id);
+                        List<ItemImage> subImages = itemImageService.getImagesByItemId(id);
+                        model.addAttribute("item", item);
+                        model.addAttribute("reviews", reviews);
+                        model.addAttribute("averageRating", averageRating);
+                        model.addAttribute("reviewCount", reviewCount);
+                        model.addAttribute("ratingStars", ratingStars);
+                        model.addAttribute("rootCategories", categoryService.getRootCategoriesWithChildren());
+                        model.addAttribute("primaryImage", primaryImage);
+                        model.addAttribute("subImages", subImages);
+                        model.addAttribute("encryptionUtil", encryptionUtil);
+                        return "Customer/ItemDetail";
+                    })
+                    .orElse("error/404");
+        } catch (Exception e) {
+            return "error/404";
+        }
     }
 
     @GetMapping("/filter")
-    public String filterItems(@RequestParam("categoryId") Integer categoryId,
+    public String filterItems(@RequestParam("categoryId") String encryptedCategoryId,
                               @RequestParam("range") String range, Model model) {
-        Integer min = null, max = null;
-        switch (range) {
-            case "0-500" -> { min = 0; max = 500_000; }
-            case "500-1000" -> { min = 500_000; max = 1_000_000; }
-            case "1000+" -> min = 1_000_000;
+        try {
+            String decryptedId = encryptionUtil.decrypt(encryptedCategoryId);
+            Integer categoryId = Integer.parseInt(decryptedId);
+            Integer min = null, max = null;
+            switch (range) {
+                case "0-500" -> { min = 0; max = 500_000; }
+                case "500-1000" -> { min = 500_000; max = 1_000_000; }
+                case "1000+" -> min = 1_000_000;
+            }
+            List<Item> items = itemService.filterByPrice(categoryId, min, max);
+            Category category = categoryService.findByCategoryId(categoryId)
+                    .orElseThrow(() -> new RuntimeException("Danh mục không tồn tại"));
+            model.addAttribute("items", items);
+            model.addAttribute("category", category);
+            model.addAttribute("selectedRange", range);
+            model.addAttribute("rootCategories", categoryService.getRootCategoriesWithChildren());
+            model.addAttribute("currentCategory", category);
+            model.addAttribute("encryptionUtil", encryptionUtil);
+            return "Customer/Item";
+        } catch (Exception e) {
+            throw new RuntimeException("ID không hợp lệ", e);
         }
-        List<Item> items = itemService.filterByPrice(categoryId, min, max);
-        Category category = categoryService.findByCategoryId(categoryId)
-                .orElseThrow(() -> new RuntimeException("Danh mục không tồn tại"));
-        model.addAttribute("items", items);
-        model.addAttribute("category", category);
-        model.addAttribute("selectedRange", range);
-        model.addAttribute("rootCategories", categoryService.getRootCategoriesWithChildren());
-        model.addAttribute("currentCategory", category);
-        return "Customer/Item";
-    }
-
-    @GetMapping("/category/{id}/item")
-    public String showCategoryItems(@PathVariable("id") Integer id, Model model) {
-        Category category = categoryService.findByCategoryId(id)
-                .orElseThrow(() -> new RuntimeException("Danh mục không tồn tại"));
-        List<Item> items = itemService.getItemsByCategoryIdWithFullData(id);
-        model.addAttribute("category", category);
-        model.addAttribute("items", items);
-        model.addAttribute("rootCategories", categoryService.getRootCategoriesWithChildren());
-        model.addAttribute("currentCategory", category);
-        return "Customer/Item";
     }
 
     @GetMapping("/api/{id}")

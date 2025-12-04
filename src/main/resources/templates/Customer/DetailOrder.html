@@ -76,7 +76,7 @@
             <a href="#">☰ DANH MỤC SẢN PHẨM</a>
             <ul class="dropdown-content">
                 <li class="has-submenu" th:each="cat : ${rootCategories}">
-                    <a th:href="@{/category/{id}/item(id=${cat.categoryId})}">
+                    <a th:href="@{/category/{id}/item(id=${@encryptionUtil.encrypt(cat.categoryId.toString())})}">
                         <img class="menu-icon"
                              th:src="@{/Customer/Home/{icon}(icon=${cat.slug + '.png'})}"
                              th:alt="${cat.name}" />
@@ -84,7 +84,7 @@
                     </a>
                     <ul class="submenu" th:if="${#lists.size(cat.children) > 0}">
                         <li th:each="sub : ${cat.children}">
-                            <a th:href="@{/category/{id}/item(id=${sub.categoryId})}">
+                            <a th:href="@{/category/{id}/item(id=${@encryptionUtil.encrypt(sub.categoryId.toString())})}">
                                 <span th:text="${sub.name}"></span>
                                 <span class="count" th:text="${#lists.size(sub.items)}"></span>
                             </a>
@@ -137,7 +137,7 @@
     </div>
     <div class="product-section">
         <div th:each="orderItem : ${order.orderItems}" class="product-item">
-            <img th:src="@{'/items/' + ${orderItem.item.itemId} + '/image'}"
+            <img th:src="@{'/api/item-images/by-item/' + ${orderItem.item.itemId} + '/primary'}"
                  alt="Ảnh sản phẩm" class="product-image">
             <p class="product-name" th:text="${orderItem.item.name}"></p>
             <p class="product-quantity">Số lượng: <span th:text="${orderItem.quantity}"></span></p>

@@ -5,7 +5,7 @@ function openReview() {
     modal.style.display = "block";
 
     const container = modal.querySelector("#review-products-container");
-    container.innerHTML = ""; // Xóa nội dung cũ
+    container.innerHTML = "";
 
     document.querySelectorAll(".product-item").forEach((prodEl, index) => {
         const img = prodEl.querySelector(".product-image")?.src || "";
@@ -32,11 +32,9 @@ function openReview() {
         container.appendChild(div);
     });
 
-    // Đóng modal
     modal.querySelector(".close-btn").onclick = () => modal.style.display = "none";
     window.onclick = (e) => { if (e.target === modal) modal.style.display = "none"; }
 
-    // Chọn sao
     modal.querySelectorAll(".star-rating span").forEach(star => {
         star.addEventListener("click", () => {
             const parent = star.parentElement;
@@ -46,7 +44,6 @@ function openReview() {
         });
     });
 
-    // Gửi đánh giá
     modal.querySelector("#submit-review").onclick = () => {
         const reviews = [];
         modal.querySelectorAll(".review-product").forEach((prodDiv, index) => {

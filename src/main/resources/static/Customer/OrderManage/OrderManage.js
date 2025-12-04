@@ -15,7 +15,7 @@ function loadTab(event, status) {
     loadOrders(status);
 }
 
-function loadOrders(status) {
+async function loadOrders(status) {
     if (typeof customerId === 'undefined' || customerId === 0) {
         console.error("customerId chưa được gán!");
         return;
@@ -26,16 +26,18 @@ function loadOrders(status) {
         url += `?status=${status}`;
     }
 
-    fetch(url)
-        .then(res => {
-            if (!res.ok) throw new Error("Không thể tải đơn hàng");
-            return res.json();
-        })
-        .then(data => renderOrders(status, data))
-        .catch(err => console.error("Lỗi tải đơn hàng:", err));
+    try {
+        const response = await fetch(url);
+        if (!response.ok) throw new Error("Không thể tải đơn hàng");
+
+        const data = await response.json();
+        await renderOrders(status, data);
+    } catch (error) {
+        console.error("Lỗi tải đơn hàng:", error);
+    }
 }
 
-function renderOrders(status, orders) {
+async function renderOrders(status, orders) {
     const container = document.getElementById(`order-${status}`);
     if (!container) return;
 
@@ -46,7 +48,10 @@ function renderOrders(status, orders) {
         return;
     }
 
-    orders.forEach(order => {
+    for (const order of orders) {
+        // Mã hóa orderId
+        const encryptedId = await encryptId(order.orderId);
+
         const item = document.createElement('div');
         item.classList.add('order-card');
         item.innerHTML = `
@@ -62,12 +67,26 @@ function renderOrders(status, orders) {
             <div class="order-body">
                 <p><strong>Tổng tiền:</strong> ${formatCurrency(order.total)}</p>
             </div>
-             <div class="order-footer">
-                <button class="btn-detail" onclick="viewOrderDetail(${order.orderId})">Xem chi tiết</button>
-             </div>
+            <div class="order-footer">
+                <button class="btn-detail" onclick="viewOrderDetail('${encryptedId}')">Xem chi tiết</button>
+                ${(order.status === 'PENDING' || order.status === 'PAID') ?
+                    `<button class="btn-cancel" onclick="cancelOrder('${encryptedId}')">Hủy đơn</button>` :
+                    ''}
+            </div>
         `;
         container.appendChild(item);
-    });
+    }
+}
+
+async function encryptId(id) {
+    try {
+        const response = await fetch(`/api/encrypt/${id}`);
+        if (!response.ok) return id.toString();
+        return await response.text();
+    } catch (error) {
+        console.error("Lỗi mã hóa ID:", error);
+        return id.toString();
+    }
 }
 
 function formatCurrency(amount) {
@@ -80,29 +99,55 @@ function formatDate(dateString) {
 }
 
 function getStatusText(status) {
-    switch (status) {
-        case 'PENDING':
-            return 'Đang chờ xác nhận';
-        case 'PAID':
-            return 'Đã thanh toán';
-        case 'PROCESSING':
-            return 'Đang xử lý';
-        case 'SHIPPED':
-            return 'Đang giao hàng';
-        case 'COMPLETED':
-            return 'Hoàn tất';
-        case 'CANCELLED':
-            return 'Đã hủy';
-        default:
-            return status;
+    const statusMap = {
+        'PENDING': 'Đang chờ xác nhận',
+        'PAID': 'Đã thanh toán',
+        'PROCESSING': 'Đang xử lý',
+        'SHIPPED': 'Đang giao hàng',
+        'COMPLETED': 'Hoàn tất',
+        'CANCELLED': 'Đã hủy',
+        'REFUNDED': 'Đã hoàn tiền'
+    };
+    return statusMap[status] || status;
+}
+
+function viewOrderDetail(encryptedId) {
+    window.location.href = `/orderManage/detail/${encryptedId}`;
+}
+
+async function cancelOrder(encryptedId) {
+    if (!confirm('Bạn có chắc chắn muốn hủy đơn hàng này?')) {
+        return;
+    }
+
+    try {
+        const response = await fetch(`/api/orders/${encryptedId}/cancel`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+            alert('Đã hủy đơn hàng thành công!');
+            // Reload lại tab hiện tại
+            const activeTab = document.querySelector('.tablinks.active');
+            if (activeTab) {
+                const status = activeTab.textContent.toLowerCase().includes('tất cả') ? 'all' :
+                              activeTab.getAttribute('onclick').match(/'([^']+)'/)[1];
+                loadOrders(status);
+            }
+        } else {
+            alert(result.message || 'Không thể hủy đơn hàng');
+        }
+    } catch (error) {
+        console.error('Lỗi khi hủy đơn:', error);
+        alert('Đã xảy ra lỗi khi hủy đơn hàng');
     }
 }
 
-function viewOrderDetail(orderId) {
-    window.location.href = `/orderManage/detail/${orderId}`;
-}
-
-// Khi trang load xong, hiển thị tab “Tất cả”
 document.addEventListener("DOMContentLoaded", () => {
     loadOrders('all');
     document.querySelector(".tablinks").classList.add("active");

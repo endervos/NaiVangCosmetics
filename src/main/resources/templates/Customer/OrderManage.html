@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Đổi mật khẩu</title>
+    <title>Quản lý đơn hàng</title>
     <link rel="icon" type="image/png" th:href="@{/Customer/Home/LogoConNai.png}">
     <link rel="stylesheet" th:href="@{/Customer/OrderManage/OrderManage.css}">
     <link rel="stylesheet" th:href="@{/Customer/Home/Home.css}">
@@ -45,13 +45,12 @@
                 <div class="user-dropdown">
                     <a th:href="@{/login}" id="login-btn" sec:authorize="isAnonymous()">Đăng nhập</a>
                     <a th:href="@{/sign-up}" id="subcribe-btn" sec:authorize="isAnonymous()">Đăng ký</a>
-
                     <a th:href="@{/profile}" id="account-info" sec:authorize="isAuthenticated()">Thông tin tài khoản</a>
                     <a th:href="@{/logout}" id="logout-btn" sec:authorize="isAuthenticated()">Đăng xuất</a>
                 </div>
             </div>
             <div class="cart-section">
-                <a href="#" class="cart-pill" title="Giỏ hàng">
+                <a th:href="@{/cart}" class="cart-pill" title="Giỏ hàng">
                     <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
                         <path fill="currentColor"
                               d="M7 4h-2l-1 2h2l3.6 7.59-1.35 2.44C7.89 16.37 8.29 17 8.94 17h9.56v-2H9.42l1.1-2h7.25c.75 0 1.41-.41 1.75-1.03L22 7H6.42l-.7-1h1.28L7 4Zm-1 16a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm12 0a2 2 0 1 0 .001-3.999A2 2 0 0 0 18 20Z"/>
@@ -68,7 +67,7 @@
             <a href="#">☰ DANH MỤC SẢN PHẨM</a>
             <ul class="dropdown-content">
                 <li class="has-submenu" th:each="cat : ${rootCategories}">
-                    <a th:href="@{/category/{id}/item(id=${cat.categoryId})}">
+                    <a th:href="@{/category/{id}/item(id=${@encryptionUtil.encrypt(cat.categoryId.toString())})}">
                         <img class="menu-icon"
                              th:src="@{/Customer/Home/{icon}(icon=${cat.slug + '.png'})}"
                              th:alt="${cat.name}" />
@@ -76,7 +75,7 @@
                     </a>
                     <ul class="submenu" th:if="${#lists.size(cat.children) > 0}">
                         <li th:each="sub : ${cat.children}">
-                            <a th:href="@{/category/{id}/item(id=${sub.categoryId})}">
+                            <a th:href="@{/category/{id}/item(id=${@encryptionUtil.encrypt(sub.categoryId.toString())})}">
                                 <span th:text="${sub.name}"></span>
                                 <span class="count" th:text="${#lists.size(sub.items)}"></span>
                             </a>
@@ -161,7 +160,6 @@
         <button type="submit">ĐĂNG KÝ</button>
     </form>
 </div>
-</div>
 <footer class="footer">
     <div class="footer-main">
         <div class="footer-col">
@@ -229,11 +227,15 @@
         <p>© 2025 Nai Vang. All rights reserved.</p>
     </div>
 </footer>
-<script src="/src/main/resources/static/ChangePass/ChangePass.js"></script>
-<script src="/src/main/resources/static/Example/Example.js"></script>
 <script th:inline="javascript">
     /*<![CDATA[*/
     const customerId = [[${customerId}]];
+    function encryptId(id) {
+        // Gọi API để mã hóa ID từ server
+        return fetch('/api/encrypt/' + id)
+            .then(res => res.text())
+            .catch(() => id);
+    }
     /*]]>*/
 </script>
 <script th:src="@{/Customer/OrderManage/OrderManage.js}"></script>

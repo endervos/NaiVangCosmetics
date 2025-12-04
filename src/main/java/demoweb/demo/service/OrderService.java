@@ -31,12 +31,39 @@ public class OrderService {
         this.voucherRepository = voucherRepository;
     }
 
-    public List<Order> getOrdersByCustomer(Integer customerId){
-        return orderRepository.findByCustomer_CustomerId(customerId);
+    @Transactional(readOnly = true)
+    public List<Map<String, Object>> getOrdersByCustomer(Integer customerId) {
+        List<Order> orders = orderRepository.findByCustomer_CustomerId(customerId);
+        return orders.stream()
+                .map(this::convertOrderToSimpleMap)
+                .collect(Collectors.toList());
     }
 
-    public List<Order> getOrdersByStatus(Integer customerId, OrderStatus status){
-        return orderRepository.findByCustomer_CustomerIdAndStatus(customerId, status);
+    @Transactional(readOnly = true)
+    public List<Map<String, Object>> getOrdersByStatus(Integer customerId, OrderStatus status) {
+        List<Order> orders = orderRepository.findByCustomer_CustomerIdAndStatus(customerId, status);
+        return orders.stream()
+                .map(this::convertOrderToSimpleMap)
+                .collect(Collectors.toList());
+    }
+
+    private Map<String, Object> convertOrderToSimpleMap(Order order) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("orderId", order.getOrderId());
+        map.put("total", order.getTotal());
+        map.put("status", order.getStatus().name());
+        map.put("placedAt", order.getPlacedAt());
+        map.put("updatedAt", order.getUpdatedAt());
+        if (order.getCustomer() != null && order.getCustomer().getUser() != null) {
+            map.put("customerName", order.getCustomer().getUser().getFullname());
+        }
+        if (order.getAddress() != null) {
+            map.put("addressSummary", String.format("%s, %s, %s",
+                    order.getAddress().getStreet(),
+                    order.getAddress().getDistrict(),
+                    order.getAddress().getCity()));
+        }
+        return map;
     }
 
     public Optional<Order> getOrderById(Integer orderId) {

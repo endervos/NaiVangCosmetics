@@ -70,7 +70,7 @@
             <a href="#">☰ DANH MỤC SẢN PHẨM</a>
             <ul class="dropdown-content">
                 <li class="has-submenu" th:each="cat : ${rootCategories}">
-                    <a th:href="@{/category/{id}/item(id=${cat.categoryId})}">
+                    <a th:href="@{/category/{id}/item(id=${@encryptionUtil.encrypt(cat.categoryId.toString())})}">
                         <img class="menu-icon"
                              th:src="@{/Customer/Home/{icon}(icon=${cat.slug + '.png'})}"
                              th:alt="${cat.name}" />
@@ -78,7 +78,7 @@
                     </a>
                     <ul class="submenu" th:if="${#lists.size(cat.children) > 0}">
                         <li th:each="sub : ${cat.children}">
-                            <a th:href="@{/category/{id}/item(id=${sub.categoryId})}">
+                            <a th:href="@{/category/{id}/item(id=${@encryptionUtil.encrypt(sub.categoryId.toString())})}">
                                 <span th:text="${sub.name}"></span>
                                 <span class="count" th:text="${#lists.size(sub.items)}"></span>
                             </a>

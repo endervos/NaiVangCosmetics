@@ -1,7 +1,3 @@
-
-//Nút đăng nhập
-console.log(">>> JS LOADED <<<");
-
 document.addEventListener("DOMContentLoaded", () => {
   const loginBtn = document.getElementById("loginBtn");
   if (loginBtn) {
@@ -11,14 +7,13 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-//Side bar
 document.querySelectorAll('.clickmenu2col').forEach(item => {
   item.addEventListener('click', e => {
     e.preventDefault();
     item.parentElement.classList.toggle('active');
   });
 });
-//sort bar
+
 document.querySelectorAll(".sort-bar button").forEach(btn => {
   btn.addEventListener("click", function() {
     document.querySelector(".sort-bar button.active")?.classList.remove("active");
@@ -26,9 +21,8 @@ document.querySelectorAll(".sort-bar button").forEach(btn => {
   });
 });
 
-// Đăng nhập - ĐX
 document.addEventListener("DOMContentLoaded", () => {
-  let isLoggedIn = false; // mặc định chưa đăng nhập
+  let isLoggedIn = false;
 
   const loginBtn   = document.getElementById("login-btn");
   const subcribeBtn   = document.getElementById("subcribe-btn");
@@ -49,31 +43,27 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // click login
   loginBtn.addEventListener("click", () => {
     isLoggedIn = true;
     updateMenu();
   });
 
-  // click logout
   logoutBtn.addEventListener("click", (e) => {
     e.preventDefault();
     isLoggedIn = false;
     updateMenu();
   });
 
-  // gọi lần đầu
   updateMenu();
 });
 
-// Email không hợp lệ-->
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("subscribeForm");
   const emailInput = document.getElementById("emailInput");
   const emailError = document.getElementById("emailError");
 
   form.addEventListener("submit", function(e) {
-    e.preventDefault(); // chặn submit mặc định
+    e.preventDefault();
 
     const email = emailInput.value.trim();
     const regex = /^[^\s@]+@(gmail\.com|yahoo\.com|outlook\.com)$/i;
@@ -85,10 +75,8 @@ document.addEventListener("DOMContentLoaded", () => {
       emailError.textContent = "";
       emailError.classList.remove("show");
 
-      // TODO: gửi email lên server (nếu cần)
       alert("Đăng ký thành công với email: " + email);
       form.reset();
     }
   });
 });
-

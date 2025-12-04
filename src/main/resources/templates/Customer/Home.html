@@ -66,7 +66,7 @@
             <a href="#">☰ DANH MỤC SẢN PHẨM</a>
             <ul class="dropdown-content">
                 <li class="has-submenu" th:each="cat : ${rootCategories}">
-                    <a th:href="@{/category/{id}/item(id=${cat.categoryId})}">
+                    <a th:href="@{/category/{id}/item(id=${@encryptionUtil.encrypt(cat.categoryId.toString())})}">
                         <img class="menu-icon"
                              th:src="@{/Customer/Home/{icon}(icon=${cat.slug + '.png'})}"
                              th:alt="${cat.name}" />
@@ -74,7 +74,7 @@
                     </a>
                     <ul class="submenu" th:if="${#lists.size(cat.children) > 0}">
                         <li th:each="sub : ${cat.children}">
-                            <a th:href="@{/category/{id}/item(id=${sub.categoryId})}">
+                            <a th:href="@{/category/{id}/item(id=${@encryptionUtil.encrypt(sub.categoryId.toString())})}">
                                 <span th:text="${sub.name}"></span>
                                 <span class="count" th:text="${#lists.size(sub.items)}"></span>
                             </a>
@@ -115,7 +115,7 @@
     <div class="fs-viewport">
         <div class="fs-track" id="fsTrack">
             <article class="fs-card" th:each="item : ${flashSaleItems}">
-                <a th:href="@{/item/{id}(id=${item.itemId})}" style="text-decoration: none; color: inherit; display: block;">
+                <a th:href="@{/item/{id}(id=${@encryptionUtil.encrypt(item.itemId.toString())})}" style="text-decoration: none; color: inherit; display: block;">
                     <img th:src="@{/item/image/{id}(id=${item.itemId})}" th:alt="${item.name}">
                     <h3 class="fs-brand" th:text="${item.name}">Product Name</h3>
                     <p class="fs-name" th:text="${item.color}">Màu sắc</p>
@@ -147,7 +147,7 @@
     </div>
     <div class="product-scroll">
         <div class="product-card" th:each="item : ${latestItems}">
-            <a th:href="@{/item/{id}(id=${item.itemId})}" style="text-decoration: none; color: inherit; display: block;">
+            <a th:href="@{/item/{id}(id=${@encryptionUtil.encrypt(item.itemId.toString())})}" style="text-decoration: none; color: inherit; display: block;">
                 <img th:src="@{/item/image/{id}(id=${item.itemId})}" th:alt="${item.name}">
                 <h3 th:text="${item.name}">Product name</h3>
                 <div class="price">
@@ -189,7 +189,7 @@
                 <div class="product-grid">
                     <div class="product-card"
                          th:each="item : ${__${#strings.concat('bestsellers_', cat.slug)}__}">
-                        <a th:href="@{/item/{id}(id=${item.itemId})}" style="text-decoration: none; color: inherit; display: block;">
+                        <a th:href="@{/item/{id}(id=${@encryptionUtil.encrypt(item.itemId.toString())})}" style="text-decoration: none; color: inherit; display: block;">
                             <img th:src="@{/item/image/{id}(id=${item.itemId})}" th:alt="${item.name}">
                             <h3 th:text="${item.name}">Product name</h3>
                             <div class="price">

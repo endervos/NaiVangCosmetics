@@ -4,7 +4,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const summaryTotal = document.getElementById("summary-total");
 
     function parsePrice(priceText) {
-        // "59.000₫" -> 59000
         return parseInt(priceText.replace(/[^\d]/g, ""));
     }
 
