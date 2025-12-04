@@ -49,13 +49,10 @@ public class LoginController {
                             loginRequest.getPassword()
                     )
             );
-
             UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-
             boolean hasCustomerRole = userDetails.getAuthorities().stream()
                     .map(GrantedAuthority::getAuthority)
                     .anyMatch(role -> role.equals("ROLE_Customer"));
-
             if (!hasCustomerRole) {
                 return ResponseEntity.status(HttpStatus.FORBIDDEN)
                         .body(new LoginResponse(
@@ -65,23 +62,19 @@ public class LoginController {
                                 null
                         ));
             }
-
             String token = jwtTokenUtil.generateToken(userDetails, "ROLE_Customer");
-
             Cookie jwtCookie = new Cookie("JWT_TOKEN", token);
             jwtCookie.setHttpOnly(true);
             jwtCookie.setSecure(false);
             jwtCookie.setPath("/");
             jwtCookie.setMaxAge(24 * 60 * 60);
             response.addCookie(jwtCookie);
-
             return ResponseEntity.ok(new LoginResponse(
                     true,
                     "Đăng nhập thành công",
                     token,
                     "/"
             ));
-
         } catch (BadCredentialsException e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                     .body(new LoginResponse(

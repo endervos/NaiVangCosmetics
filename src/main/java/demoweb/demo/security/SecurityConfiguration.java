@@ -49,7 +49,6 @@ public class SecurityConfiguration {
                         .requestMatchers(
                                 "/",
                                 "/home",
-                                "/about",
                                 "/contact",
                                 "/login",
                                 "/admin/login_tthhn",
@@ -57,18 +56,10 @@ public class SecurityConfiguration {
                                 "/sign-up",
                                 "/sign-up/**",
                                 "/static/**",
-                                "/css/**",
-                                "/js/**",
-                                "/images/**",
-                                "/fonts/**",
-                                "/Customer/**",
-                                "/Admin/Login/**",
-                                "/Admin/Dashboard/**",
-                                "/Manager/Login/**",
-                                "/Manager/Dashboard/**",
                                 "/blog/**",
                                 "/products/**",
-                                "/categories/**"
+                                "/categories/**",
+                                "/error"
                         ).permitAll()
 
                         .requestMatchers(
@@ -93,10 +84,9 @@ public class SecurityConfiguration {
                         .logoutUrl("/logout")
                         .logoutSuccessUrl("/")
                         .invalidateHttpSession(true)
-                        .deleteCookies("JWT_TOKEN", "JSESSIONID")
+                        .deleteCookies("JWT_TOKEN", "SESSION_ACTIVE", "JSESSIONID")
                         .permitAll()
                 );
-
         return httpSecurity.build();
     }
 }
