@@ -1,6 +1,4 @@
 document.addEventListener("DOMContentLoaded", () => {
-  console.log("Product Management loaded!");
-
   const userInfo = document.querySelector(".user-info");
   const dropdown = document.querySelector(".dropdown");
 
@@ -23,8 +21,71 @@ document.addEventListener("DOMContentLoaded", () => {
   const addBtn = document.querySelector(".add-product-btn");
   const form = document.getElementById("product-form");
   const modalTitle = document.getElementById("modal-title");
+  const productNameSearch = document.getElementById("product-name-search");
+  const categoryFilter = document.getElementById("category-filter");
+  const applyFilterBtn = document.getElementById("apply-filter-btn");
+  const showAllBtn = document.getElementById("show-all-btn");
+  const productList = document.getElementById("product-list");
 
   let editingId = null;
+
+  function sanitizeInput(input) {
+    return input.replace(/[!@#$%^&*()+=\[\]{}|;:'",.<>?/\\`~_\-]/g, '');
+  }
+
+  productNameSearch.addEventListener('input', (e) => {
+    const sanitized = sanitizeInput(e.target.value);
+    if (e.target.value !== sanitized) {
+      e.target.value = sanitized;
+    }
+  });
+
+  function filterProducts() {
+    const searchTerm = sanitizeInput(productNameSearch.value.trim().toLowerCase());
+    const selectedCategory = categoryFilter.value;
+
+    const allRows = productList.querySelectorAll('tr');
+
+    allRows.forEach(row => {
+      const itemName = row.getAttribute('data-item-name')?.toLowerCase() || '';
+      const categoryId = row.getAttribute('data-category-id') || '';
+
+      let matchName = true;
+      let matchCategory = true;
+
+      if (searchTerm) {
+        matchName = itemName.includes(searchTerm);
+      }
+
+      if (selectedCategory) {
+        matchCategory = categoryId === selectedCategory;
+      }
+
+      if (matchName && matchCategory) {
+        row.style.display = '';
+      } else {
+        row.style.display = 'none';
+      }
+    });
+  }
+
+  applyFilterBtn.addEventListener('click', filterProducts);
+
+  showAllBtn.addEventListener('click', () => {
+    productNameSearch.value = '';
+    categoryFilter.value = '';
+    const allRows = productList.querySelectorAll('tr');
+    allRows.forEach(row => {
+      row.style.display = '';
+    });
+  });
+
+  productNameSearch.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      filterProducts();
+    }
+  });
 
   addBtn?.addEventListener("click", () => {
     editingId = null;
@@ -49,20 +110,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
   window.viewProduct = async (id) => {
     try {
-      console.log("Fetching product with ID:", id);
-
       const response = await fetch(`/item/api/${id}`);
 
-      console.log("Response status:", response.status);
-
       if (!response.ok) {
-        const errorText = await response.text();
-        console.error("Error response:", errorText);
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
       const item = await response.json();
-      console.log("Received item:", item);
 
       document.getElementById("view-product-id").textContent = item.itemId || "-";
       document.getElementById("view-product-name").textContent = item.name || "-";
@@ -99,7 +153,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
       viewModal.classList.add("show");
     } catch (error) {
-      console.error("Detailed error:", error);
       alert("Không thể tải thông tin sản phẩm! Chi tiết: " + error.message);
     }
   };
@@ -129,7 +182,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
       modal.classList.add("show");
     } catch (error) {
-      console.error("Error fetching item:", error);
       alert("Không thể tải thông tin sản phẩm!");
     }
   };
@@ -189,7 +241,6 @@ document.addEventListener("DOMContentLoaded", () => {
         alert(result.message);
       }
     } catch (error) {
-      console.error("Error:", error);
       alert("Có lỗi xảy ra khi lưu sản phẩm!");
     }
   });

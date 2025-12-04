@@ -45,6 +45,22 @@
                 <i class="fa-solid fa-plus"></i> Thêm sản phẩm mới
             </button>
         </div>
+        <div class="filter-container" style="margin: 20px 0; display: flex; gap: 10px; align-items: center;">
+            <input id="product-name-search" type="text" placeholder="Tìm kiếm theo tên sản phẩm"
+                   style="padding: 10px; border: 1px solid #ddd; border-radius: 5px; flex: 1;">
+            <select id="category-filter" style="padding: 10px; border: 1px solid #ddd; border-radius: 5px; min-width: 200px;">
+                <option value="">-- Tất cả danh mục --</option>
+                <option th:each="cat : ${categories}"
+                        th:value="${cat.categoryId}"
+                        th:text="${cat.name}">Category</option>
+            </select>
+            <button id="apply-filter-btn" style="padding: 10px 20px; background-color: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer;">
+                <i class="fa-solid fa-filter"></i> Áp dụng
+            </button>
+            <button id="show-all-btn" style="padding: 10px 20px; background-color: #2196F3; color: white; border: none; border-radius: 5px; cursor: pointer;">
+                <i class="fa-solid fa-list"></i> Hiển thị tất cả
+            </button>
+        </div>
         <div class="product-table-container">
             <table class="product-table">
                 <thead>
@@ -59,7 +75,9 @@
                 </tr>
                 </thead>
                 <tbody id="product-list">
-                <tr th:each="item : ${items}">
+                <tr th:each="item : ${items}" th:data-item-id="${item.itemId}"
+                    th:data-item-name="${item.name}"
+                    th:data-category-id="${item.category != null ? item.category.categoryId : ''}">
                     <td th:text="${item.itemId}">1</td>
                     <td>
                         <img th:if="${item.images != null and !item.images.isEmpty()}"

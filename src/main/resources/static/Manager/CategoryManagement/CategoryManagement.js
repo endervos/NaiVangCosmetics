@@ -1,6 +1,4 @@
 document.addEventListener("DOMContentLoaded", () => {
-  console.log("Category Management loaded!");
-
   const userInfo = document.querySelector(".user-info");
   const dropdown = document.querySelector(".dropdown");
 
@@ -24,6 +22,52 @@ document.addEventListener("DOMContentLoaded", () => {
       e.preventDefault();
       if (confirm("Bạn muốn đăng xuất?")) {
         window.location.href = "/logout";
+      }
+    });
+  }
+
+  function sanitizeInput(input) {
+    return input.replace(/[!@#$%^&*()+=\[\]{}|;:'",.<>?/\\`~_\-]/g, '');
+  }
+
+  const searchInput = document.getElementById("searchInput");
+  if (searchInput) {
+    searchInput.addEventListener('input', (e) => {
+      const sanitized = sanitizeInput(e.target.value);
+      if (e.target.value !== sanitized) {
+        e.target.value = sanitized;
+      }
+
+      const searchTerm = sanitized.toLowerCase();
+      const rows = document.querySelectorAll("#categoryBody tr");
+
+      rows.forEach(row => {
+        const name = row.children[1]?.textContent.toLowerCase();
+        if (name && name.includes(searchTerm)) {
+          row.style.display = "";
+        } else {
+          row.style.display = "none";
+        }
+      });
+    });
+  }
+
+  const addCategoryNameInput = document.getElementById("addCategoryName");
+  if (addCategoryNameInput) {
+    addCategoryNameInput.addEventListener('input', (e) => {
+      const sanitized = sanitizeInput(e.target.value);
+      if (e.target.value !== sanitized) {
+        e.target.value = sanitized;
+      }
+    });
+  }
+
+  const editCategoryNameInput = document.getElementById("editCategoryName");
+  if (editCategoryNameInput) {
+    editCategoryNameInput.addEventListener('input', (e) => {
+      const sanitized = sanitizeInput(e.target.value);
+      if (e.target.value !== sanitized) {
+        e.target.value = sanitized;
       }
     });
   }
@@ -81,7 +125,6 @@ async function saveNewCategory() {
       alert(result.message);
     }
   } catch (error) {
-    console.error("Error creating category:", error);
     alert("Có lỗi xảy ra khi thêm danh mục!");
   }
 }
@@ -112,7 +155,6 @@ async function openEditPopup(id) {
     document.getElementById("popupOverlay").style.display = "flex";
     document.getElementById("editPopup").style.display = "block";
   } catch (error) {
-    console.error("Error fetching category:", error);
     alert("Không thể tải thông tin danh mục!");
   }
 }
@@ -153,24 +195,9 @@ async function updateCategory() {
       alert(result.message);
     }
   } catch (error) {
-    console.error("Error updating category:", error);
     alert("Có lỗi xảy ra khi cập nhật danh mục!");
   }
 }
-
-document.getElementById("searchInput")?.addEventListener("input", (e) => {
-  const searchTerm = e.target.value.toLowerCase();
-  const rows = document.querySelectorAll("#categoryBody tr");
-
-  rows.forEach(row => {
-    const name = row.children[1]?.textContent.toLowerCase();
-    if (name && name.includes(searchTerm)) {
-      row.style.display = "";
-    } else {
-      row.style.display = "none";
-    }
-  });
-});
 
 window.addEventListener("click", (e) => {
   const overlay = document.getElementById("popupOverlay");
