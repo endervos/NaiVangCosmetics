@@ -31,18 +31,64 @@ document.addEventListener("DOMContentLoaded", () => {
   const applyFilterBtn = document.getElementById("apply-filter");
   const showAllBtn = document.getElementById("show-all");
   const productSearch = document.getElementById("product-search");
+  const customerSearch = document.getElementById("customer-search");
   const sortFilter = document.getElementById("sort-filter");
   const tableBody = document.querySelector("#review-table tbody");
-
   const allRows = Array.from(tableBody.querySelectorAll("tr"));
 
-  applyFilterBtn?.addEventListener("click", () => {
-    const searchTerm = productSearch.value.toLowerCase().trim();
+  function sanitizeInput(input) {
+    return input.replace(/[!@#$%^&*()+=\[\]{}|;:'",.<>?/\\`~_\-]/g, '');
+  }
+
+  productSearch.addEventListener('input', (e) => {
+    const sanitized = sanitizeInput(e.target.value);
+    if (e.target.value !== sanitized) {
+      e.target.value = sanitized;
+    }
+  });
+
+  customerSearch.addEventListener('input', (e) => {
+    const sanitized = sanitizeInput(e.target.value);
+    if (e.target.value !== sanitized) {
+      e.target.value = sanitized;
+    }
+  });
+
+  productSearch.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      applyFilters();
+    }
+  });
+
+  customerSearch.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      applyFilters();
+    }
+  });
+
+  function applyFilters() {
+    const productSearchTerm = sanitizeInput(productSearch.value.toLowerCase().trim());
+    const customerSearchTerm = sanitizeInput(customerSearch.value.toLowerCase().trim());
     const sortOrder = sortFilter.value;
 
     let filteredRows = allRows.filter(row => {
       const productName = row.children[0]?.textContent.toLowerCase() || "";
-      return productName.includes(searchTerm);
+      const customerName = row.children[1]?.textContent.toLowerCase() || "";
+
+      let matchProduct = true;
+      let matchCustomer = true;
+
+      if (productSearchTerm) {
+        matchProduct = productName.includes(productSearchTerm);
+      }
+
+      if (customerSearchTerm) {
+        matchCustomer = customerName.includes(customerSearchTerm);
+      }
+
+      return matchProduct && matchCustomer;
     });
 
     filteredRows.sort((a, b) => {
@@ -57,11 +103,18 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     tableBody.innerHTML = "";
-    filteredRows.forEach(row => tableBody.appendChild(row));
-  });
+    if (filteredRows.length === 0) {
+      tableBody.innerHTML = '<tr><td colspan="5" style="text-align: center;">Không tìm thấy đánh giá nào</td></tr>';
+    } else {
+      filteredRows.forEach(row => tableBody.appendChild(row));
+    }
+  }
+
+  applyFilterBtn?.addEventListener("click", applyFilters);
 
   showAllBtn?.addEventListener("click", () => {
     productSearch.value = "";
+    customerSearch.value = "";
     sortFilter.value = "latest";
 
     tableBody.innerHTML = "";

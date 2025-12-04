@@ -3,6 +3,7 @@ let currentPage = 1;
 const ordersPerPage = 10;
 
 const tbody = document.querySelector("#order-table tbody");
+const orderIdSearch = document.querySelector("#order-id-search");
 const customerSearch = document.querySelector("#customer-search");
 const sortFilter = document.querySelector("#sort-filter");
 const applyFilterBtn = document.querySelector("#apply-filter");
@@ -14,6 +15,28 @@ const orderDetailModal = document.querySelector("#order-detail-modal");
 const updateStatusModal = document.querySelector("#update-status-modal");
 const closeButtons = document.querySelectorAll(".close-btn");
 const confirmUpdateStatusBtn = document.querySelector("#confirm-update-status");
+
+function sanitizeInput(input) {
+  return input.replace(/[!@#$%^&*()+=\[\]{}|;:'",.<>?/\\`~_\-]/g, '');
+}
+
+function sanitizeNumberInput(input) {
+  return input.replace(/[^0-9]/g, '');
+}
+
+orderIdSearch.addEventListener('input', (e) => {
+  const sanitized = sanitizeNumberInput(e.target.value);
+  if (e.target.value !== sanitized) {
+    e.target.value = sanitized;
+  }
+});
+
+customerSearch.addEventListener('input', (e) => {
+  const sanitized = sanitizeInput(e.target.value);
+  if (e.target.value !== sanitized) {
+    e.target.value = sanitized;
+  }
+});
 
 function formatCurrency(amount) {
   const amountInVnd = typeof amount === 'number' ? amount : parseInt(amount) || 0;
@@ -43,27 +66,20 @@ function getStatusText(status) {
 }
 
 async function loadOrders() {
-  console.log('🔄 Đang tải danh sách đơn hàng...');
   try {
     const response = await fetch('/admin/api/orders');
-    console.log('📡 Response status:', response.status);
 
     if (!response.ok) {
       const errorText = await response.text();
-      console.error('❌ Response error:', errorText);
       throw new Error(`HTTP error! status: ${response.status}`);
     }
 
     const data = await response.json();
-    console.log('✅ Đã tải được dữ liệu:', data);
-    console.log('📊 Số lượng đơn hàng:', data.length);
 
     allOrders = data.sort((a, b) => new Date(b.placedAt) - new Date(a.placedAt));
     currentPage = 1;
     displayOrders(allOrders);
   } catch (error) {
-    console.error('❌ Lỗi khi tải đơn hàng:', error);
-    console.error('❌ Error stack:', error.stack);
     alert('Không thể tải danh sách đơn hàng. Vui lòng kiểm tra console và thử lại!\nLỗi: ' + error.message);
   }
 }
@@ -111,7 +127,13 @@ function displayOrders(ordersToDisplay) {
 function getFilteredOrders() {
   let filtered = [...allOrders];
 
-  const searchTerm = customerSearch.value.trim().toLowerCase();
+  const orderIdTerm = sanitizeNumberInput(orderIdSearch.value.trim());
+  if (orderIdTerm) {
+    const searchId = parseInt(orderIdTerm);
+    filtered = filtered.filter(order => order.orderId === searchId);
+  }
+
+  const searchTerm = sanitizeInput(customerSearch.value.trim().toLowerCase());
   if (searchTerm) {
     filtered = filtered.filter(order => {
       const customerName = order.customerName || "";
@@ -135,17 +157,14 @@ function filterAndSortOrders() {
 }
 
 async function viewOrderDetails(orderId) {
-  console.log('🔍 Xem chi tiết đơn hàng #' + orderId);
   try {
     const response = await fetch(`/admin/api/orders/${orderId}`);
-    console.log('📡 Response status:', response.status);
 
     if (!response.ok) {
       throw new Error('Không thể tải chi tiết đơn hàng');
     }
 
     const data = await response.json();
-    console.log('✅ Dữ liệu chi tiết:', data);
 
     document.querySelector("#order-title").textContent = `Đơn hàng #${data.order.orderId}`;
     document.querySelector("#order-date").textContent = `Ngày đặt: ${formatDate(data.order.placedAt)}`;
@@ -197,16 +216,13 @@ async function viewOrderDetails(orderId) {
 
     orderDetailModal.style.display = "flex";
   } catch (error) {
-    console.error('❌ Lỗi khi tải chi tiết đơn hàng:', error);
     alert('Không thể tải chi tiết đơn hàng. Vui lòng thử lại!\nLỗi: ' + error.message);
   }
 }
 
 function updateOrderStatus(orderId) {
-  console.log('🔄 Cập nhật trạng thái đơn hàng #' + orderId);
   const order = allOrders.find(o => o.orderId === orderId);
   if (!order) {
-    console.error('❌ Không tìm thấy đơn hàng #' + orderId);
     return;
   }
 
@@ -229,7 +245,6 @@ function updateOrderStatus(orderId) {
 
   confirmUpdateStatusBtn.onclick = async () => {
     const newStatus = document.querySelector("#new-status").value;
-    console.log('💾 Đang lưu trạng thái mới:', newStatus);
 
     try {
       const response = await fetch(`/admin/api/orders/${orderId}/status?status=${newStatus}`, {
@@ -241,7 +256,6 @@ function updateOrderStatus(orderId) {
       }
 
       const result = await response.json();
-      console.log('✅ Kết quả cập nhật:', result);
 
       if (result.success) {
         alert('Cập nhật trạng thái thành công!');
@@ -251,7 +265,6 @@ function updateOrderStatus(orderId) {
         alert(result.message || 'Có lỗi xảy ra khi cập nhật');
       }
     } catch (error) {
-      console.error('❌ Lỗi khi cập nhật trạng thái:', error);
       alert('Không thể cập nhật trạng thái. Vui lòng thử lại!\nLỗi: ' + error.message);
     }
   };
@@ -260,6 +273,7 @@ function updateOrderStatus(orderId) {
 applyFilterBtn.addEventListener("click", filterAndSortOrders);
 
 showAllBtn.addEventListener("click", () => {
+  orderIdSearch.value = "";
   customerSearch.value = "";
   sortFilter.value = "latest";
   currentPage = 1;
@@ -297,7 +311,6 @@ window.addEventListener("click", (event) => {
 });
 
 document.addEventListener("DOMContentLoaded", () => {
-  console.log('🚀 Trang đã load xong, bắt đầu tải đơn hàng...');
   orderDetailModal.style.display = "none";
   updateStatusModal.style.display = "none";
   loadOrders();

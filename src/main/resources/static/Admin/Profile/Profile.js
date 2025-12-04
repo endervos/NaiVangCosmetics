@@ -1,5 +1,29 @@
 document.addEventListener('DOMContentLoaded', function () {
   const form = document.getElementById('admin-info-form');
+  const nameInput = document.getElementById('name');
+  const phoneInput = document.getElementById('phone');
+
+  function sanitizeTextInput(input) {
+    return input.replace(/[!@#$%^&*()+=\[\]{}|;:'",.<>?/\\`~_\-]/g, '');
+  }
+
+  function sanitizePhoneInput(input) {
+    return input.replace(/[^0-9]/g, '');
+  }
+
+  nameInput.addEventListener('input', (e) => {
+    const sanitized = sanitizeTextInput(e.target.value);
+    if (e.target.value !== sanitized) {
+      e.target.value = sanitized;
+    }
+  });
+
+  phoneInput.addEventListener('input', (e) => {
+    const sanitized = sanitizePhoneInput(e.target.value);
+    if (e.target.value !== sanitized) {
+      e.target.value = sanitized;
+    }
+  });
 
   function showToast(message, type = 'success') {
     const toast = document.createElement('div');
@@ -18,9 +42,9 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   form.addEventListener('submit', function (event) {
-    const adminName = document.getElementById('name').value.trim();
+    const adminName = sanitizeTextInput(nameInput.value.trim());
     const adminDob = document.getElementById('dateOfBirth').value;
-    const adminPhone = document.getElementById('phone').value.trim();
+    const adminPhone = sanitizePhoneInput(phoneInput.value.trim());
     const adminGender = document.querySelector('input[name="gender"]:checked');
 
     let isValid = true;
@@ -36,7 +60,10 @@ document.addEventListener('DOMContentLoaded', function () {
       errorMessage += 'Ngày tháng năm sinh không được để trống.\n';
     }
 
-    if (!adminPhone || !/^\d{10}$/.test(adminPhone)) {
+    if (!adminPhone) {
+      isValid = false;
+      errorMessage += 'Số điện thoại không được để trống.\n';
+    } else if (!/^\d{10}$/.test(adminPhone)) {
       isValid = false;
       errorMessage += 'Số điện thoại phải là 10 chữ số.\n';
     }
@@ -51,5 +78,8 @@ document.addEventListener('DOMContentLoaded', function () {
       showToast(errorMessage, 'error');
       return;
     }
+
+    nameInput.value = adminName;
+    phoneInput.value = adminPhone;
   });
 });

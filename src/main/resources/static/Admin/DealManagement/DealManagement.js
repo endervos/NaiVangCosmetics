@@ -21,14 +21,38 @@ document.addEventListener("DOMContentLoaded", () => {
     const addBtn = document.querySelector(".add-btn");
     const form = document.getElementById("deal-form");
     const modalTitle = document.getElementById("modal-title");
+    const voucherCodeSearch = document.getElementById("voucher-code-search");
+    const startDateFilter = document.getElementById("start-date-filter");
+    const endDateFilter = document.getElementById("end-date-filter");
+    const applyFilterBtn = document.getElementById("apply-filter-btn");
+    const showAllBtn = document.getElementById("show-all-btn");
 
     let editingId = null;
+    let allVouchers = [];
+
+    function sanitizeInput(input) {
+        return input.replace(/[!@#$%^&*()+=\[\]{}|;:'"<>?/\\`~]/g, '');
+    }
+
+    voucherCodeSearch.addEventListener('input', (e) => {
+        const sanitized = sanitizeInput(e.target.value);
+        if (e.target.value !== sanitized) {
+            e.target.value = sanitized;
+        }
+    });
+
+    voucherCodeSearch.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            filterVouchers();
+        }
+    });
 
     async function loadVouchers() {
         try {
             const response = await fetch('/admin/api/vouchers');
-            const vouchers = await response.json();
-            renderVouchers(vouchers);
+            allVouchers = await response.json();
+            renderVouchers(allVouchers);
         } catch (error) {
             console.error('Lỗi khi tải voucher:', error);
             alert('Không thể tải danh sách voucher');
@@ -37,9 +61,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function renderVouchers(vouchers) {
         dealList.innerHTML = "";
+        if (vouchers.length === 0) {
+            dealList.innerHTML = '<tr><td colspan="10" style="text-align: center;">Không có voucher nào</td></tr>';
+            return;
+        }
+
         vouchers.forEach(v => {
             const row = document.createElement("tr");
             const status = getStatus(v.startDate, v.endDate, v.isActive);
+            row.setAttribute('data-voucher-code', v.code);
+            row.setAttribute('data-start-date', v.startDate);
+            row.setAttribute('data-end-date', v.endDate);
+
             row.innerHTML = `
                 <td>${v.voucherId}</td>
                 <td style="text-align:left">${v.code}</td>
@@ -56,6 +89,47 @@ document.addEventListener("DOMContentLoaded", () => {
                 </td>
             `;
             dealList.appendChild(row);
+        });
+    }
+
+    function filterVouchers() {
+        const searchCode = sanitizeInput(voucherCodeSearch.value.trim().toLowerCase());
+        const startDateValue = startDateFilter.value;
+        const endDateValue = endDateFilter.value;
+
+        const allRows = dealList.querySelectorAll('tr');
+
+        allRows.forEach(row => {
+            const voucherCode = row.getAttribute('data-voucher-code')?.toLowerCase() || '';
+            const voucherStartDate = row.getAttribute('data-start-date') || '';
+            const voucherEndDate = row.getAttribute('data-end-date') || '';
+
+            let matchCode = true;
+            let matchStartDate = true;
+            let matchEndDate = true;
+
+            if (searchCode) {
+                matchCode = voucherCode.includes(searchCode);
+            }
+
+            if (startDateValue) {
+                const filterStart = new Date(startDateValue);
+                const vStart = new Date(voucherStartDate);
+                matchStartDate = vStart >= filterStart;
+            }
+
+            if (endDateValue) {
+                const filterEnd = new Date(endDateValue);
+                filterEnd.setHours(23, 59, 59, 999);
+                const vEnd = new Date(voucherEndDate);
+                matchEndDate = vEnd <= filterEnd;
+            }
+
+            if (matchCode && matchStartDate && matchEndDate) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
         });
     }
 
@@ -77,6 +151,19 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         return `<span class="status-expired">Hết hạn</span>`;
     }
+
+    applyFilterBtn.addEventListener('click', filterVouchers);
+
+    showAllBtn.addEventListener('click', () => {
+        voucherCodeSearch.value = '';
+        startDateFilter.value = '';
+        endDateFilter.value = '';
+
+        const allRows = dealList.querySelectorAll('tr');
+        allRows.forEach(row => {
+            row.style.display = '';
+        });
+    });
 
     addBtn?.addEventListener("click", () => {
         editingId = null;
@@ -189,5 +276,6 @@ document.addEventListener("DOMContentLoaded", () => {
             alert('Không thể lưu voucher');
         }
     });
+
     loadVouchers();
 });

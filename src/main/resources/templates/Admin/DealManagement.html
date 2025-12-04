@@ -48,6 +48,26 @@
                 <i class="fa-solid fa-plus"></i> Tạo voucher mới
             </button>
         </div>
+        <div class="filter-container" style="margin: 20px 0; display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+            <input id="voucher-code-search" type="text" placeholder="Tìm kiếm theo mã voucher"
+                   style="padding: 10px; border: 1px solid #ddd; border-radius: 5px; flex: 1; min-width: 200px;">
+            <div style="display: flex; gap: 5px; align-items: center;">
+                <label style="white-space: nowrap;">Từ ngày:</label>
+                <input id="start-date-filter" type="date"
+                       style="padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+            </div>
+            <div style="display: flex; gap: 5px; align-items: center;">
+                <label style="white-space: nowrap;">Đến ngày:</label>
+                <input id="end-date-filter" type="date"
+                       style="padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+            </div>
+            <button id="apply-filter-btn" style="padding: 10px 20px; background-color: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer;">
+                <i class="fa-solid fa-filter"></i> Áp dụng
+            </button>
+            <button id="show-all-btn" style="padding: 10px 20px; background-color: #2196F3; color: white; border: none; border-radius: 5px; cursor: pointer;">
+                <i class="fa-solid fa-list"></i> Hiển thị tất cả
+            </button>
+        </div>
         <div class="table-container">
             <table class="deal-table">
                 <thead>
