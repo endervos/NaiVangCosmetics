@@ -24,6 +24,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import java.time.LocalDateTime;
 
 @Controller
 public class LoginController {
@@ -99,7 +100,12 @@ public class LoginController {
             }
             failedLoginService.recordSuccessfulLogin(account.getAccountId());
             String token = jwtTokenUtil.generateToken(userDetails, "ROLE_Customer");
-            Session session = sessionService.createSession(account.getAccountId(), token);
+            Session session = new Session();
+            session.setAccount(account);
+            session.setToken(token);
+            session.setStartTime(LocalDateTime.now());
+            session.setEndTime(LocalDateTime.now().plusHours(24));
+            sessionService.save(session);
             Cookie jwtCookie = new Cookie("JWT_TOKEN", token);
             jwtCookie.setHttpOnly(true);
             jwtCookie.setSecure(false);

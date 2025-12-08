@@ -2,6 +2,8 @@ package demoweb.demo.service;
 
 import demoweb.demo.entity.*;
 import demoweb.demo.repository.*;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.StoredProcedureQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,6 +18,9 @@ public class OrderService {
     private final PaymentRepository paymentRepository;
     private final AddressRepository addressRepository;
     private final VoucherRepository voucherRepository;
+
+    @Autowired
+    private EntityManager entityManager;
 
     @Autowired
     public OrderService(OrderRepository orderRepository,
@@ -220,5 +225,30 @@ public class OrderService {
         } catch (IllegalArgumentException e) {
             throw new RuntimeException("Trạng thái không hợp lệ: " + statusStr);
         }
+    }
+
+    @Transactional(readOnly = true)
+    public List<Map<String, Object>> getTop10BestsellersByCategory(Integer categoryId) {
+        StoredProcedureQuery query = entityManager.createStoredProcedureQuery("GetTop10BestsellersByCategory");
+        query.registerStoredProcedureParameter(1, Integer.class, jakarta.persistence.ParameterMode.IN);
+        query.setParameter(1, categoryId);
+        @SuppressWarnings("unchecked")
+        List<Object[]> rawResults = query.getResultList();
+        List<Map<String, Object>> bestsellers = new ArrayList<>();
+        for (Object[] row : rawResults) {
+            Map<String, Object> bestseller = new HashMap<>();
+            bestseller.put("itemId", row[0]);
+            bestseller.put("itemName", row[1]);
+            bestseller.put("categoryId", row[2]);
+            bestseller.put("categoryName", row[3]);
+            bestseller.put("totalSold", row[4]);
+            bestsellers.add(bestseller);
+        }
+        return bestsellers;
+    }
+
+    @Transactional(readOnly = true)
+    public List<Map<String, Object>> getTop10Bestsellers() {
+        return getTop10BestsellersByCategory(null);
     }
 }

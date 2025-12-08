@@ -1,5 +1,6 @@
 package demoweb.demo.security;
 
+import demoweb.demo.entity.Session;
 import demoweb.demo.service.AccountService;
 import demoweb.demo.service.SessionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import java.time.LocalDateTime;
+import java.util.Optional;
 
 @Configuration
 @EnableWebSecurity
@@ -89,7 +92,12 @@ public class SecurityConfiguration {
                                     if ("JWT_TOKEN".equals(cookie.getName())) {
                                         String token = cookie.getValue();
                                         if (token != null && !token.isEmpty()) {
-                                            sessionService.closeSessionByToken(token);
+                                            Optional<Session> sessionOpt = sessionService.findByToken(token);
+                                            if (sessionOpt.isPresent()) {
+                                                Session session = sessionOpt.get();
+                                                session.setEndTime(LocalDateTime.now());
+                                                sessionService.save(session);
+                                            }
                                         }
                                     }
                                 }

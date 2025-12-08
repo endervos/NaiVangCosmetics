@@ -1,13 +1,19 @@
 package demoweb.demo.service;
 
+import demoweb.demo.entity.Customer;
+import demoweb.demo.entity.Item;
 import demoweb.demo.entity.Review;
+import demoweb.demo.entity.User;
 import demoweb.demo.repository.ReviewRepository;
-import jakarta.transaction.Transactional;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.StoredProcedureQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @Service
 public class ReviewService {
@@ -15,83 +21,136 @@ public class ReviewService {
     private final ReviewRepository reviewRepository;
 
     @Autowired
+    private EntityManager entityManager;
+
+    @Autowired
     public ReviewService(ReviewRepository reviewRepository) {
         this.reviewRepository = reviewRepository;
     }
 
+    @Transactional(readOnly = true)
+    public List<Review> getAllReviews() {
+        return reviewRepository.findAll();
+    }
+
+    @Transactional(readOnly = true)
+    public Optional<Review> getReviewById(Integer reviewId) {
+        return reviewRepository.findById(reviewId);
+    }
+
+    @Transactional(readOnly = true)
+    public List<Review> getReviewsByItemId(Integer itemId) {
+        return reviewRepository.findByItem_ItemId(itemId);
+    }
+
+    @Transactional(readOnly = true)
+    public List<Review> getReviewsByItemIdWithUser(Integer itemId) {
+        StoredProcedureQuery query = entityManager.createStoredProcedureQuery("GetReviewsByItemIdWithUser");
+        query.registerStoredProcedureParameter(1, Integer.class, jakarta.persistence.ParameterMode.IN);
+        query.setParameter(1, itemId);
+        @SuppressWarnings("unchecked")
+        List<Object[]> rawResults = query.getResultList();
+        List<Review> reviews = new ArrayList<>();
+        for (Object[] row : rawResults) {
+            Review review = new Review();
+            review.setReviewId((Integer) row[0]);
+            review.setRating((Integer) row[1]);
+            review.setComment((String) row[2]);
+            if (row[3] != null) {
+                java.sql.Timestamp createdTimestamp = (java.sql.Timestamp) row[3];
+                review.setCreatedAt(new Date(createdTimestamp.getTime()));
+            }
+            if (row[4] != null) {
+                Item item = new Item();
+                item.setItemId((Integer) row[4]);
+                review.setItem(item);
+            }
+            if (row[5] != null) {
+                Customer customer = new Customer();
+                customer.setCustomerId((Integer) row[5]);
+                review.setCustomer(customer);
+                if (row[6] != null) {
+                    User user = new User();
+                    user.setUserId(String.valueOf(row[6]));
+                    customer.setUser(user);
+                }
+            }
+            reviews.add(review);
+        }
+        return reviews;
+    }
+
+    @Transactional(readOnly = true)
+    public List<Review> getAllReviewsWithDetails() {
+        StoredProcedureQuery query = entityManager.createStoredProcedureQuery("GetAllReviewsWithDetails");
+        @SuppressWarnings("unchecked")
+        List<Object[]> rawResults = query.getResultList();
+        List<Review> reviews = new ArrayList<>();
+        for (Object[] row : rawResults) {
+            Review review = new Review();
+            review.setReviewId((Integer) row[0]);
+            review.setRating((Integer) row[1]);
+            review.setComment((String) row[2]);
+            if (row[3] != null) {
+                java.sql.Timestamp createdTimestamp = (java.sql.Timestamp) row[3];
+                review.setCreatedAt(new Date(createdTimestamp.getTime()));
+            }
+            if (row[4] != null) {
+                Item item = new Item();
+                item.setItemId((Integer) row[4]);
+                item.setName((String) row[5]);
+                review.setItem(item);
+            }
+            if (row[6] != null) {
+                Customer customer = new Customer();
+                customer.setCustomerId((Integer) row[6]);
+                review.setCustomer(customer);
+                if (row[7] != null) {
+                    User user = new User();
+                    user.setUserId(String.valueOf(row[7]));
+                    customer.setUser(user);
+                }
+            }
+            reviews.add(review);
+        }
+        return reviews;
+    }
+
+    @Transactional(readOnly = true)
+    public List<Review> getReviewsByCustomerId(Integer customerId) {
+        return reviewRepository.findByCustomer_CustomerId(customerId);
+    }
+
     @Transactional
     public Review save(Review review) {
-        review.setCreatedAt(new Date());
         return reviewRepository.save(review);
     }
 
     @Transactional
-    public void delete(Integer id) {
-        if (!reviewRepository.existsById(id)) {
-            throw new NoSuchElementException("Không tìm thấy review có ID: " + id);
-        }
-        reviewRepository.deleteById(id);
+    public void delete(Integer reviewId) {
+        reviewRepository.deleteById(reviewId);
     }
 
-    @Transactional
-    public Review update(Integer id, Review updatedReview) {
-        Review existing = requireOne(id);
-        existing.setRating(updatedReview.getRating());
-        existing.setComment(updatedReview.getComment());
-        return reviewRepository.save(existing);
-    }
-
-    public Review getById(Integer id) {
-        return requireOne(id);
-    }
-
-    public List<Review> getAll() {
-        return reviewRepository.findAllWithDetails();
-    }
-
-    public List<Review> getByItemId(Integer itemId) {
-        return reviewRepository.findByItemIdWithUser(itemId);
-    }
-
-    public List<Review> getByCustomerId(Integer customerId) {
-        return reviewRepository.findByCustomer_CustomerId(customerId);
-    }
-
-    private Review requireOne(Integer id) {
-        return reviewRepository.findById(id)
-                .orElseThrow(() -> new NoSuchElementException("Không tìm thấy review có ID: " + id));
-    }
-
+    @Transactional(readOnly = true)
     public Double getAverageRating(Integer itemId) {
         List<Review> reviews = reviewRepository.findByItem_ItemId(itemId);
-        if (reviews == null || reviews.isEmpty()) return 0.0;
-
-        double avg = reviews.stream()
-                .filter(r -> r.getRating() != null)
+        if (reviews.isEmpty()) return 0.0;
+        return reviews.stream()
                 .mapToInt(Review::getRating)
                 .average()
                 .orElse(0.0);
-        return Math.round(avg * 10.0) / 10.0;
     }
 
+    @Transactional(readOnly = true)
     public int getReviewCount(Integer itemId) {
         return reviewRepository.findByItem_ItemId(itemId).size();
     }
 
-    public String getRatingStars(Double averageRating) {
-        if (averageRating == null) averageRating = 0.0;
-        int full = (int) Math.floor(averageRating);
-        boolean half = (averageRating - full) >= 0.5;
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < full; i++) {
-            sb.append("<i class='fa fa-star'></i>");
-        }
-        if (half) {
-            sb.append("<i class='fa fa-star-half-o'></i>");
-        }
-        for (int i = full + (half ? 1 : 0); i < 5; i++) {
-            sb.append("<i class='fa fa-star-o'></i>");
-        }
-        return sb.toString();
+    public String getRatingStars(Double rating) {
+        if (rating == null) return "☆☆☆☆☆";
+        int full = (int) Math.floor(rating);
+        int half = (rating - full >= 0.5) ? 1 : 0;
+        int empty = 5 - full - half;
+        return "★".repeat(full) + (half == 1 ? "⯨" : "") + "☆".repeat(empty);
     }
 }

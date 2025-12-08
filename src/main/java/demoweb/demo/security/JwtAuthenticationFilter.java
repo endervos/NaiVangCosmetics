@@ -17,6 +17,7 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -51,36 +52,40 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                         response.setHeader("X-Session-Reason", "inactivity");
                     } else if (jwtTokenUtil.validateToken(token, userDetails)) {
                         Optional<Session> sessionOpt = sessionService.findByToken(token);
-                        if (sessionOpt.isPresent() && sessionOpt.get().getEndTime() != null) {
-                            logger.warn("Session closed for user: " + username);
-                            clearAuthCookies(response);
-                            sessionExpired = true;
-                            response.setHeader("X-Session-Expired", "true");
-                            response.setHeader("X-Session-Reason", "session-closed");
-                        } else {
-                            boolean shouldRefresh = jwtTokenUtil.shouldRefreshToken(token);
-                            String currentToken = token;
-                            if (shouldRefresh) {
-                                currentToken = jwtTokenUtil.refreshToken(token);
-                                if (sessionOpt.isPresent()) {
-                                    Session session = sessionOpt.get();
+                        if (sessionOpt.isPresent()) {
+                            Session session = sessionOpt.get();
+                            if (session.getEndTime() != null && session.getEndTime().isBefore(LocalDateTime.now())) {
+                                logger.warn("Session closed for user: " + username);
+                                clearAuthCookies(response);
+                                sessionExpired = true;
+                                response.setHeader("X-Session-Expired", "true");
+                                response.setHeader("X-Session-Reason", "session-closed");
+                            } else {
+                                boolean shouldRefresh = jwtTokenUtil.shouldRefreshToken(token);
+                                String currentToken = token;
+                                if (shouldRefresh) {
+                                    currentToken = jwtTokenUtil.refreshToken(token);
                                     sessionService.updateSessionToken(session.getSessionId(), currentToken);
-                                } else {
-                                    try {
-                                        Account account = accountService.findAccountByEmail(username);
-                                        if (account != null) {
-                                            List<Session> activeSessions = sessionService.getActiveSessionsByAccount(account.getAccountId());
-                                            if (!activeSessions.isEmpty()) {
-                                                sessionService.updateSessionToken(activeSessions.get(0).getSessionId(), currentToken);
-                                            } else {
-                                                sessionService.createSession(account.getAccountId(), currentToken);
-                                            }
-                                        }
-                                    } catch (Exception e) {
-                                        logger.warn("Could not handle session: " + e.getMessage());
+                                    updateAuthCookies(response, currentToken);
+                                }
+                                UsernamePasswordAuthenticationToken authentication =
+                                        new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+                                authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                                SecurityContextHolder.getContext().setAuthentication(authentication);
+                            }
+                        } else {
+                            try {
+                                Account account = accountService.findAccountByEmail(username);
+                                if (account != null) {
+                                    List<Session> activeSessions = sessionService.getActiveSessionsByAccount(account.getAccountId());
+                                    if (!activeSessions.isEmpty()) {
+                                        sessionService.updateSessionToken(activeSessions.get(0).getSessionId(), token);
+                                    } else {
+                                        sessionService.createSession(account.getAccountId(), token);
                                     }
                                 }
-                                updateAuthCookies(response, currentToken);
+                            } catch (Exception e) {
+                                logger.warn("Could not handle session: " + e.getMessage());
                             }
                             UsernamePasswordAuthenticationToken authentication =
                                     new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());

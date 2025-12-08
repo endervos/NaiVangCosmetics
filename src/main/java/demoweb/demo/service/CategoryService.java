@@ -5,13 +5,17 @@ import demoweb.demo.entity.Category;
 import demoweb.demo.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.util.List;
-import java.util.Optional;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.StoredProcedureQuery;
+import java.util.*;
 
 @Service
 public class CategoryService {
 
     private final CategoryRepository categoryRepository;
+
+    @Autowired
+    private EntityManager entityManager;
 
     @Autowired
     public CategoryService(CategoryRepository categoryRepository) {
@@ -37,7 +41,40 @@ public class CategoryService {
 
     @Transactional(readOnly = true)
     public List<Category> getRootCategoriesWithChildren() {
-        return categoryRepository.findRootCategoriesWithChildren();
+        StoredProcedureQuery query = entityManager.createStoredProcedureQuery("GetRootCategoriesWithChildren");
+        @SuppressWarnings("unchecked")
+        List<Object[]> rawResults = query.getResultList();
+        Map<Integer, Category> categoryMap = new HashMap<>();
+        for (Object[] row : rawResults) {
+            Integer parentId = (Integer) row[0];
+            Category parent = categoryMap.get(parentId);
+            if (parent == null) {
+                parent = new Category();
+                parent.setCategoryId(parentId);
+                parent.setName((String) row[1]);
+                parent.setSlug((String) row[3]);
+                if (row[4] != null) {
+                    java.sql.Timestamp timestamp = (java.sql.Timestamp) row[4];
+                    parent.setCreatedAt(timestamp.toLocalDateTime());
+                }
+                parent.setChildren(new ArrayList<>());
+                categoryMap.put(parentId, parent);
+            }
+            if (row[5] != null) {
+                Integer childId = (Integer) row[5];
+                Category child = new Category();
+                child.setCategoryId(childId);
+                child.setName((String) row[6]);
+                child.setSlug((String) row[7]);
+                child.setParent(parent);
+                if (row[9] != null) {
+                    java.sql.Timestamp childTimestamp = (java.sql.Timestamp) row[9];
+                    child.setCreatedAt(childTimestamp.toLocalDateTime());
+                }
+                parent.getChildren().add(child);
+            }
+        }
+        return new ArrayList<>(categoryMap.values());
     }
 
     @Transactional(readOnly = true)
@@ -148,5 +185,13 @@ public class CategoryService {
     @Transactional(readOnly = true)
     public boolean existsById(Integer id) {
         return categoryRepository.existsById(id);
+    }
+
+    @Transactional(readOnly = true)
+    public List<Object[]> getCategoryItemCounts() {
+        StoredProcedureQuery query = entityManager.createStoredProcedureQuery("GetCategoryItemCounts");
+        @SuppressWarnings("unchecked")
+        List<Object[]> results = query.getResultList();
+        return results;
     }
 }

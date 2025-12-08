@@ -3,6 +3,7 @@ package demoweb.demo.controller;
 import demoweb.demo.dto.LoginRequest;
 import demoweb.demo.dto.LoginResponse;
 import demoweb.demo.entity.*;
+import demoweb.demo.repository.AccountRepository;
 import demoweb.demo.security.JwtTokenUtil;
 import demoweb.demo.service.*;
 import jakarta.servlet.http.Cookie;
@@ -20,6 +21,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -61,6 +63,12 @@ public class ManagerController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private SessionService sessionService;
+
+    @Autowired
+    private AccountRepository accountRepository;
+
     @GetMapping("/login_tthhn")
     public String showManagerLoginPage(Model model) {
         model.addAttribute("loginType", "manager");
@@ -92,7 +100,15 @@ public class ManagerController {
                                 null
                         ));
             }
+            Account account = accountRepository.findByUser_Email(loginRequest.getUsername())
+                    .orElseThrow(() -> new RuntimeException("Account không tồn tại"));
             String token = jwtTokenUtil.generateToken(userDetails, "ROLE_Manager");
+            Session session = new Session();
+            session.setAccount(account);
+            session.setToken(token);
+            session.setStartTime(LocalDateTime.now());
+            session.setEndTime(LocalDateTime.now().plusHours(24));
+            sessionService.save(session);
             Cookie jwtCookie = new Cookie("JWT_TOKEN", token);
             jwtCookie.setHttpOnly(true);
             jwtCookie.setSecure(false);
@@ -273,7 +289,7 @@ public class ManagerController {
 
     @GetMapping("/review-management")
     public String showReviewManagement(Model model) {
-        List<Review> reviews = reviewService.getAll();
+        List<Review> reviews = reviewService.getAllReviews();
         model.addAttribute("reviews", reviews);
         return "Manager/ReviewManagement";
     }

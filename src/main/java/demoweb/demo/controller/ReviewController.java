@@ -62,8 +62,12 @@ public class ReviewController {
     public ResponseEntity<?> updateReview(@PathVariable("id") Integer id,
                                           @Valid @RequestBody Review updatedReview) {
         try {
-            Review review = reviewService.update(id, updatedReview);
-            return ResponseEntity.ok(new ReviewDTO(review));
+            Review existingReview = reviewService.getReviewById(id)
+                    .orElseThrow(() -> new RuntimeException("Không tìm thấy review"));
+            existingReview.setRating(updatedReview.getRating());
+            existingReview.setComment(updatedReview.getComment());
+            Review savedReview = reviewService.save(existingReview);
+            return ResponseEntity.ok(new ReviewDTO(savedReview));
         } catch (RuntimeException e) {
             return ResponseEntity.notFound().build();
         } catch (Exception e) {
@@ -85,7 +89,7 @@ public class ReviewController {
 
     @GetMapping("/{id}")
     public ResponseEntity<?> getReviewById(@PathVariable("id") Integer id) {
-        Review review = reviewService.getById(id);
+        Review review = reviewService.getReviewById(id).orElse(null);
         if (review != null) {
             return ResponseEntity.ok(new ReviewDTO(review));
         } else {
@@ -95,7 +99,7 @@ public class ReviewController {
 
     @GetMapping
     public ResponseEntity<List<ReviewDTO>> getAllReviews() {
-        List<ReviewDTO> dtos = reviewService.getAll()
+        List<ReviewDTO> dtos = reviewService.getAllReviews()
                 .stream()
                 .map(ReviewDTO::new)
                 .collect(Collectors.toList());
@@ -104,7 +108,7 @@ public class ReviewController {
 
     @GetMapping("/item/{itemId}")
     public ResponseEntity<?> getReviewsByItem(@PathVariable("itemId") Integer itemId) {
-        List<Review> reviews = reviewService.getByItemId(itemId);
+        List<Review> reviews = reviewService.getReviewsByItemId(itemId);
         if (reviews.isEmpty()) {
             return ResponseEntity.ok("Sản phẩm này chưa có đánh giá nào.");
         }
@@ -116,7 +120,7 @@ public class ReviewController {
 
     @GetMapping("/customer/{customerId}")
     public ResponseEntity<?> getReviewsByCustomer(@PathVariable("customerId") Integer customerId) {
-        List<Review> reviews = reviewService.getByCustomerId(customerId);
+        List<Review> reviews = reviewService.getReviewsByCustomerId(customerId);
         if (reviews.isEmpty()) {
             return ResponseEntity.ok("Khách hàng này chưa viết đánh giá nào.");
         }

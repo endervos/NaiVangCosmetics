@@ -67,7 +67,7 @@ public class ItemController {
                                 .map(Inventory::getQuantity)
                                 .orElse(0);
                         model.addAttribute("stock", stock);
-                        List<Review> reviews = reviewService.getByItemId(id);
+                        List<Review> reviews = reviewService.getReviewsByItemId(id);
                         for (Review review : reviews) {
                             if (review.getCustomer() == null) {
                                 Customer c = new Customer();

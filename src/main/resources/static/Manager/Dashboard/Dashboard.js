@@ -1,17 +1,12 @@
 async function loadRevenueChart() {
-  console.log('🔄 Đang tải biểu đồ doanh thu...');
   try {
     const response = await fetch('/manager/api/dashboard/revenue-chart');
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
-
     const result = await response.json();
-    console.log('✅ Dữ liệu doanh thu:', result);
-
     const labels = result.data.map(item => item.label);
     const revenues = result.data.map(item => item.revenue);
-
     const ctx = document.getElementById('revenueChart').getContext('2d');
     new Chart(ctx, {
       type: 'line',
@@ -100,29 +95,20 @@ async function loadRevenueChart() {
         }
       }
     });
-
-    console.log('✅ Biểu đồ doanh thu đã được vẽ');
   } catch (error) {
     console.error('❌ Lỗi khi tải biểu đồ doanh thu:', error);
   }
 }
 
-// ===== BIỂU ĐỒ DANH MỤC SẢN PHẨM =====
 async function loadCategoryChart() {
-  console.log('🔄 Đang tải biểu đồ danh mục...');
   try {
     const response = await fetch('/manager/api/dashboard/category-chart');
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
-
     const result = await response.json();
-    console.log('✅ Dữ liệu danh mục:', result);
-
     const labels = result.data.map(item => item.category);
     const counts = result.data.map(item => item.count);
-
-    // Màu sắc cho từng danh mục
     const colors = [
       'rgba(255, 99, 132, 0.8)',
       'rgba(54, 162, 235, 0.8)',
@@ -133,7 +119,6 @@ async function loadCategoryChart() {
       'rgba(201, 203, 207, 0.8)',
       'rgba(42, 161, 152, 0.8)'
     ];
-
     const ctx = document.getElementById('categoryChart').getContext('2d');
     new Chart(ctx, {
       type: 'doughnut',
@@ -182,12 +167,9 @@ async function loadCategoryChart() {
                   label += ': ';
                 }
                 label += context.parsed + ' sản phẩm';
-
-                // Tính phần trăm
                 const total = context.dataset.data.reduce((a, b) => a + b, 0);
                 const percentage = ((context.parsed / total) * 100).toFixed(1);
                 label += ' (' + percentage + '%)';
-
                 return label;
               }
             }
@@ -195,16 +177,12 @@ async function loadCategoryChart() {
         }
       }
     });
-
-    console.log('✅ Biểu đồ danh mục đã được vẽ');
   } catch (error) {
     console.error('❌ Lỗi khi tải biểu đồ danh mục:', error);
   }
 }
 
-// ===== KHỞI TẠO KHI TRANG LOAD =====
 document.addEventListener('DOMContentLoaded', () => {
-  console.log('🚀 Trang Dashboard đã load xong');
   loadRevenueChart();
   loadCategoryChart();
 });
