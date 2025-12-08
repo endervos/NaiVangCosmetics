@@ -21,15 +21,12 @@ public class CategoryService {
     @Transactional(readOnly = true)
     public List<Category> getAllCategories() {
         List<Category> categories = categoryRepository.findAll();
-
         categories.forEach(cat -> {
             if (cat.getParent() != null) {
                 cat.getParent().getName();
             }
-
             cat.getItems().size();
         });
-
         return categories;
     }
 
@@ -53,11 +50,9 @@ public class CategoryService {
         return categoryRepository.findById(id)
                 .map(category -> {
                     category.getItems().size();
-
                     if (category.getParent() != null) {
                         category.getParent().getName();
                     }
-
                     return category;
                 });
     }
@@ -87,14 +82,11 @@ public class CategoryService {
         Category category = new Category();
         category.setName(name);
         category.setSlug(slug);
-
-        // Set parent nếu có
         if (parentId != null) {
             Category parent = categoryRepository.findById(parentId)
                     .orElseThrow(() -> new RuntimeException("Không tìm thấy danh mục cha với ID: " + parentId));
             category.setParent(parent);
         }
-
         return categoryRepository.save(category);
     }
 
@@ -102,26 +94,21 @@ public class CategoryService {
     public Category updateCategory(Integer id, String name, String slug, Integer parentId) {
         Category category = categoryRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Không tìm thấy danh mục với ID: " + id));
-
         category.setName(name);
         category.setSlug(slug);
-
         if (parentId != null) {
             if (parentId.equals(id)) {
                 throw new RuntimeException("Danh mục không thể là cha của chính nó!");
             }
-
             if (isDescendant(id, parentId)) {
                 throw new RuntimeException("Danh mục cha không thể là con của danh mục hiện tại!");
             }
-
             Category parent = categoryRepository.findById(parentId)
                     .orElseThrow(() -> new RuntimeException("Không tìm thấy danh mục cha với ID: " + parentId));
             category.setParent(parent);
         } else {
             category.setParent(null);
         }
-
         return categoryRepository.save(category);
     }
 
@@ -135,26 +122,21 @@ public class CategoryService {
         if (!category.getChildren().isEmpty()) {
             throw new RuntimeException("Không thể xóa danh mục có danh mục con!");
         }
-
         categoryRepository.delete(category);
     }
 
     private boolean isDescendant(Integer categoryId, Integer potentialAncestorId) {
         Optional<Category> potentialAncestor = categoryRepository.findById(potentialAncestorId);
-
         if (potentialAncestor.isEmpty()) {
             return false;
         }
-
         Category current = potentialAncestor.get();
-
         while (current != null) {
             if (current.getCategoryId().equals(categoryId)) {
                 return true;
             }
             current = current.getParent();
         }
-
         return false;
     }
 

@@ -1,6 +1,4 @@
 document.addEventListener("DOMContentLoaded", () => {
-  console.log("Review Management loaded!");
-
   const userInfo = document.querySelector(".user-info");
   const dropdown = document.querySelector(".dropdown");
 
@@ -10,7 +8,6 @@ document.addEventListener("DOMContentLoaded", () => {
       dropdown.style.display =
         dropdown.style.display === "block" ? "none" : "block";
     });
-
     document.addEventListener("click", (e) => {
       if (!userInfo.contains(e.target) && !dropdown.contains(e.target)) {
         dropdown.style.display = "none";
@@ -72,36 +69,29 @@ document.addEventListener("DOMContentLoaded", () => {
     const productSearchTerm = sanitizeInput(productSearch.value.toLowerCase().trim());
     const customerSearchTerm = sanitizeInput(customerSearch.value.toLowerCase().trim());
     const sortOrder = sortFilter.value;
-
     let filteredRows = allRows.filter(row => {
       const productName = row.children[0]?.textContent.toLowerCase() || "";
       const customerName = row.children[1]?.textContent.toLowerCase() || "";
-
       let matchProduct = true;
       let matchCustomer = true;
-
       if (productSearchTerm) {
         matchProduct = productName.includes(productSearchTerm);
       }
-
       if (customerSearchTerm) {
         matchCustomer = customerName.includes(customerSearchTerm);
       }
-
       return matchProduct && matchCustomer;
     });
 
     filteredRows.sort((a, b) => {
       const dateA = parseVietnameseDate(a.children[4]?.textContent || "");
       const dateB = parseVietnameseDate(b.children[4]?.textContent || "");
-
       if (sortOrder === "latest") {
         return dateB - dateA;
       } else {
         return dateA - dateB;
       }
     });
-
     tableBody.innerHTML = "";
     if (filteredRows.length === 0) {
       tableBody.innerHTML = '<tr><td colspan="5" style="text-align: center;">Không tìm thấy đánh giá nào</td></tr>';
@@ -116,7 +106,6 @@ document.addEventListener("DOMContentLoaded", () => {
     productSearch.value = "";
     customerSearch.value = "";
     sortFilter.value = "latest";
-
     tableBody.innerHTML = "";
     allRows.forEach(row => tableBody.appendChild(row));
   });
@@ -124,18 +113,14 @@ document.addEventListener("DOMContentLoaded", () => {
   function parseVietnameseDate(dateStr) {
     const parts = dateStr.split(" ");
     if (parts.length !== 2) return new Date(0);
-
     const dateParts = parts[0].split("/");
     const timeParts = parts[1].split(":");
-
     if (dateParts.length !== 3 || timeParts.length !== 2) return new Date(0);
-
     const day = parseInt(dateParts[0]);
     const month = parseInt(dateParts[1]) - 1;
     const year = parseInt(dateParts[2]);
     const hour = parseInt(timeParts[0]);
     const minute = parseInt(timeParts[1]);
-
     return new Date(year, month, day, hour, minute);
   }
 });

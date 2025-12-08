@@ -10,8 +10,8 @@ main {
     grid-template-columns: repeat(
     auto-fill,
     minmax(300px, 1fr)
-  ); /* Mỗi cột tối thiểu 300px, tối đa 1fr */
-    gap: 20px; /* Khoảng cách giữa các tin */
+  );
+    gap: 20px;
     padding: 20px;
 }
 
@@ -53,10 +53,10 @@ header {
 
 .product-info {
     display: flex;
-    gap: 10px; /* khoảng cách giữa ảnh và text */
+    gap: 10px;
     text-align: left;
     font-family: Arial, sans-serif;
-    align-items: flex-start; /* căn text sát đầu ảnh */
+    align-items: flex-start;
 }
 
 .product-info img {
@@ -68,30 +68,31 @@ header {
 .product-text {
     display: flex;
     font-family: Arial, sans-serif;
-    flex-direction: column; /* mỗi phần trên 1 dòng */
-    gap: 3px; /* khoảng cách giữa các dòng */
-    margin: 0; /* loại bỏ margin thừa */
-    padding: 0; /* loại bỏ padding thừa */
-    text-align: left; /* căn text sang trái */
+    flex-direction: column;
+    gap: 3px;
+    margin: 0;
+    padding: 0;
+    text-align: left;
 }
 
 .product-name {
-    font-weight: bold; /* in đậm tên sản phẩm */
-    font-size: 1.1em; /* có thể tăng kích thước */
+    font-weight: bold;
+    font-size: 1.1em;
 }
 
 .product-desc {
     font-weight: normal;
     font-size: 0.95em;
 }
+
 .wishlist-checkbox {
-    display: none; /* Ẩn checkbox */
+    display: none;
 }
 
 .wishlist-label {
     display: inline-flex;
-    align-items: center; /* căn dọc giữa */
-    gap: 5px; /* khoảng cách giữa trái tim và chữ */
+    align-items: center;
+    gap: 5px;
     cursor: pointer;
     color: black;
     transition: color 0.3s;
@@ -104,12 +105,10 @@ header {
     transition: transform 0.2s, color 0.2s;
 }
 
-/* hover phồng trái tim */
 .wishlist-label:hover .heart {
     transform: scale(1.2);
 }
 
-/* checked -> trái tim đỏ tươi */
 .wishlist-checkbox:checked + .wishlist-label .heart {
     content: "♥";
     color: #e60000;
@@ -134,7 +133,6 @@ header {
     cursor: pointer;
 }
 
-/* ====== SẢN PHẨM ĐÃ XEM ====== */
 .viewed-products {
     max-width: 1200px;
     margin: 40px auto;
@@ -162,7 +160,7 @@ header {
     display: flex;
     flex-direction: column;
     width: 200px;
-    min-height: 250px; /* đảm bảo tất cả card cùng chiều cao */
+    min-height: 250px;
 }
 
 .product-card img {
@@ -174,7 +172,7 @@ header {
 .product-card-info {
     display: flex;
     flex-direction: column;
-    flex-grow: 1; /* giúp phần product-info chiếm toàn bộ chiều cao còn lại */
+    flex-grow: 1;
 }
 
 .product-card-name {
@@ -190,7 +188,7 @@ header {
     font-weight: bold;
     color: #e74c3c;
     text-align: left;
-    margin-top: auto; /* đẩy giá xuống dưới cùng */
+    margin-top: auto;
 }
 
 .back-shopping {

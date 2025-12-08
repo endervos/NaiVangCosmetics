@@ -1,7 +1,6 @@
 package demoweb.demo.service;
 
 import java.time.LocalDateTime;
-
 import demoweb.demo.entity.Inventory;
 import demoweb.demo.repository.InventoryRepository;
 import org.springframework.stereotype.Service;

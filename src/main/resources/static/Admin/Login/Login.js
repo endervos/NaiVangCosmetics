@@ -7,23 +7,18 @@ document.addEventListener('DOMContentLoaded', function() {
     const loginBtn = document.getElementById('loginBtn');
     const btnText = document.getElementById('btnText');
     const btnLoading = document.getElementById('btnLoading');
-
     const loginUrl = loginForm.getAttribute('data-login-url') || '/admin/login_tthhn';
 
     loginForm.addEventListener('submit', async function(e) {
         e.preventDefault();
-
         const username = usernameInput.value.trim();
         const password = passwordInput.value;
-
         if (!username || !password) {
             showError('Vui lòng nhập đầy đủ thông tin');
             return;
         }
-
         setLoading(true);
         hideMessages();
-
         try {
             const response = await fetch(loginUrl, {
                 method: 'POST',
@@ -32,9 +27,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 },
                 body: JSON.stringify({ username, password })
             });
-
             const data = await response.json();
-
             if (data.success) {
                 showSuccess('Đăng nhập thành công! Đang chuyển hướng...');
                 setTimeout(() => {

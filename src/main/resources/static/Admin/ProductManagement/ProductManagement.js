@@ -1,6 +1,4 @@
 document.addEventListener("DOMContentLoaded", () => {
-  console.log("Product Management loaded!");
-
   const userInfo = document.querySelector(".user-info");
   const dropdown = document.querySelector(".dropdown");
 
@@ -8,7 +6,6 @@ document.addEventListener("DOMContentLoaded", () => {
     userInfo.addEventListener("click", () => {
       dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
     });
-
     document.addEventListener("click", (e) => {
       if (!userInfo.contains(e.target) && !dropdown.contains(e.target)) {
         dropdown.style.display = "none";
@@ -45,24 +42,18 @@ document.addEventListener("DOMContentLoaded", () => {
   function filterProducts() {
     const searchTerm = sanitizeInput(productNameSearch.value.trim().toLowerCase());
     const selectedCategory = categoryFilter.value;
-
     const allRows = productList.querySelectorAll('tr');
-
     allRows.forEach(row => {
       const itemName = row.getAttribute('data-item-name')?.toLowerCase() || '';
       const categoryId = row.getAttribute('data-category-id') || '';
-
       let matchName = true;
       let matchCategory = true;
-
       if (searchTerm) {
         matchName = itemName.includes(searchTerm);
       }
-
       if (selectedCategory) {
         matchCategory = categoryId === selectedCategory;
       }
-
       if (matchName && matchCategory) {
         row.style.display = '';
       } else {
@@ -112,21 +103,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
   window.viewProduct = async (id) => {
     try {
-      console.log("Fetching product with ID:", id);
-
       const response = await fetch(`/item/api/${id}`);
-
-      console.log("Response status:", response.status);
-
       if (!response.ok) {
         const errorText = await response.text();
         console.error("Error response:", errorText);
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-
       const item = await response.json();
-      console.log("Received item:", item);
-
       document.getElementById("view-product-id").textContent = item.itemId || "-";
       document.getElementById("view-product-name").textContent = item.name || "-";
       document.getElementById("view-product-price").textContent =
@@ -135,7 +118,6 @@ document.addEventListener("DOMContentLoaded", () => {
       document.getElementById("view-product-color").textContent = item.color || "-";
       document.getElementById("view-product-ingredient").textContent = item.ingredient || "-";
       document.getElementById("view-product-description").textContent = item.description || "-";
-
       if (item.createdAt) {
         const createdDate = new Date(item.createdAt);
         document.getElementById("view-product-created").textContent =
@@ -143,7 +125,6 @@ document.addEventListener("DOMContentLoaded", () => {
       } else {
         document.getElementById("view-product-created").textContent = "-";
       }
-
       if (item.updatedAt) {
         const updatedDate = new Date(item.updatedAt);
         document.getElementById("view-product-updated").textContent =
@@ -151,7 +132,6 @@ document.addEventListener("DOMContentLoaded", () => {
       } else {
         document.getElementById("view-product-updated").textContent = "-";
       }
-
       if (item.images && item.images.length > 0) {
         document.getElementById("view-product-image").src =
           `/api/item-images/blob/${item.images[0].itemImageId}`;
@@ -159,7 +139,6 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("view-product-image").src =
           "/Admin/ProductManagement/Image/default.png";
       }
-
       viewModal.classList.add("show");
     } catch (error) {
       console.error("Detailed error:", error);
@@ -171,10 +150,8 @@ document.addEventListener("DOMContentLoaded", () => {
     try {
       const response = await fetch(`/item/api/${id}`);
       const item = await response.json();
-
       editingId = id;
       modalTitle.textContent = "Chỉnh sửa sản phẩm";
-
       document.getElementById("product-id").value = item.itemId;
       document.getElementById("product-name").value = item.name || "";
       document.getElementById("product-description").value = item.description || "";
@@ -182,14 +159,12 @@ document.addEventListener("DOMContentLoaded", () => {
       document.getElementById("product-ingredient").value = item.ingredient || "";
       document.getElementById("product-price").value = item.price || "";
       document.getElementById("product-category").value = item.category?.categoryId || "";
-
       if (item.images && item.images.length > 0) {
         document.getElementById("preview-img").src = `/api/item-images/blob/${item.images[0].itemImageId}`;
         document.getElementById("current-image-preview").style.display = "block";
       } else {
         document.getElementById("current-image-preview").style.display = "none";
       }
-
       modal.classList.add("show");
     } catch (error) {
       console.error("Error fetching item:", error);
@@ -199,7 +174,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   form?.addEventListener("submit", async (e) => {
     e.preventDefault();
-
     const itemId = document.getElementById("product-id").value;
     const name = document.getElementById("product-name").value.trim();
     const description = document.getElementById("product-description").value.trim();
@@ -208,12 +182,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const price = Number(document.getElementById("product-price").value);
     const categoryId = document.getElementById("product-category").value;
     const imageFile = document.getElementById("product-image").files[0];
-
     if (!name || !description || !color || !ingredient || !price || !categoryId) {
       alert("Vui lòng điền đầy đủ thông tin!");
       return;
     }
-
     const formData = new FormData();
     formData.append("name", name);
     formData.append("description", description);
@@ -221,11 +193,9 @@ document.addEventListener("DOMContentLoaded", () => {
     formData.append("ingredient", ingredient);
     formData.append("price", price);
     formData.append("categoryId", categoryId);
-
     if (imageFile) {
       formData.append("image", imageFile);
     }
-
     try {
       let response;
 
@@ -241,9 +211,7 @@ document.addEventListener("DOMContentLoaded", () => {
           body: formData
         });
       }
-
       const result = await response.json();
-
       if (result.success) {
         alert(result.message);
         modal.classList.remove("show");
@@ -256,5 +224,4 @@ document.addEventListener("DOMContentLoaded", () => {
       alert("Có lỗi xảy ra khi lưu sản phẩm!");
     }
   });
-
 });

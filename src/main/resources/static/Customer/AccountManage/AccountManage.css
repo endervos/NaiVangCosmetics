@@ -1,4 +1,3 @@
-/* Sidebar chuẩn theo profile.css */
 .menu-sidebar {
     flex: 0 0 340px;
     border-right: 1px solid #eee;
@@ -45,7 +44,6 @@
     transition: 0.3s ease;
 }
 
-/* Cấu hình cho div bao quanh khung đổi mật khẩu */
 .change-password-container {
   display: flex;
   justify-content: center;
@@ -54,7 +52,6 @@
   background-color: #ffffff;
 }
 
-/* Khung đổi mật khẩu */
 .change-password-box {
   background-color: #fff;
   padding: 50px;
@@ -62,13 +59,11 @@
   box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
   width: 100%;
   max-width: 500px;
-  justify-content: center;  /* căn giữa ngang */
+  justify-content: center;
   align-items: center;
-    /* border: 2px solid #f89360;  Thêm viền đỏ cho khung */
   position: relative;
 }
 
-/* Cảnh báo trên đầu khung */
 .warning-message {
   background-color: #ffb163;
   color: white;
@@ -79,14 +74,12 @@
   text-align: center;
 }
 
-/* Tiêu đề khung đổi mật khẩu */
 .change-password-title {
   text-align: center;
   font-size: 28px;
   margin-bottom: 20px;
 }
 
-/* Form và các input */
 .change-password-form {
   display: flex;
   flex-direction: column;
@@ -105,7 +98,6 @@
   font-size: 16px;
 }
 
-/* Nút đổi mật khẩu */
 .custom-button {
   padding: 10px;
   background-color: #000000;
@@ -120,7 +112,6 @@
   background-color: #ed841c;
 }
 
-/* Main container */
 .main-container {
     display: flex;
     margin: 30px auto;
@@ -130,7 +121,6 @@
     height: 100vh;
     overflow: hidden;
 }
-
 
 .menu-sidebar {
     border-right: 1px solid #eee;
@@ -147,8 +137,8 @@
 .menu-sidebar ul {
     list-style: none;
     padding: 0;
-    flex-direction: column; /* xếp dọc các li */
-    align-items: center;    /* căn giữa theo chiều ngang */
+    flex-direction: column;
+    align-items: center;
 }
 
 .menu-sidebar ul li {
@@ -177,8 +167,6 @@
     transition: 0.3s ease;
 }
 
-
-/* Change Password Box */
 .change-password-box {
   background-color: #fff;
   padding: 50px;
@@ -189,7 +177,6 @@
   position: relative;
 }
 
-/* Cảnh báo trên đầu khung */
 .warning-message {
   background-color: #ffb163;
   color: white;
@@ -200,14 +187,12 @@
   text-align: center;
 }
 
-/* Tiêu đề khung đổi mật khẩu */
 .change-password-title {
   text-align: center;
   font-size: 28px;
   margin-bottom: 20px;
 }
 
-/* Form và các input */
 .change-password-form {
   display: flex;
   flex-direction: column;
@@ -226,7 +211,6 @@
   font-size: 16px;
 }
 
-/* Nút đổi mật khẩu */
 .custom-button {
   padding: 10px;
   background-color: #000000;

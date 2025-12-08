@@ -46,20 +46,16 @@ document.addEventListener('DOMContentLoaded', function () {
     const adminDob = document.getElementById('dateOfBirth').value;
     const adminPhone = sanitizePhoneInput(phoneInput.value.trim());
     const adminGender = document.querySelector('input[name="gender"]:checked');
-
     let isValid = true;
     let errorMessage = '';
-
     if (!adminName) {
       isValid = false;
       errorMessage += 'Họ và tên không được để trống.\n';
     }
-
     if (!adminDob) {
       isValid = false;
       errorMessage += 'Ngày tháng năm sinh không được để trống.\n';
     }
-
     if (!adminPhone) {
       isValid = false;
       errorMessage += 'Số điện thoại không được để trống.\n';
@@ -67,18 +63,15 @@ document.addEventListener('DOMContentLoaded', function () {
       isValid = false;
       errorMessage += 'Số điện thoại phải là 10 chữ số.\n';
     }
-
     if (!adminGender) {
       isValid = false;
       errorMessage += 'Vui lòng chọn giới tính.\n';
     }
-
     if (!isValid) {
       event.preventDefault();
       showToast(errorMessage, 'error');
       return;
     }
-
     nameInput.value = adminName;
     phoneInput.value = adminPhone;
   });

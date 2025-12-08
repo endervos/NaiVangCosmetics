@@ -1,4 +1,3 @@
-/* Container chính */
 .admin-review-container {
     max-width: 1200px;
     margin: 20px auto;
@@ -13,7 +12,6 @@
     color: #333;
 }
 
-/* Controls (filter/search) */
 .review-controls {
     display: flex;
     flex-wrap: wrap;
@@ -35,7 +33,6 @@
     font-size: 14px;
 }
 
-
 .review-controls input:focus,
 .review-controls select:focus,
 .review-controls button:focus {
@@ -55,7 +52,6 @@
     color : rgb(255, 255, 255);
 }
 
-/* Table */
 #review-table {
     width: 100%;
     border-collapse: collapse;
@@ -74,7 +70,6 @@
     color: #555;
 }
 
-/* Rating stars */
 .rating {
     font-size: 20px;
     color: gold;
@@ -88,7 +83,6 @@
     color: #ddd;
 }
 
-/* Pagination Controls */
 .pagination-controls {
     display: flex;
     justify-content: center;
@@ -115,7 +109,6 @@
     color: #333;
 }
 
-/* Delete Button */
 .delete-btn {
     padding: 8px 16px;
     background-color: red;

@@ -1,6 +1,4 @@
 document.addEventListener("DOMContentLoaded", () => {
-  console.log("Category Management loaded!");
-
   const userInfo = document.querySelector(".user-info");
   const dropdown = document.querySelector(".dropdown");
 
@@ -10,7 +8,6 @@ document.addEventListener("DOMContentLoaded", () => {
       dropdown.style.display =
         dropdown.style.display === "block" ? "none" : "block";
     });
-
     document.addEventListener("click", (e) => {
       if (!userInfo.contains(e.target) && !dropdown.contains(e.target)) {
         dropdown.style.display = "none";
@@ -31,7 +28,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 function closePopup() {
   document.getElementById("popupOverlay").style.display = "none";
-
   document.querySelectorAll(".popup-card").forEach(p => {
     p.style.display = "none";
   });
@@ -40,7 +36,6 @@ function closePopup() {
 document.getElementById("openAddPopup")?.addEventListener("click", () => {
   document.getElementById("addCategoryName").value = "";
   document.getElementById("addParentCategory").value = "";
-
   document.getElementById("popupOverlay").style.display = "flex";
   document.getElementById("addPopup").style.display = "block";
 });
@@ -48,31 +43,25 @@ document.getElementById("openAddPopup")?.addEventListener("click", () => {
 async function saveNewCategory() {
   const name = document.getElementById("addCategoryName").value.trim();
   const parentId = document.getElementById("addParentCategory").value;
-
   if (!name) {
     alert("Tên danh mục không được để trống!");
     return;
   }
-
   if (name.length < 3 || name.length > 150) {
     alert("Tên danh mục phải từ 3-150 ký tự!");
     return;
   }
-
   const formData = new FormData();
   formData.append("name", name);
   if (parentId) {
     formData.append("parentId", parentId);
   }
-
   try {
     const response = await fetch("/admin/api/category", {
       method: "POST",
       body: formData
     });
-
     const result = await response.json();
-
     if (result.success) {
       alert(result.message);
       closePopup();
@@ -90,14 +79,11 @@ let editingCategoryId = null;
 
 async function openEditPopup(id) {
   editingCategoryId = id;
-
   try {
     const response = await fetch(`/admin/api/category/${id}`);
     const category = await response.json();
-
     document.getElementById("editCategoryName").value = category.name || "";
     document.getElementById("editParentCategory").value = category.parentId || "";
-
     const parentSelect = document.getElementById("editParentCategory");
     Array.from(parentSelect.options).forEach(option => {
       if (option.value == id) {
@@ -108,7 +94,6 @@ async function openEditPopup(id) {
         option.textContent = option.textContent.replace(" (không thể chọn)", "");
       }
     });
-
     document.getElementById("popupOverlay").style.display = "flex";
     document.getElementById("editPopup").style.display = "block";
   } catch (error) {
@@ -120,31 +105,25 @@ async function openEditPopup(id) {
 async function updateCategory() {
   const name = document.getElementById("editCategoryName").value.trim();
   const parentId = document.getElementById("editParentCategory").value;
-
   if (!name) {
     alert("Tên danh mục không được để trống!");
     return;
   }
-
   if (name.length < 3 || name.length > 150) {
     alert("Tên danh mục phải từ 3-150 ký tự!");
     return;
   }
-
   const formData = new FormData();
   formData.append("name", name);
   if (parentId) {
     formData.append("parentId", parentId);
   }
-
   try {
     const response = await fetch(`/admin/api/category/${editingCategoryId}`, {
       method: "PUT",
       body: formData
     });
-
     const result = await response.json();
-
     if (result.success) {
       alert(result.message);
       closePopup();
@@ -161,7 +140,6 @@ async function updateCategory() {
 document.getElementById("searchInput")?.addEventListener("input", (e) => {
   const searchTerm = e.target.value.toLowerCase();
   const rows = document.querySelectorAll("#categoryBody tr");
-
   rows.forEach(row => {
     const name = row.children[1]?.textContent.toLowerCase();
     if (name && name.includes(searchTerm)) {

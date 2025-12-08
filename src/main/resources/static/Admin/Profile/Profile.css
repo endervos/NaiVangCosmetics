@@ -5,7 +5,6 @@
   text-align: center;
 }
 
-/* Admin Info Form */
 .manager-info-container {
   max-width: 600px;
   margin: 0 auto;
@@ -51,7 +50,6 @@
   cursor: not-allowed;
 }
 
-/* Gender Options */
 .gender-options {
   display: flex;
   gap: 20px;
@@ -69,7 +67,6 @@
   accent-color: #3498db;
 }
 
-/* Button */
 .button-container {
   text-align: center;
 }
@@ -89,7 +86,6 @@
   background: #2980b9;
 }
 
-/* Responsive Design */
 @media (max-width: 768px) {
   .admin-sidebar {
     width: 200px;

@@ -7,6 +7,7 @@ import demoweb.demo.entity.Session;
 import demoweb.demo.repository.AccountRepository;
 import demoweb.demo.security.JwtTokenUtil;
 import demoweb.demo.service.AccountService;
+import demoweb.demo.service.FailedLoginService;
 import demoweb.demo.service.SessionService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
@@ -15,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -41,6 +43,9 @@ public class LoginController {
     @Autowired
     private AccountRepository accountRepository;
 
+    @Autowired
+    private FailedLoginService failedLoginService;
+
     @GetMapping("/login")
     public String showLoginPage(Model model) {
         model.addAttribute("loginType", "customer");
@@ -53,6 +58,22 @@ public class LoginController {
     @ResponseBody
     public ResponseEntity<?> customerLogin(@RequestBody LoginRequest loginRequest, HttpServletResponse response) {
         try {
+            Account account = accountRepository.findByUser_Email(loginRequest.getUsername())
+                    .orElse(null);
+            if (account != null) {
+                if (failedLoginService.isAccountLocked(account.getAccountId())) {
+                    long remainingMinutes = failedLoginService.getRemainingLockoutTime(account.getAccountId());
+                    int failedAttempts = failedLoginService.getFailedAttemptsCount(account.getAccountId(), 5);
+                    return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                            .body(new LoginResponse(
+                                    false,
+                                    String.format("Tài khoản đã bị khóa do đăng nhập sai %d lần. Vui lòng thử lại sau %d phút.",
+                                            failedAttempts, remainingMinutes),
+                                    null,
+                                    null
+                            ));
+                }
+            }
             Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
                             loginRequest.getUsername(),
@@ -72,9 +93,12 @@ public class LoginController {
                                 null
                         ));
             }
+            if (account == null) {
+                account = accountRepository.findByUser_Email(loginRequest.getUsername())
+                        .orElseThrow(() -> new RuntimeException("Account không tồn tại"));
+            }
+            failedLoginService.recordSuccessfulLogin(account.getAccountId());
             String token = jwtTokenUtil.generateToken(userDetails, "ROLE_Customer");
-            Account account = accountRepository.findByUser_Email(loginRequest.getUsername())
-                    .orElseThrow(() -> new RuntimeException("Account không tồn tại"));
             Session session = sessionService.createSession(account.getAccountId(), token);
             Cookie jwtCookie = new Cookie("JWT_TOKEN", token);
             jwtCookie.setHttpOnly(true);
@@ -88,7 +112,39 @@ public class LoginController {
                     token,
                     "/"
             ));
+        } catch (DisabledException e) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                    .body(new LoginResponse(
+                            false,
+                            "Tài khoản đã bị vô hiệu hóa",
+                            null,
+                            null
+                    ));
         } catch (BadCredentialsException e) {
+            Account account = accountRepository.findByUser_Email(loginRequest.getUsername())
+                    .orElse(null);
+            if (account != null) {
+                failedLoginService.recordFailedLogin(account.getAccountId());
+                int failedAttempts = failedLoginService.getFailedAttemptsCount(account.getAccountId(), 5);
+                int remainingAttempts = 5 - failedAttempts;
+                if (remainingAttempts > 0) {
+                    return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                            .body(new LoginResponse(
+                                    false,
+                                    String.format("Email hoặc mật khẩu không đúng. Bạn còn %d lần thử.", remainingAttempts),
+                                    null,
+                                    null
+                            ));
+                } else {
+                    return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                            .body(new LoginResponse(
+                                    false,
+                                    "Tài khoản đã bị khóa do đăng nhập sai quá 5 lần. Vui lòng thử lại sau 10 phút.",
+                                    null,
+                                    null
+                            ));
+                }
+            }
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                     .body(new LoginResponse(
                             false,

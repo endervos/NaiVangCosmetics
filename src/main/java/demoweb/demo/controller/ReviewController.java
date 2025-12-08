@@ -2,7 +2,6 @@ package demoweb.demo.controller;
 
 import demoweb.demo.dto.ReviewDTO;
 import demoweb.demo.entity.Customer;
-import demoweb.demo.entity.Item;
 import demoweb.demo.entity.Review;
 import demoweb.demo.entity.User;
 import demoweb.demo.repository.CustomerRepository;
@@ -14,9 +13,7 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.security.Principal;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 

@@ -1,7 +1,6 @@
 package demoweb.demo.dto;
 
 import demoweb.demo.entity.Review;
-
 import java.util.Date;
 
 public class ReviewDTO {
@@ -28,7 +27,6 @@ public class ReviewDTO {
         this.createdAt = review.getCreatedAt();
     }
 
-    // getters và setters
     public Integer getReviewId() { return reviewId; }
     public void setReviewId(Integer reviewId) { this.reviewId = reviewId; }
     public Integer getItemId() { return itemId; }

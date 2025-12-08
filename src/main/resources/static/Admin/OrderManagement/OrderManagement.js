@@ -1,7 +1,6 @@
 let allOrders = [];
 let currentPage = 1;
 const ordersPerPage = 10;
-
 const tbody = document.querySelector("#order-table tbody");
 const orderIdSearch = document.querySelector("#order-id-search");
 const customerSearch = document.querySelector("#customer-search");
@@ -68,14 +67,11 @@ function getStatusText(status) {
 async function loadOrders() {
   try {
     const response = await fetch('/admin/api/orders');
-
     if (!response.ok) {
       const errorText = await response.text();
       throw new Error(`HTTP error! status: ${response.status}`);
     }
-
     const data = await response.json();
-
     allOrders = data.sort((a, b) => new Date(b.placedAt) - new Date(a.placedAt));
     currentPage = 1;
     displayOrders(allOrders);
@@ -85,9 +81,7 @@ async function loadOrders() {
 }
 
 function displayOrders(ordersToDisplay) {
-  console.log('📋 Hiển thị đơn hàng, số lượng:', ordersToDisplay.length);
   tbody.innerHTML = "";
-
   if (ordersToDisplay.length === 0) {
     tbody.innerHTML = '<tr><td colspan="6" style="text-align: center;">Không có đơn hàng nào</td></tr>';
     pageInfo.textContent = "Trang 0 / 0";
@@ -95,15 +89,12 @@ function displayOrders(ordersToDisplay) {
     nextPageBtn.disabled = true;
     return;
   }
-
   const start = (currentPage - 1) * ordersPerPage;
   const end = start + ordersPerPage;
   const paginatedOrders = ordersToDisplay.slice(start, end);
-
   paginatedOrders.forEach(order => {
     const row = document.createElement("tr");
     const customerName = order.customerName || "N/A";
-
     row.innerHTML = `
       <td>${order.orderId}</td>
       <td>${customerName}</td>
@@ -117,7 +108,6 @@ function displayOrders(ordersToDisplay) {
     `;
     tbody.appendChild(row);
   });
-
   const totalPages = Math.ceil(ordersToDisplay.length / ordersPerPage);
   pageInfo.textContent = `Trang ${currentPage} / ${totalPages}`;
   prevPageBtn.disabled = currentPage === 1;
@@ -126,13 +116,11 @@ function displayOrders(ordersToDisplay) {
 
 function getFilteredOrders() {
   let filtered = [...allOrders];
-
   const orderIdTerm = sanitizeNumberInput(orderIdSearch.value.trim());
   if (orderIdTerm) {
     const searchId = parseInt(orderIdTerm);
     filtered = filtered.filter(order => order.orderId === searchId);
   }
-
   const searchTerm = sanitizeInput(customerSearch.value.trim().toLowerCase());
   if (searchTerm) {
     filtered = filtered.filter(order => {
@@ -140,13 +128,11 @@ function getFilteredOrders() {
       return customerName.toLowerCase().includes(searchTerm);
     });
   }
-
   if (sortFilter.value === "latest") {
     filtered.sort((a, b) => new Date(b.placedAt) - new Date(a.placedAt));
   } else if (sortFilter.value === "oldest") {
     filtered.sort((a, b) => new Date(a.placedAt) - new Date(b.placedAt));
   }
-
   return filtered;
 }
 
@@ -159,45 +145,34 @@ function filterAndSortOrders() {
 async function viewOrderDetails(orderId) {
   try {
     const response = await fetch(`/admin/api/orders/${orderId}`);
-
     if (!response.ok) {
       throw new Error('Không thể tải chi tiết đơn hàng');
     }
-
     const data = await response.json();
-
     document.querySelector("#order-title").textContent = `Đơn hàng #${data.order.orderId}`;
     document.querySelector("#order-date").textContent = `Ngày đặt: ${formatDate(data.order.placedAt)}`;
     document.querySelector("#customer-name-value").textContent = data.customerName || "N/A";
     document.querySelector("#order-status-value").textContent = getStatusText(data.order.status);
-
     const address = data.address
       ? `${data.address.street}, ${data.address.district}, ${data.address.city} - SĐT: ${data.address.phoneNumber}`
       : "Chưa có địa chỉ";
     document.querySelector("#delivery-address-value").textContent = address;
-
     const paymentMethod = data.payment?.paymentMethod || "Chưa có thông tin";
     document.querySelector("#payment-method-value").textContent = paymentMethod;
-
     document.querySelector("#discount-value").textContent = formatCurrency(data.giamGia || 0);
     document.querySelector("#total-value").textContent = formatCurrency(data.order.total);
-
     const subtotalElem = document.querySelector("#subtotal");
     const shippingElem = document.querySelector("#shipping-fee");
     if (subtotalElem) subtotalElem.style.display = "none";
     if (shippingElem) shippingElem.style.display = "none";
-
     const productSection = document.querySelector("#product-section");
     productSection.innerHTML = "<h3>Sản phẩm</h3>";
-
     if (data.orderItems && data.orderItems.length > 0) {
       data.orderItems.forEach(orderItem => {
         const product = orderItem.item;
         const productDiv = document.createElement("div");
         productDiv.className = "product-item";
-
         const imageUrl = product?.imageUrl || "/Customer/Example/Image/default-product.jpg";
-
         productDiv.innerHTML = `
           <img src="${imageUrl}" alt="${product?.name || 'Sản phẩm'}" class="product-image"
                onerror="this.src='/Customer/Example/Image/default-product.jpg'">
@@ -213,7 +188,6 @@ async function viewOrderDetails(orderId) {
     } else {
       productSection.innerHTML += "<p>Không có sản phẩm nào</p>";
     }
-
     orderDetailModal.style.display = "flex";
   } catch (error) {
     alert('Không thể tải chi tiết đơn hàng. Vui lòng thử lại!\nLỗi: ' + error.message);
@@ -225,7 +199,6 @@ function updateOrderStatus(orderId) {
   if (!order) {
     return;
   }
-
   const updateStatusContent = document.querySelector("#update-status-content");
   updateStatusContent.innerHTML = `
     <p>Đơn hàng #${order.orderId}</p>
@@ -240,23 +213,17 @@ function updateOrderStatus(orderId) {
       <option value="REFUNDED" ${order.status === "REFUNDED" ? "selected" : ""}>Hoàn tiền</option>
     </select>
   `;
-
   updateStatusModal.style.display = "flex";
-
   confirmUpdateStatusBtn.onclick = async () => {
     const newStatus = document.querySelector("#new-status").value;
-
     try {
       const response = await fetch(`/admin/api/orders/${orderId}/status?status=${newStatus}`, {
         method: 'PUT'
       });
-
       if (!response.ok) {
         throw new Error('Không thể cập nhật trạng thái');
       }
-
       const result = await response.json();
-
       if (result.success) {
         alert('Cập nhật trạng thái thành công!');
         updateStatusModal.style.display = "none";

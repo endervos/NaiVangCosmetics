@@ -7,10 +7,11 @@
     } else fn();
   };
 
-  const toast = (msg, ms = 2200) => {
+  const toast = (msg, ms = 3000, type = 'info') => {
     const t = document.createElement("div");
+    const bgColor = type === 'error' ? '#dc3545' : type === 'success' ? '#28a745' : '#111';
     t.style.cssText =
-      "position:fixed;left:50%;transform:translateX(-50%);bottom:20px;background:#111;color:#fff;padding:.6rem .9rem;border-radius:.5rem;z-index:9999";
+      `position:fixed;left:50%;transform:translateX(-50%);bottom:20px;background:${bgColor};color:#fff;padding:.6rem .9rem;border-radius:.5rem;z-index:9999;max-width:90%;text-align:center;`;
     t.textContent = msg;
     document.body.appendChild(t);
     setTimeout(() => t.remove(), ms);
@@ -109,7 +110,7 @@
       }
 
       if (!ok) {
-        toast("Thông tin không hợp lệ. Vui lòng kiểm tra lại!");
+        toast("Thông tin không hợp lệ. Vui lòng kiểm tra lại!", 2500, 'error');
         const firstInvalid = form.querySelector(".nv-error");
         if (firstInvalid) {
           firstInvalid.scrollIntoView({ behavior: "smooth", block: "center" });
@@ -136,17 +137,16 @@
         const data = await response.json();
 
         if (data.success) {
-          toast("Đăng nhập thành công! Đang chuyển hướng...");
+          toast("Đăng nhập thành công! Đang chuyển hướng...", 2000, 'success');
           if (captchaBx) resetCaptcha();
           setTimeout(() => {
             window.location.href = data.redirectUrl || "/";
           }, 1000);
         } else {
-          toast(data.message || "Đăng nhập thất bại!");
+          const msgType = response.status === 403 ? 'error' : 'error';
+          toast(data.message || "Đăng nhập thất bại!", 4000, msgType);
 
-          if (email && data.message && data.message.includes("email")) {
-            addError(email, data.message);
-          } else if (password) {
+          if (password) {
             addError(password, data.message || "Email hoặc mật khẩu không đúng");
           }
           if (captchaBx) resetCaptcha();
@@ -155,7 +155,7 @@
         }
       } catch (error) {
         console.error("Login error:", error);
-        toast("Có lỗi xảy ra. Vui lòng thử lại!");
+        toast("Có lỗi xảy ra. Vui lòng thử lại!", 3000, 'error');
         setLoading(false);
         if (captchaBx) resetCaptcha();
       }
