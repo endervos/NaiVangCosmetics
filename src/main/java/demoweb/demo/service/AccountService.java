@@ -34,6 +34,10 @@ public class AccountService implements UserDetailsService {
                 .build();
     }
 
+    public Account findAccountByEmail(String email) {
+        return accountRepository.findByUser_Email(email).orElse(null);
+    }
+
     public List<Account> getAllAccounts() {
         return accountRepository.findAll();
     }

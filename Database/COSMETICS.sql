@@ -233,7 +233,7 @@ CREATE TABLE failed_login (
 CREATE TABLE session (
   session_id CHAR(36) PRIMARY KEY,
   account_id CHAR(36),
-  token VARCHAR(255) NOT NULL,
+  token VARCHAR(1000) NOT NULL,
   end_time DATETIME,
   start_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   CONSTRAINT fk_sessions_accounts FOREIGN KEY (account_id) REFERENCES account(account_id) ON DELETE CASCADE

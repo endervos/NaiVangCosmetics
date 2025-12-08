@@ -1,6 +1,7 @@
 package demoweb.demo.security;
 
 import demoweb.demo.service.AccountService;
+import demoweb.demo.service.SessionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -41,7 +42,7 @@ public class SecurityConfiguration {
     }
 
     @Bean
-    public SecurityFilterChain customerSecurityFilterChain(HttpSecurity httpSecurity) throws Exception {
+    public SecurityFilterChain customerSecurityFilterChain(HttpSecurity httpSecurity, SessionService sessionService) throws Exception {
         httpSecurity
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
@@ -82,6 +83,18 @@ public class SecurityConfiguration {
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .logout(logout -> logout
                         .logoutUrl("/logout")
+                        .addLogoutHandler((request, response, authentication) -> {
+                            if (request.getCookies() != null) {
+                                for (jakarta.servlet.http.Cookie cookie : request.getCookies()) {
+                                    if ("JWT_TOKEN".equals(cookie.getName())) {
+                                        String token = cookie.getValue();
+                                        if (token != null && !token.isEmpty()) {
+                                            sessionService.closeSessionByToken(token);
+                                        }
+                                    }
+                                }
+                            }
+                        })
                         .logoutSuccessUrl("/")
                         .invalidateHttpSession(true)
                         .deleteCookies("JWT_TOKEN", "SESSION_ACTIVE", "JSESSIONID")

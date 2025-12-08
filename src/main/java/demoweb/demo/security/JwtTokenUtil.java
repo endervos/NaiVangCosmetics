@@ -15,14 +15,17 @@ import java.util.function.Function;
 @Component
 public class JwtTokenUtil {
 
-    @Value("${jwt.secret:NaiVangCosmeticsSecretKeyForJWTTokenGeneration2025}")
+    @Value("${jwt.secret}")
     private String secret;
 
-    @Value("${jwt.expiration:86400000}")
+    @Value("${jwt.expiration}")
     private Long expiration;
 
-    @Value("${jwt.inactivity.timeout:600000}")
+    @Value("${jwt.inactivity.timeout}")
     private Long inactivityTimeout;
+
+    @Value("${jwt.refresh.threshold}")
+    private Long refreshThreshold;
 
     private Key getSigningKey() {
         return Keys.hmacShaKeyFor(secret.getBytes());
@@ -102,5 +105,16 @@ public class JwtTokenUtil {
         return (username.equals(userDetails.getUsername())
                 && !isTokenExpired(token)
                 && !isInactive(token));
+    }
+
+    public Boolean shouldRefreshToken(String token) {
+        try {
+            Claims claims = extractAllClaims(token);
+            Date issuedAt = claims.getIssuedAt();
+            long tokenAge = System.currentTimeMillis() - issuedAt.getTime();
+            return tokenAge >= refreshThreshold;
+        } catch (Exception e) {
+            return false;
+        }
     }
 }

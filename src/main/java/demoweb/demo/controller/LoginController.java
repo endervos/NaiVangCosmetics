@@ -2,8 +2,12 @@ package demoweb.demo.controller;
 
 import demoweb.demo.dto.LoginRequest;
 import demoweb.demo.dto.LoginResponse;
+import demoweb.demo.entity.Account;
+import demoweb.demo.entity.Session;
+import demoweb.demo.repository.AccountRepository;
 import demoweb.demo.security.JwtTokenUtil;
 import demoweb.demo.service.AccountService;
+import demoweb.demo.service.SessionService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +34,12 @@ public class LoginController {
 
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
+
+    @Autowired
+    private SessionService sessionService;
+
+    @Autowired
+    private AccountRepository accountRepository;
 
     @GetMapping("/login")
     public String showLoginPage(Model model) {
@@ -63,6 +73,9 @@ public class LoginController {
                         ));
             }
             String token = jwtTokenUtil.generateToken(userDetails, "ROLE_Customer");
+            Account account = accountRepository.findByUser_Email(loginRequest.getUsername())
+                    .orElseThrow(() -> new RuntimeException("Account không tồn tại"));
+            Session session = sessionService.createSession(account.getAccountId(), token);
             Cookie jwtCookie = new Cookie("JWT_TOKEN", token);
             jwtCookie.setHttpOnly(true);
             jwtCookie.setSecure(false);
