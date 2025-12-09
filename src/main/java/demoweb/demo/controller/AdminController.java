@@ -69,15 +69,15 @@ public class AdminController {
     @Autowired
     private AccountRepository accountRepository;
 
-    @GetMapping("/login_tthhn")
+    @GetMapping("/login-tthhn")
     public String showAdminLoginPage(Model model) {
         model.addAttribute("loginType", "admin");
-        model.addAttribute("loginUrl", "/admin/login_tthhn");
+        model.addAttribute("loginUrl", "/admin/login-tthhn");
         model.addAttribute("pageTitle", "Đăng nhập Admin");
         return "Admin/Login";
     }
 
-    @PostMapping("/login_tthhn")
+    @PostMapping("/login-tthhn")
     @ResponseBody
     public ResponseEntity<?> adminLogin(@RequestBody LoginRequest loginRequest, HttpServletResponse response) {
         try {

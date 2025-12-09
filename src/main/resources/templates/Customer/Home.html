@@ -73,9 +73,6 @@
             <ul class="dropdown-content">
                 <li class="has-submenu" th:each="cat : ${rootCategories}">
                     <a th:href="@{/category/{id}/item(id=${@encryptionUtil.encrypt(cat.categoryId.toString())})}">
-                        <img class="menu-icon"
-                             th:src="@{/Customer/Home/{icon}(icon=${cat.slug + '.png'})}"
-                             th:alt="${cat.name}" />
                         <span th:text="${cat.name}"></span>
                     </a>
                     <ul class="submenu" th:if="${#lists.size(cat.children) > 0}">

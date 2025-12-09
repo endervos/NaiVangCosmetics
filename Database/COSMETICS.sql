@@ -234,7 +234,11 @@ CREATE TABLE session (
   session_id CHAR(36) PRIMARY KEY,
   account_id CHAR(36),
   token VARCHAR(1000) NOT NULL,
-  end_time DATETIME,
   start_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  CONSTRAINT fk_sessions_accounts FOREIGN KEY (account_id) REFERENCES account(account_id) ON DELETE CASCADE
+  end_time DATETIME,
+  last_activity_time DATETIME DEFAULT CURRENT_TIMESTAMP,
+  CONSTRAINT fk_sessions_accounts FOREIGN KEY (account_id) REFERENCES account(account_id) ON DELETE CASCADE,
+  INDEX idx_sessions_token (token(255)),
+  INDEX idx_sessions_last_activity (last_activity_time),
+  INDEX idx_sessions_account (account_id)
 ) ENGINE=InnoDB;

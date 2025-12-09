@@ -51,6 +51,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                         response.setHeader("X-Session-Expired", "true");
                         response.setHeader("X-Session-Reason", "inactivity");
                     } else if (jwtTokenUtil.validateToken(token, userDetails)) {
+                        ensureSessionCookie(request, response);
                         Optional<Session> sessionOpt = sessionService.findByToken(token);
                         if (sessionOpt.isPresent()) {
                             Session session = sessionOpt.get();
@@ -87,6 +88,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                             } catch (Exception e) {
                                 logger.warn("Could not handle session: " + e.getMessage());
                             }
+                            ensureSessionCookie(request, response);
                             UsernamePasswordAuthenticationToken authentication =
                                     new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                             authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
@@ -146,5 +148,25 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         sessionCookie.setPath("/");
         sessionCookie.setMaxAge(0);
         response.addCookie(sessionCookie);
+    }
+
+    private void ensureSessionCookie(HttpServletRequest request, HttpServletResponse response) {
+        boolean hasSessionActive = false;
+        if (request.getCookies() != null) {
+            for (Cookie cookie : request.getCookies()) {
+                if ("SESSION_ACTIVE".equals(cookie.getName())) {
+                    hasSessionActive = true;
+                    break;
+                }
+            }
+        }
+        if (!hasSessionActive) {
+            Cookie sessionCookie = new Cookie("SESSION_ACTIVE", "true");
+            sessionCookie.setHttpOnly(false);
+            sessionCookie.setSecure(false);
+            sessionCookie.setPath("/");
+            sessionCookie.setMaxAge(24 * 60 * 60);
+            response.addCookie(sessionCookie);
+        }
     }
 }

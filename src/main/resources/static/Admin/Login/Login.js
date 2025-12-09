@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const loginBtn = document.getElementById('loginBtn');
     const btnText = document.getElementById('btnText');
     const btnLoading = document.getElementById('btnLoading');
-    const loginUrl = loginForm.getAttribute('data-login-url') || '/admin/login_tthhn';
+    const loginUrl = loginForm.getAttribute('data-login-url') || '/admin/login-tthhn';
 
     loginForm.addEventListener('submit', async function(e) {
         e.preventDefault();

@@ -70,7 +70,6 @@ INSERT INTO voucher (code, description, discount_percent, max_uses, start_date, 
 ('VOUCHER9','Giảm 5%',5,200,'2025-09-01','2025-12-31'),
 ('VOUCHER10','Giảm 25%',25,10,'2025-09-01','2025-12-31');
 
--- Danh mục cha
 INSERT INTO category (name, slug) VALUES
 ('Skincare','skincare'),
 ('Makeup','makeup'),
@@ -83,7 +82,6 @@ INSERT INTO category (name, slug) VALUES
 ('Accessories','accessories'),
 ('Others','others');
 
--- Danh mục con
 INSERT INTO category (name, parent_id, slug)
 SELECT 'Sữa rửa mặt', category_id, 'sua-rua-mat' FROM category WHERE slug='skincare';
 INSERT INTO category (name, parent_id, slug)
@@ -110,7 +108,6 @@ SELECT 'Dầu xả', category_id, 'dau-xa' FROM category WHERE slug='haircare';
 INSERT INTO category (name, parent_id, slug)
 SELECT 'Dầu dưỡng tóc', category_id, 'dau-duong-toc' FROM category WHERE slug='haircare';
 
--- Items
 INSERT INTO item (name, description, color, ingredient, price, category_id) VALUES
 ('Sữa rửa mặt dịu nhẹ', 'Làm sạch sâu mà không gây khô da', 'Trắng', 'Tinh dầu tràm trà', 100000, 1),
 ('Kem dưỡng ẩm ban đêm', 'Dưỡng ẩm giúp da mềm mịn', 'Xanh dương', 'Hyaluronic Acid', 150000, 2),
@@ -165,14 +162,12 @@ INSERT INTO cart_item (cart_id, item_id, quantity) VALUES
 (6,6,1),
 (7,7,2);
 
--- Orders (giữ nguyên logic mẫu)
 INSERT INTO `order` (customer_id, address_id, voucher_id, total, status) VALUES
 (1,1,1,200000,'PENDING'),
 (2,2,2,150000,'PAID'),
 (3,3,3,400000,'PROCESSING'),
 (4,4,4,500000,'SHIPPED');
 
--- Đơn hàng theo tháng
 INSERT INTO `order` (customer_id, address_id, voucher_id, total, status, placed_at)
 VALUES
 (1,1,1,300000,'PAID','2025-01-15'),
@@ -234,11 +229,11 @@ INSERT INTO review (item_id, customer_id, rating, comment) VALUES
 (3,3,3,'Chất lượng ổn, giá được'),
 (4,4,5,'Rất tuyệt vời, mùi thơm lâu');
 
-INSERT INTO session (session_id, account_id, token, end_time, start_time) VALUES
-('S1','ACC007','token1','2025-09-22 23:59:59', '2025-09-21 23:59:59'),
-('S2','ACC008','token2','2025-09-22 23:59:59', '2025-09-21 23:59:59'),
-('S3','ACC009','token3','2025-09-22 23:59:59', '2025-09-21 23:59:59'),
-('S4','ACC010','token4','2025-09-22 23:59:59', '2025-09-21 23:59:59'),
-('S5','ACC006','token5','2025-09-22 23:59:59', '2025-09-21 23:59:59'),
-('S6','ACC001','token6','2025-09-22 23:59:59', '2025-09-21 23:59:59'),
-('S7','ACC002','token7','2025-09-22 23:59:59', '2025-09-21 23:59:59');
+INSERT INTO session (session_id, account_id, token, start_time, end_time, last_activity_time) VALUES
+('S1','ACC007','token1','2025-09-21 23:59:59','2025-09-22 23:59:59','2025-09-22 23:59:59'),
+('S2','ACC008','token2','2025-09-21 23:59:59','2025-09-22 23:59:59','2025-09-22 23:59:59'),
+('S3','ACC009','token3','2025-09-21 23:59:59','2025-09-22 23:59:59','2025-09-22 23:59:59'),
+('S4','ACC010','token4','2025-09-21 23:59:59','2025-09-22 23:59:59','2025-09-22 23:59:59'),
+('S5','ACC006','token5','2025-09-21 23:59:59','2025-09-22 23:59:59','2025-09-22 23:59:59'),
+('S6','ACC001','token6','2025-09-21 23:59:59','2025-09-22 23:59:59','2025-09-22 23:59:59'),
+('S7','ACC002','token7','2025-09-21 23:59:59','2025-09-22 23:59:59','2025-09-22 23:59:59');

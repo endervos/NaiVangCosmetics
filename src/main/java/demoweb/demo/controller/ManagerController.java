@@ -69,15 +69,15 @@ public class ManagerController {
     @Autowired
     private AccountRepository accountRepository;
 
-    @GetMapping("/login_tthhn")
+    @GetMapping("/login-tthhn")
     public String showManagerLoginPage(Model model) {
         model.addAttribute("loginType", "manager");
-        model.addAttribute("loginUrl", "/manager/login_tthhn");
+        model.addAttribute("loginUrl", "/manager/login-tthhn");
         model.addAttribute("pageTitle", "Đăng nhập Manager");
         return "Manager/Login";
     }
 
-    @PostMapping("/login_tthhn")
+    @PostMapping("/login-tthhn")
     @ResponseBody
     public ResponseEntity<?> managerLogin(@RequestBody LoginRequest loginRequest, HttpServletResponse response) {
         try {

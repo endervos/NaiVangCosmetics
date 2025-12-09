@@ -24,11 +24,15 @@ public class Session {
     @Column(name = "end_time")
     private LocalDateTime endTime;
 
+    @Column(name = "last_activity_time")
+    private LocalDateTime lastActivityTime;
+
     @PrePersist
     protected void onCreate() {
         if (this.startTime == null) {
             this.startTime = LocalDateTime.now();
         }
+        this.lastActivityTime = LocalDateTime.now();
     }
 
     public Session() {
@@ -79,5 +83,13 @@ public class Session {
 
     public void setEndTime(LocalDateTime endTime) {
         this.endTime = endTime;
+    }
+
+    public LocalDateTime getLastActivityTime() {
+        return lastActivityTime;
+    }
+
+    public void setLastActivityTime(LocalDateTime lastActivityTime) {
+        this.lastActivityTime = lastActivityTime;
     }
 }

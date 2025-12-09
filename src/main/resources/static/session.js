@@ -1,11 +1,10 @@
 (function() {
     'use strict';
 
-    const SESSION_TIMEOUT = 600000;
-    const WARNING_TIME = 60000;
+    const SESSION_TIMEOUT = 10 * 60 * 1000;
+    const WARNING_TIME = 1 * 60 * 1000;
     const CHECK_INTERVAL = 1000;
     const SERVER_CHECK_INTERVAL = 10000;
-
     let lastActivityTime = Date.now();
     let warningShown = false;
     let checkIntervalId = null;
@@ -21,6 +20,12 @@
         'touchstart',
         'click'
     ];
+
+    function hasSessionActiveCookie() {
+        return document.cookie
+            .split(';')
+            .some(item => item.trim().startsWith('SESSION_ACTIVE='));
+    }
 
     function updateActivity() {
         lastActivityTime = Date.now();
@@ -45,7 +50,6 @@
             z-index: 99999;
             backdrop-filter: blur(3px);
         `;
-
         const dialog = document.createElement('div');
         dialog.style.cssText = `
             background: white;
@@ -56,7 +60,6 @@
             text-align: center;
             animation: slideIn 0.3s ease-out;
         `;
-
         const style = document.createElement('style');
         style.textContent = `
             @keyframes slideIn {
@@ -71,7 +74,6 @@
             }
         `;
         document.head.appendChild(style);
-
         const icon = document.createElement('div');
         icon.innerHTML = `
             <svg width="60" height="60" viewBox="0 0 24 24" fill="none" style="margin: 0 auto 15px;">
@@ -79,7 +81,6 @@
                 <path d="M12 8v4M12 16h.01" stroke="#f57c00" stroke-width="2" stroke-linecap="round"/>
             </svg>
         `;
-
         const title = document.createElement('h3');
         title.textContent = 'Phiên làm việc sắp hết hạn';
         title.style.cssText = `
@@ -88,7 +89,6 @@
             font-size: 20px;
             font-weight: 600;
         `;
-
         const message = document.createElement('p');
         message.id = 'session-warning-message';
         message.style.cssText = `
@@ -97,14 +97,12 @@
             font-size: 15px;
             line-height: 1.5;
         `;
-
         const buttonContainer = document.createElement('div');
         buttonContainer.style.cssText = `
             display: flex;
             gap: 10px;
             justify-content: center;
         `;
-
         const continueBtn = document.createElement('button');
         continueBtn.textContent = 'Tiếp tục làm việc';
         continueBtn.style.cssText = `
@@ -131,7 +129,6 @@
             closeWarningDialog();
             sendHeartbeat();
         };
-
         const logoutBtn = document.createElement('button');
         logoutBtn.textContent = 'Đăng xuất';
         logoutBtn.style.cssText = `
@@ -156,16 +153,13 @@
         logoutBtn.onclick = () => {
             logout();
         };
-
         buttonContainer.appendChild(continueBtn);
         buttonContainer.appendChild(logoutBtn);
-
         dialog.appendChild(icon);
         dialog.appendChild(title);
         dialog.appendChild(message);
         dialog.appendChild(buttonContainer);
         overlay.appendChild(dialog);
-
         return overlay;
     }
 
@@ -175,10 +169,11 @@
             document.body.appendChild(warningDialog);
             warningShown = true;
         }
-
         const message = document.getElementById('session-warning-message');
         if (message) {
-            message.textContent = `Bạn chưa có hoạt động trong 9 phút. Phiên làm việc sẽ tự động đăng xuất sau ${remainingSeconds} giây nếu không có hoạt động.`;
+            message.textContent =
+                `Bạn chưa có hoạt động trong 9 phút. ` +
+                `Phiên làm việc sẽ tự động đăng xuất sau ${remainingSeconds} giây nếu không có hoạt động.`;
         }
     }
 
@@ -193,15 +188,10 @@
     function logout() {
         if (isLoggingOut) return;
         isLoggingOut = true;
-
-        console.log('Logging out...');
         stopMonitoring();
-
         document.cookie = 'JWT_TOKEN=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
         document.cookie = 'SESSION_ACTIVE=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-
         showLogoutMessage();
-
         fetch('/logout', {
             method: 'POST',
             credentials: 'same-origin',
@@ -209,23 +199,22 @@
                 'Content-Type': 'application/x-www-form-urlencoded',
             }
         })
-        .then(() => {
-            console.log('Server logout successful');
-            setTimeout(() => {
-                window.location.href = '/login';
-            }, 2000);
-        })
-        .catch(error => {
-            console.error('Logout failed:', error);
-            setTimeout(() => {
-                window.location.href = '/login';
-            }, 2000);
-        });
+            .then(() => {
+                console.log('Server logout successful');
+                setTimeout(() => {
+                    window.location.href = '/login';
+                }, 2000);
+            })
+            .catch(error => {
+                console.error('Logout failed:', error);
+                setTimeout(() => {
+                    window.location.href = '/login';
+                }, 2000);
+            });
     }
 
     function showLogoutMessage() {
         closeWarningDialog();
-
         const overlay = document.createElement('div');
         overlay.style.cssText = `
             position: fixed;
@@ -240,7 +229,6 @@
             z-index: 99999;
             backdrop-filter: blur(3px);
         `;
-
         const message = document.createElement('div');
         message.style.cssText = `
             background: white;
@@ -250,7 +238,6 @@
             text-align: center;
             animation: fadeIn 0.3s ease-out;
         `;
-
         message.innerHTML = `
             <svg width="50" height="50" viewBox="0 0 24 24" fill="none" style="margin: 0 auto 15px;">
                 <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"
@@ -259,7 +246,6 @@
             <h3 style="margin: 0 0 10px; color: #333; font-size: 18px;">Phiên làm việc đã hết hạn</h3>
             <p style="color: #666; margin: 0; font-size: 14px;">Đang đăng xuất khỏi hệ thống...</p>
         `;
-
         const style = document.createElement('style');
         style.textContent = `
             @keyframes fadeIn {
@@ -268,7 +254,6 @@
             }
         `;
         document.head.appendChild(style);
-
         overlay.appendChild(message);
         document.body.appendChild(overlay);
     }
@@ -277,65 +262,78 @@
         const now = Date.now();
         const inactiveTime = now - lastActivityTime;
         const remainingTime = SESSION_TIMEOUT - inactiveTime;
-
         if (remainingTime <= 0) {
             console.log('Session timeout - logging out');
             logout();
-        } else if (remainingTime <= WARNING_TIME && !warningShown) {
+        } else if (inactiveTime >= (SESSION_TIMEOUT - WARNING_TIME) && !warningShown) {
             const remainingSeconds = Math.ceil(remainingTime / 1000);
             showWarning(remainingSeconds);
-        } else if (warningShown && remainingTime > WARNING_TIME) {
+        } else if (warningShown && inactiveTime < (SESSION_TIMEOUT - WARNING_TIME)) {
             closeWarningDialog();
         }
-
         if (warningShown && remainingTime > 0) {
             const remainingSeconds = Math.ceil(remainingTime / 1000);
             const message = document.getElementById('session-warning-message');
             if (message) {
-                message.textContent = `Bạn chưa có hoạt động trong 9 phút. Phiên làm việc sẽ tự động đăng xuất sau ${remainingSeconds} giây nếu không có hoạt động.`;
+                message.textContent =
+                    `Bạn chưa có hoạt động trong 9 phút. ` +
+                    `Phiên làm việc sẽ tự động đăng xuất sau ${remainingSeconds} giây nếu không có hoạt động.`;
             }
         }
     }
 
     function sendHeartbeat() {
         if (isLoggingOut) return;
-
         fetch(window.location.pathname, {
             method: 'HEAD',
             credentials: 'same-origin',
             cache: 'no-cache'
         })
-        .then(response => {
-            if (response.headers.get('X-Session-Expired') === 'true') {
-                console.log('Server reported session expired');
-                logout();
-            }
-        })
-        .catch(error => {
-            console.error('Heartbeat failed:', error);
-        });
+            .then(response => {
+                if (
+                    response.status === 401 ||
+                    response.status === 403 ||
+                    response.headers.get('X-Session-Expired') === 'true'
+                ) {
+                    console.log('Server reported session expired (heartbeat)');
+                    logout();
+                }
+            })
+            .catch(error => {
+                console.error('Heartbeat failed:', error);
+            });
     }
 
     function setupAjaxInterceptor() {
         const originalFetch = window.fetch;
         window.fetch = function(...args) {
-            return originalFetch.apply(this, args).then(response => {
-                if (response.headers.get('X-Session-Expired') === 'true') {
-                    console.log('Session expired detected in fetch');
-                    if (!isLoggingOut) {
-                        logout();
+            return originalFetch.apply(this, args)
+                .then(response => {
+                    if (
+                        response.status === 401 ||
+                        response.status === 403 ||
+                        response.headers.get('X-Session-Expired') === 'true'
+                    ) {
+                        console.log('Session expired detected in fetch');
+                        if (!isLoggingOut) {
+                            logout();
+                        }
                     }
-                }
-                return response;
-            }).catch(error => {
-                throw error;
-            });
+                    return response;
+                })
+                .catch(error => {
+                    throw error;
+                });
         };
-
         const originalOpen = XMLHttpRequest.prototype.open;
         XMLHttpRequest.prototype.open = function() {
             this.addEventListener('load', function() {
-                if (this.getResponseHeader('X-Session-Expired') === 'true') {
+                const expiredHeader = this.getResponseHeader('X-Session-Expired');
+                if (
+                    this.status === 401 ||
+                    this.status === 403 ||
+                    expiredHeader === 'true'
+                ) {
                     console.log('Session expired detected in XHR');
                     if (!isLoggingOut) {
                         logout();
@@ -347,73 +345,53 @@
     }
 
     function checkCookieExists() {
-        const hasCookie = document.cookie.split(';').some(item => item.trim().startsWith('SESSION_ACTIVE='));
-        if (!hasCookie && !isLoggingOut) {
-            console.log('SESSION_ACTIVE cookie not found - session expired');
+        const hasSession = hasSessionActiveCookie();
+        if (!hasSession && !isLoggingOut) {
             logout();
         }
-        return hasCookie;
+        return hasSession;
     }
 
     function startMonitoring() {
-        console.log('Starting session monitoring...');
-
         activityEvents.forEach(event => {
             document.addEventListener(event, updateActivity, true);
         });
-
         checkIntervalId = setInterval(checkSessionTimeout, CHECK_INTERVAL);
-
         serverCheckIntervalId = setInterval(() => {
             checkCookieExists();
             sendHeartbeat();
         }, SERVER_CHECK_INTERVAL);
-
         setupAjaxInterceptor();
-
-        console.log('Session monitoring started - timeout: 2 minutes');
     }
 
     function stopMonitoring() {
-        console.log('Stopping session monitoring...');
-
         if (checkIntervalId) {
             clearInterval(checkIntervalId);
             checkIntervalId = null;
         }
-
         if (serverCheckIntervalId) {
             clearInterval(serverCheckIntervalId);
             serverCheckIntervalId = null;
         }
-
         activityEvents.forEach(event => {
             document.removeEventListener(event, updateActivity, true);
         });
     }
 
-    function isUserLoggedIn() {
-        return document.cookie.split(';').some(item => item.trim().startsWith('SESSION_ACTIVE='));
-    }
-
     document.addEventListener('visibilitychange', function() {
-        if (!document.hidden && isUserLoggedIn()) {
-            console.log('Tab visible - checking session...');
+        if (!document.hidden && hasSessionActiveCookie()) {
             checkCookieExists();
             sendHeartbeat();
         }
     });
 
     function init() {
-        if (isUserLoggedIn()) {
+        if (hasSessionActiveCookie()) {
             startMonitoring();
-
             setTimeout(() => {
                 checkCookieExists();
                 sendHeartbeat();
             }, 1000);
-        } else {
-            console.log('User not logged in - session monitoring disabled');
         }
     }
 
@@ -432,5 +410,4 @@
             sendHeartbeat();
         }
     };
-
 })();
