@@ -46,6 +46,47 @@ public class SecurityConfiguration {
 
     @Bean
     public SecurityFilterChain customerSecurityFilterChain(HttpSecurity httpSecurity, SessionService sessionService) throws Exception {
+        httpSecurity.headers(headers -> headers
+                .frameOptions(frame -> frame.deny())  // Chống clickjacking
+
+                .addHeaderWriter(new org.springframework.security.web.header.writers.XContentTypeOptionsHeaderWriter())
+
+                .referrerPolicy(ref -> ref.policy(
+                        org.springframework.security.web.header.writers.ReferrerPolicyHeaderWriter.ReferrerPolicy.NO_REFERRER
+                ))
+
+                .addHeaderWriter((req, res) -> {
+                    res.setHeader("Content-Security-Policy",
+                            "default-src 'self'; " +
+                                    "style-src 'self' https://fonts.googleapis.com https://cdnjs.cloudflare.com 'unsafe-inline'; " +
+                                    "font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com data:; " +
+                                    "script-src 'self' https://cdnjs.cloudflare.com 'unsafe-inline' 'unsafe-eval'; " +
+                                    "img-src 'self' data: https:; " +
+                                    "connect-src 'self'; " +
+                                    "frame-ancestors 'none';"
+                    );
+                })
+
+                .httpStrictTransportSecurity(hsts -> hsts
+                        .includeSubDomains(true)
+                        .maxAgeInSeconds(31536000)
+                )
+
+                .addHeaderWriter((req, res) -> {
+                    res.setHeader("Permissions-Policy",
+                            "camera=(), microphone=(), geolocation=(), payment=()");
+                })
+
+                .addHeaderWriter((req, res) -> {
+                    res.setHeader("Cache-Control", "no-store, no-cache, must-revalidate, max-age=0");
+                    res.setHeader("Pragma", "no-cache");
+                })
+
+                .addHeaderWriter((request, response) -> {
+                    response.setHeader("X-XSS-Protection", "1; mode=block");
+                })
+        );
+
         httpSecurity
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
