@@ -39,7 +39,8 @@ public class CategoryService {
         return categoryRepository.findByParentIsNull();
     }
 
-    @Transactional(readOnly = true)
+//  @Transactional(readOnly = true)
+    @Transactional
     public List<Category> getRootCategoriesWithChildren() {
         StoredProcedureQuery query = entityManager.createStoredProcedureQuery("GetRootCategoriesWithChildren");
         @SuppressWarnings("unchecked")

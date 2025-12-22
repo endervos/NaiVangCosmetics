@@ -255,7 +255,8 @@ public class ItemService {
         return getItemDetail(id);
     }
 
-    @Transactional(readOnly = true)
+//    @Transactional(readOnly = true)
+    @Transactional
     public List<Item> getTop5LatestItems() {
         StoredProcedureQuery query = entityManager.createStoredProcedureQuery("GetTop5LatestItems", Item.class);
         @SuppressWarnings("unchecked")
