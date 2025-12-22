@@ -6,18 +6,16 @@ INSERT INTO role (name, description) VALUES
 ('Admin','Quản trị viên');
 
 INSERT INTO user (user_id, email, fullname, password, phone_number, birthday, gender) VALUES
-('ADMIN001','n22dcat057@student.ptithcm.edu.vn','Trần Phúc Tiến','$2a$12$Z1DeM9N3Tpaxl.MFI6aTRuOPTVwQlxPBcvb0fzOTSfxOhTe1GWNKi','0912345671','2004-01-01','Nam'),
-('ADMIN002','n22dcat021@student.ptithcm.edu.vn','Lại Thị Thanh Hiền','$2a$12$rf45r6J3rrfiS0RbvzCUBePAy2ygBhiQIp6KSC5z5eLyybmDbVP/S','0912345672','2004-01-01','Nữ'),
-('ADMIN003','n22dcat027@student.ptithcm.edu.vn','Đỗ Tấn Hưng','$2a$12$Pa.GaG8x0iIhSU6NOjmP8e5sGI2A7Tc/NJTKIn91bg0s4iDQt//r2','0912345673','2004-01-01','Nam'),
-('ADMIN004','n22dcat040@student.ptithcm.edu.vn','Trần Thị Ánh Nguyệt','$2a$12$5UHATorES75i5pKwnB4/4uktBISD8s.tt8nuGqhbegaEVhbFHKhV.','0912345674','2004-01-01','Nữ'),
-('ADMIN005','n22dcat055@student.ptithcm.edu.vn','Nguyễn Thị Lam Thuyên','$2a$12$68mqj/6iNuCI7hEP2KMm3ehjciQcuIIGselz6YG0tPr2PQHzQxV02','0912345675','2004-01-01','Nữ'),
-
-('MANAGER001','manager001@gmail.com','Hoàng Văn An','$2a$12$ZDQfHwK49S1Hy.pE5El.j.KTGNDoeM0xlGZ05FT2EkUi8h8mLpc2m','0912345676','2000-01-01','Nam'),
-
-('CUSTOMER001','customer001@gmail.com','Nguyễn Thị Bích','$2a$12$ROGt9ALsd1oTUZIsSSI9Wun1e.fxzrTl3r/nkd7/tq6Mv22CnhQt2','0912345677','2001-10-02','Nữ'),
-('CUSTOMER002','customer002@gmail.com','Trần Văn Cường','$2a$12$w8nVbSSvZet/7SJRJgJmGeC3WTWT115THkI2ycXxquXI..ijOddhW','0912345678','2000-07-07','Nam'),
-('CUSTOMER003','customer003@gmail.com','Lê Thị Diệp','$2a$12$HaEmsd/qr0XqKlUl3f1KZO1iPF8zKpnpUa0lXsOD/07HZIV6piH9K','0912345679','2002-08-08','Nữ'),
-('CUSTOMER004','customer004@gmail.com','Phạm Văn Dũng','$2a$12$aStM5QsHM7a/ajcPNGva0OE/7mAMS4jg/2.oVNCKjotTAl/YRUtDy','0912345680','2001-09-09','Nam');
+('ADMIN001','n22dcat057@student.ptithcm.edu.vn','Trần Phúc Tiến','$2a$12$tt7kEgMU95.9LrOWDsYzuew2cwDHkkKamaM/2a0qKnMveHu9f5o2u','0912345671','2004-01-01','Nam'),
+('ADMIN002','n22dcat021@student.ptithcm.edu.vn','Lại Thị Thanh Hiền','$2a$12$TNM8Nbp4f1yO6oaBwTSlzOJzDv4Oaocwp7L5qSrOmKiGD.zC5cp.2','0912345672','2004-01-01','Nữ'),
+('ADMIN003','n22dcat027@student.ptithcm.edu.vn','Đỗ Tấn Hưng','$2a$12$Jx7QEYVWDnhQs02IAFxLPO.IyTM2IpN0DkjMb5XUB0kfWRdSuxgW2','0912345673','2004-01-01','Nam'),
+('ADMIN004','n22dcat040@student.ptithcm.edu.vn','Trần Thị Ánh Nguyệt','$2a$12$wmNWHxKPHeAcbQVa2kkrC.DKH8YeTPoZjOkGvmuatec19wcp2ONMq','0912345674','2004-01-01','Nữ'),
+('ADMIN005','n22dcat055@student.ptithcm.edu.vn','Nguyễn Thị Lam Thuyên','$2a$12$SaS08c77225uAOWabcufNum5mO.aTQ29QHb9Tbjp206xhQlaDpfwK','0912345675','2004-01-01','Nữ'),
+('MANAGER001','manager001@gmail.com','Hoàng Văn An','$2a$12$oSdfwpG2QGowO0qupfVN1eHQlCdnQaHzvsYNWqkdsiikGHx8LMVfy','0912345676','2000-01-01','Nam'),
+('CUSTOMER001','customer001@gmail.com','Nguyễn Thị Bích','$2a$12$VRB2GJhv4Y.DzRhsbAHH8OWPoi71xru2Y29ECMgQiRhgIW3nyxoIO','0912345677','2001-10-02','Nữ'),
+('CUSTOMER002','customer002@gmail.com','Trần Văn Cường','$2a$12$id1d/c105ue6t5ig.Di3X.5zqqvACm7kJ3uHqJlDXLqjF6xBCHHUe','0912345678','2000-07-07','Nam'),
+('CUSTOMER003','customer003@gmail.com','Lê Thị Diệp','$2a$12$v3dian1hGKc/rHea962z9Oju/HWy9araaOzgWvtklXHgoGiwlgvje','0912345679','2002-08-08','Nữ'),
+('CUSTOMER004','customer004@gmail.com','Phạm Văn Dũng','$2a$12$gPu2hsR5ZSn2NZHYV5g4/.Q8S7ILAtdZmdzO4GIlsWgTYGSxmu8JG','0912345680','2001-09-09','Nam');
 
 INSERT INTO account (account_id, user_id, role_id, is_active) VALUES
 ('ACC001','ADMIN001',3,1),

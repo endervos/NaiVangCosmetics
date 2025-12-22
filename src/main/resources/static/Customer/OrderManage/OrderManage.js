@@ -16,28 +16,35 @@ function loadTab(event, status) {
 }
 
 async function loadOrders(status) {
-    if (typeof customerId === 'undefined' || customerId === 0) {
-        console.error("customerId chưa được gán!");
-        return;
-    }
-
-    let url = `/api/orders/${customerId}`;
+    let url = '/api/orders';
     if (status !== 'all') {
         url += `?status=${status}`;
     }
 
     try {
         const response = await fetch(url);
-        if (!response.ok) throw new Error("Không thể tải đơn hàng");
+        if (!response.ok) {
+            if (response.status === 401) {
+                alert("Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.");
+                window.location.href = "/login";
+                return;
+            }
+            if (response.status === 403) {
+                alert("Bạn không có quyền truy cập.");
+                return;
+            }
+            throw new Error("Không thể tải đơn hàng");
+        }
 
         const data = await response.json();
-        await renderOrders(status, data);
+        renderOrders(status, data);
     } catch (error) {
         console.error("Lỗi tải đơn hàng:", error);
+        alert("Không thể tải đơn hàng. Vui lòng thử lại sau.");
     }
 }
 
-async function renderOrders(status, orders) {
+function renderOrders(status, orders) {
     const container = document.getElementById(`order-${status}`);
     if (!container) return;
 
@@ -49,8 +56,7 @@ async function renderOrders(status, orders) {
     }
 
     for (const order of orders) {
-        // Mã hóa orderId
-        const encryptedId = await encryptId(order.orderId);
+        const encryptedId = order.encryptedOrderId;
 
         const item = document.createElement('div');
         item.classList.add('order-card');
@@ -75,17 +81,6 @@ async function renderOrders(status, orders) {
             </div>
         `;
         container.appendChild(item);
-    }
-}
-
-async function encryptId(id) {
-    try {
-        const response = await fetch(`/api/encrypt/${id}`);
-        if (!response.ok) return id.toString();
-        return await response.text();
-    } catch (error) {
-        console.error("Lỗi mã hóa ID:", error);
-        return id.toString();
     }
 }
 
@@ -132,7 +127,6 @@ async function cancelOrder(encryptedId) {
 
         if (result.success) {
             alert('Đã hủy đơn hàng thành công!');
-            // Reload lại tab hiện tại
             const activeTab = document.querySelector('.tablinks.active');
             if (activeTab) {
                 const status = activeTab.textContent.toLowerCase().includes('tất cả') ? 'all' :

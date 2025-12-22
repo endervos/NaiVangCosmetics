@@ -52,3 +52,56 @@ function openReview() {
 function goBack() {
     window.history.back();
 }
+
+function toggleReviewForm(button) {
+    const itemId = button.getAttribute('data-item-id') || button.closest('.review-form').id.split('-')[2];
+    const form = document.getElementById('review-form-' + itemId);
+    if (form.style.display === "none") {
+        form.style.display = "block";
+    } else {
+        form.style.display = "none";
+    }
+}
+
+async function submitReview(button) {
+    const form = button.closest('.review-form');
+    const itemId = form.id.split('-')[2];
+
+    const reviewBtn = document.querySelector(`button[data-item-id="${itemId}"]`);
+    const encryptedItemId = reviewBtn.getAttribute('data-encrypted-item-id');
+
+    const rating = form.querySelector('.rating-input').value;
+    const comment = form.querySelector('.comment-input').value;
+
+    if (!comment.trim()) {
+        alert("Vui lòng nhập nội dung đánh giá!");
+        return;
+    }
+
+    try {
+        const response = await fetch('/api/reviews', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                encryptedItemId: encryptedItemId,
+                rating: parseInt(rating),
+                comment: comment
+            })
+        });
+
+        if (response.ok) {
+            alert("Cảm ơn bạn! Đánh giá đã được gửi.");
+            form.style.display = "none";
+            form.querySelector('.comment-input').value = '';
+            form.querySelector('.rating-input').value = '5';
+        } else {
+            const error = await response.text();
+            alert("Gửi thất bại: " + error);
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert("Lỗi kết nối khi gửi đánh giá!");
+    }
+}

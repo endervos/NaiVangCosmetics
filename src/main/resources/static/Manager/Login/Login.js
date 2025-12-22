@@ -7,23 +7,114 @@ document.addEventListener('DOMContentLoaded', function() {
     const loginBtn = document.getElementById('loginBtn');
     const btnText = document.getElementById('btnText');
     const btnLoading = document.getElementById('btnLoading');
-
     const loginUrl = loginForm.getAttribute('data-login-url') || '/manager/login-tthhn';
+    const EMAIL_PATTERN = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    const UPPERCASE_PATTERN = /[A-Z]/;
+    const SPECIAL_CHAR_PATTERN = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/;
+
+    function isValidEmail(email) {
+        return EMAIL_PATTERN.test(email);
+    }
+
+    function validatePassword(password) {
+        if (password.length < 15) {
+            return "Mật khẩu phải có ít nhất 15 ký tự";
+        }
+        if (!UPPERCASE_PATTERN.test(password)) {
+            return "Mật khẩu phải có ít nhất 1 chữ hoa";
+        }
+        if (!SPECIAL_CHAR_PATTERN.test(password)) {
+            return "Mật khẩu phải có ít nhất 1 ký tự đặc biệt";
+        }
+        return null;
+    }
+
+    function showFieldError(input, message) {
+        input.classList.add('input-error');
+        let errorDiv = input.parentElement.querySelector('.field-error');
+        if (!errorDiv) {
+            errorDiv = document.createElement('div');
+            errorDiv.className = 'field-error';
+            input.parentElement.appendChild(errorDiv);
+        }
+        errorDiv.textContent = message;
+        errorDiv.style.display = 'block';
+    }
+
+    function clearFieldError(input) {
+        input.classList.remove('input-error');
+        const errorDiv = input.parentElement.querySelector('.field-error');
+        if (errorDiv) {
+            errorDiv.style.display = 'none';
+        }
+    }
+
+    function clearAllErrors() {
+        clearFieldError(usernameInput);
+        clearFieldError(passwordInput);
+        hideMessages();
+    }
+
+    usernameInput.addEventListener('blur', function() {
+        const email = this.value.trim();
+        if (email && !isValidEmail(email)) {
+            showFieldError(this, 'Định dạng email không đúng');
+        } else {
+            clearFieldError(this);
+        }
+    });
+
+    usernameInput.addEventListener('input', function() {
+        if (this.classList.contains('input-error')) {
+            clearFieldError(this);
+        }
+    });
+
+    passwordInput.addEventListener('blur', function() {
+        const password = this.value;
+        if (password) {
+            const error = validatePassword(password);
+            if (error) {
+                showFieldError(this, error);
+            } else {
+                clearFieldError(this);
+            }
+        }
+    });
+
+    passwordInput.addEventListener('input', function() {
+        if (this.classList.contains('input-error')) {
+            clearFieldError(this);
+        }
+    });
 
     loginForm.addEventListener('submit', async function(e) {
         e.preventDefault();
-
         const username = usernameInput.value.trim();
         const password = passwordInput.value;
-
-        if (!username || !password) {
-            showError('Vui lòng nhập đầy đủ thông tin');
+        clearAllErrors();
+        let hasError = false;
+        if (!username) {
+            showFieldError(usernameInput, 'Email không được để trống');
+            hasError = true;
+        } else if (!isValidEmail(username)) {
+            showFieldError(usernameInput, 'Định dạng email không đúng');
+            hasError = true;
+        }
+        if (!password) {
+            showFieldError(passwordInput, 'Mật khẩu không được để trống');
+            hasError = true;
+        } else {
+            const passwordError = validatePassword(password);
+            if (passwordError) {
+                showFieldError(passwordInput, passwordError);
+                hasError = true;
+            }
+        }
+        if (hasError) {
             return;
         }
-
         setLoading(true);
-        hideMessages();
-
         try {
             const response = await fetch(loginUrl, {
                 method: 'POST',
@@ -32,9 +123,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 },
                 body: JSON.stringify({ username, password })
             });
-
             const data = await response.json();
-
             if (data.success) {
                 showSuccess('Đăng nhập thành công! Đang chuyển hướng...');
                 setTimeout(() => {

@@ -55,25 +55,49 @@ public class OrderController {
         var customer = customerRepository.findByUser(account.getUser())
                 .orElseThrow(() -> new RuntimeException("Không tìm thấy customer"));
         model.addAttribute("user", account.getUser());
-        model.addAttribute("customerId", customer.getCustomerId());
         model.addAttribute("rootCategories", categoryService.getRootCategoriesWithChildren());
         model.addAttribute("encryptionUtil", encryptionUtil);
         return "Customer/OrderManage";
     }
 
-    @GetMapping("/api/orders/{customerId}")
+    @GetMapping("/api/orders")
     @ResponseBody
     public ResponseEntity<List<Map<String, Object>>> getOrders(
-            @PathVariable Integer customerId,
-            @RequestParam(required = false) String status) {
-        List<Map<String, Object>> orders;
-        if (status != null && !status.equals("all")) {
-            OrderStatus orderStatus = OrderStatus.valueOf(status.toUpperCase());
-            orders = orderService.getOrdersByStatus(customerId, orderStatus);
-        } else {
-            orders = orderService.getOrdersByCustomer(customerId);
+            @RequestParam(required = false) String status,
+            @AuthenticationPrincipal UserDetails userDetails) {
+        if (userDetails == null) {
+            return ResponseEntity.status(401).body(null);
         }
-        return ResponseEntity.ok(orders);
+        try {
+            String email = userDetails.getUsername();
+            var account = accountRepository.findByUser_Email(email)
+                    .orElseThrow(() -> new RuntimeException("Không tìm thấy account"));
+            var customer = customerRepository.findByUser(account.getUser())
+                    .orElseThrow(() -> new RuntimeException("Không tìm thấy customer"));
+            Integer customerId = customer.getCustomerId();
+            List<Map<String, Object>> orders;
+            if (status != null && !status.equals("all")) {
+                OrderStatus orderStatus = OrderStatus.valueOf(status.toUpperCase());
+                orders = orderService.getOrdersByStatus(customerId, orderStatus);
+            } else {
+                orders = orderService.getOrdersByCustomer(customerId);
+            }
+            orders.forEach(order -> {
+                Integer orderId = (Integer) order.get("orderId");
+                if (orderId != null) {
+                    try {
+                        String encryptedId = encryptionUtil.encrypt(orderId.toString());
+                        order.put("encryptedOrderId", encryptedId);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+            return ResponseEntity.ok(orders);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(400).body(null);
+        }
     }
 
     @GetMapping("/orderManage/detail/{encryptedId}")
@@ -93,7 +117,6 @@ public class OrderController {
                     .orElseThrow(() -> new RuntimeException("Không tìm thấy account"));
             var customer = customerRepository.findByUser(account.getUser())
                     .orElseThrow(() -> new RuntimeException("Không tìm thấy customer"));
-
             if (!order.getCustomer().getCustomerId().equals(customer.getCustomerId())) {
                 return "error/403";
             }
@@ -168,17 +191,6 @@ public class OrderController {
             response.put("success", false);
             response.put("message", "Lỗi: " + e.getMessage());
             return ResponseEntity.badRequest().body(response);
-        }
-    }
-
-    @GetMapping("/api/encrypt/{id}")
-    @ResponseBody
-    public ResponseEntity<String> encryptId(@PathVariable Integer id) {
-        try {
-            String encrypted = encryptionUtil.encrypt(id.toString());
-            return ResponseEntity.ok(encrypted);
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(id.toString());
         }
     }
 }

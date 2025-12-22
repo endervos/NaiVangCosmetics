@@ -25,6 +25,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
+import java.util.regex.Pattern;
 
 @Controller
 public class LoginController {
@@ -47,6 +48,12 @@ public class LoginController {
     @Autowired
     private FailedLoginService failedLoginService;
 
+    private static final Pattern EMAIL_PATTERN = Pattern.compile(
+            "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$"
+    );
+    private static final Pattern UPPERCASE_PATTERN = Pattern.compile("[A-Z]");
+    private static final Pattern SPECIAL_CHAR_PATTERN = Pattern.compile("[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>/?]");
+
     @GetMapping("/login")
     public String showLoginPage(Model model) {
         model.addAttribute("loginType", "customer");
@@ -59,6 +66,16 @@ public class LoginController {
     @ResponseBody
     public ResponseEntity<?> customerLogin(@RequestBody LoginRequest loginRequest, HttpServletResponse response) {
         try {
+            String validationError = validateLoginInput(loginRequest);
+            if (validationError != null) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                        .body(new LoginResponse(
+                                false,
+                                validationError,
+                                null,
+                                null
+                        ));
+            }
             Account account = accountRepository.findByUser_Email(loginRequest.getUsername())
                     .orElse(null);
             if (account != null) {
@@ -159,13 +176,41 @@ public class LoginController {
                             null
                     ));
         } catch (Exception e) {
+            e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(new LoginResponse(
                             false,
-                            "Có lỗi xảy ra: " + e.getMessage(),
+                            "Có lỗi xảy ra trong quá trình xử lý. Vui lòng thử lại sau.",
                             null,
                             null
                     ));
         }
+    }
+
+    private String validateLoginInput(LoginRequest loginRequest) {
+        if (loginRequest == null) {
+            return "Thông tin đăng nhập không được để trống";
+        }
+        String username = loginRequest.getUsername();
+        String password = loginRequest.getPassword();
+        if (username == null || username.trim().isEmpty()) {
+            return "Email không được để trống";
+        }
+        if (!EMAIL_PATTERN.matcher(username.trim()).matches()) {
+            return "Định dạng email không đúng";
+        }
+        if (password == null || password.isEmpty()) {
+            return "Mật khẩu không được để trống";
+        }
+        if (password.length() < 15) {
+            return "Mật khẩu phải có ít nhất 15 ký tự";
+        }
+        if (!UPPERCASE_PATTERN.matcher(password).find()) {
+            return "Mật khẩu phải có ít nhất 1 chữ hoa";
+        }
+        if (!SPECIAL_CHAR_PATTERN.matcher(password).find()) {
+            return "Mật khẩu phải có ít nhất 1 ký tự đặc biệt";
+        }
+        return null;
     }
 }

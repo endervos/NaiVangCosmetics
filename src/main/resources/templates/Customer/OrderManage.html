@@ -227,17 +227,6 @@
         <p>© 2025 Nai Vang. All rights reserved.</p>
     </div>
 </footer>
-<script th:inline="javascript">
-    /*<![CDATA[*/
-    const customerId = [[${customerId}]];
-    function encryptId(id) {
-        // Gọi API để mã hóa ID từ server
-        return fetch('/api/encrypt/' + id)
-            .then(res => res.text())
-            .catch(() => id);
-    }
-    /*]]>*/
-</script>
 <script th:src="@{/Customer/OrderManage/OrderManage.js}"></script>
 </body>
 </html>

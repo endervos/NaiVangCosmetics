@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    const SESSION_TIMEOUT = 10 * 60 * 1000;
+    const SESSION_TIMEOUT = 30 * 60 * 1000;
     const WARNING_TIME = 1 * 60 * 1000;
     const CHECK_INTERVAL = 1000;
     const SERVER_CHECK_INTERVAL = 10000;
@@ -172,7 +172,7 @@
         const message = document.getElementById('session-warning-message');
         if (message) {
             message.textContent =
-                `Bạn chưa có hoạt động trong 9 phút. ` +
+                `Bạn chưa có hoạt động trong 29 phút. ` +
                 `Phiên làm việc sẽ tự động đăng xuất sau ${remainingSeconds} giây nếu không có hoạt động.`;
         }
     }
@@ -276,7 +276,7 @@
             const message = document.getElementById('session-warning-message');
             if (message) {
                 message.textContent =
-                    `Bạn chưa có hoạt động trong 9 phút. ` +
+                    `Bạn chưa có hoạt động trong 29 phút. ` +
                     `Phiên làm việc sẽ tự động đăng xuất sau ${remainingSeconds} giây nếu không có hoạt động.`;
             }
         }

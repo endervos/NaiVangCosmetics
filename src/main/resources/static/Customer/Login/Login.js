@@ -39,6 +39,19 @@
     return emailPattern.test(v);
   };
 
+  const validatePassword = (password) => {
+    if (password.length < 15) {
+      return "Mật khẩu phải có ít nhất 15 ký tự.";
+    }
+    if (!/[A-Z]/.test(password)) {
+      return "Mật khẩu phải có ít nhất 1 chữ hoa.";
+    }
+    if (!/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password)) {
+      return "Mật khẩu phải có ít nhất 1 ký tự đặc biệt.";
+    }
+    return null;
+  };
+
   onReady(() => {
     const form = document.querySelector(".login-card form");
     if (!form) {
@@ -94,7 +107,13 @@
         addError(password, "Chưa nhập mật khẩu.");
         ok = false;
       } else {
-        removeError(password);
+        const passwordError = validatePassword(password.value);
+        if (passwordError) {
+          addError(password, passwordError);
+          ok = false;
+        } else {
+          removeError(password);
+        }
       }
 
       if (captchaIn && captchaBx) {

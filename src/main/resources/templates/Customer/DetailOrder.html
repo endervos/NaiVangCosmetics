@@ -144,7 +144,8 @@
             <p class="product-pre-price">Giá gốc: <span th:text="${#numbers.formatDecimal(orderItem.preDiscountPrice,0,'COMMA',0,'POINT')} + ' ₫'"></span></p>
             <p class="product-total-price">Thành tiền: <span th:text="${#numbers.formatDecimal(orderItem.totalPriceCents,0,'COMMA',0,'POINT')} + ' ₫'"></span></p>
             <button class="review-btn"
-                    th:attr="data-item-id=${orderItem.item.itemId}"
+                    th:attr="data-item-id=${orderItem.item.itemId},
+                 data-encrypted-item-id=${@encryptionUtil.encrypt(orderItem.item.itemId.toString())}"
                     onclick="toggleReviewForm(this)">
                 Đánh giá
             </button>
@@ -251,55 +252,5 @@
 </footer>
 <script th:src="@{/Customer/DetailOrder/DetailOrder.js}"></script>
 <script th:src="@{/Customer/Example/Example.js}"></script>
-<script>
-    function goBack() {
-        window.history.back();
-    }
-</script>
-<script>
-    function toggleReviewForm(button) {
-        const itemId = button.getAttribute('data-item-id') || button.closest('.review-form').id.split('-')[2];
-        const form = document.getElementById('review-form-' + itemId);
-        if (form.style.display === "none") {
-            form.style.display = "block";
-        } else {
-            form.style.display = "none";
-        }
-    }
-
-    async function submitReview(button) {
-        const form = button.closest('.review-form');
-        const itemId = form.id.split('-')[2];
-        const rating = form.querySelector('.rating-input').value;
-        const comment = form.querySelector('.comment-input').value;
-        if (!comment.trim()) {
-            alert("Vui lòng nhập nội dung đánh giá!");
-            return;
-        }
-        try {
-            const response = await fetch('/api/reviews', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    item: { itemId: parseInt(itemId) },
-                    rating: parseInt(rating),
-                    comment: comment
-                })
-            });
-            if (response.ok) {
-                alert("Cảm ơn bạn! Đánh giá đã được gửi.");
-                form.style.display = "none";
-                form.querySelector('.comment-input').value = '';
-            } else {
-                const error = await response.text();
-                alert("Gửi thất bại: " + error);
-            }
-        } catch (error) {
-            alert("Lỗi kết nối khi gửi đánh giá!");
-        }
-    }
-</script>
 </body>
 </html>

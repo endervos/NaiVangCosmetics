@@ -47,14 +47,11 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain customerSecurityFilterChain(HttpSecurity httpSecurity, SessionService sessionService) throws Exception {
         httpSecurity.headers(headers -> headers
-                .frameOptions(frame -> frame.deny())  // Chống clickjacking
-
+                .frameOptions(frame -> frame.deny())
                 .addHeaderWriter(new org.springframework.security.web.header.writers.XContentTypeOptionsHeaderWriter())
-
                 .referrerPolicy(ref -> ref.policy(
                         org.springframework.security.web.header.writers.ReferrerPolicyHeaderWriter.ReferrerPolicy.NO_REFERRER
                 ))
-
                 .addHeaderWriter((req, res) -> {
                     res.setHeader("Content-Security-Policy",
                             "default-src 'self'; " +
@@ -66,27 +63,22 @@ public class SecurityConfiguration {
                                     "frame-ancestors 'none';"
                     );
                 })
-
                 .httpStrictTransportSecurity(hsts -> hsts
                         .includeSubDomains(true)
                         .maxAgeInSeconds(31536000)
                 )
-
                 .addHeaderWriter((req, res) -> {
                     res.setHeader("Permissions-Policy",
                             "camera=(), microphone=(), geolocation=(), payment=()");
                 })
-
                 .addHeaderWriter((req, res) -> {
                     res.setHeader("Cache-Control", "no-store, no-cache, must-revalidate, max-age=0");
                     res.setHeader("Pragma", "no-cache");
                 })
-
                 .addHeaderWriter((request, response) -> {
                     response.setHeader("X-XSS-Protection", "1; mode=block");
                 })
         );
-
         httpSecurity
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
@@ -106,22 +98,19 @@ public class SecurityConfiguration {
                                 "/categories/**",
                                 "/error"
                         ).permitAll()
-
                         .requestMatchers(
                                 "/cart/**",
+                                "/api/**",
                                 "/orderManage/**",
                                 "/profile/**",
                                 "/account/**"
                         ).hasRole("Customer")
-
                         .requestMatchers(
                                 "/admin/**"
                         ).hasRole("Admin")
-
                         .requestMatchers(
                                 "/manager/**"
                         ).hasRole("Manager")
-
                         .anyRequest().permitAll()
                 )
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
