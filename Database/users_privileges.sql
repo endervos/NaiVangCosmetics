@@ -1,0 +1,14 @@
+-- Tạo tài khoản Customer
+CREATE USER 'customer'@'%' IDENTIFIED BY 'Customer@123';
+GRANT SELECT, INSERT, UPDATE, EXECUTE ON COSMETICS.* TO 'customer'@'%';
+FLUSH PRIVILEGES;
+
+-- Tạo tài khoản Manager
+CREATE USER 'manager'@'%' IDENTIFIED BY 'Manager@123';
+GRANT SELECT, INSERT, UPDATE, DELETE, EXECUTE ON COSMETICS.* TO 'manager'@'%';
+FLUSH PRIVILEGES;
+
+-- Tạo tài khoản Admin
+CREATE USER 'admin'@'%' IDENTIFIED BY 'Admin@123';
+GRANT ALL PRIVILEGES ON COSMETICS.* TO 'admin'@'%';
+FLUSH PRIVILEGES;
