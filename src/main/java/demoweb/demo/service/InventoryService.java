@@ -19,7 +19,6 @@ public class InventoryService {
     public void reserveItem(Integer itemId, int quantity) {
         Inventory inv = inventoryRepository.findById(itemId)
                 .orElseThrow(() -> new RuntimeException("Không tìm thấy inventory cho item ID=" + itemId));
-
         inv.setReserved(inv.getReserved() + quantity);
         inv.setUpdatedAt(LocalDateTime.now());
         inventoryRepository.save(inv);
@@ -29,7 +28,6 @@ public class InventoryService {
     public void confirmOrder(Integer itemId, int quantity) {
         Inventory inv = inventoryRepository.findById(itemId)
                 .orElseThrow(() -> new RuntimeException("Không tìm thấy inventory cho item ID=" + itemId));
-
         if (inv.getReserved() < quantity)
             throw new RuntimeException("Không đủ hàng reserved để xác nhận đơn!");
         inv.setReserved(inv.getReserved() - quantity);
@@ -42,7 +40,6 @@ public class InventoryService {
     public void releaseReserved(Integer itemId, int quantity) {
         Inventory inv = inventoryRepository.findById(itemId)
                 .orElseThrow(() -> new RuntimeException("Không tìm thấy inventory cho item ID=" + itemId));
-
         int newReserved = Math.max(inv.getReserved() - quantity, 0);
         inv.setReserved(newReserved);
         inv.setUpdatedAt(LocalDateTime.now());
