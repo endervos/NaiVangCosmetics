@@ -20,6 +20,5 @@ public class GlobalController {
     @ModelAttribute("rootCategories")
     public List<Category> populateCategories() {
         return categoryService.getRootCategoriesWithChildren();
-
     }
 }

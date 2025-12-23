@@ -41,7 +41,7 @@ public class ProfileController {
         User user = userService.getUserByEmail(email)
                 .orElseThrow(() -> new RuntimeException("Người dùng không tồn tại"));
         Customer customer = customerService.getCustomerByUser(user);
-        List<Address> addresses = addressRepository.findByCustomer(customer); // Bỏ isDeleted
+        List<Address> addresses = addressRepository.findByCustomer(customer);
         model.addAttribute("user", user);
         model.addAttribute("customer", customer);
         model.addAttribute("addresses", addresses);
