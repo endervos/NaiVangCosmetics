@@ -55,9 +55,9 @@ public class SecurityConfiguration {
                 .addHeaderWriter((req, res) -> {
                     res.setHeader("Content-Security-Policy",
                             "default-src 'self'; " +
-                                    "style-src 'self' https://fonts.googleapis.com https://cdnjs.cloudflare.com 'unsafe-inline'; " +
+                                    "style-src 'self' https://fonts.googleapis.com https://cdnjs.cloudflare.com; " +
                                     "font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com data:; " +
-                                    "script-src 'self' https://cdnjs.cloudflare.com 'unsafe-inline' 'unsafe-eval'; " +
+                                    "script-src 'self' https://cdnjs.cloudflare.com; " +
                                     "img-src 'self' data: https:; " +
                                     "connect-src 'self'; " +
                                     "frame-ancestors 'none';"

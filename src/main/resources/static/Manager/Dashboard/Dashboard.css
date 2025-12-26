@@ -91,7 +91,8 @@
 }
 
 .user-menu {
-  position: relative;
+    position: relative;
+    z-index: 10000;
 }
 
 .user-info {
@@ -120,7 +121,8 @@
   list-style: none;
   min-width: 150px;
   border-radius: 5px;
-  overflow: hidden;
+    z-index: 9999;
+  /*overflow: hidden;*/
 }
 
 .dropdown li a {
@@ -140,6 +142,25 @@
   display: block;
 }
 
+/* Click sẽ giữ dropdown */
+.user-menu.open .dropdown {
+    display: block;
+}
+
+.dropdown::before {
+    content: "";
+    position: absolute;
+    top: -10px;
+    left: 0;
+    width: 100%;
+    height: 10px;
+}
+
+.chart-box canvas {
+    pointer-events: none;
+}
+
+
 .main-area {
   flex: 1;
   background: #fff;
@@ -147,7 +168,7 @@
   border-radius: 10px;
   margin-top: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
+  overflow: auto;
   height: calc(100vh - 60px);
   width: 100%;
 }

@@ -1,3 +1,33 @@
+/* =========================
+   DROPDOWN (hover + click giữ)
+   ========================= */
+document.addEventListener("DOMContentLoaded", () => {
+    const userMenu = document.querySelector(".user-menu");
+    const userInfo = document.querySelector(".user-info");
+    const dropdown = document.querySelector(".dropdown");
+
+    if (userMenu && userInfo && dropdown) {
+        // Click vào user-info → giữ / nhả dropdown
+        userInfo.addEventListener("click", (e) => {
+            e.stopPropagation();
+            userMenu.classList.toggle("open");
+        });
+
+        // Click vào dropdown thì không đóng
+        dropdown.addEventListener("click", (e) => {
+            e.stopPropagation();
+        });
+
+        // Click ra ngoài → đóng dropdown
+        document.addEventListener("click", () => {
+            userMenu.classList.remove("open");
+        });
+    }
+
+    // Sau khi DOM sẵn sàng thì load chart
+    loadRevenueChart();
+    loadCategoryChart();
+});
 async function loadRevenueChart() {
   try {
     const response = await fetch('/manager/api/dashboard/revenue-chart');

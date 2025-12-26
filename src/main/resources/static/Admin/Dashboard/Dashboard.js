@@ -1,3 +1,25 @@
+document.addEventListener('DOMContentLoaded', () => {
+    loadRevenueChart();
+    loadCategoryChart();
+
+    // ===== DROPDOWN FIX =====
+    const userMenu = document.querySelector('.user-menu');
+    const userInfo = document.querySelector('.user-info');
+
+    if (!userMenu || !userInfo) return;
+
+    // Click để GIỮ dropdown
+    userInfo.addEventListener('click', (e) => {
+        e.stopPropagation();
+        userMenu.classList.toggle('open');
+    });
+
+    // Click ra ngoài thì đóng
+    document.addEventListener('click', () => {
+        userMenu.classList.remove('open');
+    });
+});
+
 async function loadRevenueChart() {
   try {
     const response = await fetch('/admin/api/dashboard/revenue-chart');
